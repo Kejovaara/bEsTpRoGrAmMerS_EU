@@ -1,6 +1,6 @@
 package helloworld.entities;
 
-import helloworld.inventories.PuckeBag;
+import helloworld.inventories.*;
 
 public class Player {
     private PuckeBag puckeBag = new PuckeBag();
@@ -9,5 +9,6 @@ public class Player {
     public PuckeBag getPuckeBag() {
         return puckeBag;
     }
+    public Inventory getInventory() {return inventory;}
 
 }
