@@ -13,20 +13,25 @@ public class Combat implements ICombat {
     public Combat(ICombat player, ICombat opponent){
         this.player = player;
         this.opponent = opponent;
+        enterCombat(this.player, this.opponent);
     }
 
-    public void enterCombat(){
+    public void enterCombat(ICombat player, ICombat opponent){
         players.add(this.player);
         players.add(this.opponent);
     }
 
-    public void checkCombat(){
-        for(ICombat combatPlayers : players){
-
+    public boolean isCombat(){
+        //TODO
+        while(1 == 1 /*this.player.getHealth() > 0 || this.opponent.getHealth()*/ ){
+            return true;
         }
     }
 
     public void removeFromCombat(ICombat player, ICombat opponent){
-
+        if(!isCombat()){
+            players.remove(player);
+            players.remove(opponent);
+        }
     }
 }
