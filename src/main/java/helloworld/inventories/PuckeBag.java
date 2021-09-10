@@ -1,4 +1,6 @@
-package helloworld;
+package helloworld.inventories;
+
+import helloworld.entities.Puckemon;
 
 public class PuckeBag {
     private Puckemon puckemon = new Puckemon();
