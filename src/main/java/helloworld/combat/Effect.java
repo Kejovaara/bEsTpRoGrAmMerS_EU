@@ -5,7 +5,7 @@ public class Effect {
 
     }
 
-    public void execute(){
+    public void execute(ICombat attacker, ICombat defender){
 
     }
 }
