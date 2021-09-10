@@ -1,0 +1,11 @@
+package helloworld;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Attack {
+
+    private int damage;
+    private PuckemonTypes type;
+    private List effects = new ArrayList<Effect>();
+}
