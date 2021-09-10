@@ -3,8 +3,9 @@ package helloworld;
 public class Main {
 
 	public static void main(String args[]){
+		Player player = new Player();
 
-		System.out.println("Hello World, Maven");
+		System.out.println("Player puckemon health: " + player.getPuckeBag().getPuckemon().getHealth());
 
 	}
 
