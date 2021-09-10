@@ -1,5 +1,7 @@
 package helloworld;
 
+import helloworld.entities.Player;
+
 public class Main {
 
 	public static void main(String args[]){

@@ -1,4 +1,4 @@
-package helloworld;
+package helloworld.combat;
 
 public interface ICombat {
 }

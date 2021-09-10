@@ -1,4 +1,4 @@
-package helloworld;
+package helloworld.entities;
 
 public class WildPuckemon {
 }
