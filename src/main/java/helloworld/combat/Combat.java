@@ -34,4 +34,15 @@ public class Combat implements ICombat {
             players.remove(opponent);
         }
     }
+
+    }
+
+    public void playerAttack(){
+        Attack attack = player.getAttack();
+        List<Effect> effects = attack.getEffects();
+        for (Effect effect: effects) {
+            effect.execute(player, opponent);
+        }
+        opponent.makeAttack(attack);
+    }
 }
