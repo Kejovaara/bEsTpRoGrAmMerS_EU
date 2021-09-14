@@ -3,7 +3,7 @@ package helloworld.entities;
 import helloworld.combat.ICombat;
 import helloworld.inventories.PuckeBag;
 
-public class PuckeTrainer implements ICombat {
+public class PuckeTrainer {
     private PuckeBag puckeBag = new PuckeBag();
 
     public PuckeBag getPuckeBag() {

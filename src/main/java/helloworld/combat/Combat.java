@@ -3,7 +3,7 @@ package helloworld.combat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Combat implements ICombat {
+public class Combat {
 
     private List<ICombat> players = new ArrayList<ICombat>();
 
@@ -33,8 +33,6 @@ public class Combat implements ICombat {
             players.remove(player);
             players.remove(opponent);
         }
-    }
-
     }
 
     public void playerAttack(){

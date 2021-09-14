@@ -4,7 +4,7 @@ package helloworld.entities;
 import helloworld.inventories.*;
 import helloworld.combat.ICombat;
 
-public class Player implements ICombat {
+public class Player {
     private PuckeBag puckeBag = new PuckeBag();
     private Inventory inventory = new Inventory();
 
