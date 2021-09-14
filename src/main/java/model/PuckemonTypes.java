@@ -1,4 +1,4 @@
-package helloworld;
+package model;
 
 public enum PuckemonTypes {
     FIRE,

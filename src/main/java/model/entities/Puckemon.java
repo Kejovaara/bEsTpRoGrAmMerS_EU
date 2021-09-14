@@ -1,4 +1,4 @@
-package helloworld.entities;
+package model.entities;
 
 public class Puckemon {
     private int health = 100;

@@ -1,7 +1,6 @@
-package helloworld.entities;
+package model.entities;
 
-import helloworld.combat.ICombat;
-import helloworld.inventories.PuckeBag;
+import model.inventories.PuckeBag;
 
 public class PuckeTrainer {
     private PuckeBag puckeBag = new PuckeBag();

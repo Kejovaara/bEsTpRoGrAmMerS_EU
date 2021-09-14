@@ -1,7 +1,7 @@
-package helloworld;
+package model;
 
-import helloworld.entities.Player;
-import helloworld.entities.Puckemon;
+import model.entities.Player;
+import model.entities.Puckemon;
 
 public class Main {
 

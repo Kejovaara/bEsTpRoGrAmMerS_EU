@@ -1,6 +1,6 @@
-package helloworld.inventories;
+package model.inventories;
 
-import helloworld.entities.Puckemon;
+import model.entities.Puckemon;
 import java.util.ArrayList;
 
 

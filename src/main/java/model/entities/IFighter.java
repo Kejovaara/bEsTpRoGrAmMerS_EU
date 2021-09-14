@@ -1,8 +1,8 @@
-package helloworld.combat;
+package model.entities;
 
-import helloworld.entities.Puckemon;
+import model.combat.Attack;
 
-public interface ICombat {
+public interface IFighter {
 
     public Attack getAttack();
     public void makeAttack(Attack attack);

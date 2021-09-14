@@ -1,4 +1,4 @@
-package helloworld.inventories;
+package model.inventories;
 
 public class Item {
 
