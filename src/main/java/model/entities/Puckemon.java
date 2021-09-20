@@ -13,7 +13,11 @@ public class Puckemon {
     private int currentSpeed;
 
     private void changeCurrentAttackPower(){
-        currentAttackPower = (int) (baseAttackPower * (1 + attackPowerBuffFactor * 0.25));
+        if (attackPowerBuffFactor < 0){
+            currentAttackPower = (int) (baseAttackPower) * (2 / (2 + (-1) * attackPowerBuffFactor));
+        }else{
+            currentAttackPower = (int) (baseAttackPower * (1 + attackPowerBuffFactor * 0.25));
+        }
     }
 
 
