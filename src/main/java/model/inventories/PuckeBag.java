@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 public class PuckeBag {
-    private Puckemon puckemon = new Puckemon();
+    private Puckemon puckemon = new Puckemon(1, 1);
 
     private ArrayList<Puckemon> puckemons = new ArrayList<Puckemon>();
 
