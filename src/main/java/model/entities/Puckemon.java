@@ -1,5 +1,9 @@
 package model.entities;
 
+import model.combat.Attack;
+
+import java.util.ArrayList;
+
 public class Puckemon {
 
     private String name = "Puckemon";
@@ -39,6 +43,9 @@ public class Puckemon {
     private int level;
     private int expPoints;
 
+    private ArrayList<Attack> moveList = new ArrayList<Attack>();
+    private ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
+
 
     public Puckemon(int level, int id){
         this.level = level;
@@ -51,11 +58,15 @@ public class Puckemon {
         buildPuckemon(id);
     }
 
+    private void getMoves(){
+
+    }
+
     private void buildPuckemon(int id){
         // Collects data from Excel depending on the ID
         // ex: this.baseSpeed = "excel.baseSpeed id 1"
+        // Fill the moveList
         calculateLevelStats();
-
     }
 
     private void calculateLevelStats(){
@@ -63,6 +74,10 @@ public class Puckemon {
         this.attackPower = (2*baseAttackPower+level)/100+5;
         this.defence = (2*baseDefence+level)/100+5;
         this.speed = (2*baseSpeed+level)/100+5;
+    }
+
+    private void preformAttack(){
+
     }
 
 

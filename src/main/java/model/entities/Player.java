@@ -4,12 +4,19 @@ package model.entities;
 import model.inventories.*;
 
 public class Player {
-    private PuckeBag puckeBag = new PuckeBag();
+    private PuckeBag puckeBag = new PuckeBag(1,1);
     private Inventory inventory = new Inventory();
 
-    public void addPuckemon(Puckemon puckemon) {
-        puckeBag.add(puckemon);
+
+
+    /**
+     * Player choices
+     */
+
+    private void switchPuckemon(){
+
     }
+
 
     public PuckeBag getPuckeBag() {
         return puckeBag;
