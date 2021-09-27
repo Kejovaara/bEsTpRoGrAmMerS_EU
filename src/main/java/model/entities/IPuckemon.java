@@ -25,7 +25,6 @@ public interface IPuckemon {
     public void modifyDefence(int buffFactor);
 
 
-
     public PTypes getType();
     public int getLevel();
 }
