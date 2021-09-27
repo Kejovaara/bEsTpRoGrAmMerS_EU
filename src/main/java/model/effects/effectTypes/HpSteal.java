@@ -1,6 +1,6 @@
 package model.effects.effectTypes;
 
-import model.PuckemonTypes;
+import model.PTypes;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
 
@@ -15,7 +15,7 @@ public class HpSteal implements IEffect {
     //INTE KLAR
     public void execute(IPuckemon attackUser, IPuckemon opponent){
         int finalDamage = damage;
-        if(opponent.getType() == PuckemonTypes.FIRE && attackUser.getType() == PuckemonTypes.ROCK){
+        if(opponent.getType() == PTypes.FIRE && attackUser.getType() == PTypes.ROCK){
             finalDamage -= 20;
         }
         opponent.setHealth(opponent.getHealth() - finalDamage);

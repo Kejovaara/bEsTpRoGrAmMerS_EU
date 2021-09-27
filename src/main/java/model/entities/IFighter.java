@@ -1,6 +1,6 @@
 package model.entities;
 
-import model.combat.Attack;
+import model.attack.Attack;
 
 public interface IFighter {
 

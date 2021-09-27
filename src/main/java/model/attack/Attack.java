@@ -1,11 +1,9 @@
-package model.combat;
+package model.attack;
 
-import model.PuckemonTypes;
 import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IPuckemon;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Attack implements IEffectContainer {
