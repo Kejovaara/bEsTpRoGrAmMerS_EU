@@ -7,10 +7,12 @@ public class Inventory {
     ArrayList<Item> invList = new ArrayList<Item>();
 
     public Inventory(ArrayList<Item> invList){ // CREATE INVENTORY WITH EXISTING LIST
+        this.invList = invList;
     }
 
     public Inventory(){ // CREATE EMPTY INVENTORY
         ArrayList<Item> invList = new ArrayList<Item>();
+        this.invList = invList;
     }
 
     public void addItem(Item item){
@@ -29,11 +31,11 @@ public class Inventory {
     }
 
     public Item getItem(int i){
-        return invList.get(i);
+        return this.invList.get(i);
     }
 
     public ArrayList<Item> getInventory(){
-        return invList;
+        return this.invList;
     }
 
 }
