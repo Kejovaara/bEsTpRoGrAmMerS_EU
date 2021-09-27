@@ -1,6 +1,6 @@
 package model;
 
-public enum PuckemonTypes {
+public enum PTypes {
     NORMAL,
     FIGHTING,
     FLYING,
