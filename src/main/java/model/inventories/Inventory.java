@@ -1,6 +1,7 @@
 package model.inventories;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Inventory {
 
@@ -32,9 +33,8 @@ public class Inventory {
         return invList.get(i);
     }
 
-    public Inventory displayInventory(){
-
-        return null;
+    public ArrayList<Item> getInventory(){
+        return invList;
     }
 
 }
