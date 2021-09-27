@@ -13,8 +13,9 @@ public class Player {
      * Player choices
      */
 
-    private void switchPuckemon(){
-
+    private void switchPuckemon(int index){
+//        make sure that the player cant pick wrong target
+        puckeBag.setActiveParty(index);
     }
 
 

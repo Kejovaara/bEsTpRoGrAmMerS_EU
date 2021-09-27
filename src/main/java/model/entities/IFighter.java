@@ -6,5 +6,5 @@ public interface IFighter {
 
     public Attack getAttack();
     public void makeAttack(Attack attack);
-    public Puckemon getActivePuckemon();
+    public OwnedPuckemon getActivePuckemon();
 }

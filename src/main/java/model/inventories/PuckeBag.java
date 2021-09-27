@@ -1,17 +1,17 @@
 package model.inventories;
 
-import model.entities.Puckemon;
+import model.entities.OwnedPuckemon;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class PuckeBag {
 
-    private ArrayList<Puckemon> activeParty = new ArrayList<Puckemon>();
-    private ArrayList<Puckemon> inactiveParty = new ArrayList<>();
-    private Puckemon activePuckemon = activeParty.get(0);
+    private ArrayList<OwnedPuckemon> activeParty = new ArrayList<OwnedPuckemon>();
+    private ArrayList<OwnedPuckemon> inactiveParty = new ArrayList<>();
+    private OwnedPuckemon activePuckemon = activeParty.get(0);
 
     public PuckeBag(int id,int level){
-        Puckemon puckemon = new Puckemon(id, level);
+        OwnedPuckemon puckemon = new OwnedPuckemon(id, level);
         addToActiveParty(puckemon);
     }
 
@@ -21,7 +21,7 @@ public class PuckeBag {
 
     }
 
-    private void addToActiveParty(Puckemon puckemon) {
+    private void addToActiveParty(OwnedPuckemon puckemon) {
         if (activeParty.size() >= 6){
             inactiveParty.add(puckemon);
         }else{
@@ -35,9 +35,13 @@ public class PuckeBag {
 
 
 
-    public Puckemon getActivePuckemon(){
+    public OwnedPuckemon getActivePuckemon(){
         return activePuckemon;
     }
+    public void setActiveParty(int index) {
+        switchPuckemon(index);
+    }
+
 
 
 }

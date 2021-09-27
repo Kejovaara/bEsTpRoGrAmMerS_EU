@@ -6,110 +6,57 @@ import java.util.ArrayList;
 
 public class Puckemon {
 
-    private String name = "Puckemon";
-    private String nickName;
+    protected String name;
 //    private Type type1;
 //    private Type type2;
 
-    private int baseHealth;
-    private int baseAttackPower;
-    private int baseDefence;
-    private int baseSpeed;
+    protected int baseHealth;
+    protected int baseAttackPower;
+    protected int baseDefence;
+    protected int baseSpeed;
 
-    private int evolutionLevel = 101;
-    private int evolutionID = 0;
+    protected int level;
 
     // -------------
 
     /**
      * These are a pokemons stats. They are solely based on the baseStats and current level.
      */
-    private int maxHealth;
-    private int attackPower;
-    private int defence;
-    private int speed;
+    protected int maxHealth;
+    protected int attackPower;
+    protected int defence;
+    protected int speed;
 
     /**
      * These are a pokemons stats during the current combat. They can be altered.
      */
-    private int currentHealth;
-    private int currentAttackPower;
-    private int currentDefence;
-    private int currentSpeed;
+    protected int currentHealth;
+    protected int currentAttackPower;
+    protected int currentDefence;
+    protected int currentSpeed;
 
-    private int attackPowerBuffFactor = 0;
-    private int defenceBuffFactor = 0;
-    private int speedBuffFactor = 0;
-    private int level;
-    private int expPoints;
+    protected int attackPowerBuffFactor = 0;
+    protected int defenceBuffFactor = 0;
+    protected int speedBuffFactor = 0;
 
-    private ArrayList<Attack> moveList = new ArrayList<Attack>();
-    private ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
+    protected ArrayList<Attack> moveList = new ArrayList<Attack>();
+    protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
 
-
-    public Puckemon(int level, int id){
-        this.level = level;
-        buildPuckemon(id);
-    }
-
-    public Puckemon(int level, int id, String nickName){
-        this.level = level;
-        this.nickName = nickName;
-        buildPuckemon(id);
-    }
-
-    private void getMoves(){
-
-    }
-
-    private void buildPuckemon(int id){
+    protected void buildPuckemon(int id){
         // Collects data from Excel depending on the ID
         // ex: this.baseSpeed = "excel.baseSpeed id 1"
         // Fill the moveList
         calculateLevelStats();
     }
 
-    private void calculateLevelStats(){
+    protected void calculateLevelStats(){
         this.maxHealth = (2*baseHealth+level)/100 + level + 10;
         this.attackPower = (2*baseAttackPower+level)/100+5;
         this.defence = (2*baseDefence+level)/100+5;
         this.speed = (2*baseSpeed+level)/100+5;
     }
 
-    private void preformAttack(){
-
-    }
-
-
-    /**
-     * base exp (68 - 220)ish * level * trainer ( 1,5) = gained exp
-     * expPoints needed to reach level x is x^3
-     */
-    private void gainExp(int experience){
-        if (expPoints < (100^3)){
-            expPoints += experience;
-            while (expPoints > ((level+1)^3)){
-                levelUp();
-            }
-        }
-    }
-
-    private void levelUp(){
-        if (level < 100){
-            level++;
-        }
-        if (level >= evolutionLevel) {
-//           This should only happen after battle, not right in the middle
-//            buildPuckemon(evolutionID);
-        }else{
-//            The pokemon keeps the same health percentage when it levels up.
-            int healthPercentage = currentHealth/maxHealth;
-            calculateLevelStats();
-            currentHealth = maxHealth/healthPercentage;
-        }
-    }
-
-    private void alterCurrentStats(){
+    protected void alterCurrentStats(){
         if (attackPowerBuffFactor < 0){
             currentAttackPower = (int) (attackPower) * (2 / (2 + (-1) * attackPowerBuffFactor));
         }else{
@@ -127,14 +74,4 @@ public class Puckemon {
         }
     }
 
-
-
-
-    public int getHealth() {
-        return baseHealth;
-    }
-
-    public String getName() {
-        return name;
-    }
 }
