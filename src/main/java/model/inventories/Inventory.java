@@ -14,18 +14,21 @@ public class Inventory {
     }
 
     public void addItem(Item item){
-
+        this.invList.add(item);
     }
 
     public void clearInventory(){
-
+        int size = this.invList.size();
+        for(int i = 0; i < size; i++){
+            this.invList.set(i, null);
+        }
     }
 
     public void deleteItem(Item item){
 
     }
 
-    public Item getItem(Item x){
+    public Item getItem(int x){
         return null;
     }
 
