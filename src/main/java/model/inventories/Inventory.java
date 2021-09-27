@@ -24,12 +24,12 @@ public class Inventory {
         }
     }
 
-    public void deleteItem(Item item){
-
+    public void deleteItem(int i){
+        this.invList.set(i, null);
     }
 
-    public Item getItem(int x){
-        return null;
+    public Item getItem(int i){
+        return invList.get(i);
     }
 
     public Inventory displayInventory(){
