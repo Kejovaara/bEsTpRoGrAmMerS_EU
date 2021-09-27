@@ -9,6 +9,10 @@ public class PuckeBag {
 
     private ArrayList<Puckemon> puckemons = new ArrayList<Puckemon>();
 
+    public PuckeBag(ArrayList<Puckemon> puckemons){
+        this.puckemons = puckemons;
+    }
+
     public void add(Puckemon puckemon) {
         puckemons.add(puckemon);
     }

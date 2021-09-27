@@ -1,14 +1,15 @@
 package model.entities;
 
 import model.combat.Attack;
-
+import model.effects.IEffectContainer;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import model.inventories.PuckeBag;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class PuckeTrainer implements IOpponent {
+public class PuckeTrainer implements IFighter {
     private String name;
     private PuckeBag puckeBag;
     private Inventory inventory;
@@ -24,8 +25,13 @@ public class PuckeTrainer implements IOpponent {
         return puckemon;
     }
 
-    public void makeMove(Player player) {
-        selectPuckemon().makeMove(0);
+    public IEffectContainer getMoves(Player player) {
+        Random rand = new Random(); //instance of random class
+        int upperbound = 4;
+        //generate random values from 0-3
+        int int_random = rand.nextInt(upperbound);
+
+        return puckeBag.getNextPuckemon().getAttack(int_random);
     }
 
     public void addItem(Item item){ inventory.addItem(item);}

@@ -1,6 +1,14 @@
 package model.inventories;
 
-public class Item {
+import model.effects.IEffect;
+import model.effects.IEffectContainer;
+import model.entities.IPuckemon;
+
+import java.util.List;
+
+public class Item implements IEffectContainer {
+    private int priority;
+    private List<IEffect> effects;
 
     private String itemName;
     private int amount;
@@ -25,6 +33,23 @@ public class Item {
         this.buff = buff;
         this.cure = cure;
         this.healPct = healPct;
+    }
+
+    @Override
+    public int getPriority() {
+        return priority;
+    }
+
+    @Override
+    public List<IEffect> getEffects() {
+        return effects;
+    }
+
+    @Override
+    public void execute(IPuckemon attackUser, IPuckemon opponent) {
+        for (IEffect effect: effects) {
+            effect.execute(attackUser, opponent);
+        }
     }
 
 }

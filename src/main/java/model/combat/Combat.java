@@ -1,9 +1,11 @@
 package model.combat;
 
+import model.entities.ITrainer;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class    Combat {
+public class Combat {
 
     private List<ITrainer> players = new ArrayList<ITrainer>();
 

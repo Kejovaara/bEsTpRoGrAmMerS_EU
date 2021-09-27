@@ -1,5 +1,10 @@
 package model.entities;
 
+import model.combat.Attack;
+import model.effects.IEffectContainer;
+
+import java.util.ArrayList;
+
 public class Puckemon {
 
     private String name = "Puckemon";
@@ -14,6 +19,8 @@ public class Puckemon {
 
     private int evolutionLevel = 101;
     private int evolutionID = 0;
+
+    private ArrayList<Attack> attacks = new ArrayList<Attack>();
 
     // -------------
 
@@ -112,7 +119,9 @@ public class Puckemon {
         }
     }
 
-
+    public IEffectContainer getAttack(int i) {
+        return attacks.get(i);
+    }
 
 
     public int getHealth() {

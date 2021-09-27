@@ -1,5 +1,6 @@
 package model.inventories;
 
+import model.effects.IEffectContainer;
 import model.entities.Puckemon;
 
 import java.util.ArrayList;
@@ -19,5 +20,9 @@ public class Inventory {
     }
 
     public void addItem(Item item){ items.add(item);}
+
+    public IEffectContainer getItem(int index) {
+        return items.get(index);
+    }
 
 }

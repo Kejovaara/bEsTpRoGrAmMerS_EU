@@ -1,13 +1,12 @@
 package model.entities;
 
-
-import model.combat.Attack;
+import model.effects.IEffectContainer;
 import model.inventories.*;
 
 import java.util.ArrayList;
 
-public class Player {
-    private String name = "Player";
+public class Player implements ITrainer {
+    private String name = "Bamse";
     private PuckeBag puckeBag;
     private Inventory inventory;
 
@@ -21,8 +20,16 @@ public class Player {
         return puckemon;
     }
 
-    public void selectMove(int index) {
-        selectPuckemon().makeMove(0);
+    public void selectMoves(int index) {
+        selectPuckemon().getAttack(0);
+    }
+
+    public void switchPuckemon(int index) {
+
+    }
+
+    public IEffectContainer getItem(int index) {
+        return inventory.getItem(index);
     }
 
     public void addItem(Item item){ inventory.addItem(item);}
