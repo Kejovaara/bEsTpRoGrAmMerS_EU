@@ -7,37 +7,48 @@ import model.entities.IPuckemon;
 import java.util.List;
 
 public class Item implements IEffectContainer {
-    private int priority;
     private List<IEffect> effects;
 
-    private String itemName;
-    private int amount;
-    private String itemDescription;
-
+    private String name;
+    private int prio;
+    private String desc;
+    private int quant;
+    private int dmg;
     private int heal;
-    private int buff;
-    private int cure;
-    private int healPct;
 
-//    public Item(){
-//        this.heal = 0;
-//        this.buff = 0;
-//        this.cure = 0;
-//    }
 
-    public Item(String name, int amount, String itemDescription, int heal, int buff, int cure, int healPct){
-        this.itemName = name;
-        this.amount = amount;
-        this.itemDescription = itemDescription;
+    public Item(String name, String desc, int prio, int quant, int dmg, int heal){
+        this.name = name;
+        this.desc = desc;
+        this.prio = prio;
+        this.quant = quant;
+        this.dmg = dmg;
         this.heal = heal;
-        this.buff = buff;
-        this.cure = cure;
-        this.healPct = healPct;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public String getDesc(){
+        return this.desc;
+    }
+
+    public int getDmg(){
+        return this.dmg;
+    }
+
+    public int getHeal(){
+        return this.heal;
+    }
+
+    public int getQuant(){
+        return this.quant;
     }
 
     @Override
-    public int getPriority() {
-        return priority;
+    public int getPriority(){
+        return this.prio;
     }
 
     @Override
@@ -46,9 +57,9 @@ public class Item implements IEffectContainer {
     }
 
     @Override
-    public void execute(IPuckemon attackUser, IPuckemon opponent) {
+    public void execute(IPuckemon user, IPuckemon opponent) {
         for (IEffect effect: effects) {
-            effect.execute(attackUser, opponent);
+            effect.execute(user, opponent);
         }
     }
 
