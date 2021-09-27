@@ -8,7 +8,7 @@ public class PuckeBag {
 
     private ArrayList<OwnedPuckemon> activeParty = new ArrayList<OwnedPuckemon>();
     private ArrayList<OwnedPuckemon> inactiveParty = new ArrayList<>();
-    private OwnedPuckemon activePuckemon = activeParty.get(0);
+//    private OwnedPuckemon activePuckemon = activeParty.get(0);
 
     public PuckeBag(int id,int level){
         OwnedPuckemon puckemon = new OwnedPuckemon(id, level);
@@ -35,9 +35,9 @@ public class PuckeBag {
 
 
 
-    public OwnedPuckemon getActivePuckemon(){
-        return activePuckemon;
-    }
+//    public OwnedPuckemon getActivePuckemon(){
+//        return activePuckemon;
+//    }
     public void setActiveParty(int index) {
         switchPuckemon(index);
     }

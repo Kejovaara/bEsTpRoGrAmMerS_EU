@@ -8,9 +8,6 @@ public class OwnedPuckemon extends Puckemon {
 
     private String nickName;
 
-    private int evolutionLevel = 101;
-    private int evolutionID = 0;
-
     private int expPoints;
 
 
@@ -67,8 +64,8 @@ public class OwnedPuckemon extends Puckemon {
     public int getHealth() {
         return baseHealth;
     }
-
     public String getName() {
         return name;
     }
+    public void setNickName(String nickName){this.nickName=nickName;}
 }
