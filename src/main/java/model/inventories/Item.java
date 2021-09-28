@@ -51,6 +51,7 @@ public class Item implements IEffectContainer {
 
     public static List<Item> stack(List<Item> items){
         //TODO METHOD FOR STACKING ITEMS
+        return null;
     }
 
     @Override
