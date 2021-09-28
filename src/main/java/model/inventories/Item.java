@@ -8,20 +8,19 @@ import java.util.List;
 
 public class Item implements IEffectContainer {
     private List<IEffect> effects;
+    private List<Item> itemList;
 
+    private int id, prio, quantity, dmg, heal;
     private String name;
-    private int prio;
     private String desc;
-    private int quant;
-    private int dmg;
-    private int heal;
+
 
 
     public Item(String name, String desc, int prio, int quant, int dmg, int heal){
         this.name = name;
         this.desc = desc;
         this.prio = prio;
-        this.quant = quant;
+        this.quantity = quant;
         this.dmg = dmg;
         this.heal = heal;
     }
@@ -34,7 +33,7 @@ public class Item implements IEffectContainer {
         return this.desc;
     }
 
-    public int getDmg(){
+    public int getDamage(){
         return this.dmg;
     }
 
@@ -42,8 +41,16 @@ public class Item implements IEffectContainer {
         return this.heal;
     }
 
-    public int getQuant(){
-        return this.quant;
+    public int getQuantity(){
+        return this.quantity;
+    }
+
+    public void add(int num){
+        quantity += num;
+    }
+
+    public static List<Item> stack(List<Item> items){
+        //TODO METHOD FOR STACKING ITEMS
     }
 
     @Override
