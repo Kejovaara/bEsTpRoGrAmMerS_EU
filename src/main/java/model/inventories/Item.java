@@ -10,43 +10,48 @@ public class Item implements IEffectContainer {
     private List<IEffect> effects;
     private List<Item> itemList;
 
-    private int id, prio, quantity, dmg, heal;
+    private int id, prio, quantity, dmg, heal, price;
     private String name;
     private String desc;
 
 
 
-    public Item(String name, String desc, int prio, int quant, int dmg, int heal){
+    public Item(String name, String desc, int prio, int quant, int dmg, int heal, int price){
         this.name = name;
         this.desc = desc;
         this.prio = prio;
         this.quantity = quant;
         this.dmg = dmg;
         this.heal = heal;
+        this.price = price;
     }
 
     public String getName(){
-        return this.name;
+        return name;
     }
 
     public String getDesc(){
-        return this.desc;
+        return desc;
     }
 
     public int getDamage(){
-        return this.dmg;
+        return dmg;
     }
 
     public int getHeal(){
-        return this.heal;
+        return heal;
     }
 
     public int getQuantity(){
-        return this.quantity;
+        return quantity;
     }
 
     public void add(int num){
         quantity += num;
+    }
+
+    public int getPrice(){
+        return price;
     }
 
     public static List<Item> stack(List<Item> items){
