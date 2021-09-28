@@ -1,24 +1,24 @@
 package model.combat;
 
-import model.entities.IFighter;
+import model.entities.ITrainer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Combat {
 
-    private List<IFighter> players = new ArrayList<IFighter>();
+    private List<ITrainer> players = new ArrayList<ITrainer>();
 
-    IFighter player;
-    IFighter opponent;
+    ITrainer player;
+    ITrainer opponent;
 
-    public Combat(IFighter player, IFighter opponent){
+    public Combat(ITrainer player, ITrainer opponent){
         this.player = player;
         this.opponent = opponent;
         enterCombat(this.player, this.opponent);
     }
 
-    public void enterCombat(IFighter player, IFighter opponent){
+    public void enterCombat(ITrainer player, ITrainer opponent){
         players.add(this.player);
         players.add(this.opponent);
     }
@@ -30,7 +30,7 @@ public class Combat {
         }
     }
 
-    public void removeFromCombat(IFighter player, IFighter opponent){
+    public void removeFromCombat(ITrainer player, ITrainer opponent){
         if(!isCombat()){
             players.remove(player);
             players.remove(opponent);

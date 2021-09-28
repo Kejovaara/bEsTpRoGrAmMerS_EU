@@ -1,5 +1,15 @@
 package model.entities;
 
+import model.combat.Attack;
+import model.effects.IEffectContainer;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+
 import model.PuckemonTypes;
 import model.combat.Attack;
 import org.apache.poi.ss.usermodel.*;
@@ -28,6 +38,8 @@ public class Puckemon {
     protected int evolutionLevel = 101;
     protected int evolutionID = 0;
 
+    private ArrayList<Attack> attacks = new ArrayList<Attack>();
+
     // -------------
 
     /**
@@ -52,6 +64,8 @@ public class Puckemon {
 
     protected ArrayList<Attack> moveList = new ArrayList<Attack>();
     protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
+
+
 
     private void readExcelFile(int id){
         try
@@ -82,14 +96,12 @@ public class Puckemon {
         }
     }
 
-    protected void buildPuckemon(int id){
-
-
+    private void buildPuckemon(int id){
         readExcelFile(id);
         // Collects data from Excel depending on the ID
         // ex: this.baseSpeed = "excel.baseSpeed id 1"
-        // Fill the moveList
         calculateLevelStats();
+
     }
 
     protected void calculateLevelStats(){
@@ -117,4 +129,16 @@ public class Puckemon {
         }
     }
 
+    public IEffectContainer getAttack(int i) {
+        return attacks.get(i);
+    }
+
+
+    public int getHealth() {
+        return baseHealth;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

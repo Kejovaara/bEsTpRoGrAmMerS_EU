@@ -1,10 +1,7 @@
 package model.entities;
-
-import model.combat.Attack;
+import model.effects.IEffectContainer;
 
 public interface IFighter {
+    public IEffectContainer getMoves(Player player);
 
-    public Attack getAttack();
-    public void makeAttack(Attack attack);
-    public OwnedPuckemon getActivePuckemon();
 }

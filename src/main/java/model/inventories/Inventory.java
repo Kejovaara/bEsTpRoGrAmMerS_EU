@@ -4,15 +4,38 @@ import java.util.ArrayList;
 
 public class Inventory {
 
-    ArrayList<Item> inventory = new ArrayList<>();
+    ArrayList<Item> invList = new ArrayList<Item>();
 
-    public Inventory(){
-        Item xAttack = new Item("xAttack", 1, "Increases Attack", 0, 0, 0, 0);
-        Item potion = new Item("Potion", 1, "Restores 20 hp", 20, 0, 0, 0);
-        Item fullHeal = new Item("fullHeal",1,"Restores HP to max", 0,0,0,100);
-        inventory.add(xAttack);
-        inventory.add(potion);
-        inventory.add(fullHeal);
+    public Inventory(ArrayList<Item> invList){ // CREATE INVENTORY WITH EXISTING LIST
+        this.invList = invList;
+    }
+
+    public Inventory(){ // CREATE EMPTY INVENTORY
+        ArrayList<Item> invList = new ArrayList<Item>();
+        this.invList = invList;
+    }
+
+    public void addItem(Item item){
+        this.invList.add(item);
+    }
+
+    public void clearInventory(){
+        int size = this.invList.size();
+        for(int i = 0; i < size; i++){
+            this.invList.set(i, null);
+        }
+    }
+
+    public void deleteItem(int i){
+        this.invList.set(i, null);
+    }
+
+    public Item getItem(int i){
+        return this.invList.get(i);
+    }
+
+    public ArrayList<Item> getInventory(){
+        return this.invList;
     }
 
 }

@@ -1,6 +1,5 @@
 package model.effects.effectTypes;
 
-import model.PuckemonTypes;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
 
@@ -22,7 +21,7 @@ public class ModifyAttackPower implements IEffect {
 
     @Override
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
-        if(buffOpponent == true){
+        if(buffOpponent){
             opponent.modifyAttackPower(buffFactor);
         }
         else {
