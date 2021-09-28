@@ -4,6 +4,7 @@ import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IPuckemon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Item implements IEffectContainer {
@@ -54,9 +55,14 @@ public class Item implements IEffectContainer {
         return price;
     }
 
+    //NOT DONE
     public static List<Item> stack(List<Item> items){
         //TODO METHOD FOR STACKING ITEMS
-        return null;
+        List<Item> stackedItems = new ArrayList<Item>();
+        for(Item i : items){
+            //TODO
+        }
+        return stackedItems;
     }
 
     @Override
