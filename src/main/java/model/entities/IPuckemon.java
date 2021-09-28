@@ -1,6 +1,6 @@
 package model.entities;
 
-import model.PuckemonTypes;
+import model.PTypes;
 
 public interface IPuckemon {
 
@@ -25,7 +25,7 @@ public interface IPuckemon {
     public void modifyDefence(int buffFactor);
 
 
-
-    public PuckemonTypes getType();
+    public PTypes getType();
+    public int getLevel();
 }
 
