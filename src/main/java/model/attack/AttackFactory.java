@@ -21,7 +21,23 @@ public class AttackFactory {
         return new Attack(1, effects);
     }
 
+    public static Attack getSwordsDance(){
+        List<IEffect> effects = new ArrayList<>();
+        effects.add(new ModifyAttackPower(2));
+        return new Attack(3, effects);
+    }
 
+    public static Attack getAbsorb(){
+        List<IEffect> effects = new ArrayList<>();
+        effects.add(new HpSteal(20, PTypes.GRASS));
+        return new Attack(3, effects);
+    }
+
+    public static Attack getDoubleEdge(){
+        List<IEffect> effects = new ArrayList<>();
+        effects.add(new RecoilDamage(120, PTypes.NORMAL, 1/3));
+        return new Attack(3, effects);
+    }
 
 
 }

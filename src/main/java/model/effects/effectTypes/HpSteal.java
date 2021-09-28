@@ -1,25 +1,24 @@
 package model.effects.effectTypes;
 
 import model.PTypes;
+import model.effects.EffectHelper;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
 
 public class HpSteal implements IEffect {
 
-    private int damage;
+    private int power;
+    private PTypes attackType;
 
-    public HpSteal(int damage){
-        this.damage = damage;
+    public HpSteal(int power, PTypes attackType){
+        this.power = power;
+        this.attackType = attackType;
     }
 
-    //INTE KLAR
     public void execute(IPuckemon attackUser, IPuckemon opponent){
-        int finalDamage = damage;
-        if(opponent.getType() == PTypes.FIRE && attackUser.getType() == PTypes.ROCK){
-            finalDamage -= 20;
-        }
-        opponent.setHealth(opponent.getHealth() - finalDamage);
-        attackUser.setHealth(attackUser.getHealth() + (finalDamage/2));
+        int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
+        opponent.setHealth(opponent.getHealth() - damage);
+        attackUser.setHealth(attackUser.getHealth() + (damage/2));
     }
 
 }
