@@ -1,7 +1,5 @@
 package model.entities;
 
-import model.combat.Attack;
-
 import java.util.ArrayList;
 
 public class OwnedPuckemon extends Puckemon {
