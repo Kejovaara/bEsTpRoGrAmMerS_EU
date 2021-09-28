@@ -1,6 +1,6 @@
 package model.entities;
 
-import model.combat.Attack;
+import model.CombatOptions;
 import model.effects.IEffectContainer;
 
 import java.util.Random;
@@ -16,4 +16,9 @@ public class WildPuckemon implements IFighter{
 
         return puckemon.getAttack(int_random);
     }
+
+    public CombatOptions getOptions() {
+        return CombatOptions.EFFECT;
+    }
+
 }

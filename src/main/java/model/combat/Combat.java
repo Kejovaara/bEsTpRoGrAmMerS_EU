@@ -1,5 +1,7 @@
 package model.combat;
 
+import model.CombatOptions;
+import model.entities.IFighter;
 import model.entities.ITrainer;
 
 import java.util.ArrayList;
@@ -7,18 +9,18 @@ import java.util.List;
 
 public class Combat {
 
-    private List<ITrainer> players = new ArrayList<ITrainer>();
+    private List<IFighter> players = new ArrayList<IFighter>();
 
-    ITrainer player;
-    ITrainer opponent;
+    IFighter player;
+    IFighter opponent;
 
-    public Combat(ITrainer player, ITrainer opponent){
+    public Combat(IFighter player, IFighter opponent){
         this.player = player;
         this.opponent = opponent;
         enterCombat(this.player, this.opponent);
     }
 
-    public void enterCombat(ITrainer player, ITrainer opponent){
+    public void enterCombat(IFighter player, IFighter opponent){
         players.add(this.player);
         players.add(this.opponent);
     }
@@ -26,7 +28,14 @@ public class Combat {
     public boolean isCombat(){
         //TODO
         while(1 == 1 /*this.player.getHealth() > 0 || this.opponent.getHealth()*/ ){
-            return true;
+            CombatOptions option = player.getOptions();
+            switch (option) {
+                case FLEE:
+
+                    int x = 9;
+                default:
+
+            }
         }
     }
 

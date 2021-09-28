@@ -25,7 +25,7 @@ public class Inventory {
 
     }
 
-    public Item getItem(Item x){
+    public Item getItem(int x){
         return null;
     }
 
