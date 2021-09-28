@@ -15,15 +15,15 @@ public class Inventory {
         this.invList = invList;
     }
 
-    public void addItem(Item item){
-        this.invList.add(item);
-    }
-
     public void clearInventory(){
         int size = this.invList.size();
         for(int i = 0; i < size; i++){
             this.invList.set(i, null);
         }
+    }
+
+    public void addItem(Item item){
+        this.invList.add(item);
     }
 
     public void deleteItem(int i){
@@ -38,4 +38,11 @@ public class Inventory {
         return this.invList;
     }
 
+    public void openInventory(){
+        //TODO METHOD TO OPEN INVENTORY
+    }
+
+    public void closeInventory(){
+        //TODO METHOD TO CLOSE INVENTORY
+    }
 }
