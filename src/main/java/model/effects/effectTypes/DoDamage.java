@@ -21,5 +21,6 @@ public class DoDamage implements IEffect {
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
         opponent.setHealth(opponent.getHealth() - damage);
+        //Animation-handler / Show damage
     }
 }
