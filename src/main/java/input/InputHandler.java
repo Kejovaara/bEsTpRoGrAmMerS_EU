@@ -64,16 +64,16 @@ public class InputHandler implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        // this.toggleKey(e.getKeyCode(), true);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        // this.toggleKey(e.getKeyCode(), true);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        // this.toggleKey(e.getKeyCode(), false);
     }
 }
