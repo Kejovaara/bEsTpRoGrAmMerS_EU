@@ -1,107 +1,104 @@
 package model.entities;
 
-import model.combat.Attack;
+import model.PTypes;
+import model.attack.Attack;
 import model.effects.IEffectContainer;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class Puckemon {
 
-    private String name = "Puckemon";
-    private String nickName;
-//    private Type type1;
-//    private Type type2;
+    protected String name;
+    protected PTypes type1;
+    protected PTypes type2;
 
-    private int baseHealth;
-    private int baseAttackPower;
-    private int baseDefence;
-    private int baseSpeed;
+    protected int baseHealth;
+    protected int baseAttackPower;
+    protected int baseDefence;
+    protected int baseSpeed;
 
-    private int evolutionLevel = 101;
-    private int evolutionID = 0;
+    protected int level;
 
-    private ArrayList<Attack> attacks = new ArrayList<Attack>();
+    protected int evolutionLevel = 101;
+    protected int evolutionID = 0;
 
     // -------------
 
     /**
      * These are a pokemons stats. They are solely based on the baseStats and current level.
      */
-    private int maxHealth;
-    private int attackPower;
-    private int defence;
-    private int speed;
+    protected int maxHealth;
+    protected int attackPower;
+    protected int defence;
+    protected int speed;
 
     /**
      * These are a pokemons stats during the current combat. They can be altered.
      */
-    private int currentHealth;
-    private int currentAttackPower;
-    private int currentDefence;
-    private int currentSpeed;
+    protected int currentHealth;
+    protected int currentAttackPower;
+    protected int currentDefence;
+    protected int currentSpeed;
 
-    private int attackPowerBuffFactor = 0;
-    private int defenceBuffFactor = 0;
-    private int speedBuffFactor = 0;
-    private int level;
-    private int expPoints;
+    protected int attackPowerBuffFactor = 0;
+    protected int defenceBuffFactor = 0;
+    protected int speedBuffFactor = 0;
+
+    protected ArrayList<Attack> moveList = new ArrayList<Attack>();
+    protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
 
 
-    public Puckemon(int level, int id){
-        this.level = level;
-        buildPuckemon(id);
+
+    private void readExcelFile(int id){
+        try
+        {
+            FileInputStream file = new FileInputStream(new File("src/main/java/model/MonRegister.xlsx"));
+
+            //Create Workbook instance holding reference to .xlsx file
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+            //Get first/desired sheet from the workbook
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            XSSFRow row = sheet.getRow(id);
+            name = row.getCell(1).getStringCellValue();
+//            type1 = row.getCell(2).getStringCellValue();
+//            type2 = row.getCell(3).getStringCellValue();
+            baseHealth = (int) row.getCell(4).getNumericCellValue();
+            baseAttackPower = (int) row.getCell(5).getNumericCellValue();
+            baseDefence = (int) row.getCell(6).getNumericCellValue();
+            baseSpeed = (int) row.getCell(7).getNumericCellValue();
+            evolutionLevel = (int) row.getCell(8).getNumericCellValue();
+            evolutionID = (int) row.getCell(9).getNumericCellValue();
+
+            file.close();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
-    public Puckemon(int level, int id, String nickName){
-        this.level = level;
-        this.nickName = nickName;
-        buildPuckemon(id);
-    }
-
-    private void buildPuckemon(int id){
+    protected void buildPuckemon(int id){
+        readExcelFile(id);
         // Collects data from Excel depending on the ID
         // ex: this.baseSpeed = "excel.baseSpeed id 1"
         calculateLevelStats();
 
     }
 
-    private void calculateLevelStats(){
+    protected void calculateLevelStats(){
         this.maxHealth = (2*baseHealth+level)/100 + level + 10;
         this.attackPower = (2*baseAttackPower+level)/100+5;
         this.defence = (2*baseDefence+level)/100+5;
         this.speed = (2*baseSpeed+level)/100+5;
     }
 
-
-    /**
-     * base exp (68 - 220)ish * level * trainer ( 1,5) = gained exp
-     * expPoints needed to reach level x is x^3
-     */
-    private void gainExp(int experience){
-        if (expPoints < (100^3)){
-            expPoints += experience;
-            while (expPoints > ((level+1)^3)){
-                levelUp();
-            }
-        }
-    }
-
-    private void levelUp(){
-        if (level < 100){
-            level++;
-        }
-        if (level >= evolutionLevel) {
-//           This should only happen after battle, not right in the middle
-//            buildPuckemon(evolutionID);
-        }else{
-//            The pokemon keeps the same health percentage when it levels up.
-            int healthPercentage = currentHealth/maxHealth;
-            calculateLevelStats();
-            currentHealth = maxHealth/healthPercentage;
-        }
-    }
-
-    private void alterCurrentStats(){
+    protected void alterCurrentStats(){
         if (attackPowerBuffFactor < 0){
             currentAttackPower = (int) (attackPower) * (2 / (2 + (-1) * attackPowerBuffFactor));
         }else{
@@ -119,9 +116,9 @@ public class Puckemon {
         }
     }
 
-    public IEffectContainer getAttack(int i) {
-        return attacks.get(i);
-    }
+//    public IEffectContainer getAttack(int i) {
+//        return moveSet.get(i);
+//    }
 
 
     public int getHealth() {

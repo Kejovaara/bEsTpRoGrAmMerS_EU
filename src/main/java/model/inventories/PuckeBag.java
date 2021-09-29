@@ -1,26 +1,44 @@
 package model.inventories;
 
-import model.entities.Puckemon;
+import model.entities.OwnedPuckemon;
 import java.util.ArrayList;
-
+import java.util.Collections;
 
 public class PuckeBag {
-    private Puckemon puckemon = new Puckemon(1, 1);
 
-    private ArrayList<Puckemon> puckemons = new ArrayList<Puckemon>();
+    private ArrayList<OwnedPuckemon> activeParty = new ArrayList<OwnedPuckemon>();
+    private ArrayList<OwnedPuckemon> inactiveParty = new ArrayList<>();
+//    private OwnedPuckemon activePuckemon = activeParty.get(0);
 
-    public PuckeBag(ArrayList<Puckemon> puckemons){
-        this.puckemons = puckemons;
+    public PuckeBag(int id,int level){
+        OwnedPuckemon puckemon = new OwnedPuckemon(id, level);
+        addToActiveParty(puckemon);
     }
 
-    public void add(Puckemon puckemon) {
-        puckemons.add(puckemon);
+
+    private void switchPuckemon(int index){
+        Collections.swap(activeParty,1, index);
+
     }
 
-    public ArrayList<Puckemon> getPuckemons() {
-        return puckemons;
+    private void addToActiveParty(OwnedPuckemon puckemon) {
+        if (activeParty.size() >= 6){
+            inactiveParty.add(puckemon);
+        }else{
+            activeParty.add(puckemon);
+        }
     }
-    public Puckemon getNextPuckemon() {
-        return puckemons.get(0);
+
+
+
+
+//    public OwnedPuckemon getActivePuckemon(){
+//        return activePuckemon;
+//    }
+    public void setActiveParty(int index) {
+        switchPuckemon(index);
     }
+
+
+
 }
