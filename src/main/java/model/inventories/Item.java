@@ -9,13 +9,11 @@ import java.util.List;
 
 public class Item implements IEffectContainer {
     private List<IEffect> effects;
-    private List<Item> itemList;
+    // private List<Item> itemList; //MAYBE NOT NEEDED
 
     private int id, prio, quantity, dmg, heal, price;
     private String name;
     private String desc;
-
-
 
     public Item(String name, String desc, int prio, int quant, int dmg, int heal, int price){
         this.name = name;
@@ -31,7 +29,7 @@ public class Item implements IEffectContainer {
         return name;
     }
 
-    public String getDesc(){
+    public String getDescription(){
         return desc;
     }
 
@@ -47,12 +45,16 @@ public class Item implements IEffectContainer {
         return quantity;
     }
 
-    public void add(int num){
+    public int getPrice(){
+        return price;
+    }
+
+    public void incrementAmount(int num){
         quantity += num;
     }
 
-    public int getPrice(){
-        return price;
+    public void decrementAmount(int num){
+        quantity -= num;
     }
 
     //NOT DONE
