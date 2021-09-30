@@ -8,9 +8,11 @@ public class DesktopLauncher {
         config.setIdleFPS(60);
         config.useVsync(true);
         config.setTitle("Puckemon");
+        int screenWidth = 960;
+        int screeHeight = 640;
 
-        config.setWindowedMode(960, 640);
+        config.setWindowedMode(screenWidth, screeHeight);
         //config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
-        new Lwjgl3Application(new Boot(), config);
+        new Lwjgl3Application(new Boot(screenWidth, screeHeight), config);
     }
 }
