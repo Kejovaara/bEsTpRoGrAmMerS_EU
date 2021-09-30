@@ -24,8 +24,8 @@ public class ExcelReader {
             XSSFSheet sheet = workbook.getSheetAt(0);
             XSSFRow row = sheet.getRow(id);
             excelData.add(row.getCell(1).getStringCellValue());
-//            type1 = row.getCell(2).getStringCellValue();
-//            type2 = row.getCell(3).getStringCellValue();
+            excelData.add(row.getCell(2).getStringCellValue());
+            excelData.add(row.getCell(3).getStringCellValue());
             excelData.add((int) row.getCell(4).getNumericCellValue());
             excelData.add((int) row.getCell(5).getNumericCellValue());
             excelData.add((int) row.getCell(6).getNumericCellValue());

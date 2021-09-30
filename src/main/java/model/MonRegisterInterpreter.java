@@ -16,40 +16,31 @@ public class MonRegisterInterpreter {
     }
 
     public String getName(int id){
-        interpretMonRegister(id);
-        return (String) baseStats.get(0);
+        return (String) interpretMonRegister(id).get(0);
     }
     public PTypes getType1(int id){
-        interpretMonRegister(id);
-        return PTypes.valueOf((String) baseStats.get(1));
+        return PTypes.valueOf((String) interpretMonRegister(id).get(1));
     }
     public PTypes getType2(int id){
-        interpretMonRegister(id);
-        return PTypes.valueOf((String) baseStats.get(2));
+        return PTypes.valueOf((String) interpretMonRegister(id).get(2));
     }
     public int getBaseHealth(int id){
-        interpretMonRegister(id);
-        return (int) baseStats.get(3);
+        return (int) interpretMonRegister(id).get(3);
     }
     public int getBaseAttack(int id){
-        interpretMonRegister(id);
-        return (int) baseStats.get(4);
+        return (int) interpretMonRegister(id).get(4);
     }
     public int  getBaseDefence(int id){
-        interpretMonRegister(id);
-        return (int) baseStats.get(5);
+        return (int) interpretMonRegister(id).get(5);
     }
     public int  getBaseSpeed(int id){
-        interpretMonRegister(id);
-        return (int) baseStats.get(6);
+        return (int) interpretMonRegister(id).get(6);
     }
     public int getEvolutionLevel(int id){
-        interpretMonRegister(id);
-        return (int) baseStats.get(7);
+        return (int) interpretMonRegister(id).get(7);
     }
     public int getEvolutionId(int id){
-        interpretMonRegister(id);
-        return (int) baseStats.get(8);
+        return (int) interpretMonRegister(id).get(8);
     }
 
 }
