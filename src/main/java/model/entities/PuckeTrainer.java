@@ -1,5 +1,6 @@
 package model.entities;
 
+import model.attack.AttackFactory;
 import model.effects.IEffectContainer;
 import model.inventories.Inventory;
 import model.inventories.Item;
@@ -24,14 +25,21 @@ public class PuckeTrainer implements IFighter {
 //        return puckemon;
 //    }
 
-//    public IEffectContainer getMoves(Player player) {
-//        Random rand = new Random(); //instance of random class
-//        int upperbound = 4;
-//        //generate random values from 0-3
-//        int int_random = rand.nextInt(upperbound);
-//
-//        return puckeBag.getNextPuckemon().getAttack(int_random);
-//    }
+public IEffectContainer makeMove() {
+        Random rand = new Random(); //instance of random class
+       int upperbound = 4;
+       //generate random values from 0-3
+        int int_random = rand.nextInt(upperbound);
+
+        //TODO: Fix so that it gets random attack
+        //return puckeBag.getNextPuckemon().getAttack(int_random);
+        return AttackFactory.getTackle();
+    }
+
+    @Override
+    public IPuckemon getActivePuckemon() {
+        return null;
+    }
 
     public void addItem(Item item){ inventory.addItem(item);}
 }

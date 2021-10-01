@@ -2,6 +2,8 @@ package model.entities;
 import model.effects.IEffectContainer;
 
 public interface IFighter {
-//    public IEffectContainer getMoves(Player player);
+    public IEffectContainer makeMove();
+    public IPuckemon getActivePuckemon();
+
 
 }
