@@ -23,7 +23,11 @@ public class Inventory {
     }
 
     public void addItem(Item item){
-        this.invList.add(item);
+            if(invList.contains(item)){
+                item.incrementAmount(1);
+            }else{
+                this.invList.add(item);
+            }
     }
 
     public void deleteItem(int i){
@@ -32,6 +36,10 @@ public class Inventory {
 
     public Item getItem(int i){
         return this.invList.get(i);
+    }
+
+    public int getSize(){
+        return  this.invList.size();
     }
 
     public ArrayList<Item> getInventory(){
