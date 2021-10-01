@@ -11,17 +11,16 @@ public class Item implements IEffectContainer {
     private List<IEffect> effects;
     // private List<Item> itemList; //MAYBE NOT NEEDED
 
-    private int id, prio, quantity, dmg, heal, price;
+    private int id, prio, quantity, price;
     private String name;
     private String desc;
 
-    public Item(String name, String desc, int prio, int quant, int dmg, int heal, int price){
+    public Item(int id, String name, String desc, int prio, int quantity, int price){
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.prio = prio;
-        this.quantity = quant;
-        this.dmg = dmg;
-        this.heal = heal;
+        this.quantity = quantity;
         this.price = price;
     }
 
@@ -33,19 +32,11 @@ public class Item implements IEffectContainer {
         return desc;
     }
 
-    public int getDamage(){
-        return dmg;
-    }
-
-    public int getHeal(){
-        return heal;
-    }
-
     public int getQuantity(){
         return quantity;
     }
 
-    public int getPrice(){
+    public int getValue(){
         return price;
     }
 
