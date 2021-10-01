@@ -16,9 +16,9 @@ public class Inventory {
     }
 
     public void clearInventory(){
-        int size = this.invList.size();
+        int size = invList.size();
         for(int i = 0; i < size; i++){
-            this.invList.set(i, null);
+            invList.set(i, null);
         }
     }
 
@@ -26,24 +26,24 @@ public class Inventory {
             if(invList.contains(item)){
                 item.incrementAmount(1);
             }else{
-                this.invList.add(item);
+                invList.add(item);
             }
     }
 
     public void deleteItem(int i){
-        this.invList.set(i, null);
+        invList.set(i, null);
     }
 
     public Item getItem(int i){
-        return this.invList.get(i);
+        return invList.get(i);
     }
 
     public int getSize(){
-        return  this.invList.size();
+        return  invList.size();
     }
 
     public ArrayList<Item> getInventory(){
-        return this.invList;
+        return invList;
     }
 
     public void openInventory(){
