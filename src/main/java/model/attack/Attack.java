@@ -7,10 +7,12 @@ import model.entities.IPuckemon;
 import java.util.List;
 
 public class Attack implements IEffectContainer {
+    String name;
     private int priority;
     private List<IEffect> effects;
 
-    public Attack(int priority, List<IEffect> effects){
+    public Attack(String name, int priority, List<IEffect> effects){
+        this.name = name;
         this.priority = priority;
         this.effects = effects;
     }
