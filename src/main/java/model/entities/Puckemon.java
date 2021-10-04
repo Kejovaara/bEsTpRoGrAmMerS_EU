@@ -3,11 +3,15 @@ package model.entities;
 import model.MonRegisterInterpreter;
 import model.PTypes;
 import model.attack.Attack;
+import model.attack.AttackFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public abstract class Puckemon {
 
+    protected int id;
     protected String name;
     protected PTypes type1;
     protected PTypes type2;
@@ -44,16 +48,21 @@ public abstract class Puckemon {
     protected int defenceBuffFactor = 0;
     protected int speedBuffFactor = 0;
 
-    protected ArrayList<Attack> moveList = new ArrayList<Attack>();
+    protected ArrayList<String> moveList = new ArrayList<String>();
     protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
     private MonRegisterInterpreter monRegisterInterpreter = new MonRegisterInterpreter();
 
     public Puckemon(int id, int level){
+        this.id = id;
         buildPuckemon(id);
+        fillMoveSet();
+        System.out.println(Arrays.toString(moveSet.toArray()));
+
         this.level = level;
     }
 
     protected void buildPuckemon(int id){
+        this.id = id;
         this.name = monRegisterInterpreter.getName(id);
         this.type1 = monRegisterInterpreter.getType1(id);
         this.type2 = monRegisterInterpreter.getType2(id);
@@ -63,9 +72,23 @@ public abstract class Puckemon {
         this.baseSpeed = monRegisterInterpreter.getBaseSpeed(id);
         this.evolutionLevel = monRegisterInterpreter.getEvolutionLevel(id);
         this.evolutionID = monRegisterInterpreter.getEvolutionId(id);
+        this.moveList = monRegisterInterpreter.getMoveList(id);
         System.out.println(name);
         calculateLevelStats();
+    }
 
+    protected void fillMoveSet(){
+        if (moveList.size() <= 4){
+            for (int i = 0; i < moveList.size(); i++){
+                moveSet.add(AttackFactory.createByName(moveList.get(i)));
+            }
+        } else{
+            ArrayList<String> randList = new ArrayList<>(moveList);
+            Collections.shuffle(randList);
+            for (int i = 0; i < 3; i++) {
+                moveSet.add(AttackFactory.createByName(moveList.get(i)));
+            }
+        }
     }
 
     protected void calculateLevelStats(){

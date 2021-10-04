@@ -9,6 +9,15 @@ import java.util.List;
 
 public class AttackFactory {
 
+
+    public static Attack createByName(String attackName){
+        switch (attackName) {
+            case "Tackle": return getTackle();
+            case "SwordsDance": return getSwordsDance();
+            default : throw new IllegalArgumentException("Unknown Attack " + attackName);
+        }
+    }
+
     public static Attack getTackle(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new DoDamage(40, PTypes.NORMAL));
