@@ -6,6 +6,10 @@ import java.util.Random;
 
 public class WildPuckemon extends Puckemon implements IFighter{
 
+    public WildPuckemon(int id, int level){
+        super(id, level);
+    }
+
 //    public IEffectContainer getMoves(Player player) {
 //        Random rand = new Random(); //instance of random class
 //        int upperbound = 4;

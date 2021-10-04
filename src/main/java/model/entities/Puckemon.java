@@ -1,17 +1,12 @@
 package model.entities;
 
+import model.MonRegisterInterpreter;
 import model.PTypes;
 import model.attack.Attack;
-import model.effects.IEffectContainer;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 
-public class Puckemon {
+public abstract class Puckemon {
 
     protected String name;
     protected PTypes type1;
@@ -51,42 +46,24 @@ public class Puckemon {
 
     protected ArrayList<Attack> moveList = new ArrayList<Attack>();
     protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
+    private MonRegisterInterpreter monRegisterInterpreter = new MonRegisterInterpreter();
 
-
-
-    private void readExcelFile(int id){
-        try
-        {
-            FileInputStream file = new FileInputStream(new File("src/main/java/model/MonRegister.xlsx"));
-
-            //Create Workbook instance holding reference to .xlsx file
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
-
-            //Get first/desired sheet from the workbook
-            XSSFSheet sheet = workbook.getSheetAt(0);
-            XSSFRow row = sheet.getRow(id);
-            name = row.getCell(1).getStringCellValue();
-//            type1 = row.getCell(2).getStringCellValue();
-//            type2 = row.getCell(3).getStringCellValue();
-            baseHealth = (int) row.getCell(4).getNumericCellValue();
-            baseAttackPower = (int) row.getCell(5).getNumericCellValue();
-            baseDefence = (int) row.getCell(6).getNumericCellValue();
-            baseSpeed = (int) row.getCell(7).getNumericCellValue();
-            evolutionLevel = (int) row.getCell(8).getNumericCellValue();
-            evolutionID = (int) row.getCell(9).getNumericCellValue();
-
-            file.close();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+    public Puckemon(int id, int level){
+        buildPuckemon(id);
+        this.level = level;
     }
 
     protected void buildPuckemon(int id){
-        readExcelFile(id);
-        // Collects data from Excel depending on the ID
-        // ex: this.baseSpeed = "excel.baseSpeed id 1"
+        this.name = monRegisterInterpreter.getName(id);
+        this.type1 = monRegisterInterpreter.getType1(id);
+        this.type2 = monRegisterInterpreter.getType2(id);
+        this.baseHealth = monRegisterInterpreter.getBaseHealth(id);
+        this.baseAttackPower = monRegisterInterpreter.getBaseAttack(id);
+        this.baseDefence = monRegisterInterpreter.getBaseDefence(id);
+        this.baseSpeed = monRegisterInterpreter.getBaseSpeed(id);
+        this.evolutionLevel = monRegisterInterpreter.getEvolutionLevel(id);
+        this.evolutionID = monRegisterInterpreter.getEvolutionId(id);
+        System.out.println(name);
         calculateLevelStats();
 
     }

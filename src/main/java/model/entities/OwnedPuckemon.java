@@ -10,14 +10,13 @@ public class OwnedPuckemon extends Puckemon {
 
 
     public OwnedPuckemon(int level, int id){
-        super.level = level;
-        buildPuckemon(id);
+        super(id,level);
+
     }
 
     public OwnedPuckemon(int level, int id, String nickName){
-        super.level = level;
+        super(id,level);
         this.nickName = nickName;
-        buildPuckemon(id);
     }
 
     private void getMoves(){
