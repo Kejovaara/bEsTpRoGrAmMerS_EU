@@ -42,4 +42,8 @@ public IEffectContainer makeMove() {
     }
 
     public void addItem(Item item){ inventory.addItem(item);}
+
+    public void useItem(Item item){
+        // item.execute();
+    }
 }

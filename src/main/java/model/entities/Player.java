@@ -1,6 +1,5 @@
 package model.entities;
 
-
 import model.effects.IEffectContainer;
 import model.inventories.*;
 
@@ -8,31 +7,51 @@ import java.util.ArrayList;
 
 public class Player implements ITrainer {
     private String name = "Bamse";
-    private PuckeBag puckeBag = new PuckeBag(1,1);
-    private Inventory inventory = new Inventory();
+    private PuckeBag puckeBag;
+    private Inventory inventory;
+    private int coins;
 
-    /**
-     * Player choices
-     */
-
-
-    public void switchPuckemon(int index){
-//        make sure that the player cant pick wrong target
-        puckeBag.setActiveParty(index);
+    public Player(ArrayList<Puckemon> puckemons, ArrayList<Item> items, int coins){
+        this.puckeBag = new PuckeBag(puckemons);
+        this.inventory = new Inventory(items);
+        this.coins = coins;
     }
 
+    public Puckemon selectPuckemon(){
+        Puckemon puckemon = puckeBag.getNextPuckemon();
+        return puckemon;
+    }
 
+    public void selectMoves(int index) {
+        selectPuckemon().getAttack(0);
+    }
+
+    public void switchPuckemon(int index) {
+
+    }
 
     public IEffectContainer getItem(int index) {
         return inventory.getItem(index);
     }
 
-    public void addItem(Item item){ inventory.addItem(item);}
-
-    public PuckeBag getPuckeBag() {
-        return puckeBag;
+    public void addItem(Item item){
+        this.inventory.addItem(item);
     }
 
-    public Inventory getInventory() {return inventory;}
+    public void useItem(Item item){
+        // item.execute(this);
+    }
 
+    public void buyItem(Item item){
+        if(this.coins >= item.getValue()){
+            this.coins -= item.getValue();
+            inventory.addItem(item);
+        }else{
+            System.out.println("You don't have enough PuckeCoins for this item!");
+        }
+    }
+
+    public void addPuckemon(Puckemon puckemon) {
+        puckeBag.add(puckemon);
+    }
 }
