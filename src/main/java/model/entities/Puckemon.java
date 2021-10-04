@@ -4,6 +4,7 @@ import model.MonRegisterInterpreter;
 import model.PTypes;
 import model.attack.Attack;
 import model.attack.AttackFactory;
+import model.effects.IEffectContainer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -116,9 +117,9 @@ public abstract class Puckemon {
         }
     }
 
-//    public IEffectContainer getAttack(int i) {
-//        return moveSet.get(i);
-//    }
+    public IEffectContainer getAttack(int i) {
+        return moveSet.get(i);
+    }
 
 
     public int getHealth() {
@@ -128,4 +129,5 @@ public abstract class Puckemon {
     public String getName() {
         return name;
     }
+    public ArrayList<Attack> getMoveSet(){return moveSet;}
 }

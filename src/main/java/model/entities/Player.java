@@ -17,13 +17,15 @@ public class Player implements ITrainer {
         this.coins = coins;
     }
 
+    // Pick target in party to switch too
     public Puckemon switchPuckemon(int index){
         puckeBag.setActivePuckemon(index);
         return puckeBag.getActivePuckemon();
     }
 
+    // Get Mons moveSet
     public void selectMoves(int index) {
-        puckeBag.getActivePuckemon().getAttack(0);
+        puckeBag.getActivePuckemon().getAttack(index);
     }
 
 
@@ -48,7 +50,11 @@ public class Player implements ITrainer {
         }
     }
 
-    public void addPuckemon(Puckemon puckemon) {
-        puckeBag.(puckemon);
+    private void addPuckemonToParty(Puckemon puckemon) {
+        puckeBag.addPuckemonToParty(puckemon);
+    }
+
+    private void addPuckemonToBox(Puckemon puckemon){
+        addPuckemonToBox(puckemon);
     }
 }
