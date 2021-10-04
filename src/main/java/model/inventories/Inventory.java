@@ -30,15 +30,24 @@ public class Inventory {
             }
     }
 
-    public void deleteItem(int i){
+    public void deleteItemStack(int i){
         invList.set(i, null);
+    }
+
+    public void deleteSingleItem(Item item){
+        if(invList.contains(item)){
+            item.decrementAmount(1);
+        }else{
+            System.out.println("Item does not exist");
+        }
+
     }
 
     public Item getItem(int i){
         return invList.get(i);
     }
 
-    public int getSize(){
+    public int getInventorySize(){
         return  invList.size();
     }
 
