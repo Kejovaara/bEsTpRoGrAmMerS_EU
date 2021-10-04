@@ -9,15 +9,19 @@ import run.Boot;
 public class MainMenuScreen implements Screen {
 
     final Boot game;
+    private int screenWidth, screenHeight;
 
     OrthographicCamera camera;
 
     public MainMenuScreen(final Boot game) {
         this.game = game;
+        this.screenWidth = game.getScreenWidth();
+        this.screenHeight = game.getScreenHeight();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
     }
+
 
     @Override
     public void render(float delta) {
@@ -31,7 +35,10 @@ public class MainMenuScreen implements Screen {
         game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
         game.batch.end();
 
-
+        if (Gdx.input.isTouched()) {
+            game.setScreen(new CombatScreen(game));
+            dispose();
+        }
     }
 
     @Override

@@ -16,7 +16,6 @@ public class Boot extends Game {
 
     public InputController controller;
 
-
     int screenWidth, screenHeight;
 
     public Boot(int screenHeight, int screenWidth){
@@ -44,6 +43,16 @@ public class Boot extends Game {
     public void dispose() {
         batch.dispose();
         font.dispose();
+    }
+
+
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
     }
 
     //TODO: learn more about screens https://libgdx.com/dev/simple-game-extended/
