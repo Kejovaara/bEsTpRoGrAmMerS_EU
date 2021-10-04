@@ -4,51 +4,63 @@ import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IPuckemon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Item implements IEffectContainer {
     private List<IEffect> effects;
+    // private List<Item> itemList; //MAYBE NOT NEEDED
 
+    private int id, prio, quantity, price;
     private String name;
-    private int prio;
     private String desc;
-    private int quant;
-    private int dmg;
-    private int heal;
 
-
-    public Item(String name, String desc, int prio, int quant, int dmg, int heal){
+    public Item(int id, String name, String desc, int prio, int quantity, int price){
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.prio = prio;
-        this.quant = quant;
-        this.dmg = dmg;
-        this.heal = heal;
+        this.quantity = quantity;
+        this.price = price;
     }
 
     public String getName(){
-        return this.name;
+        return name;
     }
 
-    public String getDesc(){
-        return this.desc;
+    public String getDescription(){
+        return desc;
     }
 
-    public int getDmg(){
-        return this.dmg;
+    public int getQuantity(){
+        return quantity;
     }
 
-    public int getHeal(){
-        return this.heal;
+    public int getValue(){
+        return price;
     }
 
-    public int getQuant(){
-        return this.quant;
+    public void incrementAmount(int num){
+        quantity += num;
+    }
+
+    public void decrementAmount(int num){
+        quantity -= num;
+    }
+
+    //NOT DONE
+    public static List<Item> stack(List<Item> items){
+        //TODO METHOD FOR STACKING ITEMS
+        List<Item> stackedItems = new ArrayList<Item>();
+        for(Item i : items){
+            //TODO
+        }
+        return stackedItems;
     }
 
     @Override
     public int getPriority(){
-        return this.prio;
+        return prio;
     }
 
     @Override
