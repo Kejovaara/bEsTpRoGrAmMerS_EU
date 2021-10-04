@@ -60,7 +60,7 @@ public class Item implements IEffectContainer {
 
     @Override
     public int getPriority(){
-        return this.prio;
+        return prio;
     }
 
     @Override
