@@ -34,4 +34,8 @@ public class PuckeTrainer implements IFighter {
 //    }
 
     public void addItem(Item item){ inventory.addItem(item);}
+
+    public void useItem(Item item){
+        // item.execute();
+    }
 }
