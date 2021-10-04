@@ -34,7 +34,9 @@ public class Player implements ITrainer {
         return inventory.getItem(index);
     }
 
-    public void addItem(Item item){ inventory.addItem(item);}
+    public void addItem(Item item){
+        this.inventory.addItem(item);
+    }
 
     public void useItem(Item item){
         // item.execute(this);
