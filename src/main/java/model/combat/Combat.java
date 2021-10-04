@@ -42,7 +42,7 @@ public class Combat {
         if(f1Move.getPriority() < f2Move.getPriority()){
             executeEffects(f1Move.getEffects(), f1Puckemon, f2Puckemon);
             executeEffects(f2Move.getEffects(), f2Puckemon, f1Puckemon);
-        }else if(){
+        }else if(true){
             executeEffects(f2Move.getEffects(), f2Puckemon, f1Puckemon);
             executeEffects(f1Move.getEffects(), f1Puckemon, f2Puckemon);
         }

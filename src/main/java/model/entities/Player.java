@@ -12,19 +12,19 @@ public class Player implements ITrainer {
     private int coins;
 
     public Player(ArrayList<Puckemon> puckemons, ArrayList<Item> items, int coins){
-        this.puckeBag = new PuckeBag(puckemons);
+        this.puckeBag = new PuckeBag(1, 1);
         this.inventory = new Inventory(items);
         this.coins = coins;
     }
 
-    public Puckemon selectPuckemon(){
-        Puckemon puckemon = puckeBag.getNextPuckemon();
-        return puckemon;
-    }
+//    public Puckemon selectPuckemon(){
+//        Puckemon puckemon = puckeBag.getNextPuckemon();
+//        return puckemon;
+//    }
 
-    public void selectMoves(int index) {
-        selectPuckemon().getAttack(0);
-    }
+//    public void selectMoves(int index) {
+//        selectPuckemon().getAttack(0);
+//    }
 
     public void switchPuckemon(int index) {
 
@@ -51,7 +51,7 @@ public class Player implements ITrainer {
         }
     }
 
-    public void addPuckemon(Puckemon puckemon) {
-        puckeBag.add(puckemon);
-    }
+//    public void addPuckemon(Puckemon puckemon) {
+//        puckeBag.add(puckemon);
+//    }
 }
