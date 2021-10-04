@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import input.InputController;
+import input.MenuController;
 import view.MainMenuScreen;
 
 public class Boot extends Game {
@@ -11,6 +13,8 @@ public class Boot extends Game {
     private OrthographicCamera camera;
     public SpriteBatch batch;
     public BitmapFont font;
+
+    public InputController controller;
 
 
     int screenWidth, screenHeight;
@@ -25,12 +29,16 @@ public class Boot extends Game {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
         batch = new SpriteBatch();
-        font = new BitmapFont(); // use libGDX's default Arial font
+        font = new BitmapFont();
         this.setScreen(new MainMenuScreen(this));
+
+        controller = new InputController(this);
+        controller.switchController(InputController.Controllers.MAIN_MENU);
     }
 
     public void render() {
-        super.render(); // important!
+        controller.update();
+        super.render();
     }
 
     public void dispose() {
