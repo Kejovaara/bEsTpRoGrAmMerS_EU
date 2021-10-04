@@ -17,18 +17,15 @@ public class Player implements ITrainer {
         this.coins = coins;
     }
 
-    public Puckemon selectPuckemon(){
-        Puckemon puckemon = puckeBag.getNextPuckemon();
-        return puckemon;
+    public Puckemon switchPuckemon(int index){
+        puckeBag.setActivePuckemon(index);
+        return puckeBag.getActivePuckemon();
     }
 
     public void selectMoves(int index) {
-        selectPuckemon().getAttack(0);
+        puckeBag.getActivePuckemon().getAttack(0);
     }
 
-    public void switchPuckemon(int index) {
-
-    }
 
     public IEffectContainer getItem(int index) {
         return inventory.getItem(index);
@@ -52,6 +49,6 @@ public class Player implements ITrainer {
     }
 
     public void addPuckemon(Puckemon puckemon) {
-        puckeBag.add(puckemon);
+        puckeBag.(puckemon);
     }
 }
