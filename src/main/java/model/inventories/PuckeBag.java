@@ -5,18 +5,19 @@ import model.entities.Puckemon;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class PuckeBag {
 
-    private ArrayList<Puckemon> party = new ArrayList<Puckemon>();
-    private ArrayList<Puckemon> box = new ArrayList<Puckemon>();
+    private List<Puckemon> party = new ArrayList<Puckemon>();
+    private List<Puckemon> box = new ArrayList<Puckemon>();
 
     public PuckeBag(int id,int level){
         OwnedPuckemon puckemon = new OwnedPuckemon(id, level);
         addToActiveParty(puckemon);
     }
 
-    public PuckeBag(ArrayList<Puckemon> puckemons){
+    public PuckeBag(List<OwnedPuckemon> puckemons){
         for (int i = 0; i < puckemons.size(); i++) {
             if(party.size()<6){
                 addToActiveParty(puckemons.get(i));

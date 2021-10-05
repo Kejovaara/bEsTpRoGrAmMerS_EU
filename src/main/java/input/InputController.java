@@ -1,25 +1,33 @@
 package input;
 
 import run.Boot;
+import model.Main;
 
 public class InputController {
 
-    public final Boot game;
+    private final Boot game;
+    private Main main;
+
     private IController activeController;
+    private MenuController menuController;
+    private CombatController combatController;
 
 
-    public InputController(Boot game) {
+    public InputController(Boot game, Main main) {
         this.game = game;
+        this.main = main;
+        this.menuController = new MenuController(game, main);
+        this.combatController = new CombatController(game, main);
     }
 
 
     public void switchController(Controllers controllerEnum){
         switch (controllerEnum){
             case MAIN_MENU:
-                activeController = new MenuController();
+                activeController = menuController;
                 break;
             case COMBAT:
-                activeController = new CombatController();
+                activeController = combatController;
                 break;
             default:
                 activeController = null;
@@ -28,7 +36,7 @@ public class InputController {
     }
 
     public void update(){
-        if(activeController != null) activeController.update(game);
+        if(activeController != null) activeController.update();
     }
 
     public enum Controllers{

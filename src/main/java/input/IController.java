@@ -4,5 +4,5 @@ import run.Boot;
 
 public interface IController {
 
-    public void update(Boot game);
+    public void update();
 }

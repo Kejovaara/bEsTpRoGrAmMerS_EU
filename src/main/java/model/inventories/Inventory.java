@@ -1,18 +1,18 @@
 package model.inventories;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Inventory {
 
-    ArrayList<Item> invList = new ArrayList<Item>();
+    private List<Item> invList;
 
-    public Inventory(ArrayList<Item> invList){ // CREATE INVENTORY WITH EXISTING LIST
+    public Inventory(List<Item> invList){ // CREATE INVENTORY WITH EXISTING LIST
         this.invList = invList;
     }
 
     public Inventory(){ // CREATE EMPTY INVENTORY
-        ArrayList<Item> invList = new ArrayList<Item>();
-        this.invList = invList;
+        invList = new ArrayList<Item>();
     }
 
     public void clearInventory(){
@@ -51,7 +51,7 @@ public class Inventory {
         return  invList.size();
     }
 
-    public ArrayList<Item> getInventory(){
+    public List<Item> getInventory(){
         return invList;
     }
 

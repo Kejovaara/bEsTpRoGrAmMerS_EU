@@ -13,7 +13,6 @@ public interface IPuckemon {
     void lockSpeed(boolean locked);
     void modifySpeed(int buffFactor);
 
-
     void setAttackPower(int attackPower);
     int getAttackPower();
     void lockAttackPower(boolean locked);
@@ -23,7 +22,6 @@ public interface IPuckemon {
     int getDefence();
     void lockDefence(boolean locked);
     void modifyDefence(int buffFactor);
-
 
     PTypes getType();
     int getLevel();

@@ -7,6 +7,7 @@ import model.inventories.Item;
 import model.inventories.PuckeBag;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class PuckeTrainer implements IFighter {
@@ -14,10 +15,16 @@ public class PuckeTrainer implements IFighter {
     private PuckeBag puckeBag = new PuckeBag(1, 1);
     private Inventory inventory;
 
-    public PuckeTrainer(String name, ArrayList<Puckemon> puckemons, ArrayList<Item> items){
+    public PuckeTrainer(String name, List<OwnedPuckemon> puckemons, List<Item> items){
         this.name = name;
         this.puckeBag = new PuckeBag(1,1);
         this.inventory = new Inventory(items);
+    }
+
+    public PuckeTrainer(String name, List<OwnedPuckemon> puckemons){
+        this.name = name;
+        this.puckeBag = new PuckeBag(1,1);
+        this.inventory = new Inventory();
     }
 
 //    public Puckemon selectPuckemon(){

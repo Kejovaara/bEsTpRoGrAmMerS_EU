@@ -4,16 +4,23 @@ import model.effects.IEffectContainer;
 import model.inventories.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Player implements ITrainer {
+public class Player implements ITrainer, IFighter {
     private String name = "Bamse";
     private PuckeBag puckeBag;
     private Inventory inventory;
     private int coins;
 
-    public Player(ArrayList<Puckemon> puckemons, ArrayList<Item> items, int coins){
+    public Player(List<OwnedPuckemon> puckemons, List<Item> items, int coins){
         this.puckeBag = new PuckeBag(puckemons);
         this.inventory = new Inventory(items);
+        this.coins = coins;
+    }
+
+    public Player(List<OwnedPuckemon> puckemons,  int coins){
+        this.puckeBag = new PuckeBag(puckemons);
+        this.inventory = new Inventory();
         this.coins = coins;
     }
 
@@ -56,5 +63,15 @@ public class Player implements ITrainer {
 
     private void addPuckemonToBox(Puckemon puckemon){
         addPuckemonToBox(puckemon);
+    }
+
+    @Override
+    public IEffectContainer makeMove() {
+        return null;
+    }
+
+    @Override
+    public IPuckemon getActivePuckemon() {
+        return null;
     }
 }
