@@ -14,7 +14,7 @@ public class Boot extends Game {
 
     private OrthographicCamera camera;
     public SpriteBatch batch;
-    public BitmapFont font;
+    private BitmapFont font;
 
     public InputController controller;
 
