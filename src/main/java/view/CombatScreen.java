@@ -27,14 +27,24 @@ public class CombatScreen implements Screen {
         Puckemon playerPuckemon = model.getPlayerPuckemon();
         Puckemon trainerPuckemon = model.getTrainerPuckemon();
 
-//        int playerID = playerPuckemon.getID();q
+        int playerID = 1;
+        int trainerID = 2;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
 
-        pucke1 = new Texture(Gdx.files.internal("PuckemonFront/2.png"));
-        pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
+        pucke1 = getTexture(playerID, true);
+        pucke2 = getTexture(trainerID, false);
+        //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
         background = new Texture(Gdx.files.internal("Background.png"));
+    }
+
+    Texture getTexture(int id, boolean front) {
+        if(front) {
+            return new Texture(Gdx.files.internal("PuckemonFront/" + id + ".png"));
+        }else{
+            return new Texture(Gdx.files.internal("PuckemonBack/" + id + ".png"));
+        }
     }
 
     @Override
