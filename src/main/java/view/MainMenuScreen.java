@@ -13,7 +13,7 @@ public class MainMenuScreen implements Screen {
     private int screenWidth, screenHeight;
 
     OrthographicCamera camera;
-    Texture menu;
+    Texture menu, arrow;
 
     public MainMenuScreen(final Boot game) {
         this.game = game;
@@ -33,16 +33,12 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         menu = new Texture(Gdx.files.internal("StartMenu.png"));
+        arrow = new Texture(Gdx.files.internal("Arrow.png"));
 
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to PUCKEMON!!! ", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+        game.batch.draw(menu, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
+        game.batch.draw(arrow, 260, 100, 20, 30);
         game.batch.end();
-
-        if (Gdx.input.isTouched()) {
-            game.setScreen(new CombatScreen(game));
-            dispose();
-        }
     }
 
     @Override
