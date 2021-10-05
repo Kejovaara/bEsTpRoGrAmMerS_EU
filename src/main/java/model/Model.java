@@ -9,9 +9,9 @@ import model.entities.Puckemon;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class Model {
     private OwnedPuckemon playerPuckemon = new OwnedPuckemon(1, 1);
-    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(1, 1);
+    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(1, 3);
     private List<OwnedPuckemon> playerList = new ArrayList<>();
     private List<OwnedPuckemon> trainerList = new ArrayList<>();
 
@@ -19,7 +19,7 @@ public class Main {
     private PuckeTrainer trainer;
     private Combat combat;
 
-    public Main() {
+    public Model() {
         playerList.add(playerPuckemon);
         trainerList.add(trainerPuckemon);
 
@@ -29,7 +29,11 @@ public class Main {
         combat = new Combat(player, trainer);
     }
 
+    public OwnedPuckemon getPlayerPuckemon() {
+        return playerPuckemon;
+    }
 
-
-
+    public OwnedPuckemon getTrainerPuckemon() {
+        return trainerPuckemon;
+    }
 }

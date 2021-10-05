@@ -2,18 +2,17 @@ package input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import model.Main;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
+import model.Model;
 import run.Boot;
 
 public class CombatController implements IController{
 
-    private Main main;
+    private Model model;
     private final Boot game;
 
-    public CombatController(Boot game, Main main) {
+    public CombatController(Boot game, Model model) {
         this.game = game;
-        this.main = main;
+        this.model = model;
     }
 
     @Override

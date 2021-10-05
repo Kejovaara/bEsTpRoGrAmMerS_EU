@@ -4,32 +4,36 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
-import model.Main;
+import model.Model;
+import model.entities.Puckemon;
 import run.Boot;
 
 public class CombatScreen implements Screen {
 
     final Boot game;
-    private Main main;
+    private Model model;
     private int screenWidth, screenHeight;
 
     OrthographicCamera camera;
     Texture pucke1,pucke2, background;
 
-    public CombatScreen(final Boot game, Main main) {
+    public CombatScreen(final Boot game, Model model) {
         this.game = game;
-        this.main = main;
+        this.model = model;
         this.screenWidth = game.getScreenWidth();
         this.screenHeight = game.getScreenHeight();
+
+        Puckemon playerPuckemon = model.getPlayerPuckemon();
+        Puckemon trainerPuckemon = model.getTrainerPuckemon();
+
+//        int playerID = playerPuckemon.getID();q
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
 
-        pucke1 = new Texture(Gdx.files.internal("2.png"));
-        pucke2 = new Texture(Gdx.files.internal("26.png"));
+        pucke1 = new Texture(Gdx.files.internal("PuckemonFront/2.png"));
+        pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
         background = new Texture(Gdx.files.internal("Background.png"));
     }
 

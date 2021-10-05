@@ -1,23 +1,23 @@
 package input;
 
 import run.Boot;
-import model.Main;
+import model.Model;
 
 public class InputController {
 
     private final Boot game;
-    private Main main;
+    private Model model;
 
     private IController activeController;
     private MenuController menuController;
     private CombatController combatController;
 
 
-    public InputController(Boot game, Main main) {
+    public InputController(Boot game, Model model) {
         this.game = game;
-        this.main = main;
-        this.menuController = new MenuController(game, main);
-        this.combatController = new CombatController(game, main);
+        this.model = model;
+        this.menuController = new MenuController(game, model);
+        this.combatController = new CombatController(game, model);
     }
 
 

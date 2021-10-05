@@ -5,13 +5,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import input.InputController;
-import input.MenuController;
-import model.Main;
+import model.Model;
 import view.MainMenuScreen;
 
 public class Boot extends Game {
 
-    private Main main = new Main();
+    private Model model = new Model();
 
     private OrthographicCamera camera;
     public SpriteBatch batch;
@@ -32,9 +31,9 @@ public class Boot extends Game {
         camera.setToOrtho(false, screenWidth, screenHeight);
         batch = new SpriteBatch();
         font = new BitmapFont();
-        this.setScreen(new MainMenuScreen(this, main));
+        this.setScreen(new MainMenuScreen(this, model));
 
-        controller = new InputController(this, main);
+        controller = new InputController(this, model);
         controller.switchController(InputController.Controllers.MAIN_MENU);
     }
 
