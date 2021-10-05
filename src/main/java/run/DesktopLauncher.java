@@ -15,6 +15,7 @@ public class DesktopLauncher {
         int screeHeight = 640;
 
         config.setWindowedMode(screenWidth, screeHeight);
+        config.setResizable(false);
         //config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
         new Lwjgl3Application(new Boot(screenWidth, screeHeight), config);
     }
