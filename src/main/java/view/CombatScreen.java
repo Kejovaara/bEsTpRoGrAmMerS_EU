@@ -7,11 +7,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import model.Model;
 import model.entities.Puckemon;
 import run.Boot;
@@ -22,10 +20,10 @@ public class CombatScreen implements Screen {
     private Model model;
     private int screenWidth, screenHeight;
     private ShapeRenderer shapeRenderer;
-
-    private BitmapFont MenuFont;
-
     private Stage stage;
+
+    private BitmapFont menuFont;
+    private BitmapFont combatFont;
 
     OrthographicCamera camera;
     Texture playerPuck,trainerPuck, background;
@@ -38,8 +36,8 @@ public class CombatScreen implements Screen {
 
         shapeRenderer = new ShapeRenderer();
 
-        MenuFont = new BitmapFont(Gdx.files.internal("MenuFont.fnt"), Gdx.files.internal("MenuFont.png"),false);
-        MenuFont.getData().setScale(0.5f);
+        menuFont = new BitmapFont(Gdx.files.internal("MenuFont.fnt"), Gdx.files.internal("MenuFont.png"),false);
+        menuFont.getData().setScale(0.5f);
 
         Puckemon playerPuckemon = model.getPlayerPuckemon();
         Puckemon trainerPuckemon = model.getTrainerPuckemon();
@@ -47,19 +45,19 @@ public class CombatScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
 
-        //FONT
-        //FreeTypeFontGenerator generator
+        //COMABT BOX TEXT
+        stage = new Stage();
+        combatFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
+        combatFont.getData().setScale(0.75f);
 
         Label.LabelStyle fontStyle = new Label.LabelStyle();
-        BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
-        fontStyle.font = font;
+        fontStyle.font = combatFont;
         fontStyle.fontColor = Color.BLACK;
 
-        Label label = new Label("Testtesttest",fontStyle);
-        label.setSize(10,10);
-        label.setPosition(50,50);
-
-        stage = new Stage(new ScreenViewport());
+        Label label = new Label("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec feugiat.",fontStyle);
+        label.setSize(520,10);
+        label.setPosition(30,90);
+        label.setWrap(true);
         stage.addActor(label);
 
 
@@ -115,12 +113,11 @@ public class CombatScreen implements Screen {
         shapeRenderer.end();
 
         game.batch.begin();
-        MenuFont.draw(game.batch, "Attack", 600, 140);
-        MenuFont.draw(game.batch, "Switch", 600, 60);
-        MenuFont.draw(game.batch, "Inventory", 800, 140);
-        MenuFont.draw(game.batch, "Flee", 800, 60);
+        menuFont.draw(game.batch, "Attack", 600, 140);
+        menuFont.draw(game.batch, "Switch", 600, 60);
+        menuFont.draw(game.batch, "Inventory", 800, 140);
+        menuFont.draw(game.batch, "Flee", 800, 60);
         game.batch.end();
-
         stage.draw();
     }
 
