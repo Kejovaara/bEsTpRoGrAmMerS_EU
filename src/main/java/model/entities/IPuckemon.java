@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface IPuckemon {
 
+    String getName();
+
     int getId();
 
     void setHealth(int health);

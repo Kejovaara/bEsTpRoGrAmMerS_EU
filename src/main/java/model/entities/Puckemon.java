@@ -134,10 +134,12 @@ public abstract class Puckemon implements IPuckemon {
     }
 
 
-    public String getName() {
-        return name;
-    }
     public ArrayList<Attack> getMoveSet(){return moveSet;}
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
     @Override
     public int getId() {return this.id; }
@@ -170,7 +172,6 @@ public abstract class Puckemon implements IPuckemon {
         this.speedBuffFactor += buffFactor;
         alterCurrentStats();
     }
-
 
     @Override
     public int getAttackPower() {
