@@ -31,10 +31,12 @@ public class EffectHelper {
 
     };
 
-    public static double getMultplier(PTypes attackType, PTypes defendType){
+    public static double getMultplier(PTypes attackType, PTypes defendType1, PTypes defendType2){
         int attackIndex = getIndex(attackType);
-        int defendIndex = getIndex(defendType);
-        return typeChart[attackIndex][defendIndex];
+        int defendIndex1 = getIndex(defendType1);
+        int defendIndex2 = getIndex(defendType2);
+        double multiplier = typeChart[attackIndex][defendIndex1] * typeChart[attackIndex][defendIndex2];
+        return multiplier;
     }
 
     //error hantering senare kanske;
@@ -52,7 +54,7 @@ public class EffectHelper {
     public static int calculateDamage(IPuckemon attackUser, IPuckemon opponent, int power, PTypes attackType){
         double dividendPart = (((attackUser.getLevel() * 2)/5) + 2) * power * (attackUser.getAttackPower()/opponent.getDefence());
         double dividePart = (dividendPart / 50) + 2;
-        double damage = dividePart * randomFactor() * getMultplier(attackUser.getType(),opponent.getType())*STABFactor(attackUser.getType(), attackType);
+        double damage = dividePart * randomFactor() * getMultplier(attackType,opponent.getType1(),opponent.getType2())*STABFactor(attackUser.getType1(),attackUser.getType2(), attackType);
         return (int)Math.round(damage);
     }
 
@@ -63,8 +65,8 @@ public class EffectHelper {
         return r.nextDouble() * (high-low) + high;
     }
 
-    private static double STABFactor(PTypes puckemonType, PTypes attackType){
-        if(puckemonType == attackType){
+    private static double STABFactor(PTypes puckemonType1, PTypes puckemonType2, PTypes attackType){
+        if(puckemonType1 == attackType || puckemonType2 == attackType){
             return 1.5;
         }else{
             return 1.0;

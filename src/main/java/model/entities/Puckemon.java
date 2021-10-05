@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public abstract class Puckemon {
+public abstract class Puckemon implements IPuckemon {
 
     protected int id;
     protected String name;
@@ -48,6 +48,11 @@ public abstract class Puckemon {
     protected int attackPowerBuffFactor = 0;
     protected int defenceBuffFactor = 0;
     protected int speedBuffFactor = 0;
+
+    protected boolean lockHealth = false;
+    protected boolean lockAttackPower = false;
+    protected boolean lockDefence = false;
+    protected boolean lockSpeed = false;
 
     protected ArrayList<String> moveList = new ArrayList<String>();
     protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
@@ -92,6 +97,13 @@ public abstract class Puckemon {
         }
     }
 
+    protected void unlockStats(){
+        this.lockHealth = false;
+        this.lockAttackPower = false;
+        this.lockDefence = false;
+        this.lockSpeed = false;
+    }
+
     protected void calculateLevelStats(){
         this.maxHealth = (2*baseHealth+level)/100 + level + 10;
         this.attackPower = (2*baseAttackPower+level)/100+5;
@@ -122,12 +134,89 @@ public abstract class Puckemon {
     }
 
 
-    public int getHealth() {
-        return baseHealth;
+    public ArrayList<Attack> getMoveSet(){return moveSet;}
+
+    @Override
+    public String getName() {
+        return this.name;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public int getId() {return this.id; }
+
+    @Override
+    public int getHealth() {
+        return this.currentHealth;
     }
-    public ArrayList<Attack> getMoveSet(){return moveSet;}
+
+    @Override
+    public void setHealth(int health){this.currentHealth = health;}
+
+    @Override
+    public void lockHealth() {
+        this.lockHealth = true;
+    }
+
+    @Override
+    public int getSpeed() {
+        return currentSpeed;
+    }
+
+    @Override
+    public void lockSpeed() {
+        this.lockSpeed = true;
+    }
+
+    @Override
+    public void modifySpeed(int buffFactor) {
+        this.speedBuffFactor += buffFactor;
+        alterCurrentStats();
+    }
+
+    @Override
+    public int getAttackPower() {
+        return currentAttackPower;
+    }
+
+    @Override
+    public void lockAttackPower() {
+        this.lockAttackPower = true;
+    }
+
+    @Override
+    public void modifyAttackPower(int buffFactor) {
+        this.attackPowerBuffFactor += buffFactor;
+        alterCurrentStats();
+    }
+
+    @Override
+    public int getDefence() {
+        return currentDefence;
+    }
+
+    @Override
+    public void lockDefence() {
+        this.lockDefence = true;
+    }
+
+    @Override
+    public void modifyDefence(int buffFactor) {
+        this.defenceBuffFactor += buffFactor;
+        alterCurrentStats();
+    }
+
+    @Override
+    public PTypes getType1() {
+        return this.type1;
+    }
+
+    @Override
+    public PTypes getType2() {
+        return this.type2;
+    }
+
+    @Override
+    public int getLevel() {
+        return level;
+    }
 }
