@@ -6,8 +6,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import model.Model;
 import model.entities.Puckemon;
 import run.Boot;
@@ -17,6 +20,7 @@ public class CombatScreen implements Screen {
     final Boot game;
     private Model model;
     private int screenWidth, screenHeight;
+    private Stage stage;
 
     OrthographicCamera camera;
     Texture playerPuck,trainerPuck, background;
@@ -34,12 +38,20 @@ public class CombatScreen implements Screen {
         camera.setToOrtho(false);
 
         //FONT
+        //FreeTypeFontGenerator generator
+
         Label.LabelStyle fontStyle = new Label.LabelStyle();
-        BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.ttf"));
+        BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         fontStyle.font = font;
         fontStyle.fontColor = Color.BLACK;
 
-        Label label = new Label("Test text 123",fontStyle);
+        Label label = new Label("Testtesttest",fontStyle);
+        label.setSize(10,10);
+        label.setPosition(50,50);
+
+        stage = new Stage(new ScreenViewport());
+        stage.addActor(label);
+
 
 
         playerPuck = getTexture(playerPuckemon.getId(), false);
@@ -67,8 +79,9 @@ public class CombatScreen implements Screen {
         game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.draw(trainerPuck, 600, 400, 128, 128);
         game.batch.draw(playerPuck, 200, 167, 128, 128);
-
         game.batch.end();
+
+        stage.draw();
     }
 
     @Override
