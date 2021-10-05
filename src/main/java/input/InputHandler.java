@@ -15,7 +15,7 @@ public class InputHandler implements KeyListener {
     public Key left = new Key("left");
     public Key right = new Key("right");
     public Key w = new Key("w");
-    public Key a = new Key("a");
+    public Key a = new Key("back");
     public Key s = new Key("s");
     public Key d = new Key("d");
     // public Key m = new Key("m"); // MAYBE FOR BIG MAP LATER ON

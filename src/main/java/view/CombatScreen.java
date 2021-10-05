@@ -16,7 +16,7 @@ public class CombatScreen implements Screen {
     private int screenWidth, screenHeight;
 
     OrthographicCamera camera;
-    Texture pucke1,pucke2, background;
+    Texture playerPuck,trainerPuck, background;
 
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
@@ -27,23 +27,20 @@ public class CombatScreen implements Screen {
         Puckemon playerPuckemon = model.getPlayerPuckemon();
         Puckemon trainerPuckemon = model.getTrainerPuckemon();
 
-        int playerID = 1;
-        int trainerID = 2;
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
 
-        pucke1 = getTexture(playerID, true);
-        pucke2 = getTexture(trainerID, false);
+        playerPuck = getTexture(playerPuckemon.getId(), false);
+        trainerPuck = getTexture(trainerPuckemon.getId(), true);
         //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
         background = new Texture(Gdx.files.internal("Background.png"));
     }
 
     Texture getTexture(int id, boolean front) {
         if(front) {
-            return new Texture(Gdx.files.internal("PuckemonFront/" + id + ".png"));
+            return new Texture(Gdx.files.internal("front/" + id + ".png"));
         }else{
-            return new Texture(Gdx.files.internal("PuckemonBack/" + id + ".png"));
+            return new Texture(Gdx.files.internal("back/" + id + ".png"));
         }
     }
 
@@ -56,8 +53,8 @@ public class CombatScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
-        game.batch.draw(pucke1, 600, 400, 128, 128);
-        game.batch.draw(pucke2, 200, 167, 128, 128);
+        game.batch.draw(trainerPuck, 600, 400, 128, 128);
+        game.batch.draw(playerPuck, 200, 167, 128, 128);
         game.batch.end();
     }
 

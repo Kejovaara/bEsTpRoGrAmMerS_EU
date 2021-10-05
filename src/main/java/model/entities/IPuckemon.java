@@ -12,21 +12,19 @@ public interface IPuckemon {
 
     void setHealth(int health);
     int getHealth();
-    void lockHealth(boolean locked);
+    void lockHealth();
 
-    void setSpeed(int speed);
     int getSpeed();
-    void lockSpeed(boolean locked);
+    void lockSpeed();
     void modifySpeed(int buffFactor);
 
 
     int getAttackPower();
-    void lockAttackPower(boolean locked);
+    void lockAttackPower();
     void modifyAttackPower(int buffFactor);
 
-    void setDefence(int defence);
     int getDefence();
-    void lockDefence(boolean locked);
+    void lockDefence();
     void modifyDefence(int buffFactor);
 
 
