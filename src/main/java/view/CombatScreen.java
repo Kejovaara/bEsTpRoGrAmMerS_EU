@@ -52,7 +52,7 @@ public class CombatScreen implements Screen {
         game.font.draw(game.batch, "Tap anywhere to begin!", 100, 200);
         game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.draw(pucke1, 600, 400, 128, 128);
-        game.batch.draw(pucke2, 200, 165, 128, 128);
+        game.batch.draw(pucke2, 200, 167, 128, 128);
         game.batch.end();
 
 
