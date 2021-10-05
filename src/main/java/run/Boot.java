@@ -45,8 +45,6 @@ public class Boot extends Game {
         font.dispose();
     }
 
-
-
     public int getScreenWidth() {
         return screenWidth;
     }

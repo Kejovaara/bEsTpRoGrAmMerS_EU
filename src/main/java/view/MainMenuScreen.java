@@ -3,6 +3,7 @@ package view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import run.Boot;
 
@@ -12,6 +13,7 @@ public class MainMenuScreen implements Screen {
     private int screenWidth, screenHeight;
 
     OrthographicCamera camera;
+    Texture menu;
 
     public MainMenuScreen(final Boot game) {
         this.game = game;
@@ -29,6 +31,8 @@ public class MainMenuScreen implements Screen {
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
+
+        menu = new Texture(Gdx.files.internal("StartMenu.png"));
 
         game.batch.begin();
         game.font.draw(game.batch, "Welcome to PUCKEMON!!! ", 100, 150);
