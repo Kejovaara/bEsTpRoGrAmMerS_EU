@@ -40,6 +40,10 @@ public class InputController {
         }
     }
 
+    public void setActiveController(IController controller){
+        activeController = controller;
+    }
+
     public void update(){
         if(activeController != null) activeController.update();
     }

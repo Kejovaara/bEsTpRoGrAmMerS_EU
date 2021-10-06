@@ -9,6 +9,7 @@ import model.effects.IEffectContainer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public abstract class Puckemon implements IPuckemon {
 
@@ -134,7 +135,7 @@ public abstract class Puckemon implements IPuckemon {
     }
 
 
-    public ArrayList<Attack> getMoveSet(){return moveSet;}
+    public List<Attack> getMoveSet(){return moveSet;}
 
     @Override
     public String getName() {

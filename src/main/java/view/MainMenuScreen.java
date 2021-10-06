@@ -42,6 +42,7 @@ public class MainMenuScreen implements Screen {
         game.batch.draw(menu, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.draw(arrow, 260, 100, 20, 30);
         game.batch.end();
+
     }
 
     @Override
