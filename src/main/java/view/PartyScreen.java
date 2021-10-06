@@ -20,18 +20,18 @@ public class PartyScreen implements Screen {
 
     final Boot game;
     private Model model;
-    private int screenWidth, screenHeight;
     private List<Puckemon> party;
     private BitmapFont partyFont;
+    private int targetIndex = 0;
+    private int lastTarget = 1;
 
     OrthographicCamera camera;
-    Texture bigRectangle, background, mon1, mon2, mon3, mon4, mon5, mon6, smallRectangle;
+    Texture bigRectangle, background, mon1, mon2, mon3, mon4, mon5, mon6, smallRectangle, targetSmallRectangle, targetBigRectangle;
 
     public PartyScreen(final Boot game, Model model) {
         this.game = game;
         this.model = model;
-        this.screenWidth = game.getScreenWidth();
-        this.screenHeight = game.getScreenHeight();
+
 
         partyFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
         partyFont.getData().setScale(0.75f);
@@ -57,6 +57,9 @@ public class PartyScreen implements Screen {
         mon4 = new Texture(Gdx.files.internal("front/" + getPuckeId(3) + ".png"));
         mon5 = new Texture(Gdx.files.internal("front/" + getPuckeId(4) + ".png"));
         mon6 = new Texture(Gdx.files.internal("front/" + getPuckeId(5) + ".png"));
+        targetSmallRectangle = new Texture(Gdx.files.internal("partyAssets/targetSmallRectangle.png"));
+        targetBigRectangle = new Texture(Gdx.files.internal("partyAssets/targetBigRectangle.png"));
+
 
     }
 
@@ -101,15 +104,62 @@ public class PartyScreen implements Screen {
         }
     }
 
+    public void moveTargetIndexUpDown(boolean up){
+        if(up && (targetIndex==0 )){
+            targetIndex = party.size()-1;
+        } else if(up){
+            targetIndex--;
+        }
+        if(!up && targetIndex==party.size()-1){
+            targetIndex = 0;
+        }else if(!up){
+            targetIndex--;
+        }
+        System.out.println(targetIndex);
+    }
+
+    public void moveTargetIndexRightLeft(boolean right){
+        if(targetIndex!=0){
+           lastTarget = targetIndex;
+        }
+
+        if(right && targetIndex > 0){
+            targetIndex = 0;
+        }
+        if(right && targetIndex == 0){
+            targetIndex = lastTarget;
+        }
+        if(!right && targetIndex > 0){
+            targetIndex = 0;
+        } else{
+            targetIndex = lastTarget;
+        }
+        System.out.println(targetIndex);
+    }
+
+    private Texture drawRectangle(int index){
+        if (targetIndex == 0 && index == 0){
+            return targetBigRectangle;
+        }
+        if (targetIndex != 0 && index == 0){
+            return bigRectangle;
+        }
+        if (targetIndex == index){
+            return targetSmallRectangle;
+        }else{
+            return smallRectangle;
+        }
+    }
+
     private void drawParty(){
-        game.batch.draw(bigRectangle, 32,640-(165+57),328,165);
+        game.batch.draw(drawRectangle(0), 32,640-(165+57),328,165);
         game.batch.draw(mon1, 26,640-(116+49),116,116);
         partyFont.draw(game.batch, ("LV. "+getPuckeLevel(0)),135,640-(110));
         partyFont.draw(game.batch, getPuckeName(0), 135, 640-(80));
         partyFont.draw(game.batch, (getPuckeCurrentHP(0)+"/"+getPuckeMaxHP(0)), 265, 640-(180));
 
         for (int i = 0; i < party.size()-1;i++){
-            game.batch.draw(smallRectangle, 403,640-(163+109*i),518,93);
+            game.batch.draw(drawRectangle(i+1), 403,640-(163+109*i),518,93);
             game.batch.draw(getPuckemonTexture(i), 410,640-(158+109*i),85,85);
             partyFont.draw(game.batch, getPuckeName(i+1), 505, 640-(80+109*i));
             partyFont.draw(game.batch, (getPuckeCurrentHP(i+1)+"/"+getPuckeMaxHP(i+1)), 800, 640-(130+109*i));

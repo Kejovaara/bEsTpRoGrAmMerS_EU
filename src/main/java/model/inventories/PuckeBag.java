@@ -24,7 +24,6 @@ public class PuckeBag {
             }else{
                 addToInactiveParty(puckemons.get(i));
             }
-
         }
     }
 
