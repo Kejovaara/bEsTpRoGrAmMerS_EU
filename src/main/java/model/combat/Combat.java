@@ -5,6 +5,7 @@ import model.effects.IEffectContainer;
 import model.entities.IFighter;
 import model.entities.IPuckemon;
 import model.entities.ITrainer;
+import model.entities.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,9 @@ public class Combat {
 
     IFighter fighter1;
     IFighter fighter2;
+
+    IFighter fighter;
+    Player player;
 
     private List<IEffect> playerDOTEffects = new ArrayList<>();
     private List<IEffect> opponentDOTEffects = new ArrayList<>();
@@ -27,12 +31,17 @@ public class Combat {
         enterCombat(this.fighter1, this.fighter2);
     }
 
+    public Combat(Player player, IFighter fighter){
+        this.player = player;
+        this.fighter = fighter;
+    }
+
     public void enterCombat(IFighter player, IFighter opponent){
         players.add(this.fighter1);
         players.add(this.fighter2);
     }
 
-    public void doTurn(){
+    /*public void doTurn(){
         IEffectContainer f1Move = fighter1.makeMove();
         IPuckemon f1Puckemon = fighter1.getActivePuckemon();
         IEffectContainer f2Move = fighter2.makeMove();
@@ -48,6 +57,9 @@ public class Combat {
         }
 
 
+    }*/
+
+    public void usePlayerAttack(int index){
     }
 
     private void executeEffects(List<IEffect> effects, IPuckemon attackUser, IPuckemon opponent){

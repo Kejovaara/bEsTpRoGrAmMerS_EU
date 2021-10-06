@@ -56,6 +56,7 @@ public class CombatController implements IController{
 
         if(!getScreen().isMainCombatMenu() && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             if(getScreen().getCursorIndex() == model.getPlayerPuckemon().getMoveSet().size()) getScreen().setMainCombatMenu(true); //Press Attack option
+            else model. //Press Attack option
         }
     }
 }

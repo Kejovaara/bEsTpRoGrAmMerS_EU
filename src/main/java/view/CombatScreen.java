@@ -24,6 +24,7 @@ public class CombatScreen implements Screen {
 
     private BitmapFont menuFont;
     private BitmapFont combatFont;
+    private BitmapFont statsFont;
 
     OrthographicCamera camera;
     Texture playerPuck,trainerPuck, background, cursorTexture;
@@ -46,6 +47,9 @@ public class CombatScreen implements Screen {
         //Menu Font
         menuFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
         menuFont.getData().setScale(0.75f);
+
+        statsFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
+        statsFont.getData().setScale(0.5f);
 
         playerPuckemon = model.getPlayerPuckemon();
         trainerPuckemon = model.getTrainerPuckemon();
@@ -105,10 +109,56 @@ public class CombatScreen implements Screen {
         //game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.end();
 
+        drawPuckeStats();
+
         if (mainCombatMenu) drawMainCombatMenu();
         else drawCombatAttackMenu();
 
 
+    }
+
+
+    private void drawPuckeStats(){
+
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(1,1,1,1);
+        shapeRenderer.rect(40,this.camera.viewportHeight-140, 400, 120);
+        shapeRenderer.rect(this.camera.viewportWidth-440,200, 400, 120);
+
+        //HP BARS
+        shapeRenderer.setColor(0.7f,0.7f,0.7f,1);
+        shapeRenderer.rect(60, this.camera.viewportHeight-100, 360,40);
+        shapeRenderer.setColor(0.698f, 1, 0.729f,1);
+        shapeRenderer.rect(60, this.camera.viewportHeight-100,((float)trainerPuckemon.getHealth()/trainerPuckemon.getMaxHealth())*360,40);
+
+        shapeRenderer.setColor(0.7f,0.7f,0.7f,1);
+        shapeRenderer.rect(this.camera.viewportWidth-420, 240, 360,40);
+        shapeRenderer.setColor(0.698f, 1, 0.729f,1);
+        shapeRenderer.rect(this.camera.viewportWidth-420, 240, ((float)playerPuckemon.getHealth()/playerPuckemon.getMaxHealth())*360,40);
+
+        shapeRenderer.end();
+
+        Gdx.gl.glLineWidth(4);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(0,0,0,1);
+        shapeRenderer.rect(40,this.camera.viewportHeight-140, 400, 120);
+        shapeRenderer.rect(this.camera.viewportWidth-440,200, 400, 120);
+        shapeRenderer.end();
+
+
+
+        game.batch.begin();
+        statsFont.setColor(0,0,0,1);
+        statsFont.draw(game.batch, trainerPuckemon.getName(),60,this.camera.viewportHeight-40);
+        statsFont.draw(game.batch, "Lv "+trainerPuckemon.getLevel(),360,this.camera.viewportHeight-40);
+
+        statsFont.draw(game.batch, playerPuckemon.getName(),this.camera.viewportWidth-420,300);
+        statsFont.draw(game.batch, "Lv "+playerPuckemon.getLevel(),this.camera.viewportWidth-120,300);
+        statsFont.draw(game.batch, playerPuckemon.getHealth() + " / " + playerPuckemon.getMaxHealth(),this.camera.viewportWidth-120,230);
+
+
+        game.batch.end();
     }
 
     private void drawMainCombatMenu(){
@@ -119,14 +169,10 @@ public class CombatScreen implements Screen {
         shapeRenderer.rect(560,0,400, 180);
         shapeRenderer.end();
 
-        Gdx.gl.glLineWidth(4);
+        Gdx.gl.glLineWidth(6);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(0,0,0,1);
         shapeRenderer.rect(0,0,960, 180);
-        shapeRenderer.end();
-
-        Gdx.gl.glLineWidth(6);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.rect(560,0,400, 180);
         shapeRenderer.end();
 

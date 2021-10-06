@@ -59,7 +59,7 @@ public class OwnedPuckemon extends Puckemon {
 
 
     public int getHealth() {
-        return baseHealth;
+        return currentHealth;
     }
     public String getName() {
         return name;

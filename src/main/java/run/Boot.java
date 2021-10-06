@@ -19,11 +19,7 @@ public class Boot extends Game {
     public SpriteBatch batch;
     private BitmapFont font;
 
-
-
     int screenWidth, screenHeight;
-
-
 
     public Boot(int screenHeight, int screenWidth){
         this.screenWidth = screenWidth;

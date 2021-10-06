@@ -82,6 +82,7 @@ public abstract class Puckemon implements IPuckemon {
         this.moveList = monRegisterInterpreter.getMoveList(id);
         System.out.println(name);
         calculateLevelStats();
+        this.currentHealth = this.maxHealth;
     }
 
     protected void fillMoveSet(){
@@ -152,6 +153,10 @@ public abstract class Puckemon implements IPuckemon {
 
     @Override
     public void setHealth(int health){this.currentHealth = health;}
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
 
     @Override
     public void lockHealth() {

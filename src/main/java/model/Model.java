@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Model {
     private OwnedPuckemon playerPuckemon = new OwnedPuckemon(1, 1);
-    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(1, 3);
+    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(4, 3);
     private List<OwnedPuckemon> playerList = new ArrayList<>();
     private List<OwnedPuckemon> trainerList = new ArrayList<>();
 
@@ -36,5 +36,9 @@ public class Model {
 
     public OwnedPuckemon getTrainerPuckemon() {
         return trainerPuckemon;
+    }
+
+    public void useAttack(int index){
+
     }
 }
