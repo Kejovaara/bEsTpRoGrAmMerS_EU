@@ -31,18 +31,18 @@ public class Combat {
         players.add(this.fighter1);
         players.add(this.fighter2);
     }
-    
+
     public void doTurn(){
         IEffectContainer f1Move = fighter1.makeMove();
         IPuckemon f1Puckemon = fighter1.getActivePuckemon();
         IEffectContainer f2Move = fighter2.makeMove();
         IPuckemon f2Puckemon = fighter2.getActivePuckemon();
 
-        
+
         if(f1Move.getPriority() < f2Move.getPriority()){
             executeEffects(f1Move.getEffects(), f1Puckemon, f2Puckemon);
             executeEffects(f2Move.getEffects(), f2Puckemon, f1Puckemon);
-        }else if(){
+        }else if(f1Move.getPriority() > f2Move.getPriority()){
             executeEffects(f2Move.getEffects(), f2Puckemon, f1Puckemon);
             executeEffects(f1Move.getEffects(), f1Puckemon, f2Puckemon);
         }

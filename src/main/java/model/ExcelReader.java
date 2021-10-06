@@ -32,6 +32,7 @@ public class ExcelReader {
             excelData.add((int) row.getCell(7).getNumericCellValue());
             excelData.add((int) row.getCell(8).getNumericCellValue());
             excelData.add((int) row.getCell(9).getNumericCellValue());
+            excelData.add(row.getCell(11).getStringCellValue());
 
             file.close();
         }

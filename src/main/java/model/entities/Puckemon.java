@@ -3,11 +3,16 @@ package model.entities;
 import model.MonRegisterInterpreter;
 import model.PTypes;
 import model.attack.Attack;
+import model.attack.AttackFactory;
+import model.effects.IEffectContainer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
-public abstract class Puckemon {
+public abstract class Puckemon implements IPuckemon {
 
+    protected int id;
     protected String name;
     protected PTypes type1;
     protected PTypes type2;
@@ -44,16 +49,26 @@ public abstract class Puckemon {
     protected int defenceBuffFactor = 0;
     protected int speedBuffFactor = 0;
 
-    protected ArrayList<Attack> moveList = new ArrayList<Attack>();
+    protected boolean lockHealth = false;
+    protected boolean lockAttackPower = false;
+    protected boolean lockDefence = false;
+    protected boolean lockSpeed = false;
+
+    protected ArrayList<String> moveList = new ArrayList<String>();
     protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
     private MonRegisterInterpreter monRegisterInterpreter = new MonRegisterInterpreter();
 
     public Puckemon(int id, int level){
+        this.id = id;
         buildPuckemon(id);
+        fillMoveSet();
+        System.out.println(Arrays.toString(moveSet.toArray()));
+
         this.level = level;
     }
 
     protected void buildPuckemon(int id){
+        this.id = id;
         this.name = monRegisterInterpreter.getName(id);
         this.type1 = monRegisterInterpreter.getType1(id);
         this.type2 = monRegisterInterpreter.getType2(id);
@@ -63,9 +78,30 @@ public abstract class Puckemon {
         this.baseSpeed = monRegisterInterpreter.getBaseSpeed(id);
         this.evolutionLevel = monRegisterInterpreter.getEvolutionLevel(id);
         this.evolutionID = monRegisterInterpreter.getEvolutionId(id);
+        this.moveList = monRegisterInterpreter.getMoveList(id);
         System.out.println(name);
         calculateLevelStats();
+    }
 
+    protected void fillMoveSet(){
+        if (moveList.size() <= 4){
+            for (int i = 0; i < moveList.size(); i++){
+                moveSet.add(AttackFactory.createByName(moveList.get(i)));
+            }
+        } else{
+            ArrayList<String> randList = new ArrayList<>(moveList);
+            Collections.shuffle(randList);
+            for (int i = 0; i < 3; i++) {
+                moveSet.add(AttackFactory.createByName(moveList.get(i)));
+            }
+        }
+    }
+
+    protected void unlockStats(){
+        this.lockHealth = false;
+        this.lockAttackPower = false;
+        this.lockDefence = false;
+        this.lockSpeed = false;
     }
 
     protected void calculateLevelStats(){
@@ -93,16 +129,94 @@ public abstract class Puckemon {
         }
     }
 
-//    public IEffectContainer getAttack(int i) {
-//        return moveSet.get(i);
-//    }
-
-
-    public int getHealth() {
-        return baseHealth;
+    public IEffectContainer getAttack(int i) {
+        return moveSet.get(i);
     }
 
+
+    public ArrayList<Attack> getMoveSet(){return moveSet;}
+
+    @Override
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    @Override
+    public int getId() {return this.id; }
+
+    @Override
+    public int getHealth() {
+        return this.currentHealth;
+    }
+
+    @Override
+    public void setHealth(int health){this.currentHealth = health;}
+
+    @Override
+    public void lockHealth() {
+        this.lockHealth = true;
+    }
+
+    @Override
+    public int getSpeed() {
+        return currentSpeed;
+    }
+
+    @Override
+    public void lockSpeed() {
+        this.lockSpeed = true;
+    }
+
+    @Override
+    public void modifySpeed(int buffFactor) {
+        this.speedBuffFactor += buffFactor;
+        alterCurrentStats();
+    }
+
+    @Override
+    public int getAttackPower() {
+        return currentAttackPower;
+    }
+
+    @Override
+    public void lockAttackPower() {
+        this.lockAttackPower = true;
+    }
+
+    @Override
+    public void modifyAttackPower(int buffFactor) {
+        this.attackPowerBuffFactor += buffFactor;
+        alterCurrentStats();
+    }
+
+    @Override
+    public int getDefence() {
+        return currentDefence;
+    }
+
+    @Override
+    public void lockDefence() {
+        this.lockDefence = true;
+    }
+
+    @Override
+    public void modifyDefence(int buffFactor) {
+        this.defenceBuffFactor += buffFactor;
+        alterCurrentStats();
+    }
+
+    @Override
+    public PTypes getType1() {
+        return this.type1;
+    }
+
+    @Override
+    public PTypes getType2() {
+        return this.type2;
+    }
+
+    @Override
+    public int getLevel() {
+        return level;
     }
 }

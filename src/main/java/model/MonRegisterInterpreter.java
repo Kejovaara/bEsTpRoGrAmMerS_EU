@@ -4,6 +4,8 @@ import model.attack.Attack;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MonRegisterInterpreter {
     ArrayList baseStats;
@@ -42,5 +44,9 @@ public class MonRegisterInterpreter {
     public int getEvolutionId(int id){
         return (int) interpretMonRegister(id).get(8);
     }
-
+    public ArrayList<String> getMoveList(int id) {
+        String s = (String) interpretMonRegister(id).get(9);
+        ArrayList<String> moveList = new ArrayList<String>(Arrays.asList(s.split(",")));
+        return moveList;
+    }
 }
