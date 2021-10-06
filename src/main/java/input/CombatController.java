@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import model.Model;
 import run.Boot;
+import view.CombatScreen;
+import view.InventoryScreen;
 
 public class CombatController implements IController{
 
@@ -19,6 +21,12 @@ public class CombatController implements IController{
     public void update() {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.I)){
+            System.out.println("INVENTORY");
+            game.setScreen(new InventoryScreen(game, model));
+            game.controller.switchController(InputController.Controllers.INVENTORY);
         }
     }
 }

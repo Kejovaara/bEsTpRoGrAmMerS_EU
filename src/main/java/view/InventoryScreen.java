@@ -71,12 +71,6 @@ public class InventoryScreen implements Screen {
 
     }
 
-
-    @Override
-    public void show() {
-
-    }
-
     @Override
     public void render(float v) {
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
@@ -84,8 +78,16 @@ public class InventoryScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
+        stage.act();
+        stage.draw();
+    }
+
+    @Override
+    public void show() {
 
     }
+
+
 
     @Override
     public void resize(int i, int i1) {
