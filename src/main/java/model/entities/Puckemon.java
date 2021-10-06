@@ -63,7 +63,6 @@ public abstract class Puckemon implements IPuckemon {
         this.id = id;
         buildPuckemon(id);
         fillMoveSet();
-        System.out.println(Arrays.toString(moveSet.toArray()));
 
         this.level = level;
     }
@@ -80,8 +79,8 @@ public abstract class Puckemon implements IPuckemon {
         this.evolutionLevel = monRegisterInterpreter.getEvolutionLevel(id);
         this.evolutionID = monRegisterInterpreter.getEvolutionId(id);
         this.moveList = monRegisterInterpreter.getMoveList(id);
-        System.out.println(name);
         calculateLevelStats();
+        this.currentHealth = this.maxHealth;
     }
 
     protected void fillMoveSet(){
@@ -149,6 +148,9 @@ public abstract class Puckemon implements IPuckemon {
     public int getHealth() {
         return this.currentHealth;
     }
+
+    @Override
+    public int getMaxHealth(){return this.maxHealth;}
 
     @Override
     public void setHealth(int health){this.currentHealth = health;}

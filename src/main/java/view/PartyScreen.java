@@ -77,6 +77,14 @@ public class PartyScreen implements Screen {
         return party.get(index).getHealth();
     }
 
+    private int getPuckeMaxHP(int index){
+        return party.get(index).getMaxHealth();
+    }
+
+    private int getPuckeLevel(int index){
+        return party.get(index).getLevel();
+    }
+
     private Texture getPuckemonTexture(int index){
         switch (index) {
             case 0:
@@ -96,13 +104,16 @@ public class PartyScreen implements Screen {
     private void drawParty(){
         game.batch.draw(bigRectangle, 32,640-(165+57),328,165);
         game.batch.draw(mon1, 26,640-(116+49),116,116);
-        partyFont.draw(game.batch, getPuckeName(0), 141, 640-(80));
+        partyFont.draw(game.batch, ("LV. "+getPuckeLevel(0)),135,640-(110));
+        partyFont.draw(game.batch, getPuckeName(0), 135, 640-(80));
+        partyFont.draw(game.batch, (getPuckeCurrentHP(0)+"/"+getPuckeMaxHP(0)), 265, 640-(180));
 
         for (int i = 0; i < party.size()-1;i++){
             game.batch.draw(smallRectangle, 403,640-(163+109*i),518,93);
             game.batch.draw(getPuckemonTexture(i), 410,640-(158+109*i),85,85);
             partyFont.draw(game.batch, getPuckeName(i+1), 505, 640-(80+109*i));
-            partyFont.draw(game.batch, (getPuckeCurrentHP(i)+"/"), 505, 640-(80+109*i));
+            partyFont.draw(game.batch, (getPuckeCurrentHP(i+1)+"/"+getPuckeMaxHP(i+1)), 800, 640-(130+109*i));
+            partyFont.draw(game.batch, ("LV. "+getPuckeLevel(i+1)),505,640-(110+109*i));
         }
     }
 
