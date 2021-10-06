@@ -47,6 +47,7 @@ public class PuckeBag {
     }
 
 
+    public List<Puckemon> getParty(){ return party;}
     public void setActivePuckemon(int index) {
         switchPuckemon(index);
     }
