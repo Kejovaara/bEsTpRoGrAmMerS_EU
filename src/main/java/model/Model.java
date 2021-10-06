@@ -30,15 +30,15 @@ public class Model {
         combat = new Combat(player, trainer);
     }
 
-    public OwnedPuckemon getPlayerPuckemon() {
-        return playerPuckemon;
+    public Puckemon getPlayerPuckemon() {
+        return player.getPuckemon();
     }
 
-    public OwnedPuckemon getTrainerPuckemon() {
-        return trainerPuckemon;
+    public Puckemon getTrainerPuckemon() {
+        return trainer.getPuckemon();
     }
 
     public void useAttack(int index){
-
+        combat.usePlayerAttack(index);
     }
 }

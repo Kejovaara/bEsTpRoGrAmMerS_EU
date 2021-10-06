@@ -82,7 +82,10 @@ public abstract class Puckemon implements IPuckemon {
         this.moveList = monRegisterInterpreter.getMoveList(id);
         System.out.println(name);
         calculateLevelStats();
+
+        //TODO: where should these be initialized
         this.currentHealth = this.maxHealth;
+        this.currentDefence = this.defence;
     }
 
     protected void fillMoveSet(){

@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import model.entities.Puckemon;
+import org.lwjgl.Sys;
 import run.Boot;
 
 public class CombatScreen implements Screen {
@@ -145,8 +146,6 @@ public class CombatScreen implements Screen {
         shapeRenderer.rect(40,this.camera.viewportHeight-140, 400, 120);
         shapeRenderer.rect(this.camera.viewportWidth-440,200, 400, 120);
         shapeRenderer.end();
-
-
 
         game.batch.begin();
         statsFont.setColor(0,0,0,1);

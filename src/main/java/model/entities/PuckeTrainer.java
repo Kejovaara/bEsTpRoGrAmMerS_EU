@@ -17,13 +17,13 @@ public class PuckeTrainer implements IFighter {
 
     public PuckeTrainer(String name, List<OwnedPuckemon> puckemons, List<Item> items){
         this.name = name;
-        this.puckeBag = new PuckeBag(1,1);
+        this.puckeBag = new PuckeBag(puckemons);
         this.inventory = new Inventory(items);
     }
 
     public PuckeTrainer(String name, List<OwnedPuckemon> puckemons){
         this.name = name;
-        this.puckeBag = new PuckeBag(1,1);
+        this.puckeBag = new PuckeBag(puckemons);
         this.inventory = new Inventory();
     }
 
@@ -34,18 +34,22 @@ public class PuckeTrainer implements IFighter {
 
 public IEffectContainer makeMove() {
         Random rand = new Random(); //instance of random class
-       int upperbound = 4;
+       int upperbound = puckeBag.getActivePuckemon().getMoveSet().size();
        //generate random values from 0-3
         int int_random = rand.nextInt(upperbound);
 
         //TODO: Fix so that it gets random attack
-        //return puckeBag.getNextPuckemon().getAttack(int_random);
-        return AttackFactory.getTackle();
+        return puckeBag.getActivePuckemon().getAttack(int_random);
+        //return AttackFactory.getTackle();
     }
 
     @Override
     public IPuckemon getActivePuckemon() {
-        return null;
+        return puckeBag.getActivePuckemon();
+    }
+
+    public Puckemon getPuckemon(){
+        return puckeBag.getActivePuckemon();
     }
 
     public void addItem(Item item){ inventory.addItem(item);}

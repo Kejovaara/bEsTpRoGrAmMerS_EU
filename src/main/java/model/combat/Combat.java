@@ -1,5 +1,6 @@
 package model.combat;
 
+import model.attack.Attack;
 import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IFighter;
@@ -60,6 +61,22 @@ public class Combat {
     }*/
 
     public void usePlayerAttack(int index){
+        IPuckemon playerPuckemon = player.getPuckemon();
+        IEffectContainer attack = player.getPuckemon().getAttack(index);
+        IEffectContainer fighterMove = fighter.makeMove();
+        IPuckemon fighterPuckemon = fighter.getActivePuckemon();
+
+        int pdiff = playerPuckemon.getHealth();
+        int fdiff = fighterPuckemon.getHealth();
+        if(attack.getPriority() < fighterMove.getPriority()){
+            executeEffects(attack.getEffects(), playerPuckemon, fighterPuckemon);
+            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+        }else{
+            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+            executeEffects(attack.getEffects(), playerPuckemon, fighterPuckemon);
+        }
+
+        System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
     }
 
     private void executeEffects(List<IEffect> effects, IPuckemon attackUser, IPuckemon opponent){

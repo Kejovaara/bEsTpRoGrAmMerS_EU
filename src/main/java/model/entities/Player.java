@@ -74,4 +74,8 @@ public class Player implements ITrainer, IFighter {
     public IPuckemon getActivePuckemon() {
         return null;
     }
+
+    public Puckemon getPuckemon(){
+        return puckeBag.getActivePuckemon();
+    }
 }
