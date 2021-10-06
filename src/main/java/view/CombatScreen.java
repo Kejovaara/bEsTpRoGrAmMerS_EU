@@ -36,8 +36,9 @@ public class CombatScreen implements Screen {
 
         shapeRenderer = new ShapeRenderer();
 
-        menuFont = new BitmapFont(Gdx.files.internal("MenuFont.fnt"), Gdx.files.internal("MenuFont.png"),false);
-        menuFont.getData().setScale(0.5f);
+        //menuFont = new BitmapFont(Gdx.files.internal("MenuFont.fnt"), Gdx.files.internal("MenuFont.png"),false);
+        menuFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
+        menuFont.getData().setScale(0.75f);
 
         Puckemon playerPuckemon = model.getPlayerPuckemon();
         Puckemon trainerPuckemon = model.getTrainerPuckemon();
@@ -113,6 +114,7 @@ public class CombatScreen implements Screen {
         shapeRenderer.end();
 
         game.batch.begin();
+        menuFont.setColor(0,0,0,1);
         menuFont.draw(game.batch, "Attack", 600, 140);
         menuFont.draw(game.batch, "Switch", 600, 60);
         menuFont.draw(game.batch, "Inventory", 800, 140);
