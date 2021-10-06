@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import model.entities.Puckemon;
@@ -18,6 +19,7 @@ public class PartyScreen implements Screen {
     private Model model;
     private int screenWidth, screenHeight;
     private List<Puckemon> party;
+    private BitmapFont menuFont;
 
     OrthographicCamera camera;
     Texture bigRectangle, background, mon1, mon2, mon3, mon4, mon5, mon6, smallRectangle;
@@ -27,6 +29,9 @@ public class PartyScreen implements Screen {
         this.model = model;
         this.screenWidth = game.getScreenWidth();
         this.screenHeight = game.getScreenHeight();
+
+        menuFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
+        menuFont.getData().setScale(0.75f);
 
         this.party = model.getParty();
 
@@ -58,6 +63,15 @@ public class PartyScreen implements Screen {
         }
     }
 
+    private String getPuckeName(int index){
+        try {
+            return party.get(index).getName();
+        }
+        catch(Exception e){
+            return "MissingNO";
+        }
+    }
+
     private Texture getPuckemonTexture(int index){
         switch (index) {
             case 0:
@@ -77,10 +91,12 @@ public class PartyScreen implements Screen {
     private void drawParty(){
         game.batch.draw(bigRectangle, 32,640-(165+57),328,165);
         game.batch.draw(mon1, 26,640-(116+49),116,116);
+        menuFont.draw(game.batch, getPuckeName(0), 151, 640-(44+68));
 
         for (int i = 0; i < party.size()-1;i++){
             game.batch.draw(smallRectangle, 403,640-(163+109*i),518,93);
             game.batch.draw(getPuckemonTexture(i), 410,640-(158+109*i),85,85);
+            menuFont.draw(game.batch, getPuckeName(i+1), 495, 640-(76+141));
         }
     }
 
