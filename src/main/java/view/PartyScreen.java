@@ -91,12 +91,12 @@ public class PartyScreen implements Screen {
     private void drawParty(){
         game.batch.draw(bigRectangle, 32,640-(165+57),328,165);
         game.batch.draw(mon1, 26,640-(116+49),116,116);
-        menuFont.draw(game.batch, getPuckeName(0), 151, 640-(44+68));
+        menuFont.draw(game.batch, getPuckeName(0), 141, 640-(80));
 
         for (int i = 0; i < party.size()-1;i++){
             game.batch.draw(smallRectangle, 403,640-(163+109*i),518,93);
             game.batch.draw(getPuckemonTexture(i), 410,640-(158+109*i),85,85);
-            menuFont.draw(game.batch, getPuckeName(i+1), 495, 640-(76+141));
+            menuFont.draw(game.batch, getPuckeName(i+1), 505, 640-(80+109*i));
         }
     }
 

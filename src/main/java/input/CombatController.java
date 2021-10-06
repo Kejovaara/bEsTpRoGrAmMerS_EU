@@ -63,7 +63,7 @@ public class CombatController implements IController{
         if(Gdx.input.isKeyPressed(Input.Keys.P)){
             System.out.println("P");
             game.setScreen(new PartyScreen(game, model));
-            game.controller.switchController(InputController.Controllers.PARTY);
+            game.setController(InputController.Controllers.PARTY);
         }
     }
 }
