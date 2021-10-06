@@ -26,7 +26,14 @@ public class CombatScreen implements Screen {
     private BitmapFont combatFont;
 
     OrthographicCamera camera;
-    Texture playerPuck,trainerPuck, background;
+    Texture playerPuck,trainerPuck, background, cursorTexture;
+
+    private Boolean mainCombatMenu = true;
+    private int cursorIndex = 0;
+    private int cursorX,cursorY;
+
+    private Puckemon playerPuckemon;
+    private Puckemon trainerPuckemon;
 
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
@@ -36,12 +43,12 @@ public class CombatScreen implements Screen {
 
         shapeRenderer = new ShapeRenderer();
 
-        //menuFont = new BitmapFont(Gdx.files.internal("MenuFont.fnt"), Gdx.files.internal("MenuFont.png"),false);
+        //Menu Font
         menuFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
         menuFont.getData().setScale(0.75f);
 
-        Puckemon playerPuckemon = model.getPlayerPuckemon();
-        Puckemon trainerPuckemon = model.getTrainerPuckemon();
+        playerPuckemon = model.getPlayerPuckemon();
+        trainerPuckemon = model.getTrainerPuckemon();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
@@ -67,6 +74,7 @@ public class CombatScreen implements Screen {
         trainerPuck = getTexture(trainerPuckemon.getId(), true);
         //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
         background = new Texture(Gdx.files.internal("Background.png"));
+        cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
     }
 
     Texture getTexture(int id, boolean front) {
@@ -76,6 +84,8 @@ public class CombatScreen implements Screen {
             return new Texture(Gdx.files.internal("back/" + id + ".png"));
         }
     }
+
+
 
     @Override
     public void render(float delta) {
@@ -95,6 +105,13 @@ public class CombatScreen implements Screen {
         //game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.end();
 
+        if (mainCombatMenu) drawMainCombatMenu();
+        else drawCombatAttackMenu();
+
+
+    }
+
+    private void drawMainCombatMenu(){
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(0.8f,0.8f,0.8f,1);
         shapeRenderer.rect(0,0,960, 180);
@@ -115,6 +132,8 @@ public class CombatScreen implements Screen {
 
         game.batch.begin();
         menuFont.setColor(0,0,0,1);
+        calculateCursorPos();
+        game.batch.draw(cursorTexture,cursorX, cursorY, 15, 15);
         menuFont.draw(game.batch, "Attack", 600, 140);
         menuFont.draw(game.batch, "Switch", 600, 60);
         menuFont.draw(game.batch, "Inventory", 800, 140);
@@ -122,6 +141,101 @@ public class CombatScreen implements Screen {
         game.batch.end();
         stage.draw();
     }
+
+    public void drawCombatAttackMenu(){
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(1,1,1,1);
+        shapeRenderer.rect(0,0,960, 180);
+        shapeRenderer.end();
+
+        Gdx.gl.glLineWidth(6);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(0,0,0,1);
+        shapeRenderer.rect(0,0,960, 180);
+        shapeRenderer.rect(660,0,300, 180);
+        shapeRenderer.end();
+
+        game.batch.begin();
+        menuFont.setColor(0,0,0,1);
+        calculateCursorPos();
+        game.batch.draw(cursorTexture,cursorX, cursorY, 15, 15);
+        printAttacks();
+        menuFont.draw(game.batch, "Back", 545, 60);
+        menuFont.draw(game.batch, "pp", 700, 140);
+        menuFont.draw(game.batch, "Type/ Grass", 700, 60);
+        menuFont.draw(game.batch, "15/15", 850, 140);
+        game.batch.end();
+    }
+
+    public void printAttacks(){
+        for (int i = 0; i < playerPuckemon.getMoveSet().size(); i++) {
+            menuFont.draw(game.batch, playerPuckemon.getMoveSet().get(i).getName(), 70+(i%2)*230, 140-((int)(i/2)*80));
+        }
+
+
+
+    }
+
+    public Boolean isMainCombatMenu() {
+        return mainCombatMenu;
+    }
+
+    public void setMainCombatMenu(boolean main){
+        mainCombatMenu = main;
+    }
+
+    public int getCursorIndex() {
+        return cursorIndex;
+    }
+
+    public void calculateCursorPos(){
+        if(mainCombatMenu){
+            cursorX = 580+(cursorIndex%2)*200;
+            cursorY = 123-((int)(cursorIndex/2))*80;
+        }else{
+            if(cursorIndex < playerPuckemon.getMoveSet().size()){
+                cursorX = 50+(cursorIndex%2)*230;
+                cursorY = 123-((int)(cursorIndex/2))*80;
+            }else{
+                cursorX = 64+(cursorIndex%3)*230;
+                cursorY = 123-((int)(cursorIndex/2))*80;
+            }
+
+        }
+    }
+
+    public void cursorUP(){
+        if(mainCombatMenu){
+            if(cursorIndex > 1) cursorIndex -= 2;
+        }else{
+            if(cursorIndex > 1) cursorIndex -= 2;
+        }
+    }
+
+    public void cursorDown(){
+        if(mainCombatMenu){
+            if(cursorIndex < 2) cursorIndex += 2;
+        }else{
+            if(cursorIndex < playerPuckemon.getMoveSet().size()-2) cursorIndex += 2;
+        }
+    }
+
+    public void cursorLeft(){
+        if(mainCombatMenu){
+            if(cursorIndex > 0) cursorIndex -= 1;
+        }else{
+            if(cursorIndex > 0)cursorIndex -=1;
+        }
+    }
+
+    public void cursorRight(){
+        if(mainCombatMenu){
+            if(cursorIndex < 3) cursorIndex += 1;
+        }else{
+            if(cursorIndex < playerPuckemon.getMoveSet().size()) cursorIndex += 1;
+        }
+    }
+
 
     @Override
     public void show() {
@@ -152,4 +266,13 @@ public class CombatScreen implements Screen {
     public void dispose() {
 
     }
+
+    public enum CombatOptions{
+        ATTACK,
+        INVENTORY,
+        SWITCH,
+        FLEE,
+
+    }
+
 }
