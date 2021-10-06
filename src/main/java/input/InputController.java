@@ -11,6 +11,7 @@ public class InputController {
     private IController activeController;
     private MenuController menuController;
     private CombatController combatController;
+    private InventoryController inventoryController;
 
 
     public InputController(Boot game, Model model) {
@@ -18,6 +19,7 @@ public class InputController {
         this.model = model;
         this.menuController = new MenuController(game, model);
         this.combatController = new CombatController(game, model);
+        this.inventoryController = new InventoryController(game, model);
     }
 
 
@@ -28,6 +30,9 @@ public class InputController {
                 break;
             case COMBAT:
                 activeController = combatController;
+                break;
+            case INVENTORY:
+                activeController = inventoryController;
                 break;
             default:
                 activeController = null;
@@ -42,5 +47,6 @@ public class InputController {
     public enum Controllers{
         MAIN_MENU,
         COMBAT,
+        INVENTORY,
     }
 }
