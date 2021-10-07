@@ -14,6 +14,7 @@ public class AttackFactory {
         switch (attackName) {
             case "Tackle": return getTackle();
             case "SwordsDance": return getSwordsDance();
+            case "Absorb": return  getAbsorb();
             default : throw new IllegalArgumentException("Unknown Attack " + attackName);
         }
     }

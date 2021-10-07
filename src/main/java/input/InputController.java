@@ -28,15 +28,12 @@ public class InputController {
         switch (controllerEnum){
             case MAIN_MENU:
                 activeController = menuController;
-                System.out.println("Menu Control");
                 break;
             case COMBAT:
                 activeController = combatController;
-                System.out.println("Combat Control");
                 break;
             case PARTY:
                 activeController = partyController;
-                System.out.println("Party Control");
                 break;
             default:
                 activeController = null;

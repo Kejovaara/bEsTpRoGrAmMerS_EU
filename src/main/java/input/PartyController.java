@@ -47,5 +47,8 @@ public class PartyController implements IController{
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
             getScreen().moveTargetIndexUpDown(false);
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            getScreen().switchPuckemon();
+        }
     }
 }

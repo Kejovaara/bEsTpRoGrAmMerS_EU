@@ -72,6 +72,8 @@ public class CombatScreen implements Screen {
 
 
 
+        System.out.println(model.getPlayerPuckemon().getName());
+        System.out.println(model.getPlayerPuckemon().getAttackPower());
         playerPuck = getTexture(model.getPlayerPuckemon().getId(), false);
         trainerPuck = getTexture(model.getTrainerPuckemon().getId(), true);
         //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));

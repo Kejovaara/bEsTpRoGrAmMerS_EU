@@ -25,9 +25,8 @@ public class Player implements ITrainer, IFighter {
     }
 
     // Pick target in party to switch too
-    public Puckemon switchPuckemon(int index){
+    public void switchPuckemon(int index){
         puckeBag.setActivePuckemon(index);
-        return puckeBag.getActivePuckemon();
     }
 
     // Get Mons moveSet
@@ -63,10 +62,6 @@ public class Player implements ITrainer, IFighter {
 
     private void addPuckemonToParty(Puckemon puckemon) {
         puckeBag.addPuckemonToParty(puckemon);
-    }
-
-    private void addPuckemonToBox(Puckemon puckemon){
-        addPuckemonToBox(puckemon);
     }
 
     @Override
