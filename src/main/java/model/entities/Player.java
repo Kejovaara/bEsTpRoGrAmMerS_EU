@@ -57,6 +57,10 @@ public class Player implements ITrainer, IFighter {
         }
     }
 
+    public List<Puckemon> getParty(){
+        return puckeBag.getParty();
+    }
+
     private void addPuckemonToParty(Puckemon puckemon) {
         puckeBag.addPuckemonToParty(puckemon);
     }

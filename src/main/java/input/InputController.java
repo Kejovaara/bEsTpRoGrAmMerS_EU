@@ -2,6 +2,7 @@ package input;
 
 import run.Boot;
 import model.Model;
+import view.PartyScreen;
 
 public class InputController {
 
@@ -11,6 +12,7 @@ public class InputController {
     private IController activeController;
     private MenuController menuController;
     private CombatController combatController;
+    private PartyController partyController;
 
 
     public InputController(Boot game, Model model) {
@@ -18,6 +20,7 @@ public class InputController {
         this.model = model;
         this.menuController = new MenuController(game, model);
         this.combatController = new CombatController(game, model);
+        this.partyController = new PartyController(game, model);
     }
 
 
@@ -29,6 +32,8 @@ public class InputController {
             case COMBAT:
                 activeController = combatController;
                 break;
+            case PARTY:
+                activeController = partyController;
             default:
                 activeController = null;
                 break;
@@ -46,5 +51,6 @@ public class InputController {
     public enum Controllers{
         MAIN_MENU,
         COMBAT,
+        PARTY,
     }
 }

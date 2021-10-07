@@ -24,7 +24,6 @@ public class PuckeBag {
             }else{
                 addToInactiveParty(puckemons.get(i));
             }
-
         }
     }
 
@@ -47,6 +46,7 @@ public class PuckeBag {
     }
 
 
+    public List<Puckemon> getParty(){ return party;}
     public void setActivePuckemon(int index) {
         switchPuckemon(index);
     }

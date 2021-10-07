@@ -12,6 +12,7 @@ public interface IPuckemon {
 
     void setHealth(int health);
     int getHealth();
+    int getMaxHealth();
     void lockHealth();
 
     int getSpeed();
