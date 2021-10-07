@@ -20,7 +20,7 @@ public class DoDamage implements IEffect {
     @Override
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
-        opponent.setHealth(opponent.getHealth() - damage);
+        opponent.doDamage(damage);
         //Animation-handler / Show damage
     }
 }

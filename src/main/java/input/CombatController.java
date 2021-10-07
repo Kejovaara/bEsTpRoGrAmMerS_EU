@@ -34,7 +34,16 @@ public class CombatController implements IController{
             Gdx.app.exit();
         }
 
+        if(model.getPlayerPuckemon().getHealth() >0){
+            aliveControlls();
+        }else{
+            faintedControlls();
+        }
 
+
+    }
+
+    private void aliveControlls(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
             getScreen().cursorUP();
         }
@@ -55,16 +64,22 @@ public class CombatController implements IController{
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
                 if(getScreen().getCursorIndex() == 0) getScreen().setMainCombatMenu(false); //Press Attack option
                 if(getScreen().getCursorIndex() == 2){ //Press Switch
-                    game.setScreen(new PartyScreen(game, model));
+                    game.setView(new PartyScreen(game, model));
                     game.setController(InputController.Controllers.PARTY);
                 }
             }
         }else{
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-                if(getScreen().getCursorIndex() == model.getParty().size()) getScreen().setMainCombatMenu(true); //Press Back
-                else model.useAttack(getScreen().getCursorIndex()); //Uses attack
+                if(getScreen().getCursorIndex() == model.getPlayerPuckemon().getMoveSet().size()) getScreen().setMainCombatMenu(true); //Press Back
+                else if(model.getAttack(getScreen().getCursorIndex()).getPP() > 0)model.useAttack(getScreen().getCursorIndex()); //Uses attack
             }
         }
+    }
 
+    private void faintedControlls(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
+            game.setView(new PartyScreen(game, model));
+            game.setController(InputController.Controllers.PARTY);
+        }
     }
 }
