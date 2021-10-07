@@ -4,7 +4,7 @@ import model.PTypes;
 import model.effects.EffectHelper;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
-
+import view.animation.EffectAnimations;
 
 
 public class DoDamage implements IEffect {
@@ -21,6 +21,7 @@ public class DoDamage implements IEffect {
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
         opponent.doDamage(damage);
+        EffectAnimations.getInstance().displayDamage(damage, opponent);
         //Animation-handler / Show damage
     }
 }

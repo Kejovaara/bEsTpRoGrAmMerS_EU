@@ -32,6 +32,7 @@ public class CombatController implements IController{
     public void update() {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
+            return;
         }
 
         if(model.getPlayerPuckemon().getHealth() >0){

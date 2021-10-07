@@ -12,11 +12,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import model.attack.Attack;
+import model.entities.OwnedPuckemon;
 import model.entities.Puckemon;
 import org.lwjgl.Sys;
 import run.Boot;
+import view.animation.Animable;
+import view.animation.BuffAnimation;
+import view.animation.DamageAnimation;
+import view.animation.EffectAnimations;
 
-public class CombatScreen implements Screen {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CombatScreen implements Screen, EffectObserver{
 
     final Boot game;
     private Model model;
@@ -36,6 +44,8 @@ public class CombatScreen implements Screen {
     private int cursorX,cursorY;
 
     private Label label;
+
+    private List<Animable> animations = new ArrayList<>();
 
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
@@ -70,13 +80,14 @@ public class CombatScreen implements Screen {
         label.setWrap(true);
         stage.addActor(label);
 
-
-
         playerPuck = getTexture(model.getPlayerPuckemon().getId(), false);
         trainerPuck = getTexture(model.getTrainerPuckemon().getId(), true);
         //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
+
+        //ANIMATION
+        EffectAnimations.getInstance().addObserver(this);
     }
 
     Texture getTexture(int id, boolean front) {
@@ -123,7 +134,16 @@ public class CombatScreen implements Screen {
             drawCursor();
         }
 
+        drawAnimations();
 
+
+    }
+
+    private void drawAnimations() {
+        for(int i = 0; i < animations.size(); i++){
+            animations.get(i).render(game.batch);
+            if (animations.get(i).isDone()) animations.remove(i);
+        }
     }
 
     private void drawCursor(){
@@ -328,6 +348,23 @@ public class CombatScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    @Override
+    public void damageAnimation(int damage, Puckemon damageReceiver) {
+        if(damageReceiver == model.getPlayerPuckemon()) animations.add(new DamageAnimation(damage, 210, 330));
+        else animations.add(new DamageAnimation(damage, 530, (int)camera.viewportHeight-40));
+    }
+
+    @Override
+    public void healAnimation(int heal, Puckemon healReceiver) {
+
+    }
+
+    @Override
+    public void buffAnimation(int buff, String buffType, Puckemon buffReceiver) {
+        if(buffReceiver == model.getPlayerPuckemon()) animations.add(new BuffAnimation(buff, buffType, 310, 330));
+        else animations.add(new BuffAnimation(buff, buffType,630, (int)camera.viewportHeight-40));
     }
 
     public enum CombatOptions{
