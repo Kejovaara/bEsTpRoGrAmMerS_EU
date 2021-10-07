@@ -158,6 +158,22 @@ public abstract class Puckemon implements IPuckemon {
     }
 
     @Override
+    public void doDamage(int damage){
+        if(damage > 0){
+            if(damage > this.currentHealth) this.currentHealth = 0;
+            else this.currentHealth -= damage;
+        }
+    }
+
+    @Override
+    public void heal(int heal){
+        if(heal>0){
+            if(heal > this.maxHealth) this.currentHealth = this.maxHealth;
+            else this.currentHealth += heal;
+        }
+    }
+
+    @Override
     public void setHealth(int health){this.currentHealth = health;}
 
     @Override

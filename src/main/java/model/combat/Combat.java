@@ -63,11 +63,13 @@ public class Combat {
     public void usePlayerAttack(int index){
         IPuckemon playerPuckemon = player.getPuckemon();
         IEffectContainer attack = player.getPuckemon().getAttack(index);
+
         IEffectContainer fighterMove = fighter.makeMove();
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
 
         int pdiff = playerPuckemon.getHealth();
         int fdiff = fighterPuckemon.getHealth();
+
         if(attack.getPriority() < fighterMove.getPriority()){
             executeEffects(attack.getEffects(), playerPuckemon, fighterPuckemon);
             executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);

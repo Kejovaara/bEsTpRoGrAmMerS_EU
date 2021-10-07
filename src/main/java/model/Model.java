@@ -1,5 +1,6 @@
 package model;
 
+import model.attack.Attack;
 import model.combat.Combat;
 import model.entities.OwnedPuckemon;
 import model.entities.Player;
@@ -49,6 +50,10 @@ public class Model {
 
     public void useAttack(int index){
         combat.usePlayerAttack(index);
+    }
+
+    public Attack getAttack(int index){
+        return player.getPuckemon().getMoveSet().get(index);
     }
 
     public List<Puckemon> getParty(){

@@ -20,7 +20,7 @@ public class RecoilDamage implements IEffect {
     @Override
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
-        opponent.setHealth(opponent.getHealth() - damage);
-        attackUser.setHealth(attackUser.getHealth() - (int)Math.round(damage*recoilPercentage));
+        opponent.doDamage(damage);
+        attackUser.doDamage((int)Math.round(damage*recoilPercentage));
     }
 }

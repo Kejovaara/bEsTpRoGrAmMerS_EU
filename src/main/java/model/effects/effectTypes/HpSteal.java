@@ -17,8 +17,8 @@ public class HpSteal implements IEffect {
 
     public void execute(IPuckemon attackUser, IPuckemon opponent){
         int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
-        opponent.setHealth(opponent.getHealth() - damage);
-        attackUser.setHealth(attackUser.getHealth() + (damage/2));
+        opponent.doDamage(damage);
+        attackUser.heal((damage/2));
     }
 
 }

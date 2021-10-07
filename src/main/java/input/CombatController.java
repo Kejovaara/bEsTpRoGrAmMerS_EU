@@ -51,7 +51,6 @@ public class CombatController implements IController{
             getScreen().cursorRight();
         }
 
-
         if(getScreen().isMainCombatMenu()){
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
                 if(getScreen().getCursorIndex() == 0) getScreen().setMainCombatMenu(false); //Press Attack option
@@ -62,12 +61,16 @@ public class CombatController implements IController{
             }
         }else{
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-                if(getScreen().getCursorIndex() == model.getPlayerPuckemon().getMoveSet().size()){
-                    getScreen().setMainCombatMenu(true); //Press Back
-                }
-                else model.useAttack(getScreen().getCursorIndex()); //Uses attack
+                if(getScreen().getCursorIndex() == model.getPlayerPuckemon().getMoveSet().size()) getScreen().setMainCombatMenu(true); //Press Back
+                else if(model.getAttack(getScreen().getCursorIndex()).getPP() > 0)model.useAttack(getScreen().getCursorIndex()); //Uses attack
             }
         }
+    }
 
+    private void faintedControlls(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
+            game.setView(new PartyScreen(game, model));
+            game.setController(InputController.Controllers.PARTY);
+        }
     }
 }
