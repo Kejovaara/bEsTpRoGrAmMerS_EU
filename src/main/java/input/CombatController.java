@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import model.Model;
 import run.Boot;
 import view.CombatScreen;
+import view.PartyScreen;
 
 public class CombatController implements IController{
 
@@ -53,6 +54,7 @@ public class CombatController implements IController{
         if(getScreen().isMainCombatMenu()){
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
                 if(getScreen().getCursorIndex() == 0) getScreen().setMainCombatMenu(false); //Press Attack option
+                if(getScreen().getCursorIndex() == 2) game.setScreen(new PartyScreen(game, model)); //Press Puckebag
             }
         }else{
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){

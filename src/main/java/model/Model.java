@@ -50,4 +50,8 @@ public class Model {
     public void useAttack(int index){
         combat.usePlayerAttack(index);
     }
+
+    public List<Puckemon> getParty(){
+        return player.getParty();
+    }
 }
