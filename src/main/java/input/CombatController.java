@@ -50,15 +50,6 @@ public class CombatController implements IController{
             getScreen().cursorRight();
         }
 
-        /*if(getScreen().isMainCombatMenu() && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            if(getScreen().getCursorIndex() == 0) getScreen().setMainCombatMenu(false); //Press Attack option
-        }
-
-        if(!getScreen().isMainCombatMenu() && Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            if(getScreen().getCursorIndex() == model.getPlayerPuckemon().getMoveSet().size()) getScreen().setMainCombatMenu(true); //Press Attack option
-            else model.useAttack(getScreen().getCursorIndex()); //Uses attack
-        }*/
-
         if(getScreen().isMainCombatMenu()){
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
                 if(getScreen().getCursorIndex() == 0) getScreen().setMainCombatMenu(false); //Press Attack option
