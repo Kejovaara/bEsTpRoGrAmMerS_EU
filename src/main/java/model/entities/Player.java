@@ -57,6 +57,10 @@ public class Player implements ITrainer, IFighter {
         }
     }
 
+    public List<Puckemon> getParty(){
+        return puckeBag.getParty();
+    }
+
     private void addPuckemonToParty(Puckemon puckemon) {
         puckeBag.addPuckemonToParty(puckemon);
     }
@@ -73,5 +77,9 @@ public class Player implements ITrainer, IFighter {
     @Override
     public IPuckemon getActivePuckemon() {
         return null;
+    }
+
+    public Puckemon getPuckemon(){
+        return puckeBag.getActivePuckemon();
     }
 }

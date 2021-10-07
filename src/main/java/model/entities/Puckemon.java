@@ -9,6 +9,7 @@ import model.effects.IEffectContainer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public abstract class Puckemon implements IPuckemon {
 
@@ -81,6 +82,10 @@ public abstract class Puckemon implements IPuckemon {
         this.moveList = monRegisterInterpreter.getMoveList(id);
         System.out.println(name);
         calculateLevelStats();
+
+        //TODO: where should these be initialized
+        this.currentHealth = this.maxHealth;
+        this.currentDefence = this.defence;
     }
 
     protected void fillMoveSet(){
@@ -134,7 +139,7 @@ public abstract class Puckemon implements IPuckemon {
     }
 
 
-    public ArrayList<Attack> getMoveSet(){return moveSet;}
+    public List<Attack> getMoveSet(){return moveSet;}
 
     @Override
     public String getName() {
@@ -148,6 +153,9 @@ public abstract class Puckemon implements IPuckemon {
     public int getHealth() {
         return this.currentHealth;
     }
+
+    @Override
+    public int getMaxHealth(){return this.maxHealth;}
 
     @Override
     public void setHealth(int health){this.currentHealth = health;}

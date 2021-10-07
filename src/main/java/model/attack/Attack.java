@@ -17,6 +17,10 @@ public class Attack implements IEffectContainer {
         this.effects = effects;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public int getPriority() {
         return priority;

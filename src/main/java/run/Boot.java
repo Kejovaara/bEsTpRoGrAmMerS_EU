@@ -1,6 +1,7 @@
 package run;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,13 +11,13 @@ import view.MainMenuScreen;
 
 public class Boot extends Game {
 
-    private Model model = new Model();
+    private Model model;
+    private Screen activeScreen;
+    private InputController controller;
 
     private OrthographicCamera camera;
     public SpriteBatch batch;
     private BitmapFont font;
-
-    public InputController controller;
 
     int screenWidth, screenHeight;
 
@@ -31,7 +32,11 @@ public class Boot extends Game {
         camera.setToOrtho(false, screenWidth, screenHeight);
         batch = new SpriteBatch();
         font = new BitmapFont();
-        this.setScreen(new MainMenuScreen(this, model));
+
+        model = new Model();
+
+        activeScreen = new MainMenuScreen(this, model);
+        this.setScreen(activeScreen);
 
         controller = new InputController(this, model);
         controller.switchController(InputController.Controllers.MAIN_MENU);
@@ -45,6 +50,20 @@ public class Boot extends Game {
     public void dispose() {
         batch.dispose();
         font.dispose();
+    }
+
+    public void setController(InputController.Controllers controllerEnum){
+        controller.switchController(controllerEnum);
+    }
+
+    public void setView(Screen view){
+        activeScreen = view;
+        this.setScreen(view);
+
+    }
+
+    public Screen getActiveScreen() {
+        return activeScreen;
     }
 
     public int getScreenWidth() {

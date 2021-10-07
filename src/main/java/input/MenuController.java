@@ -2,6 +2,7 @@ package input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import run.Boot;
 import view.CombatScreen;
 import model.Model;
@@ -23,8 +24,9 @@ public class MenuController implements IController{
 
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             System.out.println("ESCAPE");
-            game.setScreen(new CombatScreen(game, model));
-            game.controller.switchController(InputController.Controllers.COMBAT);
+            Screen view = new CombatScreen(game, model);
+            game.setView(view);
+            game.setController(InputController.Controllers.COMBAT);
         }
     }
 }
