@@ -51,17 +51,20 @@ public class CombatController implements IController{
             getScreen().cursorRight();
         }
 
+
         if(getScreen().isMainCombatMenu()){
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
                 if(getScreen().getCursorIndex() == 0) getScreen().setMainCombatMenu(false); //Press Attack option
                 if(getScreen().getCursorIndex() == 2){ //Press Switch
-                    game.setScreen(new PartyScreen(game, model));
+                    game.setView(new PartyScreen(game, model));
                     game.setController(InputController.Controllers.PARTY);
                 }
             }
         }else{
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-                if(getScreen().getCursorIndex() == model.getParty().size()) getScreen().setMainCombatMenu(true); //Press Back
+                if(getScreen().getCursorIndex() == model.getPlayerPuckemon().getMoveSet().size()){
+                    getScreen().setMainCombatMenu(true); //Press Back
+                }
                 else model.useAttack(getScreen().getCursorIndex()); //Uses attack
             }
         }

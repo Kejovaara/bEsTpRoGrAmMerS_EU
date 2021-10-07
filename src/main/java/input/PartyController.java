@@ -11,6 +11,7 @@ public class PartyController implements IController{
 
     private Model model;
     private final Boot game;
+    private PartyScreen screen;
 
     public PartyController(Boot game, Model model) {
         this.game = game;
@@ -27,19 +28,23 @@ public class PartyController implements IController{
 
     @Override
     public void update() {
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)){
+            game.setView(new CombatScreen(game, model));
+            game.setController(InputController.Controllers.COMBAT);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
             getScreen().moveTargetIndexRightLeft(true);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
             getScreen().moveTargetIndexRightLeft(false);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
             getScreen().moveTargetIndexUpDown(true);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
             getScreen().moveTargetIndexUpDown(false);
         }
     }

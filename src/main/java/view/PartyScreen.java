@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -22,6 +23,7 @@ public class PartyScreen implements Screen {
     private Model model;
     private List<Puckemon> party;
     private BitmapFont partyFont;
+    private ShapeRenderer shapeRenderer;
     private int targetIndex = 0;
     private int lastTarget = 1;
 
@@ -32,9 +34,11 @@ public class PartyScreen implements Screen {
         this.game = game;
         this.model = model;
 
+        shapeRenderer = new ShapeRenderer();
 
         partyFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
         partyFont.getData().setScale(0.75f);
+        partyFont.setColor(0,0,0,1);
 //        Label.LabelStyle fontStyle = new Label.LabelStyle();
 //        partyFont.font = partyFont;
 //        partyFont.fontColor = Color.BLACK;
@@ -113,28 +117,25 @@ public class PartyScreen implements Screen {
         if(!up && targetIndex==party.size()-1){
             targetIndex = 0;
         }else if(!up){
-            targetIndex--;
+            targetIndex++;
         }
-        System.out.println(targetIndex);
     }
 
     public void moveTargetIndexRightLeft(boolean right){
         if(targetIndex!=0){
            lastTarget = targetIndex;
         }
-
         if(right && targetIndex > 0){
             targetIndex = 0;
         }
-        if(right && targetIndex == 0){
+        else if(right && targetIndex == 0){
             targetIndex = lastTarget;
         }
         if(!right && targetIndex > 0){
             targetIndex = 0;
-        } else{
+        } else if(!right){
             targetIndex = lastTarget;
         }
-        System.out.println(targetIndex);
     }
 
     private Texture drawRectangle(int index){
@@ -151,20 +152,32 @@ public class PartyScreen implements Screen {
         }
     }
 
+    private void drawHpBars(){
+        for (int i = 0; i < party.size()-1;i++) {
+            shapeRenderer.setColor(0.1f,0.1f,0.1f,1);
+            shapeRenderer.rect(590, 640-(108+21+109*i), 275,21);
+            shapeRenderer.setColor(0.698f, 1, 0.729f,1);
+            shapeRenderer.rect(592, 640-(108+19+109*i), ((float) party.get(i+1).getHealth()/party.get(i+1).getMaxHealth())*271,17);
+        }
+    }
+
     private void drawParty(){
         game.batch.draw(drawRectangle(0), 32,640-(165+57),328,165);
         game.batch.draw(mon1, 26,640-(116+49),116,116);
         partyFont.draw(game.batch, ("LV. "+getPuckeLevel(0)),135,640-(110));
         partyFont.draw(game.batch, getPuckeName(0), 135, 640-(80));
+
         partyFont.draw(game.batch, (getPuckeCurrentHP(0)+"/"+getPuckeMaxHP(0)), 265, 640-(180));
 
         for (int i = 0; i < party.size()-1;i++){
             game.batch.draw(drawRectangle(i+1), 403,640-(163+109*i),518,93);
             game.batch.draw(getPuckemonTexture(i), 410,640-(158+109*i),85,85);
+
             partyFont.draw(game.batch, getPuckeName(i+1), 505, 640-(80+109*i));
-            partyFont.draw(game.batch, (getPuckeCurrentHP(i+1)+"/"+getPuckeMaxHP(i+1)), 800, 640-(130+109*i));
+            partyFont.draw(game.batch, (getPuckeCurrentHP(i+1)+"/"+getPuckeMaxHP(i+1)), 800, 640-(135+109*i));
             partyFont.draw(game.batch, ("LV. "+getPuckeLevel(i+1)),505,640-(110+109*i));
         }
+
     }
 
     @Override
@@ -178,6 +191,15 @@ public class PartyScreen implements Screen {
         game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         drawParty();
         game.batch.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(0.1f,0.1f,0.1f,1);
+        shapeRenderer.rect(62, 640-(148+26), 255,26);
+        shapeRenderer.setColor(0.698f, 1, 0.729f,1);
+        shapeRenderer.rect(64, 640-(150+22), ((float) model.getPlayerPuckemon().getHealth()/model.getPlayerPuckemon().getMaxHealth())*251,22);
+        drawHpBars();
+        shapeRenderer.end();
+
     }
 
     @Override

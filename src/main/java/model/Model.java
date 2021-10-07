@@ -12,7 +12,7 @@ import java.util.List;
 public class Model {
     private OwnedPuckemon playerPuckemon = new OwnedPuckemon(1, 1);
     private OwnedPuckemon playerPuckemon1 = new OwnedPuckemon(1, 2);
-    private OwnedPuckemon playerPuckemon2 = new OwnedPuckemon(1, 3);
+    private OwnedPuckemon playerPuckemon2 = new OwnedPuckemon(50, 3);
     private OwnedPuckemon playerPuckemon3 = new OwnedPuckemon(1, 128);
 
     private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(1, 3);
