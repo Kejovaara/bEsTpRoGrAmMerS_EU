@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import input.InputController;
 import model.Model;
 import model.entities.Puckemon;
+import org.lwjgl.Sys;
 import run.Boot;
 
 import java.util.List;
@@ -62,11 +63,19 @@ public class PartyScreen implements Screen {
     }
 
     public void switchPuckemon(){
-        if(targetIndex != 0){
+        if(targetIndex != 0 && party.get(targetIndex).getHealth()!=0){
             model.switchPuckemon(targetIndex);
             model.useSwitch();
             game.setView(new CombatScreen(game, model));
             game.setController(InputController.Controllers.COMBAT);
+        }
+    }
+
+    public boolean requiredSwitch(){
+        if (party.get(0).getHealth()==0){
+            return false;
+        }else{
+            return true;
         }
     }
 

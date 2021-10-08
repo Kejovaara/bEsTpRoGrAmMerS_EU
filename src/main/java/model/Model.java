@@ -14,9 +14,9 @@ public class Model {
     private OwnedPuckemon playerPuckemon = new OwnedPuckemon(1, 1);
     private OwnedPuckemon playerPuckemon1 = new OwnedPuckemon(1, 2);
     private OwnedPuckemon playerPuckemon2 = new OwnedPuckemon(50, 3);
-    private OwnedPuckemon playerPuckemon3 = new OwnedPuckemon(1, 128);
+    private OwnedPuckemon playerPuckemon3 = new OwnedPuckemon(10, 128);
 
-    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(3, 3);
+    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(10, 3);
     private List<OwnedPuckemon> playerList = new ArrayList<>();
     private List<OwnedPuckemon> trainerList = new ArrayList<>();
 
