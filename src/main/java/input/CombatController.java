@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import model.Model;
 import run.Boot;
 import view.CombatScreen;
+import view.InventoryScreen;
 import view.PartyScreen;
 
 public class CombatController implements IController{
@@ -79,6 +80,13 @@ public class CombatController implements IController{
                 if(getScreen().getCursorIndex() == model.getPlayerPuckemon().getMoveSet().size()) getScreen().setMainCombatMenu(true); //Press Back
                 else if(model.getAttack(getScreen().getCursorIndex()).getPP() > 0)model.useAttack(getScreen().getCursorIndex()); //Uses attack
             }
+        }
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.I)){
+            System.out.println("INVENTORY");
+            game.setScreen(new InventoryScreen(game, model));
+            game.setController(InputController.Controllers.INVENTORY);
         }
     }
 }
