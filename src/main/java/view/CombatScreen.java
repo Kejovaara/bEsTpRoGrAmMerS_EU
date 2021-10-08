@@ -16,10 +16,7 @@ import model.entities.OwnedPuckemon;
 import model.entities.Puckemon;
 import org.lwjgl.Sys;
 import run.Boot;
-import view.animation.Animable;
-import view.animation.BuffAnimation;
-import view.animation.DamageAnimation;
-import view.animation.EffectAnimations;
+import view.animation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -280,8 +277,8 @@ public class CombatScreen implements Screen, EffectObserver{
                 cursorX = 50+(cursorIndex%2)*230;
                 cursorY = 123-((int)(cursorIndex/2))*80;
             }else{
-                cursorX = 64+(cursorIndex%3)*230;
-                cursorY = 123-((int)(cursorIndex/2))*80;
+                cursorX = 524;
+                cursorY = 43;
             }
 
         }
@@ -358,13 +355,14 @@ public class CombatScreen implements Screen, EffectObserver{
 
     @Override
     public void healAnimation(int heal, Puckemon healReceiver) {
-
+        if(healReceiver == model.getPlayerPuckemon()) animations.add(new HealAnimation(heal, 310, 330));
+        else animations.add(new HealAnimation(heal,630, (int)camera.viewportHeight-40));
     }
 
     @Override
     public void buffAnimation(int buff, String buffType, Puckemon buffReceiver) {
-        if(buffReceiver == model.getPlayerPuckemon()) animations.add(new BuffAnimation(buff, buffType, 310, 330));
-        else animations.add(new BuffAnimation(buff, buffType,630, (int)camera.viewportHeight-40));
+        if(buffReceiver == model.getPlayerPuckemon()) animations.add(new BuffAnimation(buff, buffType, 410, 330));
+        else animations.add(new BuffAnimation(buff, buffType,730, (int)camera.viewportHeight-40));
     }
 
     public enum CombatOptions{
