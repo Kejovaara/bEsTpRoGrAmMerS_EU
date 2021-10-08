@@ -64,8 +64,10 @@ public class PartyScreen implements Screen {
 
     public void switchPuckemon(){
         if(targetIndex != 0 && party.get(targetIndex).getHealth()!=0){
+            if (party.get(0).getHealth()!=0){
+                model.useSwitch();
+            }
             model.switchPuckemon(targetIndex);
-            model.useSwitch();
             game.setView(new CombatScreen(game, model));
             game.setController(InputController.Controllers.COMBAT);
         }
