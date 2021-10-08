@@ -25,7 +25,7 @@ public class InventoryController implements IController {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             System.out.println("ESCAPE TO COMBAT");
             game.setScreen(new CombatScreen(game, model));
-            game.controller.switchController(InputController.Controllers.COMBAT);
+            game.setController(InputController.Controllers.COMBAT);
         }
     }
 }
