@@ -1,6 +1,8 @@
-package view;
+package view.animation;
 
 import model.entities.IPuckemon;
+import model.entities.Puckemon;
+import view.EffectObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +16,7 @@ public class EffectAnimations {
 
     }
 
-    public EffectAnimations getInstance(){
+    public static EffectAnimations getInstance(){
         if(instance == null){
             instance = new EffectAnimations();
         }
@@ -34,15 +36,21 @@ public class EffectAnimations {
     }
 
 
-    public void displayDamage(int damage){
+    public void displayDamage(int damage, IPuckemon damageReceiver){
         for(EffectObserver observer: observers){
-            observer.damageAnimation();
+            observer.damageAnimation(damage, (Puckemon)damageReceiver);
         }
     }
 
-    public void displayHealing(int Heal){
+    public void displayHealing(int heal, IPuckemon healReceiver){
         for(EffectObserver observer: observers){
-            observer.HealAnimation();
+            observer.healAnimation(heal , (Puckemon)healReceiver);
+        }
+    }
+
+    public void displayBuff(int buff, String buffType, IPuckemon buffReceiver){
+        for(EffectObserver observer: observers){
+            observer.buffAnimation(buff , buffType, (Puckemon)buffReceiver);
         }
     }
 }

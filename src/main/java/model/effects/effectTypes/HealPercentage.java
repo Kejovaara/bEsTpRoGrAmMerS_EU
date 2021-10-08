@@ -19,9 +19,9 @@ public class HealPercentage implements IEffect {
     @Override
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         if(healYourself){
-            attackUser.setHealth(attackUser.getHealth() * percentage);
+            attackUser.heal(attackUser.getHealth() * percentage);
         }else{
-            opponent.setHealth(attackUser.getHealth() * percentage);
+            opponent.heal(attackUser.getHealth() * percentage);
         }
     }
 }

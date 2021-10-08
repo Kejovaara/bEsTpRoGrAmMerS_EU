@@ -19,9 +19,9 @@ public class HealAmount implements IEffect {
     @Override
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         if(healYourself){
-            attackUser.setHealth(attackUser.getHealth() + amount);
+            attackUser.heal(amount);
         }else{
-            opponent.setHealth(attackUser.getHealth() + amount);
+            opponent.heal(amount);
         }
     }
 }
