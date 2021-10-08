@@ -12,6 +12,7 @@ public class InputController {
     private IController activeController;
     private MenuController menuController;
     private CombatController combatController;
+    private InventoryController inventoryController;
     private PartyController partyController;
 
 
@@ -21,6 +22,7 @@ public class InputController {
         this.menuController = new MenuController(game, model);
         this.combatController = new CombatController(game, model);
         this.partyController = new PartyController(game, model);
+        this.inventoryController = new InventoryController(game, model);
     }
 
 
@@ -31,6 +33,9 @@ public class InputController {
                 break;
             case COMBAT:
                 activeController = combatController;
+                break;
+            case INVENTORY:
+                activeController = inventoryController;
                 break;
             case PARTY:
                 activeController = partyController;
@@ -53,5 +58,6 @@ public class InputController {
         MAIN_MENU,
         COMBAT,
         PARTY,
+        INVENTORY,
     }
 }
