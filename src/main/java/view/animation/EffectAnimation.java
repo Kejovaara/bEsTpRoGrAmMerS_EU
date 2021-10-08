@@ -16,10 +16,10 @@ public class EffectAnimation implements Animable{
     private BitmapFont font;
 
     public EffectAnimation(int effectPower, int posX, int posY, String effectUnit){
-        this(effectPower,posX,posY,effectUnit, 100, new Color(170f/255f,169f/255f,173f/255f,1));
+        this(effectPower,posX,posY,effectUnit, 200, new Color(170f/255f,169f/255f,173f/255f,1));
     }
     public EffectAnimation(int effectPower, int posX, int posY, String effectUnit, Color color){
-        this(effectPower,posX,posY,effectUnit, 100, color);
+        this(effectPower,posX,posY,effectUnit, 200, color);
     }
 
     public EffectAnimation(int effectPower, int posX, int posY, String effectUnit, int animationDuration, Color color) {
