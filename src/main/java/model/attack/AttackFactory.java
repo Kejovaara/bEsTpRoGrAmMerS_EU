@@ -15,9 +15,7 @@ public class AttackFactory {
             case "Tackle": return getTackle();
             case "SwordsDance": return getSwordsDance();
             case "Absorb": return  getAbsorb();
-            case "QuickAttack":
-                System.out.println("asd");
-                return getQuickAttack();
+            case "QuickAttack": return getQuickAttack();
             case "DoubleEdge":return getDoubleEdge();
             default : throw new IllegalArgumentException("Unknown Attack " + attackName);
         }

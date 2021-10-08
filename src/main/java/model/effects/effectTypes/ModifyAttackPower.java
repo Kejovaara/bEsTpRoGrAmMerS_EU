@@ -24,11 +24,11 @@ public class ModifyAttackPower implements IEffect {
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         if(buffOpponent){
             opponent.modifyAttackPower(buffFactor);
-            EffectAnimations.getInstance().displayBuff(buffFactor,"DEF", opponent);
+            EffectAnimations.getInstance().displayBuff(buffFactor,"ATK+", opponent);
         }
         else {
             attackUser.modifyAttackPower(buffFactor);
-            EffectAnimations.getInstance().displayBuff(buffFactor,"DEF", attackUser);
+            EffectAnimations.getInstance().displayBuff(buffFactor,"ATK+", attackUser);
         }
 
     }

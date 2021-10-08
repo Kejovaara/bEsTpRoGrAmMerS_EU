@@ -32,8 +32,11 @@ public class PartyController implements IController{
             Gdx.app.exit();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)){
-            game.setView(new CombatScreen(game, model));
-            game.setController(InputController.Controllers.COMBAT);
+            if (getScreen().requiredSwitch()){
+                game.setView(new CombatScreen(game, model));
+                game.setController(InputController.Controllers.COMBAT);
+            }
+
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
             getScreen().moveTargetIndexRightLeft(true);
