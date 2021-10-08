@@ -61,15 +61,12 @@ public abstract class Puckemon implements IPuckemon {
 
     public Puckemon(int id, int level){
         this.id = id;
+        this.level = level;
         buildPuckemon(id);
         fillMoveSet();
-        System.out.println(Arrays.toString(moveSet.toArray()));
-
-        this.level = level;
     }
 
     protected void buildPuckemon(int id){
-        this.id = id;
         this.name = monRegisterInterpreter.getName(id);
         this.type1 = monRegisterInterpreter.getType1(id);
         this.type2 = monRegisterInterpreter.getType2(id);
@@ -80,8 +77,8 @@ public abstract class Puckemon implements IPuckemon {
         this.evolutionLevel = monRegisterInterpreter.getEvolutionLevel(id);
         this.evolutionID = monRegisterInterpreter.getEvolutionId(id);
         this.moveList = monRegisterInterpreter.getMoveList(id);
-        System.out.println(name);
         calculateLevelStats();
+        alterCurrentStats();
 
         //TODO: where should these be initialized
         this.currentHealth = this.maxHealth;
@@ -110,10 +107,10 @@ public abstract class Puckemon implements IPuckemon {
     }
 
     protected void calculateLevelStats(){
-        this.maxHealth = (2*baseHealth+level)/100 + level + 10;
-        this.attackPower = (2*baseAttackPower+level)/100+5;
-        this.defence = (2*baseDefence+level)/100+5;
-        this.speed = (2*baseSpeed+level)/100+5;
+        this.maxHealth = (2*baseHealth*level)/100 + level + 10;
+        this.attackPower = (2*baseAttackPower*level)/100+5;
+        this.defence = (2*baseDefence*level)/100+5;
+        this.speed = (2*baseSpeed*level)/100+5;
     }
 
     protected void alterCurrentStats(){
@@ -155,7 +152,9 @@ public abstract class Puckemon implements IPuckemon {
     }
 
     @Override
-    public int getMaxHealth(){return this.maxHealth;}
+    public int getMaxHealth(){
+        return this.maxHealth;
+    }
 
     @Override
     public void doDamage(int damage){

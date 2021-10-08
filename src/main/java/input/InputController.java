@@ -34,6 +34,7 @@ public class InputController {
                 break;
             case PARTY:
                 activeController = partyController;
+                break;
             default:
                 activeController = null;
                 break;
