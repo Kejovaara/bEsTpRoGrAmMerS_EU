@@ -83,6 +83,8 @@ public class InventoryScreen implements Screen {
         itemDescriptionLabel.setWrap(true);
         stage.addActor(itemDescriptionLabel);
 
+        //Item description list
+
         //BACK BUTTON
         Label backButtonLabel = new Label("Back to combat", fontStyle);
         backButtonLabel.setSize(75,10);
@@ -92,8 +94,6 @@ public class InventoryScreen implements Screen {
 
         background = new Texture(Gdx.files.internal("inventory_background.png"));
         descriptionBox = new Texture(Gdx.files.internal("inventory_description_box.png"));
-
-
     }
 
     @Override
