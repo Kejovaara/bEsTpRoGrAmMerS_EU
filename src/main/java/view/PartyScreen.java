@@ -62,7 +62,7 @@ public class PartyScreen implements Screen {
     }
 
     public void switchPuckemon(){
-        if(targetIndex != 0){
+        if(targetIndex != 0 && party.get(targetIndex).getHealth()!=0){
             model.switchPuckemon(targetIndex);
             model.useSwitch();
             game.setView(new CombatScreen(game, model));
