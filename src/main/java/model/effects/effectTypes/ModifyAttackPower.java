@@ -2,7 +2,7 @@ package model.effects.effectTypes;
 
 import model.effects.IEffect;
 import model.entities.IPuckemon;
-import view.animation.EffectAnimations;
+import view.animation.EffectAnimationsHandler;
 
 public class ModifyAttackPower implements IEffect {
 
@@ -24,11 +24,11 @@ public class ModifyAttackPower implements IEffect {
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         if(buffOpponent){
             opponent.modifyAttackPower(buffFactor);
-            EffectAnimations.getInstance().displayBuff(buffFactor,"DEF", opponent);
+            EffectAnimationsHandler.getInstance().displayAttckBuff(buffFactor, opponent);
         }
         else {
             attackUser.modifyAttackPower(buffFactor);
-            EffectAnimations.getInstance().displayBuff(buffFactor,"DEF", attackUser);
+            EffectAnimationsHandler.getInstance().displayAttckBuff(buffFactor, attackUser);
         }
 
     }

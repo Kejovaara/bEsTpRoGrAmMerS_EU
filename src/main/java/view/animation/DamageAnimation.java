@@ -8,7 +8,6 @@ import model.entities.Puckemon;
 public class DamageAnimation implements Animable{
 
     private int damage;
-    private Puckemon damageReciver;
     private int animationTicks = 100;
     private int posX,posY;
 
