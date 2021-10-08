@@ -53,7 +53,7 @@ public class Model {
         combat.usePlayerAttack(index);
     }
 
-    public void useSwitch(){
+    public void  useSwitch(){
         combat.useSwitch();
     }
 
