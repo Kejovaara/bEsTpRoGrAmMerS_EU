@@ -41,7 +41,7 @@ public class EffectAnimation implements Animable{
         animationDuration--;
         batch.begin();
         font.setColor(color.r,color.g,color.b,(float) animationDuration/100);
-        font.draw(batch, effectPower + " DMG", posX+(100-animationDuration)/10, posY);
+        font.draw(batch, effectPower + " " + effectUnit, posX+(100-animationDuration)/10, posY);
         batch.end();
     }
 
