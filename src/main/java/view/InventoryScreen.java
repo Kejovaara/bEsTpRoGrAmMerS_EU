@@ -22,6 +22,7 @@ public class InventoryScreen implements Screen {
     private Stage stage;
 
     private BitmapFont inventoryFont;
+    private BitmapFont titleFont;
 
     OrthographicCamera camera;
     Texture descriptionBox, background;
@@ -41,9 +42,18 @@ public class InventoryScreen implements Screen {
         inventoryFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         inventoryFont.getData().setScale(0.75f);
 
+        titleFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
+        titleFont.getData().setScale(1.0f);
+
+        //NORMAL TEXT
         Label.LabelStyle fontStyle = new Label.LabelStyle();
         fontStyle.font = inventoryFont;
         fontStyle.fontColor = Color.BLACK;
+
+        //TITLE TEXT
+        Label.LabelStyle titleStyle = new Label.LabelStyle();
+        titleStyle.font = titleFont;
+        titleStyle.fontColor = Color.BLACK;
 
         //Item list
         Label itemListLabel = new Label("ITEM LIST", fontStyle);
@@ -66,10 +76,10 @@ public class InventoryScreen implements Screen {
         itemAmountLabel.setWrap(false);
         stage.addActor(itemAmountLabel);
 
-        //Item description
-        Label itemDescriptionLabel = new Label("Small Healing Potion", fontStyle);
-        itemDescriptionLabel.setSize(200, 10);
-        itemDescriptionLabel.setPosition(600,500);
+        //Item description title
+        Label itemDescriptionLabel = new Label("Small Healing Potion", titleStyle);
+        itemDescriptionLabel.setSize(400, 30);
+        itemDescriptionLabel.setPosition(520,500);
         itemDescriptionLabel.setWrap(true);
         stage.addActor(itemDescriptionLabel);
 
