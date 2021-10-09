@@ -25,7 +25,7 @@ public class AttackFactory {
     }
 
     public static Attack getQuickAttack(){
-        List<IEffect> effects = new ArrayList<>();
+        List<IEffect> effects = new ArrayList<>();  
         effects.add(new DoDamage(40, PTypes.NORMAL));
         return new Attack("Quick attack", 1, effects);
     }

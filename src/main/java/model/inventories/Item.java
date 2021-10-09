@@ -8,14 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Item implements IEffectContainer {
+
+    enum Type{
+        CONSUMABLE,
+        MERCHANTS,
+        MISC
+    }
+
     private List<IEffect> effects;
     // private List<Item> itemList; //MAYBE NOT NEEDED
 
-    private int id, prio, quantity, price;
-    private String name;
-    private String desc;
+    private final int id, prio, quantity, price;
+    private final String name;
+    private final String desc;
 
-    public Item(int id, String name, String desc, int prio, int quantity, int price){
+    public Item(int id, String name, String desc, Type type, int prio, int quantity, int price){
         this.id = id;
         this.name = name;
         this.desc = desc;
