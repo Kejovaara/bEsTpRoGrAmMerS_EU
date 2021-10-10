@@ -33,9 +33,24 @@ public class CombatController implements IController{
     public void update() {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
+            return;
         }
 
+        if(model.getPlayerPuckemon().getHealth() >0){
+            aliveControlls();
+        }else{
+            faintedControlls();
+        }
+    }
 
+    private void faintedControlls(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
+            game.setView(new PartyScreen(game, model));
+            game.setController(InputController.Controllers.PARTY);
+        }
+    }
+
+    private void aliveControlls(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
             getScreen().cursorUP();
         }
@@ -56,14 +71,14 @@ public class CombatController implements IController{
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
                 if(getScreen().getCursorIndex() == 0) getScreen().setMainCombatMenu(false); //Press Attack option
                 if(getScreen().getCursorIndex() == 2){ //Press Switch
-                    game.setScreen(new PartyScreen(game, model));
+                    game.setView(new PartyScreen(game, model));
                     game.setController(InputController.Controllers.PARTY);
                 }
             }
         }else{
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-                if(getScreen().getCursorIndex() == model.getParty().size()) getScreen().setMainCombatMenu(true); //Press Back
-                else model.useAttack(getScreen().getCursorIndex()); //Uses attack
+                if(getScreen().getCursorIndex() == model.getPlayerPuckemon().getMoveSet().size()) getScreen().setMainCombatMenu(true); //Press Back
+                else if(model.getAttack(getScreen().getCursorIndex()).getPP() > 0)model.useAttack(getScreen().getCursorIndex()); //Uses attack
             }
         }
 
@@ -71,7 +86,7 @@ public class CombatController implements IController{
         if(Gdx.input.isKeyPressed(Input.Keys.I)){
             System.out.println("INVENTORY");
             game.setScreen(new InventoryScreen(game, model));
-            game.controller.switchController(InputController.Controllers.INVENTORY);
+            game.setController(InputController.Controllers.INVENTORY);
         }
     }
 }

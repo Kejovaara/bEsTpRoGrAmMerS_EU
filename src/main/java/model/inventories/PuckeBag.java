@@ -33,7 +33,7 @@ public class PuckeBag {
 
 
     private void switchPuckemon(int index){
-        Collections.swap(party,1, index);
+        Collections.swap(party,0, index);
 
     }
 
@@ -52,7 +52,6 @@ public class PuckeBag {
     }
     public Puckemon getActivePuckemon(){return party.get(0);}
     public void addPuckemonToParty(Puckemon puckemon){addToActiveParty(puckemon);}
-    public void addPuckemonToBox(Puckemon puckemon){addToActiveParty(puckemon);}
 
 
 

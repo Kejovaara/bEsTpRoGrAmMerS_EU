@@ -11,11 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
+import model.attack.Attack;
 import model.entities.Puckemon;
-import org.lwjgl.Sys;
 import run.Boot;
+import view.animation.*;
 
-public class CombatScreen implements Screen {
+import java.util.ArrayList;
+import java.util.List;
+
+public class CombatScreen implements Screen, EffectObserver{
 
     final Boot game;
     private Model model;
@@ -34,8 +38,10 @@ public class CombatScreen implements Screen {
     private int cursorIndex = 0;
     private int cursorX,cursorY;
 
-    private Puckemon playerPuckemon;
-    private Puckemon trainerPuckemon;
+    private Label label;
+
+    private List<Animable> playerAnimations = new ArrayList<>();
+    private List<Animable> enemyAnimations = new ArrayList<>();
 
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
@@ -52,9 +58,6 @@ public class CombatScreen implements Screen {
         statsFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
         statsFont.getData().setScale(0.5f);
 
-        playerPuckemon = model.getPlayerPuckemon();
-        trainerPuckemon = model.getTrainerPuckemon();
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
 
@@ -67,19 +70,20 @@ public class CombatScreen implements Screen {
         fontStyle.font = combatFont;
         fontStyle.fontColor = Color.BLACK;
 
-        Label label = new Label("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec feugiat.",fontStyle);
+        label = new Label("What will " + model.getPlayerPuckemon().getName() + " do?",fontStyle);
         label.setSize(520,10);
         label.setPosition(30,90);
         label.setWrap(true);
         stage.addActor(label);
 
-
-
-        playerPuck = getTexture(playerPuckemon.getId(), false);
-        trainerPuck = getTexture(trainerPuckemon.getId(), true);
+        playerPuck = getTexture(model.getPlayerPuckemon().getId(), false);
+        trainerPuck = getTexture(model.getTrainerPuckemon().getId(), true);
         //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
+
+        //ANIMATION
+        EffectAnimationsHandler.getInstance().addObserver(this);
     }
 
     Texture getTexture(int id, boolean front) {
@@ -112,10 +116,41 @@ public class CombatScreen implements Screen {
 
         drawPuckeStats();
 
-        if (mainCombatMenu) drawMainCombatMenu();
-        else drawCombatAttackMenu();
+        if(model.getPlayerPuckemon().getHealth() <= 0){
+            label.setText("Your Puckemon fainted, Press any key to switch");
+            drawMainCombatMenu();
+        }
+        else if (mainCombatMenu){
+            label.setText("What will " + model.getPlayerPuckemon().getName() + " do?");
+            drawMainCombatMenu();
+            drawCursor();
+        }
+        else {
+            drawCombatAttackMenu();
+            drawCursor();
+        }
+
+        drawAnimations();
 
 
+    }
+
+    private void drawAnimations() {
+        for(int i = 0; i < playerAnimations.size(); i++){
+            playerAnimations.get(i).render(game.batch);
+            if (playerAnimations.get(i).isDone()) playerAnimations.remove(i);
+        }
+        for(int i = 0; i < enemyAnimations.size(); i++){
+            enemyAnimations.get(i).render(game.batch);
+            if (enemyAnimations.get(i).isDone()) enemyAnimations.remove(i);
+        }
+    }
+
+    private void drawCursor(){
+        game.batch.begin();
+        calculateCursorPos();
+        game.batch.draw(cursorTexture,cursorX, cursorY, 15, 15);
+        game.batch.end();
     }
 
 
@@ -131,12 +166,12 @@ public class CombatScreen implements Screen {
         shapeRenderer.setColor(0.7f,0.7f,0.7f,1);
         shapeRenderer.rect(60, this.camera.viewportHeight-100, 360,40);
         shapeRenderer.setColor(0.698f, 1, 0.729f,1);
-        shapeRenderer.rect(60, this.camera.viewportHeight-100,((float)trainerPuckemon.getHealth()/trainerPuckemon.getMaxHealth())*360,40);
+        shapeRenderer.rect(60, this.camera.viewportHeight-100,((float)model.getTrainerPuckemon().getHealth()/model.getTrainerPuckemon().getMaxHealth())*360,40);
 
         shapeRenderer.setColor(0.7f,0.7f,0.7f,1);
         shapeRenderer.rect(this.camera.viewportWidth-420, 240, 360,40);
         shapeRenderer.setColor(0.698f, 1, 0.729f,1);
-        shapeRenderer.rect(this.camera.viewportWidth-420, 240, ((float)playerPuckemon.getHealth()/playerPuckemon.getMaxHealth())*360,40);
+        shapeRenderer.rect(this.camera.viewportWidth-420, 240, ((float)model.getPlayerPuckemon().getHealth()/model.getPlayerPuckemon().getMaxHealth())*360,40);
 
         shapeRenderer.end();
 
@@ -149,12 +184,12 @@ public class CombatScreen implements Screen {
 
         game.batch.begin();
         statsFont.setColor(0,0,0,1);
-        statsFont.draw(game.batch, trainerPuckemon.getName(),60,this.camera.viewportHeight-40);
-        statsFont.draw(game.batch, "Lv "+trainerPuckemon.getLevel(),360,this.camera.viewportHeight-40);
+        statsFont.draw(game.batch, model.getTrainerPuckemon().getName(),60,this.camera.viewportHeight-40);
+        statsFont.draw(game.batch, "Lv "+model.getTrainerPuckemon().getLevel(),360,this.camera.viewportHeight-40);
 
-        statsFont.draw(game.batch, playerPuckemon.getName(),this.camera.viewportWidth-420,300);
-        statsFont.draw(game.batch, "Lv "+playerPuckemon.getLevel(),this.camera.viewportWidth-120,300);
-        statsFont.draw(game.batch, playerPuckemon.getHealth() + " / " + playerPuckemon.getMaxHealth(),this.camera.viewportWidth-120,230);
+        statsFont.draw(game.batch, model.getPlayerPuckemon().getName(),this.camera.viewportWidth-420,300);
+        statsFont.draw(game.batch, "Lv "+model.getPlayerPuckemon().getLevel(),this.camera.viewportWidth-120,300);
+        statsFont.draw(game.batch, model.getPlayerPuckemon().getHealth() + " / " + model.getPlayerPuckemon().getMaxHealth(),this.camera.viewportWidth-120,230);
 
 
         game.batch.end();
@@ -177,8 +212,6 @@ public class CombatScreen implements Screen {
 
         game.batch.begin();
         menuFont.setColor(0,0,0,1);
-        calculateCursorPos();
-        game.batch.draw(cursorTexture,cursorX, cursorY, 15, 15);
         menuFont.draw(game.batch, "Attack", 600, 140);
         menuFont.draw(game.batch, "Switch", 600, 60);
         menuFont.draw(game.batch, "Inventory", 800, 140);
@@ -201,20 +234,25 @@ public class CombatScreen implements Screen {
         shapeRenderer.end();
 
         game.batch.begin();
-        menuFont.setColor(0,0,0,1);
-        calculateCursorPos();
-        game.batch.draw(cursorTexture,cursorX, cursorY, 15, 15);
+
         printAttacks();
+        menuFont.setColor(0,0,0,1);
         menuFont.draw(game.batch, "Back", 545, 60);
-        menuFont.draw(game.batch, "pp", 700, 140);
-        menuFont.draw(game.batch, "Type/ Grass", 700, 60);
-        menuFont.draw(game.batch, "15/15", 850, 140);
+        if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()){
+            Attack attack = model.getPlayerPuckemon().getMoveSet().get(cursorIndex);
+            menuFont.draw(game.batch, "pp", 700, 140);
+            menuFont.draw(game.batch, "Type/ " +attack.getType(), 700, 60);
+            menuFont.draw(game.batch, attack.getPP()+"/"+attack.getBasePP(), 850, 140);
+        }
+
         game.batch.end();
     }
 
     public void printAttacks(){
-        for (int i = 0; i < playerPuckemon.getMoveSet().size(); i++) {
-            menuFont.draw(game.batch, playerPuckemon.getMoveSet().get(i).getName(), 70+(i%2)*230, 140-((int)(i/2)*80));
+        for (int i = 0; i < model.getPlayerPuckemon().getMoveSet().size(); i++) {
+            if (model.getAttack(i).getPP()>0) menuFont.setColor(0,0,0,1);
+            else menuFont.setColor(0.6f,0.6f,0.6f,1);
+            menuFont.draw(game.batch, model.getAttack(i).getName(), 70+(i%2)*230, 140-((int)(i/2)*80));
         }
 
 
@@ -238,12 +276,12 @@ public class CombatScreen implements Screen {
             cursorX = 580+(cursorIndex%2)*200;
             cursorY = 123-((int)(cursorIndex/2))*80;
         }else{
-            if(cursorIndex < playerPuckemon.getMoveSet().size()){
+            if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()){
                 cursorX = 50+(cursorIndex%2)*230;
                 cursorY = 123-((int)(cursorIndex/2))*80;
             }else{
-                cursorX = 64+(cursorIndex%3)*230;
-                cursorY = 123-((int)(cursorIndex/2))*80;
+                cursorX = 524;
+                cursorY = 43;
             }
 
         }
@@ -261,7 +299,7 @@ public class CombatScreen implements Screen {
         if(mainCombatMenu){
             if(cursorIndex < 2) cursorIndex += 2;
         }else{
-            if(cursorIndex < playerPuckemon.getMoveSet().size()-2) cursorIndex += 2;
+            if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()-2) cursorIndex += 2;
         }
     }
 
@@ -277,7 +315,7 @@ public class CombatScreen implements Screen {
         if(mainCombatMenu){
             if(cursorIndex < 3) cursorIndex += 1;
         }else{
-            if(cursorIndex < playerPuckemon.getMoveSet().size()) cursorIndex += 1;
+            if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()) cursorIndex += 1;
         }
     }
 
@@ -311,6 +349,40 @@ public class CombatScreen implements Screen {
     public void dispose() {
 
     }
+
+
+
+    @Override
+    public void onDamage(int damage, Puckemon damageReceiver) {
+        if(damageReceiver == model.getPlayerPuckemon()) {
+            playerAnimations.add(new EffectAnimation(damage, 210+(playerAnimations.size()*80), 330,"DMG", new Color(0.7f,0,0,1)));
+        }
+        else {
+            enemyAnimations.add(new EffectAnimation(damage, 530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"DMG", new Color(0.7f,0,0,1)));
+        }
+    }
+
+    @Override
+    public void onHeal(int heal, Puckemon healReceiver) {
+        if(healReceiver == model.getPlayerPuckemon()) {
+            playerAnimations.add(new EffectAnimation(heal, 210+(playerAnimations.size()*80), 330,"HP+", new Color(0,0.7f,0,1)));
+        }
+        else {
+            enemyAnimations.add(new EffectAnimation(heal,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"HP+", new Color(0,0.7f,0,1)));
+        }
+    }
+
+    @Override
+    public void onAttackBuff(int buff, Puckemon buffReceiver) {
+        if(buffReceiver == model.getPlayerPuckemon()){
+            playerAnimations.add(new EffectAnimation(buff,210+(playerAnimations.size()*80), 330,"ATK"));
+        }
+        else {
+            enemyAnimations.add(new EffectAnimation(buff,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"ATK"));
+        }
+    }
+
+
 
     public enum CombatOptions{
         ATTACK,

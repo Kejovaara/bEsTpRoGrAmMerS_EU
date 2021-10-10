@@ -1,5 +1,6 @@
 package model;
 
+import model.attack.Attack;
 import model.combat.Combat;
 import model.entities.OwnedPuckemon;
 import model.entities.Player;
@@ -12,13 +13,12 @@ import java.util.List;
 public class Model {
     private OwnedPuckemon playerPuckemon = new OwnedPuckemon(1, 1);
     private OwnedPuckemon playerPuckemon1 = new OwnedPuckemon(1, 2);
-    private OwnedPuckemon playerPuckemon2 = new OwnedPuckemon(1, 3);
-    private OwnedPuckemon playerPuckemon3 = new OwnedPuckemon(1, 128);
+    private OwnedPuckemon playerPuckemon2 = new OwnedPuckemon(50, 3);
+    private OwnedPuckemon playerPuckemon3 = new OwnedPuckemon(10, 128);
 
-    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(1, 3);
+    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(10, 3);
     private List<OwnedPuckemon> playerList = new ArrayList<>();
     private List<OwnedPuckemon> trainerList = new ArrayList<>();
-
 
     private Player player;
     private PuckeTrainer trainer;
@@ -38,6 +38,7 @@ public class Model {
 
         combat = new Combat(player, trainer);
     }
+    public void switchPuckemon(int i){player.switchPuckemon(i);}
 
     public Puckemon getPlayerPuckemon() {
         return player.getPuckemon();
@@ -49,6 +50,14 @@ public class Model {
 
     public void useAttack(int index){
         combat.usePlayerAttack(index);
+    }
+
+    public void useSwitch(){
+        combat.useSwitch();
+    }
+
+    public Attack getAttack(int index){
+        return player.getPuckemon().getMoveSet().get(index);
     }
 
     public List<Puckemon> getParty(){

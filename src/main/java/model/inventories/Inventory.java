@@ -16,10 +16,7 @@ public class Inventory {
     }
 
     public void clearInventory(){
-        int size = invList.size();
-        for(int i = 0; i < size; i++){
-            invList.set(i, null);
-        }
+        this.invList.clear();
     }
 
     public void addItem(Item item){
