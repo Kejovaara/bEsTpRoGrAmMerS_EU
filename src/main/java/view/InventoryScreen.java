@@ -116,7 +116,7 @@ public class InventoryScreen implements Screen {
         Label itemListLabel = new Label("ITEM LIST", fontStyle);
         itemListLabel.setSize(520, 10);
         itemListLabel.setPosition(100,500);
-        itemListLabel.setWrap(true);
+        itemListLabel.setWrap(false);
         stage.addActor(itemListLabel);
 
         //Item test
@@ -237,6 +237,8 @@ public class InventoryScreen implements Screen {
     public void show() {
 
     }
+
+
 
     @Override
     public void resize(int i, int i1) {

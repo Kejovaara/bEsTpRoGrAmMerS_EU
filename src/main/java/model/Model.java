@@ -22,6 +22,7 @@ public class Model {
     private List<OwnedPuckemon> playerList = new ArrayList<>();
     private List<OwnedPuckemon> trainerList = new ArrayList<>();
 
+
     private Player player;
     private PuckeTrainer trainer;
     private Combat combat;
