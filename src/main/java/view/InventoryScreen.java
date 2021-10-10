@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import run.Boot;
@@ -21,7 +22,7 @@ public class InventoryScreen implements Screen {
     private ShapeRenderer shapeRenderer;
     private Stage stage;
 
-    private BitmapFont inventoryFont;
+    private BitmapFont inventoryFont, inventoryTitleFont,inventoryItemTitle;
 
     OrthographicCamera camera;
     Texture descriptionBox, background;
@@ -40,10 +41,33 @@ public class InventoryScreen implements Screen {
 
         inventoryFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         inventoryFont.getData().setScale(0.75f);
+        inventoryTitleFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
+        inventoryTitleFont.getData().setScale(1.25f);
+        inventoryItemTitle = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
+        inventoryItemTitle.getData().setScale(1f);
 
         Label.LabelStyle fontStyle = new Label.LabelStyle();
         fontStyle.font = inventoryFont;
         fontStyle.fontColor = Color.BLACK;
+
+        Label.LabelStyle titleStyle = new Label.LabelStyle();
+        titleStyle.font = inventoryTitleFont;
+        titleStyle.fontColor = Color.BLACK;
+
+        //Page Title
+        Label titleLabel = new Label("INVENTORY", titleStyle);
+        titleLabel.setSize(300, 30);
+        titleLabel.setPosition(350,570);
+        titleLabel.setAlignment(Align.center);
+        titleLabel.setWrap(false);
+        stage.addActor(titleLabel);
+
+        //Item title
+        Label itemTitleLabel = new Label("ITEM TITLE", titleStyle);
+        itemTitleLabel.setSize(300, 30);
+        itemTitleLabel.setPosition(350,570);
+        itemTitleLabel.setWrap(false);
+        stage.addActor(itemTitleLabel);
 
         //Item list
         Label itemListLabel = new Label("ITEM LIST", fontStyle);
@@ -86,6 +110,10 @@ public class InventoryScreen implements Screen {
 
     }
 
+    public void renderItems(){
+
+    }
+
     @Override
     public void render(float v) {
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
@@ -95,8 +123,14 @@ public class InventoryScreen implements Screen {
 
         game.batch.begin();
             game.batch.draw(background, 0, 0, this.camera.viewportWidth,this.camera.viewportHeight);
-            game.batch.draw(descriptionBox, 500,120,407,420);
+            game.batch.draw(descriptionBox, 500,120,407,220);
         game.batch.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(57/255f, 57/255f, 57/255f,1);
+        shapeRenderer.rect( 32,640-(165+57),328,165);
+        shapeRenderer.rect(36,640-(161+57),320,157);
+        shapeRenderer.end();
 
         stage.act();
         stage.draw();
@@ -106,8 +140,6 @@ public class InventoryScreen implements Screen {
     public void show() {
 
     }
-
-
 
     @Override
     public void resize(int i, int i1) {
