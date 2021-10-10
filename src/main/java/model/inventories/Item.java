@@ -36,28 +36,28 @@ public class Item implements IEffectContainer {
     }
 
     public String getName(){
-        return name;
+        return this.name;
     }
 
     public String getDescription(){
-        return desc;
+        return this.desc;
     }
 
 
     public int getQuantity(){
-        return quantity;
+        return this.quantity;
     }
 
     public int getValue(){
-        return price;
+        return this.price;
     }
 
     public void incrementAmount(int num){
-        quantity += num;
+        this.quantity += num;
     }
 
     public void decrementAmount(int num){
-        quantity -= num;
+        this.quantity -= num;
     }
 
     /*

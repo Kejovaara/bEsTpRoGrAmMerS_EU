@@ -41,22 +41,15 @@ public class Inventory {
     }
 
     public Item getItem(int i){
-        return invList.get(i);
+        return this.invList.get(i);
     }
 
     public int getInventorySize(){
-        return  invList.size();
+        return  this.invList.size();
     }
 
     public List<Item> getInventory(){
-        return invList;
+        return this.invList;
     }
 
-    public void openInventory(){
-        //TODO METHOD TO OPEN INVENTORY
-    }
-
-    public void closeInventory(){
-        //TODO METHOD TO CLOSE INVENTORY
-    }
 }

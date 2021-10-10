@@ -6,6 +6,7 @@ import model.entities.OwnedPuckemon;
 import model.entities.Player;
 import model.entities.PuckeTrainer;
 import model.entities.Puckemon;
+import model.inventories.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,4 +64,6 @@ public class Model {
     public List<Puckemon> getParty(){
         return player.getParty();
     }
+
+    public List<Item> getInventory(){ return player.getInventory();}
 }
