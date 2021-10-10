@@ -70,6 +70,11 @@ public class CombatController implements IController{
         if(getScreen().isMainCombatMenu()){
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
                 if(getScreen().getCursorIndex() == 0) getScreen().setMainCombatMenu(false); //Press Attack option
+                if(getScreen().getCursorIndex() == 1){ // INVENTORY
+                    game.setView(new InventoryScreen(game, model));
+                    game.setController(InputController.Controllers.INVENTORY);
+                    return;
+                }
                 if(getScreen().getCursorIndex() == 2){ //Press Switch
                     game.setView(new PartyScreen(game, model));
                     game.setController(InputController.Controllers.PARTY);
@@ -85,7 +90,7 @@ public class CombatController implements IController{
 
         if(Gdx.input.isKeyPressed(Input.Keys.I)){
             System.out.println("INVENTORY");
-            game.setScreen(new InventoryScreen(game, model));
+            game.setView(new InventoryScreen(game, model));
             game.setController(InputController.Controllers.INVENTORY);
         }
     }

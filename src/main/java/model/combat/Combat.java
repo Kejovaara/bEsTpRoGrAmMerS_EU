@@ -25,7 +25,6 @@ public class Combat {
     private List<IEffect> opponentDOTEffects = new ArrayList<>();
 
 
-
     public Combat(IFighter fighter1, IFighter fighter2){
         this.fighter1 = fighter1;
         this.fighter2 = fighter2;
@@ -83,6 +82,31 @@ public class Combat {
             executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
             executeEffects(attack.getEffects(), playerPuckemon, fighterPuckemon);
         }
+
+        System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
+//        System.out.println(playerPuckemon.getName()+" used "+player.getPuckemon().getAttack(index).get);
+//        System.out.println(fighterPuckemon.getName()+" used "+fighterPuckemon.getA);
+    }
+
+    public void usePlayerItem(int index){
+        IPuckemon playerPuckemon = player.getPuckemon();
+        IEffectContainer item = player.getItem(index);
+
+        IEffectContainer fighterMove = fighter.makeMove();
+        IPuckemon fighterPuckemon = fighter.getActivePuckemon();
+
+        int pdiff = playerPuckemon.getHealth();
+        int fdiff = fighterPuckemon.getHealth();
+
+        if(item.getPriority() < fighterMove.getPriority()){
+            executeEffects(item.getEffects(), playerPuckemon, fighterPuckemon);
+            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+        }else{
+            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+            executeEffects(item.getEffects(), playerPuckemon, fighterPuckemon);
+        }
+
+        player.consumeItem(index);
 
         System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
 //        System.out.println(playerPuckemon.getName()+" used "+player.getPuckemon().getAttack(index).get);

@@ -17,25 +17,35 @@ import model.inventories.Item;
 import model.inventories.ListItem;
 import run.Boot;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class InventoryScreen implements Screen {
 
     final Boot game;
     private Model model;
-    private List<Item> items;
+
     private int screenWidth, screenHeight;
     private ShapeRenderer shapeRenderer;
     private Stage stage;
+    private boolean isActive = false;
+    private int targetIndex = 0;
+    private List<ListItem> listItems;
+    private List<Item> inventory;
+    ListItem listItem;
 
-    private BitmapFont inventoryFont, inventoryTitleFont,inventoryItemTitle;
-
+    private BitmapFont inventoryFont, inventoryTitleFont,inventoryItemTitle, backFont;
     OrthographicCamera camera;
     Texture descriptionBox, background;
 
     Label.LabelStyle fontStyle = new Label.LabelStyle();
     Label.LabelStyle titleStyle = new Label.LabelStyle();
     Label.LabelStyle itemTitleStyle = new Label.LabelStyle();
+    Label.LabelStyle backStyle = new Label.LabelStyle();
+
+
 
     Label itemTitle;
     Label itemDescription;
@@ -50,51 +60,42 @@ public class InventoryScreen implements Screen {
         camera.setToOrtho(false);
         stage = new Stage();
 
-
         shapeRenderer = new ShapeRenderer();
 
+        // FONT SETTINGS
         inventoryFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         inventoryFont.getData().setScale(0.75f);
+        backFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
+        backFont.getData().setScale(0.75f);
         inventoryTitleFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         inventoryTitleFont.getData().setScale(1.25f);
         inventoryItemTitle = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         inventoryItemTitle.getData().setScale(1f);
 
-
+        //FONT STYLING
         fontStyle.font = inventoryFont;
         fontStyle.fontColor = Color.BLACK;
         titleStyle.font = inventoryTitleFont;
         titleStyle.fontColor = Color.BLACK;
         itemTitleStyle.font = inventoryItemTitle;
         itemTitleStyle.fontColor = Color.BLACK;
+        backStyle.font = backFont;
 
 
-        List<Item> inventory = model.getInventory();
-
-        int y = 500;
-        int listItemDistance = 47;
-        for(Item item : inventory){
-            ListItem listItem = new ListItem(item, fontStyle,y);
-            y -= listItemDistance;
-
-            stage.addActor(listItem.getItemImage());
-            stage.addActor(listItem.getItemLabel());
-            stage.addActor(listItem.getItemAmount());
-        }
 
         itemTitle = new Label("Default Title", itemTitleStyle);
         itemTitle.setSize(380,50);
-        itemTitle.setPosition(520,480);
+        itemTitle.setPosition(520,490);
 
         itemDescription = new Label("Default description",fontStyle);
         itemDescription.setSize(380,140);
         itemDescription.setWrap(true);
-        itemDescription.setPosition(520,350);
+        itemDescription.setPosition(520,360);
 
-        stage.addActor(itemTitle);
-        stage.addActor(itemDescription);
 
-        updateDescription(inventory.get(0));
+
+        renderItems();
+        //updateDescription(inventory.get(0));
 
         //Page Title
         Label titleLabel = new Label("INVENTORY", titleStyle);
@@ -139,27 +140,81 @@ public class InventoryScreen implements Screen {
         itemDescriptionLabel.setWrap(true);
         stage.addActor(itemDescriptionLabel); */
 
-        //BACK BUTTON
-        Label backButtonLabel = new Label("Back to combat", fontStyle);
-        backButtonLabel.setSize(75,10);
-        backButtonLabel.setPosition(100,50);
-        backButtonLabel.setWrap(false);
-        stage.addActor(backButtonLabel);
+
 
         background = new Texture(Gdx.files.internal("inventory_background.png"));
         descriptionBox = new Texture(Gdx.files.internal("inventory_description_box.png"));
 
-
     }
 
     public void renderItems(){
+        int y = 500;
+        int listItemDistance = 55;
 
+        inventory = model.getInventory();
+        listItems = new ArrayList<>();
+
+
+        int i = 0;
+        stage.clear();
+        stage.addActor(itemTitle);
+        stage.addActor(itemDescription);
+            //BACK BUTTON
+            Label backButtonLabel = new Label("PRESS SPACE TO GO BACK", fontStyle);
+            backButtonLabel.setSize(75,10);
+            backButtonLabel.setPosition(100,50);
+            backButtonLabel.setWrap(false);
+            stage.addActor(backButtonLabel);
+        for(Item item : inventory){
+            listItem = new ListItem(item, fontStyle,y);
+            if(targetIndex == i){
+                listItem.setActive();
+            }
+            listItems.add(listItem);
+            y -= listItemDistance;
+            stage.addActor(listItem.getListItemBackground());
+            stage.addActor(listItem.getItemImage());
+            stage.addActor(listItem.getItemLabel());
+            stage.addActor(listItem.getItemAmount());
+            i++;
+        }
+        listItemSelector(targetIndex);
+    }
+
+    public void moveUp(){
+        if(targetIndex == 0){
+            targetIndex = inventory.size()-1;
+        }else{
+            targetIndex--;
+        }
+    }
+
+    public void moveDown(){
+        if(targetIndex == inventory.size()-1){
+            targetIndex = 0;
+        }else{
+            targetIndex++;
+        }
     }
 
     public void updateDescription(Item item){
         itemTitle.setText(item.getName());
         itemDescription.setText(item.getDescription());
     }
+
+    private void listItemSelector(int index){
+        if(targetIndex == index){
+            listItem.setActive();
+            updateDescription(inventory.get(index));
+        }else{
+            listItem.setInactive();
+        }
+    }
+
+    public int getTargetIndex(){
+        return targetIndex;
+    }
+
 
     @Override
     public void render(float v) {
@@ -170,9 +225,10 @@ public class InventoryScreen implements Screen {
 
         game.batch.begin();
             game.batch.draw(background, 0, 0, this.camera.viewportWidth,this.camera.viewportHeight);
-            game.batch.draw(descriptionBox, 500,310,407,220);
+            game.batch.draw(descriptionBox, 500,320,407,220);
         game.batch.end();
 
+        renderItems();
         stage.act();
         stage.draw();
     }

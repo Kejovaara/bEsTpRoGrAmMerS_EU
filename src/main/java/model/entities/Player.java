@@ -43,8 +43,8 @@ public class Player implements ITrainer, IFighter {
         this.inventory.addItem(item);
     }
 
-    public void useItem(Item item){
-        // item.execute(this);
+    public void consumeItem(int index){
+        inventory.getItem(index).decrementAmount(1);
     }
 
     public void buyItem(Item item){

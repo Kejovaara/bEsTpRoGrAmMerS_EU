@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class ListItem {
     Image itemImage;
+    Image listItemBackground;
     private Label itemLabel;
     private Label itemAmount;
     private int y;
@@ -20,13 +21,26 @@ public class ListItem {
 
         this.itemLabel = new Label(item.getName(),labelStyle);
         itemLabel.setSize(235,22);
-        itemLabel.setPosition(160,y);
+        itemLabel.setPosition(140,y+4);
 
         this.itemAmount = new Label("" + item.getQuantity(), labelStyle);
         itemAmount.setSize(45,22);
-        itemAmount.setPosition(435,y);
+        itemAmount.setPosition(430,y+4);
 
+        this.y = y;
+        setInactive();
+    }
 
+    public void setActive(){
+        this.listItemBackground = new Image(new Texture(Gdx.files.internal("listitem/listitem_bg_active.png")));
+        listItemBackground.setSize(376,47);
+        listItemBackground.setPosition(90,y-7);
+    }
+
+    public void setInactive(){
+        this.listItemBackground = new Image(new Texture(Gdx.files.internal("listitem/listitem_bg.png")));
+        listItemBackground.setSize(376,47);
+        listItemBackground.setPosition(90,y-7);
     }
 
     public Label getItemLabel(){
@@ -39,5 +53,9 @@ public class ListItem {
 
     public Image getItemImage(){
         return itemImage;
+    }
+
+    public Image getListItemBackground(){
+        return listItemBackground;
     }
 }

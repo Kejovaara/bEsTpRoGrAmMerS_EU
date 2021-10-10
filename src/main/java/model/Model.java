@@ -40,10 +40,15 @@ public class Model {
 
         player.addItem(ItemFactory.getGoldenNuggie());
         player.addItem(ItemFactory.getGoldenNuggie());
-        player.addItem(ItemFactory.getGoldenNuggie());
-        player.addItem(ItemFactory.getGoldenNuggie());
 
         player.addItem(ItemFactory.getSmallHealingPotion());
+        player.addItem(ItemFactory.getSmallHealingPotion());
+        player.addItem(ItemFactory.getSmallHealingPotion());
+        player.addItem(ItemFactory.getSmallHealingPotion());
+
+        player.addItem(ItemFactory.getMajorHealingPotion());
+        player.addItem(ItemFactory.getMajorHealingPotion());
+        player.addItem(ItemFactory.getMajorHealingPotion());
 
         combat = new Combat(player, trainer);
     }
@@ -60,6 +65,8 @@ public class Model {
     public void useAttack(int index){
         combat.usePlayerAttack(index);
     }
+
+    public void useItem(int index) {combat.usePlayerItem(index);}
 
     public void useSwitch(){
         combat.useSwitch();
