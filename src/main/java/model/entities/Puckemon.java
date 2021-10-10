@@ -93,8 +93,8 @@ public abstract class Puckemon implements IPuckemon {
         } else{
             ArrayList<String> randList = new ArrayList<>(moveList);
             Collections.shuffle(randList);
-            for (int i = 0; i < 3; i++) {
-                moveSet.add(AttackFactory.createByName(moveList.get(i)));
+            for (int i = 0; i < 4; i++) {
+                moveSet.add(AttackFactory.createByName(randList.get(i)));
             }
         }
     }

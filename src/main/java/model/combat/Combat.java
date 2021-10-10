@@ -63,7 +63,9 @@ public class Combat {
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
         IEffectContainer fighterMove = fighter.makeMove();
         IPuckemon playerPuckemon = player.getPuckemon();
+        int pdiff = playerPuckemon.getHealth();
         executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+        System.out.println("player switched, player: " + (pdiff-playerPuckemon.getHealth()));
     }
 
     public void usePlayerAttack(int index){

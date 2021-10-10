@@ -7,18 +7,18 @@ import view.EffectObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EffectAnimations {
+public class EffectAnimationsHandler {
 
-    private static EffectAnimations instance;
+    private static EffectAnimationsHandler instance;
     private List<EffectObserver> observers = new ArrayList<>();
 
-    private EffectAnimations(){
+    private EffectAnimationsHandler(){
 
     }
 
-    public static EffectAnimations getInstance(){
+    public static EffectAnimationsHandler getInstance(){
         if(instance == null){
-            instance = new EffectAnimations();
+            instance = new EffectAnimationsHandler();
         }
         return instance;
     }
@@ -38,19 +38,27 @@ public class EffectAnimations {
 
     public void displayDamage(int damage, IPuckemon damageReceiver){
         for(EffectObserver observer: observers){
-            observer.damageAnimation(damage, (Puckemon)damageReceiver);
+            observer.onDamage(damage, (Puckemon)damageReceiver);
         }
     }
 
     public void displayHealing(int heal, IPuckemon healReceiver){
         for(EffectObserver observer: observers){
-            observer.healAnimation(heal , (Puckemon)healReceiver);
+            observer.onHeal(heal , (Puckemon)healReceiver);
         }
     }
 
-    public void displayBuff(int buff, String buffType, IPuckemon buffReceiver){
+    public void displayAttckBuff(int buff, IPuckemon buffReceiver){
         for(EffectObserver observer: observers){
-            observer.buffAnimation(buff , buffType, (Puckemon)buffReceiver);
+            observer.onAttackBuff(buff, (Puckemon)buffReceiver);
         }
+    }
+
+    public enum EffectType{
+        HEAL,
+        DAMAGE,
+        ATTACKBUFF,
+        DEFENCEBUFF,
+        SPEEDBUFF,
     }
 }

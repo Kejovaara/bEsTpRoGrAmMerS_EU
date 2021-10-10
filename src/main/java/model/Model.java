@@ -14,9 +14,9 @@ public class Model {
     private OwnedPuckemon playerPuckemon = new OwnedPuckemon(1, 1);
     private OwnedPuckemon playerPuckemon1 = new OwnedPuckemon(1, 2);
     private OwnedPuckemon playerPuckemon2 = new OwnedPuckemon(50, 3);
-    private OwnedPuckemon playerPuckemon3 = new OwnedPuckemon(1, 128);
+    private OwnedPuckemon playerPuckemon3 = new OwnedPuckemon(10, 128);
 
-    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(3, 3);
+    private OwnedPuckemon trainerPuckemon = new OwnedPuckemon(10, 3);
     private List<OwnedPuckemon> playerList = new ArrayList<>();
     private List<OwnedPuckemon> trainerList = new ArrayList<>();
 
@@ -28,6 +28,8 @@ public class Model {
     public Model() {
         playerList.add(playerPuckemon);
         playerList.add(playerPuckemon1);
+        playerList.add(playerPuckemon2);
+        playerList.add(playerPuckemon3);
         playerList.add(playerPuckemon2);
         playerList.add(playerPuckemon3);
 
@@ -53,7 +55,7 @@ public class Model {
         combat.usePlayerAttack(index);
     }
 
-    public void useSwitch(){
+    public void  useSwitch(){
         combat.useSwitch();
     }
 

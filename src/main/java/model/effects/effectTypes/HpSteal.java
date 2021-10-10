@@ -4,6 +4,7 @@ import model.PTypes;
 import model.effects.EffectHelper;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
+import view.animation.EffectAnimationsHandler;
 
 public class HpSteal implements IEffect {
 
@@ -18,7 +19,10 @@ public class HpSteal implements IEffect {
     public void execute(IPuckemon attackUser, IPuckemon opponent){
         int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
         opponent.doDamage(damage);
-        attackUser.heal((damage/2));
+        attackUser.heal((int)Math.ceil((float)damage/2));
+        EffectAnimationsHandler.getInstance().displayDamage(damage,opponent);
+        EffectAnimationsHandler.getInstance().displayHealing(damage/2, attackUser);
+
     }
 
 }

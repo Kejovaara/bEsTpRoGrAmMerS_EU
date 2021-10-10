@@ -12,14 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import model.attack.Attack;
-import model.entities.OwnedPuckemon;
 import model.entities.Puckemon;
-import org.lwjgl.Sys;
 import run.Boot;
-import view.animation.Animable;
-import view.animation.BuffAnimation;
-import view.animation.DamageAnimation;
-import view.animation.EffectAnimations;
+import view.animation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +40,8 @@ public class CombatScreen implements Screen, EffectObserver{
 
     private Label label;
 
-    private List<Animable> animations = new ArrayList<>();
+    private List<Animable> playerAnimations = new ArrayList<>();
+    private List<Animable> enemyAnimations = new ArrayList<>();
 
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
@@ -87,7 +83,7 @@ public class CombatScreen implements Screen, EffectObserver{
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
 
         //ANIMATION
-        EffectAnimations.getInstance().addObserver(this);
+        EffectAnimationsHandler.getInstance().addObserver(this);
     }
 
     Texture getTexture(int id, boolean front) {
@@ -140,9 +136,13 @@ public class CombatScreen implements Screen, EffectObserver{
     }
 
     private void drawAnimations() {
-        for(int i = 0; i < animations.size(); i++){
-            animations.get(i).render(game.batch);
-            if (animations.get(i).isDone()) animations.remove(i);
+        for(int i = 0; i < playerAnimations.size(); i++){
+            playerAnimations.get(i).render(game.batch);
+            if (playerAnimations.get(i).isDone()) playerAnimations.remove(i);
+        }
+        for(int i = 0; i < enemyAnimations.size(); i++){
+            enemyAnimations.get(i).render(game.batch);
+            if (enemyAnimations.get(i).isDone()) enemyAnimations.remove(i);
         }
     }
 
@@ -280,8 +280,8 @@ public class CombatScreen implements Screen, EffectObserver{
                 cursorX = 50+(cursorIndex%2)*230;
                 cursorY = 123-((int)(cursorIndex/2))*80;
             }else{
-                cursorX = 64+(cursorIndex%3)*230;
-                cursorY = 123-((int)(cursorIndex/2))*80;
+                cursorX = 524;
+                cursorY = 43;
             }
 
         }
@@ -350,22 +350,39 @@ public class CombatScreen implements Screen, EffectObserver{
 
     }
 
+
+
     @Override
-    public void damageAnimation(int damage, Puckemon damageReceiver) {
-        if(damageReceiver == model.getPlayerPuckemon()) animations.add(new DamageAnimation(damage, 210, 330));
-        else animations.add(new DamageAnimation(damage, 530, (int)camera.viewportHeight-40));
+    public void onDamage(int damage, Puckemon damageReceiver) {
+        if(damageReceiver == model.getPlayerPuckemon()) {
+            playerAnimations.add(new EffectAnimation(damage, 210+(playerAnimations.size()*80), 330,"DMG", new Color(0.7f,0,0,1)));
+        }
+        else {
+            enemyAnimations.add(new EffectAnimation(damage, 530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"DMG", new Color(0.7f,0,0,1)));
+        }
     }
 
     @Override
-    public void healAnimation(int heal, Puckemon healReceiver) {
-
+    public void onHeal(int heal, Puckemon healReceiver) {
+        if(healReceiver == model.getPlayerPuckemon()) {
+            playerAnimations.add(new EffectAnimation(heal, 210+(playerAnimations.size()*80), 330,"HP+", new Color(0,0.7f,0,1)));
+        }
+        else {
+            enemyAnimations.add(new EffectAnimation(heal,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"HP+", new Color(0,0.7f,0,1)));
+        }
     }
 
     @Override
-    public void buffAnimation(int buff, String buffType, Puckemon buffReceiver) {
-        if(buffReceiver == model.getPlayerPuckemon()) animations.add(new BuffAnimation(buff, buffType, 310, 330));
-        else animations.add(new BuffAnimation(buff, buffType,630, (int)camera.viewportHeight-40));
+    public void onAttackBuff(int buff, Puckemon buffReceiver) {
+        if(buffReceiver == model.getPlayerPuckemon()){
+            playerAnimations.add(new EffectAnimation(buff,210+(playerAnimations.size()*80), 330,"ATK"));
+        }
+        else {
+            enemyAnimations.add(new EffectAnimation(buff,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"ATK"));
+        }
     }
+
+
 
     public enum CombatOptions{
         ATTACK,

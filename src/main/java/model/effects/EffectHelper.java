@@ -52,17 +52,17 @@ public class EffectHelper {
     }
 
     public static int calculateDamage(IPuckemon attackUser, IPuckemon opponent, int power, PTypes attackType){
-        double dividendPart = (((attackUser.getLevel() * 2)/5) + 2) * power * (attackUser.getAttackPower()/opponent.getDefence());
-        double dividePart = (dividendPart / 50) + 2;
+        double dividendPart = ((float)((attackUser.getLevel() * 2)/5) + 2) * power * ((float)attackUser.getAttackPower()/(float)opponent.getDefence());
+        double dividePart = (float)(dividendPart / 50) + 2;
         double damage = dividePart * randomFactor() * getMultplier(attackType,opponent.getType1(),opponent.getType2())*STABFactor(attackUser.getType1(),attackUser.getType2(), attackType);
         return (int)Math.round(damage);
     }
 
     private static double randomFactor(){
-        double high = 1;
-        double low = 1.5;
+        double high = 1.5;
+        double low = 1;
         Random r = new Random();
-        return r.nextDouble() * (high-low) + high;
+        return r.nextDouble() * (high-low) + low;
     }
 
     private static double STABFactor(PTypes puckemonType1, PTypes puckemonType2, PTypes attackType){

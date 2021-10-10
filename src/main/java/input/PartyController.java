@@ -32,8 +32,11 @@ public class PartyController implements IController{
             Gdx.app.exit();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)){
-            game.setView(new CombatScreen(game, model));
-            game.setController(InputController.Controllers.COMBAT);
+            if (getScreen().requiredSwitch()){
+                game.setView(new CombatScreen(game, model));
+                game.setController(InputController.Controllers.COMBAT);
+            }
+
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
             getScreen().moveTargetIndexRightLeft(true);
@@ -48,7 +51,16 @@ public class PartyController implements IController{
             getScreen().moveTargetIndexUpDown(false);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            getScreen().switchPuckemon();
+            if (getScreen().backButton()){
+                if(getScreen().requiredSwitch()){
+                    game.setView(new CombatScreen(game, model));
+                    game.setController(InputController.Controllers.COMBAT);
+                }else {
+                    getScreen().setMessage("You have to pick a Puckemon!");
+                }
+            }else{
+                getScreen().switchPuckemon();
+            }
         }
     }
 }
