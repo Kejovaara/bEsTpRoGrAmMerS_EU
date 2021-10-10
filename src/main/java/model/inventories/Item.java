@@ -10,12 +10,13 @@ import java.util.List;
 public class Item implements IEffectContainer {
     private List<IEffect> effects;
 
-    private int prio, quantity, price;
+    private int id, prio, quantity, price;
     private final String name;
     private final String desc;
     private boolean isCombatItem;
 
-    public Item(String name, String desc, int prio, int quantity, int price, boolean isCombatItem, List<IEffect> effects){
+    public Item(int id,String name, String desc, int prio, int quantity, int price, boolean isCombatItem, List<IEffect> effects){
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.prio = prio;
@@ -26,7 +27,8 @@ public class Item implements IEffectContainer {
     }
 
     // Effectless items
-    public Item(String name, String desc, int prio, int quantity, int price,boolean isCombatItem){
+    public Item(int id, String name, String desc, int prio, int quantity, int price,boolean isCombatItem){
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.prio = prio;
@@ -34,6 +36,8 @@ public class Item implements IEffectContainer {
         this.price = price;
         this.isCombatItem = isCombatItem;
     }
+
+    public int getId(){ return this.id; }
 
     public String getName(){
         return this.name;

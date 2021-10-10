@@ -20,9 +20,15 @@ public class Inventory {
     }
 
     public void addItem(Item item){
-            if(invList.contains(item)){
-                item.incrementAmount(1);
-            }else{
+            boolean wasItemAdded = false;
+            for(Item invItem : invList){
+                if(item.getId() == invItem.getId()){
+                    invItem.incrementAmount(1);
+                    wasItemAdded = true;
+                    break;
+                }
+            }
+            if(!wasItemAdded){
                 invList.add(item);
             }
     }

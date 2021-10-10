@@ -7,6 +7,7 @@ import model.entities.Player;
 import model.entities.PuckeTrainer;
 import model.entities.Puckemon;
 import model.inventories.Item;
+import model.inventories.ItemFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,13 @@ public class Model {
 
         player = new Player(playerList, 10);
         trainer = new PuckeTrainer("Bertil the great", trainerList);
+
+        player.addItem(ItemFactory.getGoldenNuggie());
+        player.addItem(ItemFactory.getGoldenNuggie());
+        player.addItem(ItemFactory.getGoldenNuggie());
+        player.addItem(ItemFactory.getGoldenNuggie());
+
+        player.addItem(ItemFactory.getSmallHealingPotion());
 
         combat = new Combat(player, trainer);
     }

@@ -217,6 +217,7 @@ public class PartyScreen implements Screen {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         draw();
+        shapeRenderer.end();
 
         game.batch.begin();
         renderParty();
