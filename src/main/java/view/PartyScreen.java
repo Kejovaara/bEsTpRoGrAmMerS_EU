@@ -28,6 +28,11 @@ public class PartyScreen implements Screen {
     private ShapeRenderer shapeRenderer;
     private int targetIndex = 0;
     private int lastTarget = 1;
+    private int posX = 433;
+    private int posY = 510;
+    private Label partyLabel;
+    private Stage stage;
+    private String message = "Pick a Puckemon";
 
     OrthographicCamera camera;
     Texture background, mon1, mon2, mon3, mon4, mon5, mon6;
@@ -41,6 +46,19 @@ public class PartyScreen implements Screen {
         partyFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
         partyFont.getData().setScale(0.75f);
         partyFont.setColor(0,0,0,1);
+
+
+
+        Label.LabelStyle fontStyle = new Label.LabelStyle();
+        fontStyle.font = partyFont;
+        fontStyle.fontColor = Color.BLACK;
+
+        stage = new Stage();
+        partyLabel = new Label(message,fontStyle);
+        partyLabel.setSize(300,300);
+        partyLabel.setPosition(55,60);
+        partyLabel.setWrap(true);
+        stage.addActor(partyLabel);
 
         this.party = model.getParty();
 
@@ -70,6 +88,16 @@ public class PartyScreen implements Screen {
             }
             game.setView(new CombatScreen(game, model));
             game.setController(InputController.Controllers.COMBAT);
+        }else{
+            setMessage(party.get(targetIndex).getName() + " can't battle anymore");
+        }
+    }
+
+    public boolean backButton(){
+        if (targetIndex==6){
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -124,11 +152,11 @@ public class PartyScreen implements Screen {
 
     public void moveTargetIndexUpDown(boolean up){
         if(up && (targetIndex==0 )){
-            targetIndex = party.size()-1;
+            targetIndex = party.size();
         } else if(up){
             targetIndex--;
         }
-        if(!up && targetIndex==party.size()-1){
+        if(!up && targetIndex==party.size()){
             targetIndex = 0;
         }else if(!up){
             targetIndex++;
@@ -154,15 +182,29 @@ public class PartyScreen implements Screen {
 
     private void colorPicker(int index){
         shapeRenderer.setColor(103/255f, 172/255f, 194/255f,1);
-        if (targetIndex == index){
-            shapeRenderer.setColor(138/255f, 206/255f, 227/255f,1);
+
+        if(index==6){
+            shapeRenderer.setColor(200/255f, 200/255f, 200/255f,1);
         }
-        if(party.get(index).getHealth()==0){
-            shapeRenderer.setColor(194/255f, 70/255f, 70/255f,1);
+        if(index == 6 && index == targetIndex){
+            shapeRenderer.setColor(255/255f, 255/255f, 255/255f,1);
         }
-        if(party.get(index).getHealth()==0 && targetIndex == index){
-            shapeRenderer.setColor(205/255f, 97/255f, 97/255f,1);
+
+        if (index!=6){
+            if (targetIndex == index){
+                shapeRenderer.setColor(138/255f, 206/255f, 227/255f,1);
+            }
+            if(party.get(index).getHealth()==0){
+                shapeRenderer.setColor(194/255f, 70/255f, 70/255f,1);
+            }
+            if(party.get(index).getHealth()==0 && targetIndex == index){
+                shapeRenderer.setColor(205/255f, 97/255f, 97/255f,1);
+            }
         }
+    }
+
+    public void setMessage(String message){
+        partyLabel.setText(message);
     }
 
     private void draw(){
@@ -176,16 +218,21 @@ public class PartyScreen implements Screen {
         shapeRenderer.setColor(0.698f, 1, 0.729f,1);
         shapeRenderer.rect(64, 640-(150+22), ((float) model.getPlayerPuckemon().getHealth()/model.getPlayerPuckemon().getMaxHealth())*251,22);
 
+        shapeRenderer.setColor(57/255f, 57/255f, 57/255f,1);
+        shapeRenderer.rect( 780,30,100,40);
+        colorPicker(6);
+        shapeRenderer.rect(782,32,96,36);
+
         for (int i = 0; i < party.size()-1;i++) {
             shapeRenderer.setColor(57/255f, 57/255f, 57/255f,1);
-            shapeRenderer.rect(403, 640-(163+109*i), 518,93);
+            shapeRenderer.rect(posX, posY-102*i, 488,93);
             colorPicker(i+1);
-            shapeRenderer.rect(407, 640-(159+109*i), 510,85);
+            shapeRenderer.rect(posX+3, posY+3-102*i, 482,87);
 
             shapeRenderer.setColor(57/255f, 57/255f, 57/255f,1);
-            shapeRenderer.rect(590, 640-(108+21+109*i), 275,21);
+            shapeRenderer.rect(posX+190, posY+30-102*i, 265,21);
             shapeRenderer.setColor(0.698f, 1, 0.729f,1);
-            shapeRenderer.rect(592, 640-(108+19+109*i), ((float) party.get(i+1).getHealth()/party.get(i+1).getMaxHealth())*271,17);
+            shapeRenderer.rect(posX+192, posY+32-102*i, ((float) party.get(i+1).getHealth()/party.get(i+1).getMaxHealth())*261,17);
         }
     }
 
@@ -193,18 +240,20 @@ public class PartyScreen implements Screen {
         game.batch.draw(mon1, 26,640-(116+49),116,116);
         partyFont.draw(game.batch, ("LV. "+getPuckeLevel(0)),135,640-(110));
         partyFont.draw(game.batch, getPuckeName(0), 135, 640-(80));
-
         partyFont.draw(game.batch, (getPuckeCurrentHP(0)+"/"+getPuckeMaxHP(0)), 265, 640-(180));
 
-        for (int i = 0; i < party.size()-1;i++){
-            game.batch.draw(getPuckemonTexture(i), 410,640-(158+109*i),85,85);/**/
+        partyFont.draw(game.batch, ("BACK"),798,58);
 
-            partyFont.draw(game.batch, getPuckeName(i+1), 505, 640-(80+109*i));
-            partyFont.draw(game.batch, (getPuckeCurrentHP(i+1)+"/"+getPuckeMaxHP(i+1)), 800, 640-(135+109*i));
-            partyFont.draw(game.batch, ("LV. "+getPuckeLevel(i+1)),505,640-(110+109*i));
+        for (int i = 0; i < party.size()-1;i++){
+            game.batch.draw(getPuckemonTexture(i), posX+8,posY+5-102*i,85,85);/**/
+
+            partyFont.draw(game.batch, getPuckeName(i+1), posX+100, posY+80-102*i);
+            partyFont.draw(game.batch, (getPuckeCurrentHP(i+1)+"/"+getPuckeMaxHP(i+1)), posX+350, posY+25-102*i);
+            partyFont.draw(game.batch, ("LV. "+getPuckeLevel(i+1)),posX+105,posY+50-102*i);
         }
 
     }
+
 
     @Override
     public void render(float delta) {
@@ -224,6 +273,7 @@ public class PartyScreen implements Screen {
         game.batch.begin();
         renderParty();
         game.batch.end();
+        stage.draw();
 
     }
 

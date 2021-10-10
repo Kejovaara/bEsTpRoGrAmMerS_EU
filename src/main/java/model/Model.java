@@ -30,6 +30,8 @@ public class Model {
         playerList.add(playerPuckemon1);
         playerList.add(playerPuckemon2);
         playerList.add(playerPuckemon3);
+        playerList.add(playerPuckemon2);
+        playerList.add(playerPuckemon3);
 
 
         trainerList.add(trainerPuckemon);
