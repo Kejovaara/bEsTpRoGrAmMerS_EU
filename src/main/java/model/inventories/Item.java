@@ -9,12 +9,21 @@ import java.util.List;
 
 public class Item implements IEffectContainer {
     private List<IEffect> effects;
-    // private List<Item> itemList; //MAYBE NOT NEEDED
 
     private int prio, quantity, price;
     private final String name;
     private final String desc;
 
+    public Item(String name, String desc, int prio, int quantity, int price, List<IEffect> effects){
+        this.name = name;
+        this.desc = desc;
+        this.prio = prio;
+        this.quantity = quantity;
+        this.price = price;
+        this.effects = effects;
+    }
+
+    // Effectless items
     public Item(String name, String desc, int prio, int quantity, int price){
         this.name = name;
         this.desc = desc;
@@ -48,7 +57,7 @@ public class Item implements IEffectContainer {
         quantity -= num;
     }
 
-    //NOT DONE
+    /*
     public static List<Item> stack(List<Item> items){
         //TODO METHOD FOR STACKING ITEMS
         List<Item> stackedItems = new ArrayList<Item>();
@@ -56,7 +65,7 @@ public class Item implements IEffectContainer {
             //TODO
         }
         return stackedItems;
-    }
+    }*/
 
     @Override
     public int getPriority(){
@@ -70,9 +79,9 @@ public class Item implements IEffectContainer {
 
     @Override
     public void execute(IPuckemon user, IPuckemon opponent) {
+        decrementAmount(1);
         for (IEffect effect: effects) {
             effect.execute(user, opponent);
         }
     }
-
 }
