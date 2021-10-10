@@ -13,23 +13,26 @@ public class Item implements IEffectContainer {
     private int prio, quantity, price;
     private final String name;
     private final String desc;
+    private boolean isCombatItem;
 
-    public Item(String name, String desc, int prio, int quantity, int price, List<IEffect> effects){
+    public Item(String name, String desc, int prio, int quantity, int price, boolean isCombatItem, List<IEffect> effects){
         this.name = name;
         this.desc = desc;
         this.prio = prio;
         this.quantity = quantity;
         this.price = price;
+        this.isCombatItem = isCombatItem;
         this.effects = effects;
     }
 
     // Effectless items
-    public Item(String name, String desc, int prio, int quantity, int price){
+    public Item(String name, String desc, int prio, int quantity, int price,boolean isCombatItem){
         this.name = name;
         this.desc = desc;
         this.prio = prio;
         this.quantity = quantity;
         this.price = price;
+        this.isCombatItem = isCombatItem;
     }
 
     public String getName(){
