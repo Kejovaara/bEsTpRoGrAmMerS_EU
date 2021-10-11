@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import input.InputController;
 import model.Model;
 import model.entities.Puckemon;
-import org.lwjgl.Sys;
 import run.Boot;
 
 import java.util.List;
@@ -43,7 +42,7 @@ public class PartyScreen implements Screen {
 
         shapeRenderer = new ShapeRenderer();
 
-        partyFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
+        partyFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         partyFont.getData().setScale(0.75f);
         partyFont.setColor(0,0,0,1);
 
@@ -94,19 +93,11 @@ public class PartyScreen implements Screen {
     }
 
     public boolean backButton(){
-        if (targetIndex==6){
-            return true;
-        }else{
-            return false;
-        }
+        return targetIndex == 6;
     }
 
     public boolean requiredSwitch(){
-        if (party.get(0).getHealth()==0){
-            return false;
-        }else{
-            return true;
-        }
+        return party.get(0).getHealth() != 0;
     }
 
     private int getPuckeId(int index){
@@ -151,14 +142,24 @@ public class PartyScreen implements Screen {
     }
 
     public void moveTargetIndexUpDown(boolean up){
-        if(up && (targetIndex==0 )){
-            targetIndex = party.size();
-        } else if(up){
+
+        if(up && (targetIndex==0 )) {
+            targetIndex = 6;
+        }
+        else if(up && targetIndex!=6){
             targetIndex--;
         }
-        if(!up && targetIndex==party.size()){
-            targetIndex = 0;
-        }else if(!up){
+        else if(up){
+            targetIndex = party.size()-1;
+        }
+
+        if(!up && targetIndex==6){
+            targetIndex=0;
+        }
+        else if(!up && targetIndex==party.size()-1){
+            targetIndex = 6;
+        }
+        else if(!up){
             targetIndex++;
         }
     }
