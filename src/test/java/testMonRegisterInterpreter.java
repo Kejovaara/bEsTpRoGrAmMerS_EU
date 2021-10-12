@@ -1,22 +1,10 @@
-import static java.lang.System.out;
 import static org.junit.Assert.*;
 
-import model.ExcelReader;
 import model.MonRegisterInterpreter;
 import model.PTypes;
-import model.attack.Attack;
-import model.attack.AttackFactory;
-import model.combat.Combat;
-import model.effects.IEffectContainer;
-import model.entities.*;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class testMonRegisterInterpreter {
 
