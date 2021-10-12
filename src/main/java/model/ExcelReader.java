@@ -12,6 +12,7 @@ public class ExcelReader {
 
 
     ArrayList excelData = new ArrayList();
+
     private ArrayList readPuckemonRegister(int id){
         try
         {
@@ -23,6 +24,9 @@ public class ExcelReader {
             //Get first/desired sheet from the workbook
             XSSFSheet sheet = workbook.getSheetAt(0);
             XSSFRow row = sheet.getRow(id);
+
+            // Att göra: Type ska bli en lista, loopa de under istället, hämta data med något annat än lista.
+
             excelData.add(row.getCell(1).getStringCellValue());
             excelData.add(row.getCell(2).getStringCellValue());
             excelData.add(row.getCell(3).getStringCellValue());
