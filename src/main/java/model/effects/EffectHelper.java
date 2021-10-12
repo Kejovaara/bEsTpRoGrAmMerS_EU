@@ -6,7 +6,10 @@ import model.entities.IPuckemon;
 import java.util.Random;
 
 public class EffectHelper {
-    private static PTypes[] types= {PTypes.NORMAL, PTypes.FIRE, PTypes.WATER, PTypes.ELECTRIC, PTypes.GRASS, PTypes.ICE, PTypes.FIGHTING, PTypes.POISON, PTypes.GROUND, PTypes.FLYING, PTypes.PSYCHIC, PTypes.BUG, PTypes.ROCK, PTypes.GHOST, PTypes.DRAGON, PTypes.DARK, PTypes.STEEL, PTypes.FAIRY};
+    private static PTypes[] types= {PTypes.NORMAL, PTypes.FIRE, PTypes.WATER, PTypes.ELECTRIC, PTypes.GRASS,
+                                    PTypes.ICE, PTypes.FIGHTING, PTypes.POISON, PTypes.GROUND, PTypes.FLYING,
+                                    PTypes.PSYCHIC, PTypes.BUG, PTypes.ROCK, PTypes.GHOST, PTypes.DRAGON, PTypes.DARK,
+                                    PTypes.STEEL, PTypes.FAIRY};
 
     private static double[][] typeChart = {
             //1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18
@@ -31,7 +34,7 @@ public class EffectHelper {
 
     };
 
-    public static double getMultplier(PTypes attackType, PTypes defendType1, PTypes defendType2){
+    private static double getMultplier(PTypes attackType, PTypes defendType1, PTypes defendType2){
         int attackIndex = getIndex(attackType);
         int defendIndex1 = getIndex(defendType1);
         int defendIndex2 = getIndex(defendType2);
