@@ -15,6 +15,7 @@ import model.attack.Attack;
 import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
+import view.menu.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,8 @@ public class CombatScreen implements Screen, EffectObserver{
     private int cursorX,cursorY;
 
     private Label label;
+
+    public Menu testMenu;
 
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
@@ -131,7 +134,7 @@ public class CombatScreen implements Screen, EffectObserver{
         }
 
         drawAnimations();
-
+        if(testMenu!=null)testMenu.render();
 
     }
 
