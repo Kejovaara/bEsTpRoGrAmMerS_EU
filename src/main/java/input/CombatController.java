@@ -37,20 +37,20 @@ public class CombatController implements IController{
         }
 
         if(model.getPlayerPuckemon().getHealth() >0){
-            aliveControlls();
+            aliveControls();
         }else{
-            faintedControlls();
+            faintedControls();
         }
     }
 
-    private void faintedControlls(){
+    private void faintedControls(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
             game.setView(new PartyScreen(game, model));
             game.setController(InputController.Controllers.PARTY);
         }
     }
 
-    private void aliveControlls(){
+    private void aliveControls(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
             getScreen().cursorUP();
         }

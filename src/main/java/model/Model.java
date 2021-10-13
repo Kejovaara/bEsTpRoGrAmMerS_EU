@@ -39,17 +39,7 @@ public class Model {
         player = new Player(playerList, 10);
         trainer = new PuckeTrainer("Bertil the great", trainerList);
 
-        player.addItem(ItemFactory.getGoldenNuggie());
-        player.addItem(ItemFactory.getGoldenNuggie());
-
-        player.addItem(ItemFactory.getSmallHealingPotion());
-        player.addItem(ItemFactory.getSmallHealingPotion());
-        player.addItem(ItemFactory.getSmallHealingPotion());
-        player.addItem(ItemFactory.getSmallHealingPotion());
-
-        player.addItem(ItemFactory.getMajorHealingPotion());
-        player.addItem(ItemFactory.getMajorHealingPotion());
-        player.addItem(ItemFactory.getMajorHealingPotion());
+        player.generateStartingInventory(15);
 
         combat = new Combat(player, trainer);
     }

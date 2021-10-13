@@ -6,11 +6,38 @@ import org.apache.pdfbox.contentstream.operator.state.Restore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ItemFactory {
 
+    public static Item getRandom(){
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomIndex = ThreadLocalRandom.current().nextInt(0, INames.values().length);
+        return getItem(randomIndex);
+    }
 
-    public static Item getSmallHealingPotion(){
+    public static Item getItem(INames name){
+        switch(name){
+            case MINOR_HEALING_POTION:
+                return getMinorHealingPotion();
+            case MAJOR_HEALING_POTION:
+                return getMajorHealingPotion();
+            case ETHER_POTION:
+                return getEtherPotion();
+            case GOLDEN_NUGGIE:
+                return getGoldenNuggie();
+            case SILVER_NUGGIE:
+                return getSilverNuggie();
+            default: throw new IllegalArgumentException("Wrong Enum");
+        }
+    }
+
+    private static Item getItem(int index){
+        return getItem(INames.values()[index]);
+    }
+
+    public static Item getMinorHealingPotion(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new HealAmount(40));
         return new Item(1,"Minor Healing Potion","Restores 50 HP",1,1,5, true,effects);
@@ -25,7 +52,7 @@ public class ItemFactory {
     public static Item getEtherPotion(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new RestorePP(10));
-        return new Item(3,"Ether Potion","Restores PP on all the attacks of the active Puckemon by 10",1,1,10,true,effects);
+        return new Item(3,"Ether Potion","Restores PP on all the attacks of the active Puckemon by maximum 10",1,1,10,true,effects);
     }
 
     public static Item getGoldenNuggie(){
@@ -36,4 +63,11 @@ public class ItemFactory {
         return new Item(5,"Silver Nuggie","A big nuggie of pure silver that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,35,false);
     }
 
+    public enum INames{
+        MINOR_HEALING_POTION,
+        MAJOR_HEALING_POTION,
+        ETHER_POTION,
+        GOLDEN_NUGGIE,
+        SILVER_NUGGIE,
+    }
 }

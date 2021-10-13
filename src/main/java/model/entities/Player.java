@@ -5,6 +5,7 @@ import model.inventories.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Player implements ITrainer, IFighter {
     private String name = "Bamse";
@@ -12,9 +13,9 @@ public class Player implements ITrainer, IFighter {
     private Inventory inventory;
     private int coins;
 
-    public Player(List<OwnedPuckemon> puckemons, List<Item> items, int coins){
+    public Player(List<OwnedPuckemon> puckemons, Inventory inventory, int coins){
         this.puckeBag = new PuckeBag(puckemons);
-        this.inventory = new Inventory(items);
+        this.inventory = inventory;
         this.coins = coins;
     }
 
@@ -53,6 +54,13 @@ public class Player implements ITrainer, IFighter {
             inventory.addItem(item);
         }else{
             System.out.println("You don't have enough PuckeCoins for this item!");
+        }
+    }
+
+    public void generateStartingInventory(int maxAmount){
+        int randomAmount = ThreadLocalRandom.current().nextInt(1, maxAmount + 1);
+        for(int i = 0; i < randomAmount; i++){
+            addItem(ItemFactory.getRandom());
         }
     }
 

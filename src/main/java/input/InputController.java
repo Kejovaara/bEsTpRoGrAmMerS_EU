@@ -4,8 +4,7 @@ import run.Boot;
 import model.Model;
 import view.PartyScreen;
 
-public class InputController {
-
+public class    InputController {
     private final Boot game;
     private Model model;
 
@@ -15,7 +14,6 @@ public class InputController {
     private InventoryController inventoryController;
     private PartyController partyController;
 
-
     public InputController(Boot game, Model model) {
         this.game = game;
         this.model = model;
@@ -24,7 +22,6 @@ public class InputController {
         this.partyController = new PartyController(game, model);
         this.inventoryController = new InventoryController(game, model);
     }
-
 
     public void switchController(Controllers controllerEnum){
         switch (controllerEnum){
