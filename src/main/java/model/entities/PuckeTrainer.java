@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class PuckeTrainer implements IFighter {
     private String name;
-    private PuckeBag puckeBag = new PuckeBag(1, 1);
+    private PuckeBag puckeBag;
     private Inventory inventory;
 
     public PuckeTrainer(String name, List<OwnedPuckemon> puckemons, List<Item> items){

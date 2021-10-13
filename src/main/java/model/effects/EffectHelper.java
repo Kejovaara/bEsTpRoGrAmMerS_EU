@@ -3,6 +3,7 @@ package model.effects;
 import model.PTypes;
 import model.entities.IPuckemon;
 
+import java.util.List;
 import java.util.Random;
 
 public class EffectHelper {
@@ -34,10 +35,10 @@ public class EffectHelper {
 
     };
 
-    private static double getMultplier(PTypes attackType, PTypes defendType1, PTypes defendType2){
+    private static double getMultplier(PTypes attackType, List<PTypes> defendTypes){
         int attackIndex = getIndex(attackType);
-        int defendIndex1 = getIndex(defendType1);
-        int defendIndex2 = getIndex(defendType2);
+        int defendIndex1 = getIndex(defendTypes.get(0));
+        int defendIndex2 = getIndex(defendTypes.get(1));
         double multiplier = typeChart[attackIndex][defendIndex1] * typeChart[attackIndex][defendIndex2];
         return multiplier;
     }
@@ -57,7 +58,7 @@ public class EffectHelper {
     public static int calculateDamage(IPuckemon attackUser, IPuckemon opponent, int power, PTypes attackType){
         double dividendPart = ((float)((attackUser.getLevel() * 2)/5) + 2) * power * ((float)attackUser.getAttackPower()/(float)opponent.getDefence());
         double dividePart = (float)(dividendPart / 50) + 2;
-        double damage = dividePart * randomFactor() * getMultplier(attackType,opponent.getType1(),opponent.getType2())*STABFactor(attackUser.getType1(),attackUser.getType2(), attackType);
+        double damage = dividePart * randomFactor() * getMultplier(attackType,opponent.getTypes())*STABFactor(attackUser.getTypes(), attackType);
         return (int)Math.round(damage);
     }
 
@@ -68,8 +69,8 @@ public class EffectHelper {
         return r.nextDouble() * (high-low) + low;
     }
 
-    private static double STABFactor(PTypes puckemonType1, PTypes puckemonType2, PTypes attackType){
-        if(puckemonType1 == attackType || puckemonType2 == attackType){
+    private static double STABFactor(List<PTypes> types, PTypes attackType){
+        if(types.get(0) == attackType || types.get(1) == attackType){
             return 1.5;
         }else{
             return 1.0;

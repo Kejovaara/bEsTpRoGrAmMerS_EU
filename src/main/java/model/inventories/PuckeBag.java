@@ -12,11 +12,6 @@ public class PuckeBag {
     private List<Puckemon> party = new ArrayList<Puckemon>();
     private List<Puckemon> box = new ArrayList<Puckemon>();
 
-    public PuckeBag(int id,int level){
-        OwnedPuckemon puckemon = new OwnedPuckemon(id, level);
-        addToActiveParty(puckemon);
-    }
-
     public PuckeBag(List<OwnedPuckemon> puckemons){
         for (int i = 0; i < puckemons.size(); i++) {
             if(party.size()<6){
