@@ -3,8 +3,6 @@ package model.effects;
 import static org.junit.Assert.*;
 
 import model.PTypes;
-import model.effects.effectTypes.DoDamage;
-import model.effects.effectTypes.HealAmount;
 import model.entities.IPuckemon;
 import model.entities.OwnedPuckemon;
 import org.junit.Test;
@@ -12,16 +10,22 @@ import org.junit.Test;
 public class TestEffectHelper {
 
     @Test
-    public void testGetMultiplier() {
-        IPuckemon p = new OwnedPuckemon(1,1);
-        IPuckemon enemyP = new OwnedPuckemon(1,1);
+    public void testCalculateDamage() {
 
-        DoDamage damage = new DoDamage(50, PTypes.NORMAL);
 
-        HealAmount heal = new HealAmount(20, true);
-        heal.execute(p, enemyP);
+        IPuckemon attackUser = new OwnedPuckemon(1,1);
+        IPuckemon opponent = new OwnedPuckemon(1,1);
+        int power = 2;
+        PTypes attackType = PTypes.NORMAL;
 
-        assertTrue(true);  // The logical check
+        int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
+
+        double dividendPart = ((float)(2/5) + 2) * power * ((float)5/(float)5);
+        double dividePart = (float)(dividendPart / 50) + 2;
+        double highDamage = (int)Math.round(dividePart * 1.5 * 1);
+        double lowDamage = (int)Math.round(dividePart * 1 * 1);
+
+        assertTrue( lowDamage <= damage && damage <= highDamage);  // The logical check
     }
 
 }
