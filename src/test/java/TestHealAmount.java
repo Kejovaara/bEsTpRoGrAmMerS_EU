@@ -7,10 +7,10 @@ import model.entities.IPuckemon;
 import model.entities.OwnedPuckemon;
 import org.junit.Test;
 
-public class testEffectHelper {
+public class TestHealAmount {
 
     @Test
-    public void testGetMultiplier() {
+    public void testHealYourself() {
         IPuckemon p = new OwnedPuckemon(1,1);
         IPuckemon enemyP = new OwnedPuckemon(1,1);
 

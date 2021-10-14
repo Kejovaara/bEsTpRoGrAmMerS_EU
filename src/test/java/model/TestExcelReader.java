@@ -1,11 +1,12 @@
+package model;
+
 import static org.junit.Assert.*;
 
-import model.ExcelReader;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class testExcelReader {
+public class TestExcelReader {
 
     @Test
     public void testGetExcelData() {
