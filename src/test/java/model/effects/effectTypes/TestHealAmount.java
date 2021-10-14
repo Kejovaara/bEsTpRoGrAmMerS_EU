@@ -1,3 +1,5 @@
+package model.effects.effectTypes;
+
 import static org.junit.Assert.*;
 
 import model.PTypes;
