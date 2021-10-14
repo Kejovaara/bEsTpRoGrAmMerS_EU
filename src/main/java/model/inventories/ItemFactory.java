@@ -32,6 +32,8 @@ public class ItemFactory {
                 return getSilverNuggie();
             case SUPER_KILL_POTION:
                 return getSuperKillPotion();
+            case EVOLVE_POTION:
+                return getEvolvePotion();
             default: throw new IllegalArgumentException("Wrong Enum");
         }
     }
@@ -72,6 +74,12 @@ public class ItemFactory {
         return new Item(6,"Super Kill Potion", "An item that instantly kills your opponent",1,1,20,true,effects);
     }
 
+    public static Item getEvolvePotion(){
+        List<IEffect> effects = new ArrayList<>();
+        effects.add(new GiveXP(1000)); //SPECIFY BETTER LATER
+        return new Item(7, "Evolve Potion", "Evolve your Puckemon to the next Puckemon",1,1,15,false,effects);
+    }
+
     public enum INames{
         MINOR_HEALING_POTION,
         MAJOR_HEALING_POTION,
@@ -79,5 +87,6 @@ public class ItemFactory {
         GOLDEN_NUGGIE,
         SILVER_NUGGIE,
         SUPER_KILL_POTION,
+        EVOLVE_POTION,
     }
 }
