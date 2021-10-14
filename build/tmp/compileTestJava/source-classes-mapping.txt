@@ -2,6 +2,8 @@ model/effects/effectTypes/TestHealAmount.java
  model.effects.effectTypes.TestHealAmount
 model/effects/TestEffectHelper.java
  model.effects.TestEffectHelper
+TestOwnedPuckemon.java
+ TestOwnedPuckemon
 TestCombat.java
  TestCombat
 TestPuckemon.java
@@ -12,5 +14,5 @@ model/TestMonRegisterInterpreter.java
  model.TestMonRegisterInterpreter
 model/effects/effectTypes/TestDoDamage.java
  model.effects.effectTypes.TestDoDamage
-TestOwnedPuckemon.java
- TestOwnedPuckemon
+model/effects/effectTypes/TestHealPercentage.java
+ model.effects.effectTypes.TestHealPercentage
