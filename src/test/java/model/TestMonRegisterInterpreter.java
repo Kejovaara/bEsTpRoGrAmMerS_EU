@@ -50,7 +50,7 @@ public class TestMonRegisterInterpreter {
         int expected = 82;
         int baseAttack = monRegisterInterpreter.getBaseAttack(id);
 
-        assertEquals(baseAttack, 0);  // The logical check
+        assertEquals(baseAttack, expected);  // The logical check
     }
 
     @Test
