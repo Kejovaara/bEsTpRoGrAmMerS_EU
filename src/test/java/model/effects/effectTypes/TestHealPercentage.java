@@ -28,5 +28,23 @@ public class TestHealPercentage {
         assertEquals(p.getHealth(), expected);  // The logical check
     }
 
+    @Test
+    public void testHealOpponent() {
+        IPuckemon p = new OwnedPuckemon(1,1);
+        IPuckemon enemyP = new OwnedPuckemon(1,1);
+
+
+        DoDamage damage = new DoDamage(50, PTypes.NORMAL);
+        damage.execute(p, enemyP);
+        int health = enemyP.getHealth();
+        int amount = 1;
+        int expected = Math.min((health + (health * amount)), p.getMaxHealth());
+
+        HealPercentage heal = new HealPercentage(amount, false);
+        heal.execute(p, enemyP);
+        System.out.println(expected);
+
+        assertEquals(enemyP.getHealth(), expected);  // The logical check
+    }
 
 }
