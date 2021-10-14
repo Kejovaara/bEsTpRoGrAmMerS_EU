@@ -1,3 +1,5 @@
+package model.effects;
+
 import static org.junit.Assert.*;
 
 import model.PTypes;
@@ -7,10 +9,10 @@ import model.entities.IPuckemon;
 import model.entities.OwnedPuckemon;
 import org.junit.Test;
 
-public class testHealAmount {
+public class TestEffectHelper {
 
     @Test
-    public void testHealYourself() {
+    public void testGetMultiplier() {
         IPuckemon p = new OwnedPuckemon(1,1);
         IPuckemon enemyP = new OwnedPuckemon(1,1);
 

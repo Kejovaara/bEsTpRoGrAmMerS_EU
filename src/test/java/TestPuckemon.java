@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class testPuckemon {
+public class TestPuckemon {
 //    @Test
 //    public void testGetAttack() {
 //        MonRegisterInterpreter monRegisterInterpreter = new MonRegisterInterpreter();

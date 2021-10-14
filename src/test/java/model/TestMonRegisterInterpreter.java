@@ -1,3 +1,5 @@
+package model;
+
 import static org.junit.Assert.*;
 
 import model.MonRegisterInterpreter;
@@ -6,7 +8,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class testMonRegisterInterpreter {
+public class TestMonRegisterInterpreter {
 
     private MonRegisterInterpreter monRegisterInterpreter = new MonRegisterInterpreter();
 

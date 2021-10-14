@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class testOwnedPuckemon {
+public class TestOwnedPuckemon {
 //    @Test
 //    public void testSetNickame() {
 //        OwnedPuckemon p = new OwnedPuckemon(1, 1);
