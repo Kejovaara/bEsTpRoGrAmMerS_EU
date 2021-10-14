@@ -1,5 +1,6 @@
 package model.inventories;
 
+import model.PTypes;
 import model.effects.IEffect;
 import model.effects.effectTypes.*;
 import org.apache.pdfbox.contentstream.operator.state.Restore;
@@ -29,6 +30,8 @@ public class ItemFactory {
                 return getGoldenNuggie();
             case SILVER_NUGGIE:
                 return getSilverNuggie();
+            case SUPER_KILL_POTION:
+                return getSuperKillPotion();
             default: throw new IllegalArgumentException("Wrong Enum");
         }
     }
@@ -63,11 +66,18 @@ public class ItemFactory {
         return new Item(5,"Silver Nuggie","A big nuggie of pure silver that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,35,false);
     }
 
+    public static Item getSuperKillPotion(){
+        List<IEffect> effects = new ArrayList<>();
+        effects.add(new DoDamage(1000, PTypes.NORMAL));
+        return new Item(6,"Super Kill Potion", "An item that instantly kills your opponent",1,1,20,true,effects);
+    }
+
     public enum INames{
         MINOR_HEALING_POTION,
         MAJOR_HEALING_POTION,
         ETHER_POTION,
         GOLDEN_NUGGIE,
         SILVER_NUGGIE,
+        SUPER_KILL_POTION,
     }
 }
