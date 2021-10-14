@@ -97,8 +97,6 @@ public class CombatScreen implements Screen, EffectObserver{
         }
     }
 
-
-
     @Override
     public void render(float delta) {
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);

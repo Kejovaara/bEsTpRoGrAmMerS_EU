@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class testCombat {
+public class TestCombat {
 
     private Combat combat;
 

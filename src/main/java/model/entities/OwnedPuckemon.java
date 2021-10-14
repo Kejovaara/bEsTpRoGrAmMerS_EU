@@ -32,7 +32,7 @@ public class OwnedPuckemon extends Puckemon {
      * 100 * level * trainer ( 1,5) = gained exp
      * expPoints needed to reach level x is x^3
      */
-    private void gainExp(int experience){
+    public void gainExp(int experience){
         if (expPoints < (100^3)){
             expPoints += experience;
             while (expPoints > ((level+1)^3)){

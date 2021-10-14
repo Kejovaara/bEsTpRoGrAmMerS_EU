@@ -7,7 +7,7 @@ import model.entities.IPuckemon;
 import model.entities.OwnedPuckemon;
 import org.junit.Test;
 
-public class testHealAmount {
+public class TestHealAmount {
 
     @Test
     public void testHealYourself() {
