@@ -19,9 +19,8 @@ public class TestDoDamage {
 
         damage.execute(p, enemyP);
 
-        System.out.println(enemyP.getHealth());
-
-        assertTrue((enemyP.getHealth() <= 10) && (enemyP.getHealth() >= 8));  // The logical check
+        //Because damage has a random factor the check involves a range
+        assertTrue((enemyP.getHealth() <= 10) && (enemyP.getHealth() >= 8));
     }
 
 }

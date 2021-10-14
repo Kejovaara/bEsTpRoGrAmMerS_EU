@@ -24,7 +24,7 @@ public class TestHealAmount {
         HealAmount heal = new HealAmount(amount, true);
         heal.execute(p, enemyP);
 
-        assertEquals(p.getHealth(), expected);  // The logical check
+        assertEquals(p.getHealth(), expected);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TestHealAmount {
         HealAmount heal = new HealAmount(amount, false);
         heal.execute(p, enemyP);
 
-        assertEquals(enemyP.getHealth(), expected);  // The logical check
+        assertEquals(enemyP.getHealth(), expected);
     }
 
 }
