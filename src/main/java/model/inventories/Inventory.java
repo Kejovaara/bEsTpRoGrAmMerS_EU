@@ -17,7 +17,7 @@ public class Inventory {
     }
 
     public void clearInventory(){
-        this.invList.clear();
+        invList.clear();
     }
 
     public void addItem(Item item){
@@ -33,7 +33,6 @@ public class Inventory {
                 invList.add(item);
             }
     }
-    //TODO : When item quantity == 0, remove object from list
 
     public void decrementItemAmount(Item item){
         if(item.getQuantity() == 1){
