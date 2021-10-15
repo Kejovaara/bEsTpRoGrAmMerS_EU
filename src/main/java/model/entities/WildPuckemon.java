@@ -1,24 +1,31 @@
 package model.entities;
 
-import model.CombatOptions;
+import model.PTypes;
+import model.attack.AttackFactory;
 import model.effects.IEffectContainer;
 
+import java.util.List;
 import java.util.Random;
 
-public class WildPuckemon implements IFighter{
-    private Puckemon puckemon = new Puckemon(1,1);
+public class WildPuckemon extends Puckemon implements IFighter{
 
-    public IEffectContainer getMoves(Player player) {
+    public WildPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList) {
+        super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
+    }
+
+    public IEffectContainer makeMove() {
         Random rand = new Random(); //instance of random class
         int upperbound = 4;
         //generate random values from 0-3
         int int_random = rand.nextInt(upperbound);
 
-        return puckemon.getAttack(int_random);
+        //TODO: make random attack
+        return AttackFactory.getTackle();
     }
 
-    public CombatOptions getOptions() {
-        return CombatOptions.EFFECT;
+    @Override
+    public IPuckemon getActivePuckemon() {
+        return null;
     }
 
 }

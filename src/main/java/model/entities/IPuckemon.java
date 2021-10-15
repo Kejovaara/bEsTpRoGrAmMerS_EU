@@ -2,30 +2,36 @@ package model.entities;
 
 import model.PTypes;
 
+import java.util.List;
+
 public interface IPuckemon {
 
-    public void setHealth(int health);
-    public int getHealth();
-    public void lockHealth(boolean locked);
+    String getName();
 
-    public void setSpeed(int speed);
-    public int getSpeed();
-    public void lockSpeed(boolean locked);
-    public void modifySpeed(int buffFactor);
+    int getId();
 
+    void setHealth(int health);
+    void doDamage(int damage);
+    void heal(int heal);
+    int getHealth();
+    int getMaxHealth();
+    void lockHealth();
 
-    public void setAttackPower(int attackPower);
-    public int getAttackPower();
-    public void lockAttackPower(boolean locked);
-    public void modifyAttackPower(int buffFactor);
-
-    public void setDefence(int defence);
-    public int getDefence();
-    public void lockDefence(boolean locked);
-    public void modifyDefence(int buffFactor);
+    int getSpeed();
+    void lockSpeed();
+    void modifySpeed(int buffFactor);
 
 
-    public PTypes getType();
-    public int getLevel();
+    int getAttackPower();
+    void lockAttackPower();
+    void modifyAttackPower(int buffFactor);
+
+    int getDefence();
+    void lockDefence();
+    void modifyDefence(int buffFactor);
+
+
+    List<PTypes> getTypes();
+    int getLevel();
 }
 

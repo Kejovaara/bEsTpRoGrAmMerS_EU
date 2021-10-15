@@ -1,8 +1,12 @@
 package model.combat;
 
-import model.CombatOptions;
+import model.attack.Attack;
+import model.effects.IEffect;
+import model.effects.IEffectContainer;
 import model.entities.IFighter;
+import model.entities.IPuckemon;
 import model.entities.ITrainer;
+import model.entities.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,31 +15,120 @@ public class Combat {
 
     private List<IFighter> players = new ArrayList<IFighter>();
 
-    IFighter player;
-    IFighter opponent;
+    IFighter fighter1;
+    IFighter fighter2;
 
-    public Combat(IFighter player, IFighter opponent){
+    IFighter fighter;
+    Player player;
+
+    private List<IEffect> playerDOTEffects = new ArrayList<>();
+    private List<IEffect> opponentDOTEffects = new ArrayList<>();
+
+
+    public Combat(IFighter fighter1, IFighter fighter2){
+        this.fighter1 = fighter1;
+        this.fighter2 = fighter2;
+        enterCombat(this.fighter1, this.fighter2);
+    }
+
+    public Combat(Player player, IFighter fighter){
         this.player = player;
-        this.opponent = opponent;
-        enterCombat(this.player, this.opponent);
+        this.fighter = fighter;
     }
 
     public void enterCombat(IFighter player, IFighter opponent){
-        players.add(this.player);
-        players.add(this.opponent);
+        players.add(this.fighter1);
+        players.add(this.fighter2);
     }
+
+    /*public void doTurn(){
+        IEffectContainer f1Move = fighter1.makeMove();
+        IPuckemon f1Puckemon = fighter1.getActivePuckemon();
+        IEffectContainer f2Move = fighter2.makeMove();
+        IPuckemon f2Puckemon = fighter2.getActivePuckemon();
+
+
+        if(f1Move.getPriority() < f2Move.getPriority()){
+            executeEffects(f1Move.getEffects(), f1Puckemon, f2Puckemon);
+            executeEffects(f2Move.getEffects(), f2Puckemon, f1Puckemon);
+        }else if(f1Move.getPriority() > f2Move.getPriority()){
+            executeEffects(f2Move.getEffects(), f2Puckemon, f1Puckemon);
+            executeEffects(f1Move.getEffects(), f1Puckemon, f2Puckemon);
+        }
+
+
+    }*/
+    public void useSwitch(){
+        IPuckemon fighterPuckemon = fighter.getActivePuckemon();
+        IEffectContainer fighterMove = fighter.makeMove();
+        IPuckemon playerPuckemon = player.getPuckemon();
+        int pdiff = playerPuckemon.getHealth();
+        executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+        System.out.println("player switched, player: " + (pdiff-playerPuckemon.getHealth()));
+    }
+
+    public void usePlayerAttack(int index){
+        IPuckemon playerPuckemon = player.getPuckemon();
+        IEffectContainer attack = player.getPuckemon().getAttack(index);
+
+        IEffectContainer fighterMove = fighter.makeMove();
+        IPuckemon fighterPuckemon = fighter.getActivePuckemon();
+
+        int pdiff = playerPuckemon.getHealth();
+        int fdiff = fighterPuckemon.getHealth();
+
+        if(attack.getPriority() < fighterMove.getPriority()){
+            executeEffects(attack.getEffects(), playerPuckemon, fighterPuckemon);
+            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+        }else{
+            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+            executeEffects(attack.getEffects(), playerPuckemon, fighterPuckemon);
+        }
+
+        System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
+//        System.out.println(playerPuckemon.getName()+" used "+player.getPuckemon().getAttack(index).get);
+//        System.out.println(fighterPuckemon.getName()+" used "+fighterPuckemon.getA);
+    }
+
+    public void usePlayerItem(int index){
+        IPuckemon playerPuckemon = player.getPuckemon();
+        IEffectContainer item = player.getItem(index);
+
+        IEffectContainer fighterMove = fighter.makeMove();
+        IPuckemon fighterPuckemon = fighter.getActivePuckemon();
+
+        int pdiff = playerPuckemon.getHealth();
+        int fdiff = fighterPuckemon.getHealth();
+
+        if(item.getPriority() < fighterMove.getPriority()){
+            executeEffects(item.getEffects(), playerPuckemon, fighterPuckemon);
+            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+        }else{
+            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+            executeEffects(item.getEffects(), playerPuckemon, fighterPuckemon);
+        }
+
+        player.consumeItem(index);
+
+        System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
+//        System.out.println(playerPuckemon.getName()+" used "+player.getPuckemon().getAttack(index).get);
+//        System.out.println(fighterPuckemon.getName()+" used "+fighterPuckemon.getA);
+    }
+
+    private void executeEffects(List<IEffect> effects, IPuckemon attackUser, IPuckemon opponent){
+        for(IEffect effect : effects){
+            if(attackUser.getHealth() == 0){
+                break;
+            }
+            effect.execute(attackUser, opponent);
+        }
+    }
+
 
     public boolean isCombat(){
         //TODO
         while(1 == 1 /*this.player.getHealth() > 0 || this.opponent.getHealth()*/ ){
-            CombatOptions option = player.getOptions();
-            switch (option) {
-                case FLEE:
-
-                    int x = 9;
-                default:
-
-            }
+            return true;
         }
     }
 

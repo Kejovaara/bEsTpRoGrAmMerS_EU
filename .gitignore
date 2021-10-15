@@ -1,2 +1,5 @@
 target/
-.idea
+.idea/
+gradle/
+build/
+.gradle/

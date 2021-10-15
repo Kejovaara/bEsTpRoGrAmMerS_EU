@@ -4,51 +4,80 @@ import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IPuckemon;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Item implements IEffectContainer {
+
     private List<IEffect> effects;
 
-    private String name;
-    private int prio;
-    private String desc;
-    private int quant;
-    private int dmg;
-    private int heal;
+    private int id, prio, quantity, price;
+    private final String name;
+    private final String desc;
+    private boolean isCombatItem;
 
-
-    public Item(String name, String desc, int prio, int quant, int dmg, int heal){
+    public Item(int id,String name, String desc, int prio, int quantity, int price, boolean isCombatItem, List<IEffect> effects){
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.prio = prio;
-        this.quant = quant;
-        this.dmg = dmg;
-        this.heal = heal;
+        this.quantity = quantity;
+        this.price = price;
+        this.isCombatItem = isCombatItem;
+        this.effects = effects;
     }
+
+    // Effectless items
+    public Item(int id, String name, String desc, int prio, int quantity, int price,boolean isCombatItem){
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.prio = prio;
+        this.quantity = quantity;
+        this.price = price;
+        this.isCombatItem = isCombatItem;
+    }
+
+    public int getId(){ return this.id; }
 
     public String getName(){
         return this.name;
     }
 
-    public String getDesc(){
+    public String getDescription(){
         return this.desc;
     }
 
-    public int getDmg(){
-        return this.dmg;
+
+    public int getQuantity(){
+        return this.quantity;
     }
 
-    public int getHeal(){
-        return this.heal;
+    public int getValue(){
+        return this.price;
     }
 
-    public int getQuant(){
-        return this.quant;
+    public void incrementAmount(int num){
+        this.quantity += num;
     }
+
+    public void decrementAmount(int num){
+        this.quantity -= num;
+    }
+
+    /*
+    public static List<Item> stack(List<Item> items){
+        //TODO METHOD FOR STACKING ITEMS
+        List<Item> stackedItems = new ArrayList<Item>();
+        for(Item i : items){
+            //TODO
+        }
+        return stackedItems;
+    }*/
 
     @Override
     public int getPriority(){
-        return this.prio;
+        return prio;
     }
 
     @Override
@@ -58,9 +87,9 @@ public class Item implements IEffectContainer {
 
     @Override
     public void execute(IPuckemon user, IPuckemon opponent) {
+        decrementAmount(1);
         for (IEffect effect: effects) {
             effect.execute(user, opponent);
         }
     }
-
 }

@@ -4,6 +4,7 @@ import model.PTypes;
 import model.effects.EffectHelper;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
+import view.animation.EffectAnimationsHandler;
 
 public class RecoilDamage implements IEffect {
 
@@ -20,7 +21,9 @@ public class RecoilDamage implements IEffect {
     @Override
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
-        opponent.setHealth(opponent.getHealth() - damage);
-        attackUser.setHealth(attackUser.getHealth() - (int)Math.round(damage*recoilPercentage));
+        opponent.doDamage(damage);
+        attackUser.doDamage((int)Math.ceil(damage*recoilPercentage));
+        EffectAnimationsHandler.getInstance().displayDamage(damage, opponent);
+        EffectAnimationsHandler.getInstance().displayDamage((int)Math.ceil(damage*recoilPercentage), attackUser);
     }
 }

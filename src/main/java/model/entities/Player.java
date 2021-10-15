@@ -1,53 +1,92 @@
 package model.entities;
 
-import model.CombatOptions;
 import model.effects.IEffectContainer;
 import model.inventories.*;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Player implements ITrainer, IFighter {
     private String name = "Bamse";
     private PuckeBag puckeBag;
     private Inventory inventory;
+    private int coins;
 
-    public Player(ArrayList<Puckemon> puckemons, ArrayList<Item> items){
+    public Player(List<OwnedPuckemon> puckemons, Inventory inventory, int coins){
         this.puckeBag = new PuckeBag(puckemons);
-        this.inventory = new Inventory(items);
+        this.inventory = inventory;
+        this.coins = coins;
     }
 
-    public Puckemon selectPuckemon(){
-        Puckemon puckemon = puckeBag.getNextPuckemon();
-        return puckemon;
+    public Player(List<OwnedPuckemon> puckemons,  int coins){
+        this.puckeBag = new PuckeBag(puckemons);
+        this.inventory = new Inventory();
+        this.coins = coins;
     }
 
-    public IEffectContainer getMoves() {
-        Random rand = new Random(); //instance of random class
-        int upperbound = 4;
-        //generate random values from 0-3
-        int int_random = rand.nextInt(upperbound);
-
-        return puckeBag.getNextPuckemon().getAttack(int_random);
+    // Pick target in party to switch too
+    public void switchPuckemon(int index){
+        puckeBag.setActivePuckemon(index);
     }
 
-    public CombatOptions getOptions() {
-        //Choose option
-        return CombatOptions.EFFECT;
+    // Get Mons moveSet
+    public void selectMoves(int index) {
+        puckeBag.getActivePuckemon().getAttack(index);
     }
 
-
-    public void switchPuckemon(int index) {
-
-    }
 
     public IEffectContainer getItem(int index) {
         return inventory.getItem(index);
     }
 
-    public void addItem(Item item){ inventory.addItem(item);}
+    public void addItem(Item item){
+        this.inventory.addItem(item);
+    }
 
-    public void addPuckemon(Puckemon puckemon) {
-        puckeBag.add(puckemon);
+    public void consumeItem(int index){
+        inventory.getItem(index).decrementAmount(1);
+    }
+
+    public void buyItem(Item item){
+        if(this.coins >= item.getValue()){
+            this.coins -= item.getValue();
+            inventory.addItem(item);
+        }else{
+            System.out.println("You don't have enough PuckeCoins for this item!");
+        }
+    }
+
+    public void generateStartingInventory(int maxAmount){
+        int randomAmount = ThreadLocalRandom.current().nextInt(1, maxAmount + 1);
+        for(int i = 0; i < randomAmount; i++){
+            addItem(ItemFactory.getRandom());
+        }
+    }
+
+    public List<Puckemon> getParty(){
+        return puckeBag.getParty();
+    }
+
+    public List<Item> getInventory(){
+        return inventory.getInventory();
+    }
+
+    private void addPuckemonToParty(Puckemon puckemon) {
+        puckeBag.addPuckemonToParty(puckemon);
+    }
+
+    @Override
+    public IEffectContainer makeMove() {
+        return null;
+    }
+
+    @Override
+    public IPuckemon getActivePuckemon() {
+        return null;
+    }
+
+    public Puckemon getPuckemon(){
+        return puckeBag.getActivePuckemon();
     }
 }

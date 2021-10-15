@@ -9,34 +9,46 @@ import java.util.List;
 
 public class AttackFactory {
 
+
+    public static Attack createByName(String attackName){
+        switch (attackName) {
+            case "Tackle": return getTackle();
+            case "SwordsDance": return getSwordsDance();
+            case "Absorb": return  getAbsorb();
+            case "QuickAttack": return getQuickAttack();
+            case "DoubleEdge":return getDoubleEdge();
+            default : throw new IllegalArgumentException("Unknown Attack " + attackName);
+        }
+    }
+
     public static Attack getTackle(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new DoDamage(40, PTypes.NORMAL));
-        return new Attack(3, effects);
+        return new Attack("Tackle",3, effects,15, PTypes.NORMAL);
     }
 
     public static Attack getQuickAttack(){
-        List<IEffect> effects = new ArrayList<>();
+        List<IEffect> effects = new ArrayList<>();  
         effects.add(new DoDamage(40, PTypes.NORMAL));
-        return new Attack(1, effects);
+        return new Attack("Quick attack", 1, effects,10,PTypes.NORMAL);
     }
 
     public static Attack getSwordsDance(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new ModifyAttackPower(2));
-        return new Attack(3, effects);
+        return new Attack("Swords dance", 3, effects,3,PTypes.NORMAL);
     }
 
     public static Attack getAbsorb(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new HpSteal(20, PTypes.GRASS));
-        return new Attack(3, effects);
+        return new Attack("Absorb",3, effects,5,PTypes.GRASS);
     }
 
     public static Attack getDoubleEdge(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new RecoilDamage(120, PTypes.NORMAL, 1/3));
-        return new Attack(3, effects);
+        return new Attack("Double Edge",3, effects, 7,PTypes.NORMAL);
     }
 
 

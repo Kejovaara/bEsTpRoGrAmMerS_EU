@@ -1,107 +1,107 @@
 package model.entities;
 
-import model.combat.Attack;
+import model.PTypes;
+import model.attack.Attack;
+import model.attack.AttackFactory;
 import model.effects.IEffectContainer;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class Puckemon {
+public abstract class Puckemon implements IPuckemon {
 
-    private String name = "Puckemon";
-    private String nickName;
-//    private Type type1;
-//    private Type type2;
+    protected int id;
+    protected String name;
+    protected List<PTypes> types;
 
-    private int baseHealth;
-    private int baseAttackPower;
-    private int baseDefence;
-    private int baseSpeed;
+    protected int baseHealth;
+    protected int baseAttackPower;
+    protected int baseDefence;
+    protected int baseSpeed;
 
-    private int evolutionLevel = 101;
-    private int evolutionID = 0;
+    protected int level;
 
-    private ArrayList<Attack> attacks = new ArrayList<Attack>();
+    protected int evolutionLevel = 101;
+    protected int evolutionId = 0;
 
     // -------------
 
     /**
      * These are a pokemons stats. They are solely based on the baseStats and current level.
      */
-    private int maxHealth;
-    private int attackPower;
-    private int defence;
-    private int speed;
+    protected int maxHealth;
+    protected int attackPower;
+    protected int defence;
+    protected int speed;
 
     /**
      * These are a pokemons stats during the current combat. They can be altered.
      */
-    private int currentHealth;
-    private int currentAttackPower;
-    private int currentDefence;
-    private int currentSpeed;
+    protected int currentHealth;
+    protected int currentAttackPower;
+    protected int currentDefence;
+    protected int currentSpeed;
 
-    private int attackPowerBuffFactor = 0;
-    private int defenceBuffFactor = 0;
-    private int speedBuffFactor = 0;
-    private int level;
-    private int expPoints;
+    protected int attackPowerBuffFactor = 0;
+    protected int defenceBuffFactor = 0;
+    protected int speedBuffFactor = 0;
 
+    protected boolean lockHealth = false;
+    protected boolean lockAttackPower = false;
+    protected boolean lockDefence = false;
+    protected boolean lockSpeed = false;
 
-    public Puckemon(int level, int id){
+    protected List<String> moveList = new ArrayList<String>();
+    protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
+
+    public Puckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList){
+        this.id = id;
         this.level = level;
-        buildPuckemon(id);
-    }
+        this.name = name;
+        this.types = types;
+        this.baseHealth = baseHealth;
+        this.baseAttackPower = baseAttackPower;
+        this.baseDefence = baseDefence;
+        this.baseSpeed = baseSpeed;
+        this.moveList = moveList;
 
-    public Puckemon(int level, int id, String nickName){
-        this.level = level;
-        this.nickName = nickName;
-        buildPuckemon(id);
-    }
-
-    private void buildPuckemon(int id){
-        // Collects data from Excel depending on the ID
-        // ex: this.baseSpeed = "excel.baseSpeed id 1"
         calculateLevelStats();
-
+        alterCurrentStats();
+        this.currentHealth = this.maxHealth;
+        this.currentDefence = this.defence;
+        fillMoveSet();
     }
 
-    private void calculateLevelStats(){
-        this.maxHealth = (2*baseHealth+level)/100 + level + 10;
-        this.attackPower = (2*baseAttackPower+level)/100+5;
-        this.defence = (2*baseDefence+level)/100+5;
-        this.speed = (2*baseSpeed+level)/100+5;
-    }
-
-
-    /**
-     * base exp (68 - 220)ish * level * trainer ( 1,5) = gained exp
-     * expPoints needed to reach level x is x^3
-     */
-    private void gainExp(int experience){
-        if (expPoints < (100^3)){
-            expPoints += experience;
-            while (expPoints > ((level+1)^3)){
-                levelUp();
+    protected void fillMoveSet(){
+        if (moveList.size() <= 4){
+            for (int i = 0; i < moveList.size(); i++){
+                moveSet.add(AttackFactory.createByName(moveList.get(i)));
+            }
+        } else{
+            ArrayList<String> randList = new ArrayList<>(moveList);
+            Collections.shuffle(randList);
+            for (int i = 0; i < 4; i++) {
+                moveSet.add(AttackFactory.createByName(randList.get(i)));
             }
         }
     }
 
-    private void levelUp(){
-        if (level < 100){
-            level++;
-        }
-        if (level >= evolutionLevel) {
-//           This should only happen after battle, not right in the middle
-//            buildPuckemon(evolutionID);
-        }else{
-//            The pokemon keeps the same health percentage when it levels up.
-            int healthPercentage = currentHealth/maxHealth;
-            calculateLevelStats();
-            currentHealth = maxHealth/healthPercentage;
-        }
+    protected void unlockStats(){
+        this.lockHealth = false;
+        this.lockAttackPower = false;
+        this.lockDefence = false;
+        this.lockSpeed = false;
     }
 
-    private void alterCurrentStats(){
+    protected void calculateLevelStats(){
+        this.maxHealth = (2*baseHealth*level)/100 + level + 10;
+        this.attackPower = (2*baseAttackPower*level)/100+5;
+        this.defence = (2*baseDefence*level)/100+5;
+        this.speed = (2*baseSpeed*level)/100+5;
+    }
+
+    protected void alterCurrentStats(){
         if (attackPowerBuffFactor < 0){
             currentAttackPower = (int) (attackPower) * (2 / (2 + (-1) * attackPowerBuffFactor));
         }else{
@@ -120,15 +120,109 @@ public class Puckemon {
     }
 
     public IEffectContainer getAttack(int i) {
-        return attacks.get(i);
+        return moveSet.get(i);
     }
 
 
-    public int getHealth() {
-        return baseHealth;
-    }
+    public List<Attack> getMoveSet(){return moveSet;}
 
+    @Override
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    @Override
+    public int getId() {return this.id; }
+
+    @Override
+    public int getHealth() {
+        return this.currentHealth;
+    }
+
+    @Override
+    public int getMaxHealth(){
+        return this.maxHealth;
+    }
+
+    @Override
+    public void doDamage(int damage){
+        if(damage > 0){
+            if(damage > this.currentHealth) this.currentHealth = 0;
+            else this.currentHealth -= damage;
+        }
+    }
+
+    @Override
+    public void heal(int heal){
+        if(heal>0){
+            if(heal+this.currentHealth > this.maxHealth) this.currentHealth = this.maxHealth;
+            else this.currentHealth += heal;
+        }
+    }
+
+    @Override
+    public void setHealth(int health){this.currentHealth = health;}
+
+    @Override
+    public void lockHealth() {
+        this.lockHealth = true;
+    }
+
+    @Override
+    public int getSpeed() {
+        return currentSpeed;
+    }
+
+    @Override
+    public void lockSpeed() {
+        this.lockSpeed = true;
+    }
+
+    @Override
+    public void modifySpeed(int buffFactor) {
+        this.speedBuffFactor += buffFactor;
+        alterCurrentStats();
+    }
+
+    @Override
+    public int getAttackPower() {
+        return currentAttackPower;
+    }
+
+    @Override
+    public void lockAttackPower() {
+        this.lockAttackPower = true;
+    }
+
+    @Override
+    public void modifyAttackPower(int buffFactor) {
+        this.attackPowerBuffFactor += buffFactor;
+        alterCurrentStats();
+    }
+
+    @Override
+    public int getDefence() {
+        return currentDefence;
+    }
+
+    @Override
+    public void lockDefence() {
+        this.lockDefence = true;
+    }
+
+    @Override
+    public void modifyDefence(int buffFactor) {
+        this.defenceBuffFactor += buffFactor;
+        alterCurrentStats();
+    }
+
+    @Override
+    public List<PTypes> getTypes() {
+        return this.types;
+    }
+
+    @Override
+    public int getLevel() {
+        return level;
     }
 }
