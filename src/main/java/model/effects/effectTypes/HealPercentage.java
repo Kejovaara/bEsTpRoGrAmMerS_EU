@@ -16,6 +16,7 @@ public class HealPercentage implements IEffect {
         this.percentage = percentage;
         this.healYourself = healYourself;
     }
+
     @Override
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         if(healYourself){
