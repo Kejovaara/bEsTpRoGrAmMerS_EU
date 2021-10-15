@@ -20,14 +20,14 @@ public class Model {
     private Combat combat;
 
     public Model() {
-        playerList.add(createPuckemon.createOwnedPuckemon(128,10));
+        playerList.add(createPuckemon.createOwnedPuckemon(128,50));
         playerList.add(createPuckemon.createOwnedPuckemon(1,2));
         playerList.add(createPuckemon.createOwnedPuckemon(2,4));
-        playerList.add(createPuckemon.createOwnedPuckemon(3,10));
-        playerList.add(createPuckemon.createOwnedPuckemon(128,5));
         playerList.add(createPuckemon.createOwnedPuckemon(3,50));
+        playerList.add(createPuckemon.createOwnedPuckemon(5,30));
 
-        trainerList.add(createPuckemon.createOwnedPuckemon(3,10));
+        trainerList.add(createPuckemon.createOwnedPuckemon(3,50));
+        trainerList.add(createPuckemon.createOwnedPuckemon(5,20));
 
         player = new Player(playerList, 10);
         trainer = new PuckeTrainer("Bertil the great", trainerList);

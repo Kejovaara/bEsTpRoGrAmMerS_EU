@@ -67,14 +67,14 @@ public class EffectHelper {
     }
 
     private static double randomFactor(){
-        double high = 1.5;
+        double high = 1.2;
         double low = 1;
         Random r = new Random();
         return r.nextDouble() * (high-low) + low;
     }
 
     private static double STABFactor(List<PTypes> types, PTypes attackType){
-        if(types.get(0) == attackType || types.get(1) == attackType){
+        if(types.get(0) == attackType || types.get(types.size()-1) == attackType){
             return 1.5;
         }else{
             return 1.0;
