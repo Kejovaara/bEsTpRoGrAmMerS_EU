@@ -1,13 +1,11 @@
 package model.entities;
 
-import model.MonRegisterInterpreter;
 import model.PTypes;
 import model.attack.Attack;
 import model.attack.AttackFactory;
 import model.effects.IEffectContainer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,8 +13,7 @@ public abstract class Puckemon implements IPuckemon {
 
     protected int id;
     protected String name;
-    protected PTypes type1;
-    protected PTypes type2;
+    protected List<PTypes> types;
 
     protected int baseHealth;
     protected int baseAttackPower;
@@ -26,7 +23,7 @@ public abstract class Puckemon implements IPuckemon {
     protected int level;
 
     protected int evolutionLevel = 101;
-    protected int evolutionID = 0;
+    protected int evolutionId = 0;
 
     // -------------
 
@@ -55,34 +52,25 @@ public abstract class Puckemon implements IPuckemon {
     protected boolean lockDefence = false;
     protected boolean lockSpeed = false;
 
-    protected ArrayList<String> moveList = new ArrayList<String>();
+    protected List<String> moveList = new ArrayList<String>();
     protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
-    private MonRegisterInterpreter monRegisterInterpreter = new MonRegisterInterpreter();
 
-    public Puckemon(int id, int level){
+    public Puckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList){
         this.id = id;
         this.level = level;
-        buildPuckemon(id);
-        fillMoveSet();
-    }
+        this.name = name;
+        this.types = types;
+        this.baseHealth = baseHealth;
+        this.baseAttackPower = baseAttackPower;
+        this.baseDefence = baseDefence;
+        this.baseSpeed = baseSpeed;
+        this.moveList = moveList;
 
-    protected void buildPuckemon(int id){
-        this.name = monRegisterInterpreter.getName(id);
-        this.type1 = monRegisterInterpreter.getType1(id);
-        this.type2 = monRegisterInterpreter.getType2(id);
-        this.baseHealth = monRegisterInterpreter.getBaseHealth(id);
-        this.baseAttackPower = monRegisterInterpreter.getBaseAttack(id);
-        this.baseDefence = monRegisterInterpreter.getBaseDefence(id);
-        this.baseSpeed = monRegisterInterpreter.getBaseSpeed(id);
-        this.evolutionLevel = monRegisterInterpreter.getEvolutionLevel(id);
-        this.evolutionID = monRegisterInterpreter.getEvolutionId(id);
-        this.moveList = monRegisterInterpreter.getMoveList(id);
         calculateLevelStats();
         alterCurrentStats();
-
-        //TODO: where should these be initialized
         this.currentHealth = this.maxHealth;
         this.currentDefence = this.defence;
+        fillMoveSet();
     }
 
     protected void fillMoveSet(){
@@ -229,13 +217,8 @@ public abstract class Puckemon implements IPuckemon {
     }
 
     @Override
-    public PTypes getType1() {
-        return this.type1;
-    }
-
-    @Override
-    public PTypes getType2() {
-        return this.type2;
+    public List<PTypes> getTypes() {
+        return this.types;
     }
 
     @Override

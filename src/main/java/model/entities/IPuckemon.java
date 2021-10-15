@@ -31,8 +31,7 @@ public interface IPuckemon {
     void modifyDefence(int buffFactor);
 
 
-    PTypes getType1();
-    PTypes getType2();
+    List<PTypes> getTypes();
     int getLevel();
 }
 
