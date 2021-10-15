@@ -24,7 +24,7 @@ public class Inventory {
             boolean wasItemAdded = false;
             for(Item invItem : invList){
                 if(item.getId() == invItem.getId()){
-                    invItem.incrementAmount(1);
+                    invItem.setQuantity(invItem.getQuantity()+1);
                     wasItemAdded = true;
                     break;
                 }
@@ -35,29 +35,24 @@ public class Inventory {
     }
     //TODO : When item quantity == 0, remove object from list
 
-    public void deleteItemStack(int i){
-        invList.set(i, null);
-    }
-
-    public void deleteSingleItem(Item item){
-        if(invList.contains(item)){
-            item.decrementAmount(1);
+    public void decrementItemAmount(Item item){
+        if(item.getQuantity() == 1){
+            this.invList.remove(item);
         }else{
-            System.out.println("Item does not exist");
+            item.setQuantity(item.getQuantity() - 1);
         }
-
     }
 
     public Item getItem(int i){
-        return this.invList.get(i);
+        return invList.get(i);
     }
 
     public int getInventorySize(){
-        return  this.invList.size();
+        return invList.size();
     }
 
     public List<Item> getInventory(){
-        return this.invList;
+        return invList;
     }
 
 }

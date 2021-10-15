@@ -45,7 +45,7 @@ public class Player implements ITrainer, IFighter {
     }
 
     public void consumeItem(int index){
-        inventory.getItem(index).decrementAmount(1);
+        inventory.decrementItemAmount(inventory.getItem(index));
     }
 
     public void buyItem(Item item){

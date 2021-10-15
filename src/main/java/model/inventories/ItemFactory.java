@@ -77,7 +77,7 @@ public class ItemFactory {
     public static Item getEvolveNuggie(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new GiveXP(1000)); //SPECIFY BETTER LATER
-        return new Item(7, "Evolve Potion", "Evolve your Puckemon to the next Puckemon",1,1,15,false,effects);
+        return new Item(7, "Evolve Nuggie", "Evolve your Puckemon to the next more powerful Puckemon",1,1,15,false,effects);
     }
 
     public enum INames{
