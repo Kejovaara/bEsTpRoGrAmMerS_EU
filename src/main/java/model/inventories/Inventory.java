@@ -2,6 +2,7 @@ package model.inventories;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Inventory {
 
@@ -32,6 +33,7 @@ public class Inventory {
                 invList.add(item);
             }
     }
+    //TODO : When item quantity == 0, remove object from list
 
     public void deleteItemStack(int i){
         invList.set(i, null);

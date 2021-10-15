@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Item implements IEffectContainer {
+
     private List<IEffect> effects;
 
     private int id, prio, quantity, price;
