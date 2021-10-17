@@ -141,8 +141,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         }else{
             drawAnimations();
             mainMenuBackground2.render();
-            System.out.println("View: "+game.frame);
-            if (game.frame != 0)activeMenu.render();
+            activeMenu.render();
         }
     }
 

@@ -22,7 +22,6 @@ public class Boot extends Game implements VCHandler{
     private BitmapFont font;
 
     int screenWidth, screenHeight;
-    public int frame = 0;
 
     private Screen mainScreen, combatScreen, invetoryScreen, partyScreen;
 
@@ -53,9 +52,8 @@ public class Boot extends Game implements VCHandler{
     }
 
     public void render() {
-        frame++;
-        controller.update();
         super.render();
+        controller.update();
     }
 
     public void dispose() {
@@ -68,20 +66,16 @@ public class Boot extends Game implements VCHandler{
         switch (screen){
             case MAIN_MENU:
                 switchView(mainScreen);
-                frame = 0;
                 break;
             case COMBAT:
                 System.out.println("tryckt: "+ Gdx.input.isKeyJustPressed(Input.Keys.ENTER));
                 switchView(combatScreen);
-                frame = 0;
                 break;
             case PARTY:
                 switchView(partyScreen);
-                frame = 0;
                 break;
             case INVENTORY:
                 switchView(invetoryScreen);
-                frame = 0;
                 break;
         }
     }
