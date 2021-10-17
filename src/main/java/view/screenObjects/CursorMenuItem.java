@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import view.IRender;
 
-public class CombatMenuItem implements IRender {
+public class CursorMenuItem implements IRender {
 
     private SpriteBatch batch;
     private  Text text;
@@ -19,7 +19,7 @@ public class CombatMenuItem implements IRender {
 
     private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
 
-    public CombatMenuItem(SpriteBatch batch, String message, int xPos, int yPos, float scale, Boolean active){
+    public CursorMenuItem(SpriteBatch batch, String message, int xPos, int yPos, float scale, Boolean active){
         this.batch = batch;
         this.active = active;
         this.xPos = xPos;

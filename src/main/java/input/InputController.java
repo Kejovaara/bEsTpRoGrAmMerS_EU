@@ -48,6 +48,7 @@ public class    InputController {
     }
 
     public void update(){
+        System.out.println("Input: "+ game.frame);
         if(activeController != null) activeController.update();
     }
 

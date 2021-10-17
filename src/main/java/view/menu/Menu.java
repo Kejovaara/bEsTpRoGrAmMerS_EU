@@ -13,7 +13,7 @@ public class Menu implements IRender {
 
     private List<MenuItem> menuItems;
     private MenuItem activeItem;
-    private SpriteBatch batch;
+    protected SpriteBatch batch;
     private IMenuController controller;
 
     public Menu(SpriteBatch batch,IMenuController controller, List<MenuItem> menuItems, MenuItem activeItem){
@@ -88,7 +88,8 @@ public class Menu implements IRender {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            controller.onInput(menuItems.indexOf(activeItem));
+            System.out.println("aaaaa: " + Gdx.input.isKeyJustPressed(Input.Keys.ENTER));
+            controller.onCursorEnter(menuItems.indexOf(activeItem));
         }
     }
 }

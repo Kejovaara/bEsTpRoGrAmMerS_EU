@@ -3,9 +3,8 @@ package view.screenObjects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import model.attack.Attack;
-import view.IRender;
 
-public class AttackMenuItem extends CombatMenuItem {
+public class AttackMenuItem extends CursorMenuItem {
 
     private Attack attack;
 

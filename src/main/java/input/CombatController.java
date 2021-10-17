@@ -2,35 +2,36 @@ package input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import model.Model;
 import run.Boot;
-import view.CombatScreen;
-import view.InventoryScreen;
-import view.PartyScreen;
+import run.VCHandler;
+import view.Screens;
 import view.menu.Menu;
-import view.menu.MenuItem;
-import view.screenObjects.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CombatController implements IController{
 
     private Model model;
-    private final Boot game;
+    private final VCHandler handler;
 
     private Menu mainMenu;
 
-    public CombatController(Boot game, Model model) {
-        this.game = game;
+    public CombatController(VCHandler handler, Model model) {
+        this.handler = handler;
         this.model = model;
     }
 
 
     @Override
     public void update() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            System.out.println("noooooo");
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
+            if(model.getPlayerPuckemon().getHealth() <= 0){
+                handler.setView(Screens.PARTY);
+                handler.setController(InputController.Controllers.PARTY);
+            }
+        }
 
     }
 

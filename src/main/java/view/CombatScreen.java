@@ -1,6 +1,7 @@
 package view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,6 +18,7 @@ import run.Boot;
 import view.animation.*;
 import view.menu.Menu;
 import view.menu.MenuFactory;
+import view.screenObjects.RectangleBorder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,8 @@ public class CombatScreen implements Screen, EffectObserver, IView{
     private Menu attackMenu;
     private Menu activeMenu;
 
+    private RectangleBorder mainMenuBackground1, mainMenuBackground2;
+
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
 
@@ -71,6 +75,10 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         attackMenu = MenuFactory.getAttackCombatMenu( game,this, model);
         activeMenu = mainMenu;
 
+        mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
+        mainMenuBackground2 = new RectangleBorder(560,0,400,180,Color.BLACK,Color.WHITE,8);
+
+
         //COMABT BOX TEXT
         stage = new Stage();
         combatFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
@@ -94,6 +102,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
         //ANIMATION
         EffectAnimationsHandler.getInstance().addObserver(this);
+        Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY);
     }
 
     Texture getTexture(int id, boolean front) {
@@ -124,23 +133,17 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
         drawPuckeStats();
 
-        if(model.getPlayerPuckemon().getHealth() <= 0){
+
+        mainMenuBackground1.render();
+        stage.draw();
+        if (model.getPlayerPuckemon().getHealth() <= 0){
             label.setText("Your Puckemon fainted, Press any key to switch");
-            drawMainCombatMenu();
+        }else{
+            drawAnimations();
+            mainMenuBackground2.render();
+            System.out.println("View: "+game.frame);
+            if (game.frame != 0)activeMenu.render();
         }
-        else if (mainCombatMenu){
-            label.setText("What will " + model.getPlayerPuckemon().getName() + " do?");
-            drawMainCombatMenu();
-            drawCursor();
-        }
-        else {
-            drawCombatAttackMenu();
-            drawCursor();
-        }
-
-        drawAnimations();
-        activeMenu.render();
-
     }
 
     private void drawAnimations() {

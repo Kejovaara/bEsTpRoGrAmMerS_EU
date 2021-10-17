@@ -3,16 +3,14 @@ package view.menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import input.AttackCombatMenu;
 import input.MainCombatMenu;
 import model.Model;
-import model.attack.Attack;
 import run.Boot;
 import view.IRender;
 import view.IView;
 import view.screenObjects.AttackMenuItem;
-import view.screenObjects.CombatMenuItem;
+import view.screenObjects.CursorMenuItem;
 import view.screenObjects.Text;
 
 import java.util.ArrayList;
@@ -23,11 +21,15 @@ public class MenuFactory {
     public static Menu getMainCombatMenu(Boot game, IView view, Model model){
         List<MenuItem> items = new ArrayList<>();
         BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
+        int xPos = 620;
+        int yPos = 130;
+        int xSpacing = 170;
+        int ySpacing = 60;
 
-        MenuItem i1 = new MenuItem(new Text(font, game.batch, Color.BLACK, 200, 400,"Attack",0.75f),      new Text(font, game.batch, Color.GRAY, 200, 400,"Attack",0.75f));
-        MenuItem i2 = new MenuItem(new Text(font, game.batch, Color.BLACK, 300, 400,"Inventory",0.75f),   new Text(font, game.batch, Color.GRAY, 300, 400,"Inventory",0.75f));
-        MenuItem i3 = new MenuItem(new Text(font, game.batch, Color.BLACK, 200, 300,"Switch",0.75f),      new Text(font, game.batch, Color.GRAY, 200, 300,"Switch",0.75f));
-        MenuItem i4 = new MenuItem(new Text(font, game.batch, Color.BLACK, 300, 300,"Flee",0.75f),        new Text(font, game.batch, Color.GRAY, 300, 300,"Flee",0.75f));
+        MenuItem i1 = new MenuItem(new CursorMenuItem(game.batch, "Attack", xPos, yPos,0.75f,true),                            new CursorMenuItem(game.batch, "Attack", xPos, yPos,0.75f,false));
+        MenuItem i2 = new MenuItem(new CursorMenuItem(game.batch, "Inventory", xPos+xSpacing, yPos,0.75f,true),           new CursorMenuItem(game.batch, "Inventory", xPos+xSpacing, yPos,0.75f,false));
+        MenuItem i3 = new MenuItem(new CursorMenuItem(game.batch, "Switch", xPos, yPos-ySpacing,0.75f,true),              new CursorMenuItem(game.batch, "Switch", xPos, yPos-ySpacing,0.75f,false));
+        MenuItem i4 = new MenuItem(new CursorMenuItem(game.batch, "Flee", xPos+xSpacing, yPos-ySpacing,0.75f,true),  new CursorMenuItem(game.batch, "Flee", xPos+xSpacing, yPos-ySpacing,0.75f,false));
 
         i1.setDown(i3);
         i1.setLeft(i4);
@@ -55,7 +57,7 @@ public class MenuFactory {
     public static Menu getAttackCombatMenu(Boot game, IView view, Model model){
 
         int x = 100;
-        int y = 400;
+        int y = 130;
         int xSpacing = 190;
         int ySpacing = 60;
         List<MenuItem> items = new ArrayList<>();
@@ -68,8 +70,9 @@ public class MenuFactory {
             tempDeactive =  new AttackMenuItem(game.batch, model.getAttack(i), x+(i%2*xSpacing), y-(i/2*ySpacing), 0.75f,false);
             items.add(new MenuItem(tempActive,tempDeactive));
         }
-        items.add(new MenuItem(new CombatMenuItem(game.batch, "Back", x+420, y-(ySpacing), 0.75f,true), new CombatMenuItem(game.batch, "Back", x+420, y-(ySpacing), 0.75f,false)));
+        items.add(new MenuItem(new CursorMenuItem(game.batch, "Back", x+420, y-(ySpacing), 0.75f,true), new CursorMenuItem(game.batch, "Back", x+420, y-(ySpacing), 0.75f,false)));
 
+        System.out.println();
         for(int i = 0; i < items.size(); i++){
             if ((i+1) != items.size()) items.get(i).setRight(items.get(i+1));
             else items.get(i).setRight(items.get(0));
@@ -78,7 +81,7 @@ public class MenuFactory {
             else items.get(i).setLeft(items.get(items.size()-1));
 
             if(i/2 >= 1) items.get(i).setUp(items.get(i-2));
-            else items.get(i).setDown(items.get(i+2));
+            else if(items.size() > 3) items.get(i).setDown(items.get(i+2));
         }
 
         if(items.size() > 2) {
@@ -87,6 +90,6 @@ public class MenuFactory {
         }
 
 
-        return new Menu(game.batch, new AttackCombatMenu(view, model, game), items);
+        return new AttackMenu(game.batch, new AttackCombatMenu(view, model, game), items);
     }
 }

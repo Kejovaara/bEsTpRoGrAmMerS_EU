@@ -18,8 +18,14 @@ public class AttackCombatMenu implements IMenuController{
         this.view = view;
         this.model = model;
     }
+
     @Override
-    public void onInput(int index) {
+    public void onCursorMove(int index) {
+
+    }
+
+    @Override
+    public void onCursorEnter(int index) {
         if(index < model.getAttacks().size()){
             model.useAttack(index);
         }else{

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import run.Boot;
 import view.CombatScreen;
 import model.Model;
+import view.Screens;
 
 public class MenuController implements IController{
     private Model model;
@@ -22,10 +23,11 @@ public class MenuController implements IController{
             Gdx.app.exit();
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
             Screen view = new CombatScreen(game, model);
-            game.setView(view);
+
             game.setController(InputController.Controllers.COMBAT);
+            game.setView(Screens.COMBAT);
         }
     }
 }

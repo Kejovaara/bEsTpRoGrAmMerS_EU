@@ -1,22 +1,25 @@
 package view.screenObjects;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import view.IDraw;
+import view.IRender;
 
 import java.util.List;
 
-public class RectangleBorder implements IDraw {
+public class RectangleBorder implements IDraw , IRender {
 
-    private final ShapeRenderer shapeRenderer;
+    private ShapeRenderer shapeRenderer;
     private int xPos;
     private int yPos;
     private int width;
     private int height;
-    private List<Float> outerColor;
-    private List<Float> innerColor;
+    private Color outerColor;
+    private Color innerColor;
+    private int lineWidth;
 
 
-    public RectangleBorder(int xPos, int yPos, int width, int height, List<Float> outerColor, List<Float> innerColor) {
+    public RectangleBorder(int xPos, int yPos, int width, int height, Color outerColor, Color innerColor, int lineWidth) {
         shapeRenderer = new ShapeRenderer();
         this.xPos = xPos;
         this.yPos = yPos;
@@ -24,13 +27,16 @@ public class RectangleBorder implements IDraw {
         this.height = height;
         this.outerColor = outerColor;
         this.innerColor = innerColor;
+        this.lineWidth = lineWidth;
     }
 
-    private void render(){
-        shapeRenderer.setColor(outerColor.get(0), outerColor.get(1), outerColor.get(2),1);
+    public void render(){
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(outerColor);
         shapeRenderer.rect( xPos,yPos,width,height);
-        shapeRenderer.setColor(innerColor.get(0), innerColor.get(1), innerColor.get(2),1);
-        shapeRenderer.rect( xPos+2,yPos+2,width-4,height-4);
+        shapeRenderer.setColor(innerColor);
+        shapeRenderer.rect( xPos+Math.round(lineWidth/2),yPos+Math.round(lineWidth/2),width-lineWidth,height-lineWidth);
+        shapeRenderer.end();
     }
 
     @Override

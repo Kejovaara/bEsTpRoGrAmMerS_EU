@@ -1,15 +1,17 @@
 package run;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import input.InputController;
 import model.Model;
-import view.MainMenuScreen;
+import view.*;
 
-public class Boot extends Game {
+public class Boot extends Game implements VCHandler{
 
     private Model model;
     private Screen activeScreen;
@@ -20,6 +22,9 @@ public class Boot extends Game {
     private BitmapFont font;
 
     int screenWidth, screenHeight;
+    public int frame = 0;
+
+    private Screen mainScreen, combatScreen, invetoryScreen, partyScreen;
 
     public Boot(int screenHeight, int screenWidth){
         this.screenWidth = screenWidth;
@@ -40,9 +45,15 @@ public class Boot extends Game {
 
         controller = new InputController(this, model);
         controller.switchController(InputController.Controllers.MAIN_MENU);
+
+        this.mainScreen = new MainMenuScreen(this, model);
+        this.combatScreen = new CombatScreen(this, model);
+        this.invetoryScreen = new InventoryScreen(this, model);
+        this.partyScreen = new PartyScreen(this, model);
     }
 
     public void render() {
+        frame++;
         controller.update();
         super.render();
     }
@@ -52,6 +63,35 @@ public class Boot extends Game {
         font.dispose();
     }
 
+    @Override
+    public void setView(Screens screen) {
+        switch (screen){
+            case MAIN_MENU:
+                switchView(mainScreen);
+                frame = 0;
+                break;
+            case COMBAT:
+                System.out.println("tryckt: "+ Gdx.input.isKeyJustPressed(Input.Keys.ENTER));
+                switchView(combatScreen);
+                frame = 0;
+                break;
+            case PARTY:
+                switchView(partyScreen);
+                frame = 0;
+                break;
+            case INVENTORY:
+                switchView(invetoryScreen);
+                frame = 0;
+                break;
+        }
+    }
+
+    private void switchView(Screen view){
+        activeScreen = view;
+        this.setScreen(view);
+    }
+
+    @Override
     public void setController(InputController.Controllers controllerEnum){
         controller.switchController(controllerEnum);
     }
