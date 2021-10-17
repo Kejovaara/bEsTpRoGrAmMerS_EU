@@ -28,9 +28,13 @@ public class Model {
         playerList.add(createPuckemon.createOwnedPuckemon(3,50));
 
         trainerList.add(createPuckemon.createOwnedPuckemon(3,10));
+        trainerList.add(createPuckemon.createOwnedPuckemon(1,10));
+        trainerList.add(createPuckemon.createOwnedPuckemon(2,10));
+        trainerList.add(createPuckemon.createOwnedPuckemon(128,10));
+        trainerList.add(createPuckemon.createOwnedPuckemon(2,10));
 
         player = new Player(playerList, 10);
-        trainer = new PuckeTrainer("Bertil the great", trainerList);
+        trainer = new PuckeTrainer("Bertil the great", trainerList, true);
 
         player.generateStartingInventory(15);
 

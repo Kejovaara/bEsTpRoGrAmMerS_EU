@@ -13,7 +13,7 @@ public class WildPuckemon extends Puckemon implements IFighter{
         super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
     }
 
-    public IEffectContainer makeMove() {
+    public IEffectContainer makeMove(IPuckemon enemyP) {
         Random rand = new Random(); //instance of random class
         int upperbound = 4;
         //generate random values from 0-3
