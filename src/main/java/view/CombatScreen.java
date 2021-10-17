@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.StringBuilder;
+import com.badlogic.gdx.utils.Timer;
 import model.Model;
 import model.attack.Attack;
 import model.entities.Puckemon;
@@ -20,17 +22,21 @@ import view.menu.Menu;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombatScreen implements Screen, EffectObserver{
+public class
+CombatScreen implements Screen, EffectObserver{
 
     final Boot game;
     private Model model;
     private int screenWidth, screenHeight;
     private ShapeRenderer shapeRenderer;
     private Stage stage;
+    private StringBuilder stringbuilder = new StringBuilder();
+    long expectedTime = System.currentTimeMillis();
 
     private BitmapFont menuFont;
     private BitmapFont combatFont;
     private BitmapFont statsFont;
+    private Timer timer = new Timer();
 
     OrthographicCamera camera;
     Texture playerPuck,trainerPuck, background, cursorTexture;
@@ -40,11 +46,14 @@ public class CombatScreen implements Screen, EffectObserver{
     private int cursorX,cursorY;
 
     private Label label;
+    private int animationTick = 3;
 
     public Menu testMenu;
 
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
+
+    private int index = 0;
 
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
@@ -73,7 +82,7 @@ public class CombatScreen implements Screen, EffectObserver{
         fontStyle.font = combatFont;
         fontStyle.fontColor = Color.BLACK;
 
-        label = new Label("What will " + model.getPlayerPuckemon().getName() + " do?",fontStyle);
+        label = new Label(" ",fontStyle);
         label.setSize(520,10);
         label.setPosition(30,90);
         label.setWrap(true);
@@ -99,6 +108,8 @@ public class CombatScreen implements Screen, EffectObserver{
 
     @Override
     public void render(float delta) {
+        animationTick--;
+        //System.out.println("" + animationTick);
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
         camera.update();
@@ -122,7 +133,23 @@ public class CombatScreen implements Screen, EffectObserver{
             drawMainCombatMenu();
         }
         else if (mainCombatMenu){
-            label.setText("What will " + model.getPlayerPuckemon().getName() + " do?");
+            String string = "What will " + model.getPlayerPuckemon().getName() + " do?";
+            if(animationTick <= 0 && string.length() > index){
+                stringbuilder.append(string.charAt(index));
+                label.setText(stringbuilder);
+                animationTick = 3;
+                index++;
+            }
+            /*for(int i = 0; i < string.length(); i++){
+                *//*while(System.currentTimeMillis() < expectedTime){
+                    //Empty Loop
+                }*//*
+                //expectedTime += 1000;
+
+
+                //wait(500);
+            }*/
+            //label.setText("What will " + model.getPlayerPuckemon().getName() + " do?");
             drawMainCombatMenu();
             drawCursor();
         }
@@ -134,6 +161,18 @@ public class CombatScreen implements Screen, EffectObserver{
         drawAnimations();
         if(testMenu!=null)testMenu.render();
 
+    }
+
+    public static void wait(int ms)
+    {
+        try
+        {
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
     }
 
     private void drawAnimations() {
