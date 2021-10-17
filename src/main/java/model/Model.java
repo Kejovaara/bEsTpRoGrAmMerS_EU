@@ -51,7 +51,7 @@ public class Model {
     }
 
     public void useAttack(int index){
-        combat.usePlayerAttack(index);
+        if (getAttack(index).getPP() > 0)combat.usePlayerAttack(index);
     }
 
     public void useItem(int index) {combat.usePlayerItem(index);}
@@ -62,6 +62,9 @@ public class Model {
 
     public Attack getAttack(int index){
         return player.getPuckemon().getMoveSet().get(index);
+    }
+    public List<Attack> getAttacks(){
+        return player.getPuckemon().getMoveSet();
     }
 
     public List<Puckemon> getParty(){

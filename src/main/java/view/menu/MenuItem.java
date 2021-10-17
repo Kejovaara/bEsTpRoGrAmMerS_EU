@@ -10,6 +10,7 @@ public class MenuItem{
     private IRender activeRender, deactiveRender;
 
 
+
     public MenuItem(IRender activeRender, IRender deactiveRender){
         this.activeRender = activeRender;
         this.deactiveRender = deactiveRender;
