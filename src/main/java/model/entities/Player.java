@@ -28,7 +28,6 @@ public class Player implements ITrainer, IFighter {
     // Pick target in party to switch too
     public void switchPuckemon(int index){
         playerBag.setActivePuckemon(index);
-        playerBag.checkEvolution();
     }
 
     // Get Mons moveSet
