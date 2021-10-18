@@ -64,6 +64,12 @@ public class Player implements ITrainer, IFighter {
         }
     }
 
+    public void generateStartingInventoryDEV(int amount){
+        for(int i = 0; i < amount; i++){
+            addItem(ItemFactory.getRandom());
+        }
+    }
+
     public List<Puckemon> getParty(){
         return puckeBag.getParty();
     }

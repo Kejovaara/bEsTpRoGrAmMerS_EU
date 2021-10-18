@@ -154,37 +154,39 @@ public class InventoryScreen implements Screen,IView{
     }
 
     public void renderItems(){
-        int y = 500;
-        int listItemDistance = 55;
+//        int y = 500;
+//        int listItemDistance = 55;
+//
+//        inventory = model.getInventory();
+//        listItems = new ArrayList<>();
+//
+//
+//        int i = 0;
+//        stage.clear();
+//        stage.addActor(itemTitle);
+//        stage.addActor(itemDescription);
+//            //BACK BUTTON
+//            Label backButtonLabel = new Label("PRESS SPACE TO GO BACK", fontStyle);
+//            backButtonLabel.setSize(75,10);
+//            backButtonLabel.setPosition(100,50);
+//            backButtonLabel.setWrap(false);
+//            stage.addActor(backButtonLabel);
+//        for(Item item : inventory){
+//            listItem = new ListItem(item, fontStyle,y);
+//            if(targetIndex == i){
+//                listItem.setActive();
+//            }
+//            listItems.add(listItem);
+//            y -= listItemDistance;
+//            stage.addActor(listItem.getListItemBackground());
+//            stage.addActor(listItem.getItemImage());
+//            stage.addActor(listItem.getItemLabel());
+//            stage.addActor(listItem.getItemAmount());
+//            i++;
+//        }
+//        listItemSelector(targetIndex);
 
-        inventory = model.getInventory();
-        listItems = new ArrayList<>();
-
-
-        int i = 0;
-        stage.clear();
-        stage.addActor(itemTitle);
-        stage.addActor(itemDescription);
-            //BACK BUTTON
-            Label backButtonLabel = new Label("PRESS SPACE TO GO BACK", fontStyle);
-            backButtonLabel.setSize(75,10);
-            backButtonLabel.setPosition(100,50);
-            backButtonLabel.setWrap(false);
-            stage.addActor(backButtonLabel);
-        for(Item item : inventory){
-            listItem = new ListItem(item, fontStyle,y);
-            if(targetIndex == i){
-                listItem.setActive();
-            }
-            listItems.add(listItem);
-            y -= listItemDistance;
-            stage.addActor(listItem.getListItemBackground());
-            stage.addActor(listItem.getItemImage());
-            stage.addActor(listItem.getItemLabel());
-            stage.addActor(listItem.getItemAmount());
-            i++;
-        }
-        listItemSelector(targetIndex);
+        menu.render();
     }
 
     public void moveUp(){
@@ -239,9 +241,10 @@ public class InventoryScreen implements Screen,IView{
         stage.draw();
     }
 
+
     @Override
     public void show() {
-
+        menu = MenuFactory.getInventoryMenu(game, this,model);
     }
 
 

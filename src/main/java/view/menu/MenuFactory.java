@@ -97,19 +97,19 @@ public class MenuFactory {
 
     public static Menu getInventoryMenu(Boot game, IView view, Model model){
         int x = 100;
-        int y = 130;
+        int y = 500;
         int xSpacing = 190;
         int ySpacing = 60;
         List<MenuItem> items = new ArrayList<>();
 
         IRender tempActive, tempDeactive;
         for (int i = 0; i < model.getInventory().size(); i++) {
-            tempActive = new CursorMenuItem(game.batch, model.getInventory().get(i).getName(), x+(i%2*xSpacing), y-(i/2*ySpacing), 0.75f,true);
-            tempDeactive =  new CursorMenuItem(game.batch, model.getInventory().get(i).getName(), x+(i%2*xSpacing), y-(i/2*ySpacing), 0.75f,false);
+            tempActive = new CursorMenuItem(game.batch, model.getInventory().get(i).getName(), x, y-(i*ySpacing), 0.75f,true);
+            tempDeactive =  new CursorMenuItem(game.batch, model.getInventory().get(i).getName(), x, y-(i*ySpacing), 0.75f,false);
             items.add(new MenuItem(tempActive,tempDeactive));
         }
 
-        items.add(new MenuItem(new CursorMenuItem(game.batch,"Back", x, y+(model.getInventory().size()*ySpacing), 0.75f, true),new CursorMenuItem(game.batch,"Back", x, y+(model.getInventory().size()*ySpacing), 0.75f, false)));
+        items.add(new MenuItem(new CursorMenuItem(game.batch,"Back", 700, 70, 0.75f, true),new CursorMenuItem(game.batch,"Back", 700, 70, 0.75f, false)));
 
         for (int i = 0; i < items.size(); i++) {
             if(i<items.size()-1) items.get(i).setDown(items.get(i+1));
@@ -119,6 +119,6 @@ public class MenuFactory {
         items.get(0).setUp(items.get(items.size()-1));
         items.get(items.size()-1).setDown(items.get(0));
 
-        return new Menu(game.batch, new InventoryMenuController(view,model,game), items);
+        return new InventoryMenu(game.batch, new InventoryMenuController(view,model,game), items, model.getInventory(), 4);
     }
 }

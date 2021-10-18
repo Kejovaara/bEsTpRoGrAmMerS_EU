@@ -41,4 +41,28 @@ public class CursorMenuItem implements IRender {
         text.render();
         if (active) arrow.render();
     }
+
+    @Override
+    public void setX(int x) {
+        this.xPos = x;
+        text.setX(x);
+        arrow.setX(x-25);
+    }
+
+    @Override
+    public void setY(int y) {
+        this.yPos = y;
+        text.setY(y);
+        arrow.setY(y-15);
+    }
+
+    @Override
+    public int getX() {
+        return xPos;
+    }
+
+    @Override
+    public int getY() {
+        return yPos;
+    }
 }
