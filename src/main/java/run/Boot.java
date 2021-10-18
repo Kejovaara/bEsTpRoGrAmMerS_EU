@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import input.IController;
 import input.InputController;
 import model.Model;
 import view.*;
@@ -52,8 +53,10 @@ public class Boot extends Game implements VCHandler{
     }
 
     public void render() {
-        super.render();
+        IController oldController = controller.getActiveController();
         controller.update();
+        //Avoid double input
+        if(oldController == controller.getActiveController()) super.render();
     }
 
     public void dispose() {
@@ -68,7 +71,6 @@ public class Boot extends Game implements VCHandler{
                 switchView(mainScreen);
                 break;
             case COMBAT:
-                System.out.println("tryckt: "+ Gdx.input.isKeyJustPressed(Input.Keys.ENTER));
                 switchView(combatScreen);
                 break;
             case PARTY:

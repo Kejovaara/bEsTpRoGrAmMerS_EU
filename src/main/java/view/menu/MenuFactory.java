@@ -90,6 +90,6 @@ public class MenuFactory {
         }
 
 
-        return new AttackMenu(game.batch, new AttackCombatMenu(view, model, game), items);
+        return new AttackMenu(game.batch, new AttackCombatMenu(view, model, game), items, model.getAttacks());
     }
 }

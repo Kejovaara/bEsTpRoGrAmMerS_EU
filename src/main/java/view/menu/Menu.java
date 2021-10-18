@@ -11,8 +11,8 @@ import java.util.List;
 
 public class Menu implements IRender {
 
-    private List<MenuItem> menuItems;
-    private MenuItem activeItem;
+    protected List<MenuItem> menuItems;
+    protected MenuItem activeItem;
     protected SpriteBatch batch;
     private IMenuController controller;
 
@@ -59,15 +59,16 @@ public class Menu implements IRender {
     public void render() {
         update();
         IRender renderObject;
+        batch.begin();
         for (MenuItem menuItem : menuItems) {
-            batch.begin();
+
             if(menuItem == activeItem){
                 menuItem.getActiveRender().render();
             }
             else menuItem.getDeactiveRender().render();
-            batch.end();
-        }
 
+        }
+        batch.end();
     }
 
     private void update(){

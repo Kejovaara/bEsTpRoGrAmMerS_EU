@@ -1,5 +1,6 @@
 package view.screenObjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -29,6 +30,10 @@ public class Text implements IDraw,IRender {
         font.getData().setScale(scale);
 
         //font.setColor(color.get(0), color.get(1), color.get(2),1);
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public void render(){

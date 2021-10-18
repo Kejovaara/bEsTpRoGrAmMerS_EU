@@ -15,6 +15,7 @@ public class RestorePP implements IEffect {
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         if(targetYourself){
            //TODO
+
         }else{
             //TODO
         }

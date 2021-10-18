@@ -128,7 +128,6 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         game.batch.begin();
         game.batch.draw(trainerPuck, 570, 400, 192, 192);
         game.batch.draw(playerPuck, 200, 110, 256, 256);
-        //game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.end();
 
         drawPuckeStats();
@@ -156,12 +155,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         }
     }
 
-    private void drawCursor(){
-        game.batch.begin();
-        calculateCursorPos();
-        game.batch.draw(cursorTexture,cursorX, cursorY, 15, 15);
-        game.batch.end();
-    }
+
 
 
     private void drawPuckeStats(){
@@ -204,131 +198,6 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
         game.batch.end();
     }
-
-    private void drawMainCombatMenu(){
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(0.8f,0.8f,0.8f,1);
-        shapeRenderer.rect(0,0,960, 180);
-        shapeRenderer.setColor(1,1,1,1);
-        shapeRenderer.rect(560,0,400, 180);
-        shapeRenderer.end();
-
-        Gdx.gl.glLineWidth(6);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(0,0,960, 180);
-        shapeRenderer.rect(560,0,400, 180);
-        shapeRenderer.end();
-
-        game.batch.begin();
-        menuFont.setColor(0,0,0,1);
-        menuFont.draw(game.batch, "Attack", 600, 140);
-        menuFont.draw(game.batch, "Switch", 600, 60);
-        menuFont.draw(game.batch, "Inventory", 800, 140);
-        menuFont.draw(game.batch, "Flee", 800, 60);
-        game.batch.end();
-        stage.draw();
-    }
-
-    public void drawCombatAttackMenu(){
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1,1,1,1);
-        shapeRenderer.rect(0,0,960, 180);
-        shapeRenderer.end();
-
-        Gdx.gl.glLineWidth(6);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(0,0,960, 180);
-        shapeRenderer.rect(660,0,300, 180);
-        shapeRenderer.end();
-
-        game.batch.begin();
-
-        printAttacks();
-        menuFont.setColor(0,0,0,1);
-        menuFont.draw(game.batch, "Back", 545, 60);
-        if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()){
-            Attack attack = model.getPlayerPuckemon().getMoveSet().get(cursorIndex);
-            menuFont.draw(game.batch, "pp", 700, 140);
-            menuFont.draw(game.batch, "Type/ " +attack.getType(), 700, 60);
-            menuFont.draw(game.batch, attack.getPP()+"/"+attack.getBasePP(), 850, 140);
-        }
-
-        game.batch.end();
-    }
-
-    public void printAttacks(){
-        for (int i = 0; i < model.getPlayerPuckemon().getMoveSet().size(); i++) {
-            if (model.getAttack(i).getPP()>0) menuFont.setColor(0,0,0,1);
-            else menuFont.setColor(0.6f,0.6f,0.6f,1);
-            menuFont.draw(game.batch, model.getAttack(i).getName(), 70+(i%2)*230, 140-((int)(i/2)*80));
-        }
-
-
-
-    }
-
-    public Boolean isMainCombatMenu() {
-        return mainCombatMenu;
-    }
-
-    public void setMainCombatMenu(boolean main){
-        mainCombatMenu = main;
-    }
-
-    public int getCursorIndex() {
-        return cursorIndex;
-    }
-
-    public void calculateCursorPos(){
-        if(mainCombatMenu){
-            cursorX = 580+(cursorIndex%2)*200;
-            cursorY = 123-((int)(cursorIndex/2))*80;
-        }else{
-            if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()){
-                cursorX = 50+(cursorIndex%2)*230;
-                cursorY = 123-((int)(cursorIndex/2))*80;
-            }else{
-                cursorX = 524;
-                cursorY = 43;
-            }
-
-        }
-    }
-
-    public void cursorUP(){
-        if(mainCombatMenu){
-            if(cursorIndex > 1) cursorIndex -= 2;
-        }else{
-            if(cursorIndex > 1) cursorIndex -= 2;
-        }
-    }
-
-    public void cursorDown(){
-        if(mainCombatMenu){
-            if(cursorIndex < 2) cursorIndex += 2;
-        }else{
-            if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()-2) cursorIndex += 2;
-        }
-    }
-
-    public void cursorLeft(){
-        if(mainCombatMenu){
-            if(cursorIndex > 0) cursorIndex -= 1;
-        }else{
-            if(cursorIndex > 0)cursorIndex -=1;
-        }
-    }
-
-    public void cursorRight(){
-        if(mainCombatMenu){
-            if(cursorIndex < 3) cursorIndex += 1;
-        }else{
-            if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()) cursorIndex += 1;
-        }
-    }
-
 
     @Override
     public void show() {
