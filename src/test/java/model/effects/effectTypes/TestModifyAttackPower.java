@@ -25,5 +25,21 @@ public class TestModifyAttackPower {
 
         assertEquals(p.getAttackPower(), expected);
     }
- 
+
+    @Test
+    public void testModifyAttackPowerOpponent() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        IPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+        IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
+        int previousPower = enemyP.getAttackPower();
+        int buffFactor = 2;
+
+        ModifyAttackPower modifyAttackPower = new ModifyAttackPower(buffFactor, true);
+        modifyAttackPower.execute(p, enemyP);
+
+        int expected = previousPower + buffFactor;
+
+        assertEquals(enemyP.getAttackPower(), expected);
+    }
+
 }
