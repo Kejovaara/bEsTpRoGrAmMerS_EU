@@ -7,6 +7,7 @@ import model.effects.IEffectContainer;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import model.inventories.PuckeBag;
+import model.inventories.TrainerBag;
 
 import java.util.List;
 import java.util.Random;
@@ -17,16 +18,16 @@ public class PuckeTrainer implements IFighter, ITrainer {
     private Inventory inventory;
     private boolean smart;
 
-    public PuckeTrainer(String name, List<OwnedPuckemon> puckemons, List<Item> items, boolean smart){
+    public PuckeTrainer(String name, List<VildPuckemon> puckemons, List<Item> items, boolean smart){
         this.name = name;
-        this.puckeBag = new PuckeBag(puckemons);
+        this.puckeBag = new TrainerBag(puckemons);
         this.inventory = new Inventory(items);
         this.smart = smart;
     }
 
-    public PuckeTrainer(String name, List<OwnedPuckemon> puckemons, boolean smart){
+    public PuckeTrainer(String name, List<VildPuckemon> puckemons, boolean smart){
         this.name = name;
-        this.puckeBag = new PuckeBag(puckemons);
+        this.puckeBag = new TrainerBag(puckemons);
         this.inventory = new Inventory();
         this.smart = smart;
     }

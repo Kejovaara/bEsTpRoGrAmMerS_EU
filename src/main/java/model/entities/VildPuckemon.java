@@ -7,9 +7,9 @@ import model.effects.IEffectContainer;
 import java.util.List;
 import java.util.Random;
 
-public class WildPuckemon extends Puckemon implements IFighter{
+public class VildPuckemon extends Puckemon implements IFighter{
 
-    public WildPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList) {
+    public VildPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList) {
         super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
     }
 

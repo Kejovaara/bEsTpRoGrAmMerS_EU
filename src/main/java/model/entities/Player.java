@@ -9,30 +9,31 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Player implements ITrainer, IFighter {
     private String name = "Bamse";
-    private PuckeBag puckeBag;
+    private PlayerBag playerBag;
     private Inventory inventory;
     private int coins;
 
     public Player(List<OwnedPuckemon> puckemons, Inventory inventory, int coins){
-        this.puckeBag = new PuckeBag(puckemons);
+        this.playerBag = new PlayerBag(puckemons);
         this.inventory = inventory;
         this.coins = coins;
     }
 
     public Player(List<OwnedPuckemon> puckemons,  int coins){
-        this.puckeBag = new PuckeBag(puckemons);
+        this.playerBag = new PlayerBag(puckemons);
         this.inventory = new Inventory();
         this.coins = coins;
     }
 
     // Pick target in party to switch too
     public void switchPuckemon(int index){
-        puckeBag.setActivePuckemon(index);
+        playerBag.setActivePuckemon(index);
+        playerBag.checkEvolution();
     }
 
     // Get Mons moveSet
     public void selectMoves(int index) {
-        puckeBag.getActivePuckemon().getAttack(index);
+        playerBag.getActivePuckemon().getAttack(index);
     }
 
 
@@ -65,7 +66,7 @@ public class Player implements ITrainer, IFighter {
     }
 
     public List<Puckemon> getParty(){
-        return puckeBag.getParty();
+        return playerBag.getParty();
     }
 
     public List<Item> getInventory(){
@@ -73,7 +74,7 @@ public class Player implements ITrainer, IFighter {
     }
 
     private void addPuckemonToParty(Puckemon puckemon) {
-        puckeBag.addPuckemonToParty(puckemon);
+        playerBag.addPuckemonToParty(puckemon);
     }
 
     @Override
@@ -87,6 +88,6 @@ public class Player implements ITrainer, IFighter {
     }
 
     public Puckemon getPuckemon(){
-        return puckeBag.getActivePuckemon();
+        return playerBag.getActivePuckemon();
     }
 }
