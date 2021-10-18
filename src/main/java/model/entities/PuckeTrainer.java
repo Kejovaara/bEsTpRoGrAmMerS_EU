@@ -87,6 +87,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
             System.out.println("Diff: " + diff);
             System.out.println("Multiplier: " + bestMultiplier);
 
+
             if (!(bestPuckemon.equals(activePuckemon))) {
 //                double diff = bestMultiplier - bestMultiplierActiveP;
 
@@ -101,6 +102,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
         } else {
             Random rand = new Random(); //instance of random class
             int upperbound = activePuckemon.getMoveSet().size();
+            System.out.println("get upperbound:" + upperbound);
             //generate random values from 0-3
             index = rand.nextInt(upperbound);
 
@@ -108,7 +110,8 @@ public class PuckeTrainer implements IFighter, ITrainer {
             //TODO: Fix so that it gets random attack
         }
 
-        System.out.println("get puckemon:" + index);
+        index = 0;
+        System.out.println("get attack:" + index);
         return activePuckemon.getAttack(index);
     }
 

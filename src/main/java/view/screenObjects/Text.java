@@ -26,9 +26,7 @@ public class Text implements IDraw,IRender {
         this.yPos = yPos;
         this.message = message;
         this.color = color;
-
         font.getData().setScale(scale);
-
         //font.setColor(color.get(0), color.get(1), color.get(2),1);
     }
 

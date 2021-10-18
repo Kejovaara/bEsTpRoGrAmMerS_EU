@@ -3,6 +3,7 @@ package input;
 import model.Model;
 import run.VCHandler;
 import view.IView;
+import view.Screens;
 
 public class InventoryMenuController implements IMenuController{
 
@@ -23,6 +24,15 @@ public class InventoryMenuController implements IMenuController{
 
     @Override
     public void onCursorEnter(int index) {
-
+        if(index < model.getInventory().size()){
+            model.useItem(index);
+            handler.setView(Screens.COMBAT);
+            handler.setController(InputController.Controllers.COMBAT);
+            System.out.println("item: " + index);
+        }else{
+            handler.setView(Screens.COMBAT);
+            handler.setController(InputController.Controllers.COMBAT);
+            System.out.println("back");
+        }
     }
 }

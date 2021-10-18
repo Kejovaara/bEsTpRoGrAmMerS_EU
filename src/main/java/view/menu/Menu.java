@@ -15,7 +15,7 @@ public class Menu implements IRender {
     protected MenuItem activeItem;
     protected SpriteBatch batch;
     private IMenuController controller;
-    private int xPos, yPos;
+    protected int xPos, yPos;
 
     public Menu(SpriteBatch batch,IMenuController controller, List<MenuItem> menuItems, MenuItem activeItem, int xPos, int yPos){
         this.batch = batch;

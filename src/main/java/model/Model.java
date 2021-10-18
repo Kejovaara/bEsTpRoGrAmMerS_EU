@@ -21,7 +21,7 @@ public class Model {
         player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
         trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(5,5), true);
 
-        player.generateStartingInventoryDEV(10);
+        player.generateStartingInventoryDEV(35);
 
         combat = new Combat(player, trainer);
     }

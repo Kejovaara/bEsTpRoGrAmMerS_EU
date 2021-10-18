@@ -93,6 +93,7 @@ public class Combat {
     public void usePlayerItem(int index){
         IPuckemon playerPuckemon = player.getPuckemon();
         IEffectContainer item = player.getItem(index);
+        //player.consumeItem(index);
 
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();

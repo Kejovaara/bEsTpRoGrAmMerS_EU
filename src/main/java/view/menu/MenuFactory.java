@@ -12,6 +12,7 @@ import view.IRender;
 import view.IView;
 import view.screenObjects.AttackMenuItem;
 import view.screenObjects.CursorMenuItem;
+import view.screenObjects.InventoryMenuItem;
 import view.screenObjects.Text;
 
 import java.util.ArrayList;
@@ -97,15 +98,15 @@ public class MenuFactory {
 
     public static Menu getInventoryMenu(Boot game, IView view, Model model){
         int x = 100;
-        int y = 500;
+        int y = 480;
         int xSpacing = 190;
         int ySpacing = 60;
         List<MenuItem> items = new ArrayList<>();
 
         IRender tempActive, tempDeactive;
         for (int i = 0; i < model.getInventory().size(); i++) {
-            tempActive = new CursorMenuItem(game.batch, model.getInventory().get(i).getName(), x, y-(i*ySpacing), 0.75f,true);
-            tempDeactive =  new CursorMenuItem(game.batch, model.getInventory().get(i).getName(), x, y-(i*ySpacing), 0.75f,false);
+            tempActive = new InventoryMenuItem(game.batch, model.getInventory().get(i), x, y-(i*ySpacing), 0.75f,true);
+            tempDeactive =  new InventoryMenuItem(game.batch, model.getInventory().get(i), x, y-(i*ySpacing), 0.75f,false);
             items.add(new MenuItem(tempActive,tempDeactive));
         }
 
@@ -119,6 +120,6 @@ public class MenuFactory {
         items.get(0).setUp(items.get(items.size()-1));
         items.get(items.size()-1).setDown(items.get(0));
 
-        return new InventoryMenu(game.batch, new InventoryMenuController(view,model,game), items, model.getInventory(), 4);
+        return new InventoryMenu(game.batch, new InventoryMenuController(view,model,game), items, model.getInventory(), 6, ySpacing);
     }
 }
