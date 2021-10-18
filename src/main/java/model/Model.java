@@ -10,31 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    private CreatePuckemon createPuckemon = new CreatePuckemon();
-
-    private List<OwnedPuckemon> playerList = new ArrayList<>();
-    private List<OwnedPuckemon> trainerList = new ArrayList<>();
 
     private Player player;
     private PuckeTrainer trainer;
     private Combat combat;
+    private GameBuilder gameBuilder;
 
     public Model() {
-        playerList.add(createPuckemon.createOwnedPuckemon(128,10));
-        playerList.add(createPuckemon.createOwnedPuckemon(1,2));
-        playerList.add(createPuckemon.createOwnedPuckemon(2,4));
-        playerList.add(createPuckemon.createOwnedPuckemon(3,10));
-        playerList.add(createPuckemon.createOwnedPuckemon(128,5));
-        playerList.add(createPuckemon.createOwnedPuckemon(3,50));
-
-        trainerList.add(createPuckemon.createOwnedPuckemon(3,10));
-        trainerList.add(createPuckemon.createOwnedPuckemon(1,10));
-        trainerList.add(createPuckemon.createOwnedPuckemon(2,10));
-        trainerList.add(createPuckemon.createOwnedPuckemon(128,10));
-        trainerList.add(createPuckemon.createOwnedPuckemon(2,10));
-
-        player = new Player(playerList, 10);
-        trainer = new PuckeTrainer("Bertil the great", trainerList, true);
+        gameBuilder = new GameBuilder();
+        player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
+        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(5,5), true);
 
         player.generateStartingInventory(15);
 
