@@ -30,22 +30,28 @@ public class ExcelReader {
 
             excelData = new ArrayList();
 
-            excelData.add(row.getCell(1).getStringCellValue());
-            excelData.add(row.getCell(2).getStringCellValue());
-            excelData.add((int) row.getCell(3).getNumericCellValue());
-            excelData.add((int) row.getCell(4).getNumericCellValue());
-            excelData.add((int) row.getCell(5).getNumericCellValue());
-            excelData.add((int) row.getCell(6).getNumericCellValue());
-            excelData.add((int) row.getCell(7).getNumericCellValue());
-            excelData.add((int) row.getCell(8).getNumericCellValue());
-            excelData.add(row.getCell(10).getStringCellValue());
+            try{
+                excelData.add(row.getCell(1).getStringCellValue());
+                excelData.add(row.getCell(2).getStringCellValue());
+                excelData.add((int) row.getCell(3).getNumericCellValue());
+                excelData.add((int) row.getCell(4).getNumericCellValue());
+                excelData.add((int) row.getCell(5).getNumericCellValue());
+                excelData.add((int) row.getCell(6).getNumericCellValue());
+                excelData.add((int) row.getCell(7).getNumericCellValue());
+                excelData.add((int) row.getCell(8).getNumericCellValue());
+                excelData.add(row.getCell(10).getStringCellValue());
+            }
+            catch (Exception e){
+                System.out.println("Puckemon ID "+id+" does not exist");
+            }
+
 
             file.close();
         }
-        catch (Exception e)
-        {
+        catch (Exception e){
             e.printStackTrace();
         }
+
         return excelData;
     }
 

@@ -21,10 +21,6 @@ public abstract class Puckemon implements IPuckemon {
     protected int baseSpeed;
 
     protected int level;
-
-    protected int evolutionLevel = 101;
-    protected int evolutionId = 0;
-
     // -------------
 
     /**
@@ -52,8 +48,8 @@ public abstract class Puckemon implements IPuckemon {
     protected boolean lockDefence = false;
     protected boolean lockSpeed = false;
 
-    protected List<String> moveList = new ArrayList<String>();
-    protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
+    protected List<String> moveList;
+    protected ArrayList<Attack> moveSet = new ArrayList<>(4);
 
     public Puckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList){
         this.id = id;
@@ -103,17 +99,17 @@ public abstract class Puckemon implements IPuckemon {
 
     protected void alterCurrentStats(){
         if (attackPowerBuffFactor < 0){
-            currentAttackPower = (int) (attackPower) * (2 / (2 + (-1) * attackPowerBuffFactor));
+            currentAttackPower = (attackPower) * (2 / (2 + (-1) * attackPowerBuffFactor));
         }else{
             currentAttackPower = (int) (attackPower * (1 + attackPowerBuffFactor * 0.25));
         }
         if (defenceBuffFactor < 0){
-            currentDefence = (int) (defence) * (2 / (2 + (-1) * defenceBuffFactor));
+            currentDefence = (defence) * (2 / (2 + (-1) * defenceBuffFactor));
         }else{
             currentDefence = (int) (defence * (1 + defenceBuffFactor * 0.25));
         }
         if (speedBuffFactor < 0){
-            currentSpeed = (int) (speed) * (2 / (2 + (-1) * speedBuffFactor));
+            currentSpeed =  (speed) * (2 / (2 + (-1) * speedBuffFactor));
         }else{
             currentSpeed = (int) (speed * (1 + speedBuffFactor * 0.25));
         }

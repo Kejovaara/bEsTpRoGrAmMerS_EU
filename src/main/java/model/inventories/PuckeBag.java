@@ -9,8 +9,8 @@ import java.util.List;
 
 public class PuckeBag {
 
-    private List<Puckemon> party = new ArrayList<Puckemon>();
-    private List<Puckemon> box = new ArrayList<Puckemon>();
+    private final List<Puckemon> party = new ArrayList<>();
+    private final List<Puckemon> box = new ArrayList<>();
 
     public PuckeBag(List<OwnedPuckemon> puckemons){
         for (int i = 0; i < puckemons.size(); i++) {
