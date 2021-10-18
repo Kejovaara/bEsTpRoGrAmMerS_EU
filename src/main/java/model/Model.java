@@ -1,6 +1,7 @@
 package model;
 
 import model.attack.Attack;
+import model.attack.AttackFactory;
 import model.combat.Combat;
 import model.entities.OwnedPuckemon;
 import model.entities.Player;
@@ -29,6 +30,7 @@ public class Model {
 
     public Model() {
         playerList.add(playerPuckemon);
+
         playerList.add(playerPuckemon1);
         playerList.add(playerPuckemon2);
         playerList.add(playerPuckemon3);
@@ -39,7 +41,7 @@ public class Model {
         player = new Player(playerList, 10);
         trainer = new PuckeTrainer("Bertil the great", trainerList);
 
-        player.addItem(ItemFactory.getItem(ItemFactory.INames.ETHER_POTION));
+        player.addItem(ItemFactory.getItem(ItemFactory.INames.GOLDEN_NUGGIE));
         player.generateStartingInventory(15);
 
         combat = new Combat(player, trainer);

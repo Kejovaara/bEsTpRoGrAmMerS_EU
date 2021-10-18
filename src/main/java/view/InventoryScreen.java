@@ -47,6 +47,7 @@ public class InventoryScreen implements Screen {
 
     Label itemTitle;
     Label itemDescription;
+    Label inventoryTitle;
 
     public InventoryScreen(final Boot game, Model model){
         this.game = game;
@@ -74,12 +75,13 @@ public class InventoryScreen implements Screen {
 
     public void loadDefaultLabels(){
         //PAGE TITLE
-        Label titleLabel = new Label("INVENTORY", titleStyle);
-        titleLabel.setSize(300, 30);
-        titleLabel.setPosition(350,570);
-        titleLabel.setAlignment(Align.center);
-        titleLabel.setWrap(false);
-        stage.addActor(titleLabel);
+        System.out.println("PRINTED DEFAULT LABELS");
+        inventoryTitle = new Label("INVENTORY", titleStyle);
+        inventoryTitle.setSize(300, 30);
+        inventoryTitle.setPosition(350,570);
+        inventoryTitle.setAlignment(Align.center);
+        inventoryTitle.setWrap(false);
+        stage.addActor(inventoryTitle);
 
         //ITEM TITLE
         itemTitle = new Label("Default Title", itemTitleStyle);
@@ -125,6 +127,7 @@ public class InventoryScreen implements Screen {
 
     public void renderItems(){
         int y = 500;
+        int x = 100;
         int listItemDistance = 55;
 
         inventory = model.getInventory();
@@ -145,7 +148,7 @@ public class InventoryScreen implements Screen {
         stage.addActor(itemDescription);
         renderBackButton();
         for(Item item : inventory){
-            listItem = new ListItem(item, fontStyle,y);
+            listItem = new ListItem(item, fontStyle,x,y);
             if(targetIndex == i){
                 listItem.setActive();
             }
