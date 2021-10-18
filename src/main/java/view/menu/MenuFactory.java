@@ -56,6 +56,7 @@ public class MenuFactory {
 
     public static Menu getAttackCombatMenu(Boot game, IView view, Model model){
 
+
         int x = 100;
         int y = 130;
         int xSpacing = 190;
