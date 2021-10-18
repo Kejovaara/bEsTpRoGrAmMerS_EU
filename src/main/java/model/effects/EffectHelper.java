@@ -8,9 +8,9 @@ import java.util.Random;
 
 public class EffectHelper {
     private final static PTypes[] types= {PTypes.NORMAL, PTypes.FIRE, PTypes.WATER, PTypes.ELECTRIC, PTypes.GRASS,
-                                    PTypes.ICE, PTypes.FIGHTING, PTypes.POISON, PTypes.GROUND, PTypes.FLYING,
-                                    PTypes.PSYCHIC, PTypes.BUG, PTypes.ROCK, PTypes.GHOST, PTypes.DRAGON, PTypes.DARK,
-                                    PTypes.STEEL, PTypes.FAIRY};
+                                        PTypes.ICE, PTypes.FIGHTING, PTypes.POISON, PTypes.GROUND, PTypes.FLYING,
+                                        PTypes.PSYCHIC, PTypes.BUG, PTypes.ROCK, PTypes.GHOST, PTypes.DRAGON, PTypes.DARK,
+                                        PTypes.STEEL, PTypes.FAIRY};
 
     private final static double[][] typeChart = {
             //1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18
@@ -35,7 +35,7 @@ public class EffectHelper {
 
     };
 
-    private static double getMultplier(PTypes attackType, List<PTypes> defendTypes){
+    public static double getMultplier(PTypes attackType, List<PTypes> defendTypes){
         int attackIndex = getIndex(attackType);
         int defendIndex1 = getIndex(defendTypes.get(0));
         int defendIndex2 = getIndex(defendTypes.get(defendTypes.size()-1));

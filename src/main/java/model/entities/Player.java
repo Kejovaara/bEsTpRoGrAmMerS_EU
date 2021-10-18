@@ -77,7 +77,7 @@ public class Player implements ITrainer, IFighter {
     }
 
     @Override
-    public IEffectContainer makeMove() {
+    public IEffectContainer makeMove(IPuckemon p) {
         return null;
     }
 

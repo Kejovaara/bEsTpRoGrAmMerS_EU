@@ -10,27 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    private CreatePuckemon createPuckemon = new CreatePuckemon();
-
-    private List<OwnedPuckemon> playerList = new ArrayList<>();
-    private List<OwnedPuckemon> trainerList = new ArrayList<>();
 
     private Player player;
     private PuckeTrainer trainer;
     private Combat combat;
+    private GameBuilder gameBuilder;
 
     public Model() {
-        playerList.add(createPuckemon.createOwnedPuckemon(128,50));
-        playerList.add(createPuckemon.createOwnedPuckemon(1,2));
-        playerList.add(createPuckemon.createOwnedPuckemon(2,4));
-        playerList.add(createPuckemon.createOwnedPuckemon(3,50));
-        playerList.add(createPuckemon.createOwnedPuckemon(5,30));
-
-        trainerList.add(createPuckemon.createOwnedPuckemon(3,50));
-        trainerList.add(createPuckemon.createOwnedPuckemon(5,20));
-
-        player = new Player(playerList, 10);
-        trainer = new PuckeTrainer("Bertil the great", trainerList);
+        gameBuilder = new GameBuilder();
+        player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
+        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(5,5), true);
 
         player.generateStartingInventory(15);
 
@@ -47,7 +36,7 @@ public class Model {
     }
 
     public void useAttack(int index){
-        combat.usePlayerAttack(index);
+        if (getAttack(index).getPP() > 0)combat.usePlayerAttack(index);
     }
 
     public void useItem(int index) {combat.usePlayerItem(index);}
@@ -58,6 +47,9 @@ public class Model {
 
     public Attack getAttack(int index){
         return player.getPuckemon().getMoveSet().get(index);
+    }
+    public List<Attack> getAttacks(){
+        return player.getPuckemon().getMoveSet();
     }
 
     public List<Puckemon> getParty(){

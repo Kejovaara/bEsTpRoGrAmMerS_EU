@@ -16,8 +16,7 @@ public class TestExcelReader {
 
         ArrayList expected = new ArrayList();
         expected.add("Ivysaur");
-        expected.add("GRASS");
-        expected.add("POISON");
+        expected.add("GRASS, POISON");
         expected.add(60);
         expected.add(62);
         expected.add(63);
@@ -25,7 +24,8 @@ public class TestExcelReader {
         expected.add(36);
         expected.add(3);
         expected.add("Tackle,SwordsDance");
-        assertTrue(baseStats.equals(expected));  // The logical check
+
+        assertEquals(baseStats, expected);  // The logical check
     }
 
 }
