@@ -17,6 +17,7 @@ public class GameBuilder {
 
     public GameBuilder(){
         createPuckemon = new CreatePuckemon();
+        playerStartingTeam = new ArrayList<>();
         fillPlayerStartingTeam();
     }
 
@@ -28,8 +29,8 @@ public class GameBuilder {
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(1,5));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(2,5));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(3,10));
-        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(4,10));
-        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(5,15));
+        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(2,10));
+        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(3,15));
     }
 
     private List<OwnedPuckemon> randOpponentTeam(int size, int level){
