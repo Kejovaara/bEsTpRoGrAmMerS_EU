@@ -1,5 +1,6 @@
 package model.inventories;
 
+import model.entities.CreatePuckemon;
 import model.entities.OwnedPuckemon;
 import model.entities.Puckemon;
 
@@ -7,46 +8,39 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PuckeBag {
+public abstract class PuckeBag<T extends Puckemon> {
 
-    private final List<Puckemon> party = new ArrayList<>();
-    private final List<Puckemon> box = new ArrayList<>();
+    protected final List<T> party = new ArrayList<>();
 
-    public PuckeBag(List<OwnedPuckemon> puckemons){
+    public PuckeBag(List<T> puckemons){
         for (int i = 0; i < puckemons.size(); i++) {
             if(party.size()<6){
-                addToActiveParty(puckemons.get(i));
+                party.add(puckemons.get(i));
             }else{
-                addToInactiveParty(puckemons.get(i));
+                break;
             }
         }
     }
 
-    private void addToInactiveParty(Puckemon puckemon) {
-        box.add(puckemon);
-    }
-
-
-    private void switchPuckemon(int index){
+    protected void switchPuckemon(int index){
         Collections.swap(party,0, index);
-
     }
 
-    private void addToActiveParty(Puckemon puckemon) {
+    protected void addToParty(Puckemon puckemon) {
         if (party.size() >= 6){
-            box.add(puckemon);
+            System.out.println("Party is currently full");
         }else{
-            party.add(puckemon);
+            party.add((T)puckemon);
         }
     }
 
 
-    public List<Puckemon> getParty(){ return party;}
+    public List<Puckemon> getParty(){ return (List<Puckemon>) party;}
     public void setActivePuckemon(int index) {
         switchPuckemon(index);
     }
     public Puckemon getActivePuckemon(){return party.get(0);}
-    public void addPuckemonToParty(Puckemon puckemon){addToActiveParty(puckemon);}
+    public void addPuckemonToParty(Puckemon puckemon){addToParty(puckemon);}
 
 
 
