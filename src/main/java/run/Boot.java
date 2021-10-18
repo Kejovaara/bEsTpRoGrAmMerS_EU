@@ -71,7 +71,7 @@ public class Boot extends Game implements VCHandler{
                 switchView(mainScreen);
                 break;
             case COMBAT:
-                switchView(new CombatScreen(this,model));
+                switchView(combatScreen);
                 break;
             case PARTY:
                 switchView(partyScreen);

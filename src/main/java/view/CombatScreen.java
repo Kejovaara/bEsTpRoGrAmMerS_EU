@@ -198,6 +198,8 @@ public class CombatScreen implements Screen, EffectObserver, IView{
     @Override
     public void show() {
         attackMenu = MenuFactory.getAttackCombatMenu(game,this, model);
+        activeMenu = mainMenu;
+
         playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
         enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
     }
