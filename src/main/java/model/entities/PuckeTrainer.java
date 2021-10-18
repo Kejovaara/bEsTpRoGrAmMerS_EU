@@ -63,7 +63,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
 
                     List<PTypes> types = puckemon.getTypes();
 
-                    if(types.get(0) == attack.getType() || types.get(1) == attack.getType()){
+                    if(types.get(0) == attack.getType() || types.get(types.size()-1) == attack.getType()){
                         attackMultiplier *= 1.5;
                     }
 
@@ -104,9 +104,11 @@ public class PuckeTrainer implements IFighter, ITrainer {
             //generate random values from 0-3
             index = rand.nextInt(upperbound);
 
+
             //TODO: Fix so that it gets random attack
         }
 
+        System.out.println("get puckemon:" + index);
         return activePuckemon.getAttack(index);
     }
 
