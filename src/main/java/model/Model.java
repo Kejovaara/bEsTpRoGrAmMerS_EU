@@ -39,6 +39,7 @@ public class Model {
         player = new Player(playerList, 10);
         trainer = new PuckeTrainer("Bertil the great", trainerList);
 
+        player.addItem(ItemFactory.getItem(ItemFactory.INames.ETHER_POTION));
         player.generateStartingInventory(15);
 
         combat = new Combat(player, trainer);

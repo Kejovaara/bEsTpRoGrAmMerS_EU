@@ -14,7 +14,9 @@ public class RestorePP implements IEffect {
     @Override
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         if(targetYourself){
-           //TODO
+            for(int i = 0; i < attackUser.getMoveSet().size();i++){
+                attackUser.getMoveSet().get(i).incrementPP(amount);
+            }
         }else{
             //TODO
         }

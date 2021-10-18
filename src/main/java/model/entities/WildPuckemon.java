@@ -1,5 +1,6 @@
 package model.entities;
 
+import model.attack.Attack;
 import model.attack.AttackFactory;
 import model.effects.IEffectContainer;
 

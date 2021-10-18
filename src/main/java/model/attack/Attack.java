@@ -55,8 +55,15 @@ public class Attack implements IEffectContainer {
         return PP;
     }
 
-    public void addPP(int amount){
-        PP += amount;
+    public void setPP(int num){
+        PP = num;
+    }
+
+    public void incrementPP(int num){
+        PP += num;
+        if(PP > basePP){
+            setPP(basePP);
+        }
     }
 
     public PTypes getType() {

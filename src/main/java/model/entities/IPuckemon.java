@@ -1,6 +1,8 @@
 package model.entities;
 
 import model.PTypes;
+import model.attack.Attack;
+import model.effects.IEffectContainer;
 
 import java.util.List;
 
@@ -33,6 +35,8 @@ public interface IPuckemon {
 
     PTypes getType1();
     PTypes getType2();
+    List<Attack> getMoveSet();
+    IEffectContainer getAttack(int i);
     int getLevel();
 }
 
