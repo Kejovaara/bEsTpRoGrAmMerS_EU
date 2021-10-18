@@ -23,9 +23,6 @@ public class CombatController implements IController{
 
     @Override
     public void update() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            System.out.println("noooooo");
-        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
             if(model.getPlayerPuckemon().getHealth() <= 0){
                 handler.setView(Screens.PARTY);
