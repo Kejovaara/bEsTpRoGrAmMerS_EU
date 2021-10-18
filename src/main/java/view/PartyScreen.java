@@ -280,7 +280,7 @@ public class PartyScreen implements Screen {
 
     @Override
     public void show() {
-
+        loadNewTextures();
     }
 
     @Override
