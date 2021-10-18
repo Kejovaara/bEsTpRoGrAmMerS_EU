@@ -12,15 +12,15 @@ import java.util.List;
 public class Text implements IDraw,IRender {
 
     private BitmapFont font;
-    private final Boot game;
+    private final SpriteBatch batch;
     private int xPos;
     private int yPos;
     private String message;
     private Color color;
 
-    public Text(BitmapFont font, Boot game, Color color, int xPos, int yPos, String message, float scale) {
+    public Text(BitmapFont font, SpriteBatch batch, Color color, int xPos, int yPos, String message, float scale) {
         this.font = font;
-        this.game = game;
+        this.batch = batch;
         this.xPos = xPos;
         this.yPos = yPos;
         this.message = message;
@@ -33,8 +33,9 @@ public class Text implements IDraw,IRender {
 
     public void render(){
         font.setColor(color);
-        font.draw(game.batch, message, xPos, yPos);
+        font.draw(batch, message, xPos, yPos);
     }
+
 
     @Override
     public void draw() {

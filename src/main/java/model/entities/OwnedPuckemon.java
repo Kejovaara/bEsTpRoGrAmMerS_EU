@@ -1,21 +1,30 @@
 package model.entities;
 
+import model.PTypes;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class OwnedPuckemon extends Puckemon {
 
     private String nickName;
+    private int evolutionId;
+    private int evolutionLevel;
 
     private int expPoints;
 
 
-    public OwnedPuckemon(int level, int id){
-        super(id,level);
+    public OwnedPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, int evolutionLevel, int evolutionId, List<String> moveList){
+        super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
+        this.evolutionId = evolutionId;
+        this.evolutionLevel = evolutionLevel;
 
     }
 
-    public OwnedPuckemon(int level, int id, String nickName){
-        super(id,level);
+    public OwnedPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, int evolutionLevel, int evolutionId, List<String> moveList, String nickName){
+        super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
+        this.evolutionId = evolutionId;
+        this.evolutionLevel = evolutionLevel;
         this.nickName = nickName;
     }
 

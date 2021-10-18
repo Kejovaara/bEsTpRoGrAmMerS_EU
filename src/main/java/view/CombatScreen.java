@@ -16,11 +16,12 @@ import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
 import view.menu.Menu;
+import view.menu.MenuFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombatScreen implements Screen, EffectObserver{
+public class CombatScreen implements Screen, EffectObserver, IView{
 
     final Boot game;
     private Model model;
@@ -41,7 +42,9 @@ public class CombatScreen implements Screen, EffectObserver{
 
     private Label label;
 
-    public Menu testMenu;
+    private Menu mainMenu;
+    private Menu attackMenu;
+    private Menu activeMenu;
 
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
@@ -63,6 +66,10 @@ public class CombatScreen implements Screen, EffectObserver{
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
+
+        mainMenu = MenuFactory.getMainCombatMenu(game,this, model);
+        attackMenu = MenuFactory.getAttackCombatMenu( game,this, model);
+        activeMenu = mainMenu;
 
         //COMABT BOX TEXT
         stage = new Stage();
@@ -132,7 +139,7 @@ public class CombatScreen implements Screen, EffectObserver{
         }
 
         drawAnimations();
-        if(testMenu!=null)testMenu.render();
+        activeMenu.render();
 
     }
 
@@ -383,14 +390,12 @@ public class CombatScreen implements Screen, EffectObserver{
         }
     }
 
-
-
-    public enum CombatOptions{
-        ATTACK,
-        INVENTORY,
-        SWITCH,
-        FLEE,
-
+    @Override
+    public void switchMenu(int index) {
+        if(index == 0) activeMenu = mainMenu;
+        else activeMenu = attackMenu;
     }
+
+
 
 }
