@@ -16,13 +16,15 @@ import model.Model;
 import model.inventories.Item;
 import model.inventories.ListItem;
 import run.Boot;
+import view.menu.Menu;
+import view.menu.MenuFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class InventoryScreen implements Screen {
+public class InventoryScreen implements Screen,IView{
 
     final Boot game;
     private Model model;
@@ -50,6 +52,8 @@ public class InventoryScreen implements Screen {
     Label itemTitle;
     Label itemDescription;
 
+    Menu menu;
+
     public InventoryScreen(final Boot game, Model model){
         this.game = game;
         this.model = model;
@@ -61,6 +65,8 @@ public class InventoryScreen implements Screen {
         stage = new Stage();
 
         shapeRenderer = new ShapeRenderer();
+
+        menu = MenuFactory.getInventoryMenu(game, this,model);
 
         // FONT SETTINGS
         inventoryFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
@@ -262,6 +268,11 @@ public class InventoryScreen implements Screen {
 
     @Override
     public void dispose() {
+
+    }
+
+    @Override
+    public void switchMenu(int index) {
 
     }
 }
