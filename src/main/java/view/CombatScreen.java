@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
-import model.attack.Attack;
 import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
@@ -36,7 +35,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
     private BitmapFont statsFont;
 
     OrthographicCamera camera;
-    Texture playerPuck,trainerPuck, background, cursorTexture;
+    Texture playerPuck, enemyPuck, background, cursorTexture;
 
     private Boolean mainCombatMenu = true;
     private int cursorIndex = 0;
@@ -94,9 +93,6 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         label.setWrap(true);
         stage.addActor(label);
 
-        playerPuck = getTexture(model.getPlayerPuckemon().getId(), false);
-        trainerPuck = getTexture(model.getTrainerPuckemon().getId(), true);
-        //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
 
@@ -126,7 +122,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         shapeRenderer.end();
 
         game.batch.begin();
-        game.batch.draw(trainerPuck, 570, 400, 192, 192);
+        game.batch.draw(enemyPuck, 570, 400, 192, 192);
         game.batch.draw(playerPuck, 200, 110, 256, 256);
         game.batch.end();
 
@@ -201,7 +197,11 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
     @Override
     public void show() {
+        attackMenu = MenuFactory.getAttackCombatMenu(game,this, model);
+        activeMenu = mainMenu;
 
+        playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
+        enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
     }
 
     @Override

@@ -29,6 +29,7 @@ public class AttackCombatMenu implements IMenuController{
         if(index < model.getAttacks().size()){
             model.useAttack(index);
             System.out.println("attack: " + index);
+            view.switchMenu(0);
         }else{
             view.switchMenu(0);
             System.out.println("back");
