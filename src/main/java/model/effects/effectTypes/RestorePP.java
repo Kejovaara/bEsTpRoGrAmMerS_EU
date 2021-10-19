@@ -5,20 +5,14 @@ import model.entities.IPuckemon;
 
 public class RestorePP implements IEffect {
     int amount;
-    boolean targetYourself;
 
     public RestorePP(int amount){
         this.amount = amount;
-        targetYourself = true;
     }
     @Override
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
-        if(targetYourself){
             for(int i = 0; i < attackUser.getMoveSet().size();i++){
                 attackUser.getMoveSet().get(i).incrementPP(amount);
             }
-        }else{
-            //TODO
-        }
     }
 }
