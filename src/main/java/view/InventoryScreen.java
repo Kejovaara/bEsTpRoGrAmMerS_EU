@@ -29,25 +29,12 @@ public class InventoryScreen implements Screen,IView{
     private int screenWidth, screenHeight;
     private ShapeRenderer shapeRenderer;
     private Stage stage;
-    private boolean isActive = false;
-    private int targetIndex = 0;
-    private List<ListItem> listItems;
-    private List<Item> inventory;
-    ListItem listItem;
 
-    private BitmapFont inventoryFont, inventoryTitleFont,inventoryItemTitle, backFont;
+    private BitmapFont inventoryTitleFont;
     OrthographicCamera camera;
     Texture descriptionBox, background;
 
-    Label.LabelStyle fontStyle = new Label.LabelStyle();
     Label.LabelStyle titleStyle = new Label.LabelStyle();
-    Label.LabelStyle itemTitleStyle = new Label.LabelStyle();
-    Label.LabelStyle backStyle = new Label.LabelStyle();
-
-
-
-    Label itemTitle;
-    Label itemDescription;
 
     Menu menu;
 
