@@ -100,11 +100,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         label.setSize(520,10);
         label.setPosition(30,60);
         label.setWrap(true);
-        stage.addActor(label);
+        //stage.addActor(label);
 
         topLabel = new Label("",fontStyle);
         topLabel.setSize(520,10);
-        topLabel.setPosition(30,110);
+        topLabel.setPosition(30,80);
         topLabel.setWrap(true);
         stage.addActor(topLabel);
 
@@ -154,7 +154,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         mainMenuBackground1.render();
         stage.draw();
         if (model.getPlayerPuckemon().getHealth() <= 0){
-            label.setText("Your Puckemon fainted, Press any key to switch");
+            //label.setText("Your Puckemon fainted, Press any key to switch");
         }else{
             drawAnimations();
             mainMenuBackground2.render();
@@ -224,6 +224,10 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
         enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+
+
+        playerAnimations.clear();
+        enemyAnimations.clear();
     }
 
     @Override
