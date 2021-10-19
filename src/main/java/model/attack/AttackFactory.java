@@ -17,6 +17,7 @@ public class AttackFactory {
             case "Absorb": return  getAbsorb();
             case "QuickAttack": return getQuickAttack();
             case "DoubleEdge":return getDoubleEdge();
+            case "Flamethrower":return getFlamethrower();
             default : throw new IllegalArgumentException("Unknown Attack " + attackName);
         }
     }
@@ -49,6 +50,12 @@ public class AttackFactory {
         List<IEffect> effects = new ArrayList<>();
         effects.add(new RecoilDamage(120, PTypes.NORMAL, 1/3));
         return new Attack("Double Edge",3, effects, 7,PTypes.NORMAL);
+    }
+
+    public static Attack getFlamethrower(){
+        List<IEffect> effects = new ArrayList<>();
+        effects.add(new DoDamage(80, PTypes.FIRE));
+        return new Attack("Flamethrower",3, effects, 10,PTypes.FIRE);
     }
 
 

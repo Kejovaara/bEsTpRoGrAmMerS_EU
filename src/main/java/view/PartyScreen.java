@@ -85,7 +85,7 @@ public class PartyScreen implements Screen {
             if (party.get(targetIndex).getHealth()!=0){
                 model.useSwitch();
             }
-            game.setView(new CombatScreen(game, model));
+            game.setView(Screens.COMBAT);
             game.setController(InputController.Controllers.COMBAT);
         }else{
             setMessage(party.get(targetIndex).getName() + " can't battle anymore");
@@ -280,7 +280,7 @@ public class PartyScreen implements Screen {
 
     @Override
     public void show() {
-
+        loadNewTextures();
     }
 
     @Override

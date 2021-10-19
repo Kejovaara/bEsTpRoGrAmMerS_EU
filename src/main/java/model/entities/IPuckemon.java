@@ -37,6 +37,7 @@ public interface IPuckemon {
     PTypes getType2();
     List<Attack> getMoveSet();
     IEffectContainer getAttack(int i);
+    List<PTypes> getTypes();
     int getLevel();
 }
 

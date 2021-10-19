@@ -1,6 +1,7 @@
 package view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,12 +19,13 @@ import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
 import view.menu.Menu;
+import view.menu.MenuFactory;
+import view.screenObjects.RectangleBorder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class
-CombatScreen implements Screen, EffectObserver{
+public class CombatScreen implements Screen, EffectObserver, IView{
 
     final Boot game;
     private Model model;
@@ -39,7 +41,7 @@ CombatScreen implements Screen, EffectObserver{
     private Timer timer = new Timer();
 
     OrthographicCamera camera;
-    Texture playerPuck,trainerPuck, background, cursorTexture;
+    Texture playerPuck, enemyPuck, background, cursorTexture;
 
     private Boolean mainCombatMenu = true;
     private int cursorIndex = 0;
@@ -48,7 +50,11 @@ CombatScreen implements Screen, EffectObserver{
     private Label label;
     private int animationTick = 3;
 
-    public Menu testMenu;
+    private Menu mainMenu;
+    private Menu attackMenu;
+    private Menu activeMenu;
+
+    private RectangleBorder mainMenuBackground1, mainMenuBackground2;
 
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
@@ -73,6 +79,14 @@ CombatScreen implements Screen, EffectObserver{
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
 
+        mainMenu = MenuFactory.getMainCombatMenu(game,this, model);
+        attackMenu = MenuFactory.getAttackCombatMenu( game,this, model);
+        activeMenu = mainMenu;
+
+        mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
+        mainMenuBackground2 = new RectangleBorder(560,0,400,180,Color.BLACK,Color.WHITE,8);
+
+
         //COMABT BOX TEXT
         stage = new Stage();
         combatFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
@@ -96,6 +110,7 @@ CombatScreen implements Screen, EffectObserver{
 
         //ANIMATION
         EffectAnimationsHandler.getInstance().addObserver(this);
+        Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY);
     }
 
     Texture getTexture(int id, boolean front) {
@@ -121,57 +136,29 @@ CombatScreen implements Screen, EffectObserver{
         shapeRenderer.end();
 
         game.batch.begin();
-        game.batch.draw(trainerPuck, 570, 400, 192, 192);
+        game.batch.draw(enemyPuck, 570, 400, 192, 192);
         game.batch.draw(playerPuck, 200, 110, 256, 256);
         //game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.end();
 
         drawPuckeStats();
 
-        if(model.getPlayerPuckemon().getHealth() <= 0){
+
+        mainMenuBackground1.render();
+        stage.draw();
+        if (model.getPlayerPuckemon().getHealth() <= 0){
             label.setText("Your Puckemon fainted, Press any key to switch");
-            drawMainCombatMenu();
-        }
-        else if (mainCombatMenu){
-            String string = "What will " + model.getPlayerPuckemon().getName() + " do?";
+        }else{
+            /*String string = "What will " + model.getPlayerPuckemon().getName() + " do?";
             if(animationTick <= 0 && string.length() > index){
                 stringbuilder.append(string.charAt(index));
                 label.setText(stringbuilder);
                 animationTick = 3;
                 index++;
-            }
-            /*for(int i = 0; i < string.length(); i++){
-                *//*while(System.currentTimeMillis() < expectedTime){
-                    //Empty Loop
-                }*//*
-                //expectedTime += 1000;
-
-
-                //wait(500);
             }*/
-            //label.setText("What will " + model.getPlayerPuckemon().getName() + " do?");
-            drawMainCombatMenu();
-            drawCursor();
-        }
-        else {
-            drawCombatAttackMenu();
-            drawCursor();
-        }
-
-        drawAnimations();
-        if(testMenu!=null)testMenu.render();
-
-    }
-
-    public static void wait(int ms)
-    {
-        try
-        {
-            Thread.sleep(ms);
-        }
-        catch(InterruptedException ex)
-        {
-            Thread.currentThread().interrupt();
+            drawAnimations();
+            mainMenuBackground2.render();
+            activeMenu.render();
         }
     }
 
@@ -362,7 +349,11 @@ CombatScreen implements Screen, EffectObserver{
 
     @Override
     public void show() {
+        attackMenu = MenuFactory.getAttackCombatMenu(game,this, model);
+        activeMenu = mainMenu;
 
+        playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
+        enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
     }
 
     @Override
@@ -422,7 +413,11 @@ CombatScreen implements Screen, EffectObserver{
         }
     }
 
-
+    @Override
+    public void switchMenu(int index) {
+        if(index == 0) activeMenu = mainMenu;
+        else activeMenu = attackMenu;
+    }
 
     public enum CombatOptions{
         ATTACK,

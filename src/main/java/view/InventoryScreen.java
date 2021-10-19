@@ -17,11 +17,15 @@ import model.Model;
 import model.inventories.Item;
 import model.inventories.ListItem;
 import run.Boot;
+import view.menu.Menu;
+import view.menu.MenuFactory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
-public class InventoryScreen implements Screen {
+public class InventoryScreen implements Screen,IView{
 
     final Boot game;
     private Model model;
@@ -45,9 +49,13 @@ public class InventoryScreen implements Screen {
     Label.LabelStyle itemTitleStyle = new Label.LabelStyle();
     Label.LabelStyle backStyle = new Label.LabelStyle();
 
+
+
     Label itemTitle;
     Label itemDescription;
     Label inventoryTitle;
+
+    Menu menu;
 
     public InventoryScreen(final Boot game, Model model){
         this.game = game;
@@ -61,41 +69,8 @@ public class InventoryScreen implements Screen {
 
         shapeRenderer = new ShapeRenderer();
 
-        initiateFonts();
-        loadDefaultLabels();
-        renderItems();
+        menu = MenuFactory.getInventoryMenu(game, this,model);
 
-        setUpTextures();
-    }
-
-    public void setUpTextures(){
-        background = new Texture(Gdx.files.internal("inventory_background.png"));
-        descriptionBox = new Texture(Gdx.files.internal("inventory_description_box.png"));
-    }
-
-    public void loadDefaultLabels(){
-        //PAGE TITLE
-        System.out.println("PRINTED DEFAULT LABELS");
-        inventoryTitle = new Label("INVENTORY", titleStyle);
-        inventoryTitle.setSize(300, 30);
-        inventoryTitle.setPosition(350,570);
-        inventoryTitle.setAlignment(Align.center);
-        inventoryTitle.setWrap(false);
-        stage.addActor(inventoryTitle);
-
-        //ITEM TITLE
-        itemTitle = new Label("Default Title", itemTitleStyle);
-        itemTitle.setSize(380,50);
-        itemTitle.setPosition(520,490);
-
-        //ITEM DESCRIPTION
-        itemDescription = new Label("Default description",fontStyle);
-        itemDescription.setSize(380,140);
-        itemDescription.setWrap(true);
-        itemDescription.setPosition(520,360);
-    }
-
-    public void initiateFonts(){
         // FONT SETTINGS
         inventoryFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         inventoryFont.getData().setScale(0.75f);
@@ -111,18 +86,19 @@ public class InventoryScreen implements Screen {
         fontStyle.fontColor = Color.BLACK;
         titleStyle.font = inventoryTitleFont;
         titleStyle.fontColor = Color.BLACK;
-        itemTitleStyle.font = inventoryItemTitle;
-        itemTitleStyle.fontColor = Color.BLACK;
-        backStyle.font = backFont;
-    }
 
-    public void renderBackButton(){
-        //BACK BUTTON
-        Label backButtonLabel = new Label("PRESS SPACE TO GO BACK", fontStyle);
-        backButtonLabel.setSize(75,10);
-        backButtonLabel.setPosition(100,50);
-        backButtonLabel.setWrap(false);
-        stage.addActor(backButtonLabel);
+
+        //Page Title
+        Label titleLabel = new Label("INVENTORY", titleStyle);
+        titleLabel.setSize(300, 30);
+        titleLabel.setPosition(350,570);
+        titleLabel.setAlignment(Align.center);
+        titleLabel.setWrap(false);
+        stage.addActor(titleLabel);
+
+        background = new Texture(Gdx.files.internal("inventory_background.png"));
+        descriptionBox = new Texture(Gdx.files.internal("inventory_description_box.png"));
+
     }
 
     public void renderItems(){
@@ -131,24 +107,21 @@ public class InventoryScreen implements Screen {
         int listItemDistance = 55;
 
         inventory = model.getInventory();
-        listItems = new ArrayList<ListItem>();
-
-        /*scrollPane = new ScrollPane();
-        scrollPane.setBounds(100,500,386,400);
-        scrollPane.setSmoothScrolling(false);
-        scrollPane.setPosition(100,500);
-        scrollPane.setTransform(true);
-        stage.addActor(scrollPane);
-        Gdx.input.setInputProcessor(stage);*/
+        listItems = new ArrayList<>();
 
 
         int i = 0;
         stage.clear();
         stage.addActor(itemTitle);
         stage.addActor(itemDescription);
-        renderBackButton();
+            //BACK BUTTON
+            Label backButtonLabel = new Label("PRESS SPACE TO GO BACK", fontStyle);
+            backButtonLabel.setSize(75,10);
+            backButtonLabel.setPosition(100,50);
+            backButtonLabel.setWrap(false);
+            stage.addActor(backButtonLabel);
         for(Item item : inventory){
-            listItem = new ListItem(item, fontStyle,x,y);
+            listItem = new ListItem(item, fontStyle,y);
             if(targetIndex == i){
                 listItem.setActive();
             }
@@ -179,7 +152,7 @@ public class InventoryScreen implements Screen {
         }
     }
 
-    public void updateDescriptionBox(Item item){
+    public void updateDescription(Item item){
         itemTitle.setText(item.getName());
         itemDescription.setText(item.getDescription());
     }
@@ -207,17 +180,20 @@ public class InventoryScreen implements Screen {
 
         game.batch.begin();
             game.batch.draw(background, 0, 0, this.camera.viewportWidth,this.camera.viewportHeight);
-            game.batch.draw(descriptionBox, 500,320,407,220);
+            game.batch.draw(descriptionBox, 500,307,407,220);
         game.batch.end();
 
         renderItems();
         stage.act();
         stage.draw();
+
+        menu.render();
     }
+
 
     @Override
     public void show() {
-
+        menu = MenuFactory.getInventoryMenu(game, this,model);
     }
 
 
@@ -246,5 +222,11 @@ public class InventoryScreen implements Screen {
     public void dispose() {
         stage.dispose();
         shapeRenderer.dispose();
+    }
+
+    @Override
+    public void switchMenu(int index) {
+
+
     }
 }

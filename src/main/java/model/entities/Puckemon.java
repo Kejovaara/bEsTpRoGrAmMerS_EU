@@ -1,13 +1,11 @@
 package model.entities;
 
-import model.MonRegisterInterpreter;
 import model.PTypes;
 import model.attack.Attack;
 import model.attack.AttackFactory;
 import model.effects.IEffectContainer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,8 +13,7 @@ public abstract class Puckemon implements IPuckemon {
 
     protected int id;
     protected String name;
-    protected PTypes type1;
-    protected PTypes type2;
+    protected List<PTypes> types;
 
     protected int baseHealth;
     protected int baseAttackPower;
@@ -24,10 +21,6 @@ public abstract class Puckemon implements IPuckemon {
     protected int baseSpeed;
 
     protected int level;
-
-    protected int evolutionLevel = 101;
-    protected int evolutionID = 0;
-
     // -------------
 
     /**
@@ -55,34 +48,25 @@ public abstract class Puckemon implements IPuckemon {
     protected boolean lockDefence = false;
     protected boolean lockSpeed = false;
 
-    protected ArrayList<String> moveList = new ArrayList<String>();
-    protected ArrayList<Attack> moveSet = new ArrayList<Attack>(4);
-    private MonRegisterInterpreter monRegisterInterpreter = new MonRegisterInterpreter();
+    protected List<String> moveList;
+    protected ArrayList<Attack> moveSet = new ArrayList<>(4);
 
-    public Puckemon(int id, int level){
+    public Puckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList){
         this.id = id;
         this.level = level;
-        buildPuckemon(id);
-        fillMoveSet();
-    }
+        this.name = name;
+        this.types = types;
+        this.baseHealth = baseHealth;
+        this.baseAttackPower = baseAttackPower;
+        this.baseDefence = baseDefence;
+        this.baseSpeed = baseSpeed;
+        this.moveList = moveList;
 
-    protected void buildPuckemon(int id){
-        this.name = monRegisterInterpreter.getName(id);
-        this.type1 = monRegisterInterpreter.getType1(id);
-        this.type2 = monRegisterInterpreter.getType2(id);
-        this.baseHealth = monRegisterInterpreter.getBaseHealth(id);
-        this.baseAttackPower = monRegisterInterpreter.getBaseAttack(id);
-        this.baseDefence = monRegisterInterpreter.getBaseDefence(id);
-        this.baseSpeed = monRegisterInterpreter.getBaseSpeed(id);
-        this.evolutionLevel = monRegisterInterpreter.getEvolutionLevel(id);
-        this.evolutionID = monRegisterInterpreter.getEvolutionId(id);
-        this.moveList = monRegisterInterpreter.getMoveList(id);
         calculateLevelStats();
         alterCurrentStats();
-
-        //TODO: where should these be initialized
         this.currentHealth = this.maxHealth;
         this.currentDefence = this.defence;
+        fillMoveSet();
     }
 
     protected void fillMoveSet(){
@@ -115,17 +99,17 @@ public abstract class Puckemon implements IPuckemon {
 
     protected void alterCurrentStats(){
         if (attackPowerBuffFactor < 0){
-            currentAttackPower = (int) (attackPower) * (2 / (2 + (-1) * attackPowerBuffFactor));
+            currentAttackPower = (attackPower) * (2 / (2 + (-1) * attackPowerBuffFactor));
         }else{
             currentAttackPower = (int) (attackPower * (1 + attackPowerBuffFactor * 0.25));
         }
         if (defenceBuffFactor < 0){
-            currentDefence = (int) (defence) * (2 / (2 + (-1) * defenceBuffFactor));
+            currentDefence = (defence) * (2 / (2 + (-1) * defenceBuffFactor));
         }else{
             currentDefence = (int) (defence * (1 + defenceBuffFactor * 0.25));
         }
         if (speedBuffFactor < 0){
-            currentSpeed = (int) (speed) * (2 / (2 + (-1) * speedBuffFactor));
+            currentSpeed =  (speed) * (2 / (2 + (-1) * speedBuffFactor));
         }else{
             currentSpeed = (int) (speed * (1 + speedBuffFactor * 0.25));
         }
@@ -229,13 +213,8 @@ public abstract class Puckemon implements IPuckemon {
     }
 
     @Override
-    public PTypes getType1() {
-        return this.type1;
-    }
-
-    @Override
-    public PTypes getType2() {
-        return this.type2;
+    public List<PTypes> getTypes() {
+        return this.types;
     }
 
     @Override

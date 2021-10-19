@@ -3,10 +3,7 @@ package model;
 import model.attack.Attack;
 import model.attack.AttackFactory;
 import model.combat.Combat;
-import model.entities.OwnedPuckemon;
-import model.entities.Player;
-import model.entities.PuckeTrainer;
-import model.entities.Puckemon;
+import model.entities.*;
 import model.inventories.Item;
 import model.inventories.ItemFactory;
 
@@ -27,22 +24,14 @@ public class Model {
     private Player player;
     private PuckeTrainer trainer;
     private Combat combat;
+    private GameBuilder gameBuilder;
 
     public Model() {
-        playerList.add(playerPuckemon);
+        gameBuilder = new GameBuilder();
+        player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
+        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(5,5), true);
 
-        playerList.add(playerPuckemon1);
-        playerList.add(playerPuckemon2);
-        playerList.add(playerPuckemon3);
-
-
-        trainerList.add(trainerPuckemon);
-
-        player = new Player(playerList, 10);
-        trainer = new PuckeTrainer("Bertil the great", trainerList);
-
-        player.addItem(ItemFactory.getItem(ItemFactory.INames.GOLDEN_NUGGIE));
-        player.generateStartingInventory(15);
+        player.generateStartingInventoryDEV(35);
 
         combat = new Combat(player, trainer);
     }
@@ -57,7 +46,7 @@ public class Model {
     }
 
     public void useAttack(int index){
-        combat.usePlayerAttack(index);
+        if (getAttack(index).getPP() > 0)combat.usePlayerAttack(index);
     }
 
     public void useItem(int index) {combat.usePlayerItem(index);}
@@ -68,6 +57,9 @@ public class Model {
 
     public Attack getAttack(int index){
         return player.getPuckemon().getMoveSet().get(index);
+    }
+    public List<Attack> getAttacks(){
+        return player.getPuckemon().getMoveSet();
     }
 
     public List<Puckemon> getParty(){
