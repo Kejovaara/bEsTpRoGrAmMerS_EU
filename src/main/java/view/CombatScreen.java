@@ -103,7 +103,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         stage.addActor(label);
 
         playerPuck = getTexture(model.getPlayerPuckemon().getId(), false);
-        trainerPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+        enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
         //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
