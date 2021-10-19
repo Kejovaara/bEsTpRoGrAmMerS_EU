@@ -49,7 +49,6 @@ public class Menu implements IRender {
         activeItem = activeItem.getUp();
     }
     public void down(){
-        System.out.println("down: " + (activeItem == activeItem.getDown()));
         activeItem = activeItem.getDown();
 
     }
@@ -66,17 +65,13 @@ public class Menu implements IRender {
     public void render() {
         update();
         IRender renderObject;
-        batch.begin();
+
         for (MenuItem menuItem : menuItems) {
-
-//            if(menuItem == activeItem){
-//                menuItem.getActiveRender().render();
-//            }
-//            else menuItem.getDeactiveRender().render();
+            batch.begin();
             menuItem.getRender().render();
-
+            batch.end();
         }
-        batch.end();
+
     }
 
     protected void update(){

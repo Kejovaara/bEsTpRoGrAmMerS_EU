@@ -14,11 +14,14 @@ import input.InputController;
 import model.Model;
 import model.entities.Puckemon;
 import run.Boot;
+import view.menu.Menu;
+import view.menu.MenuFactory;
+import view.menu.ParyMenu;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class PartyScreen implements Screen {
+public class PartyScreen implements Screen, IView {
 
     final Boot game;
     private Model model;
@@ -36,6 +39,8 @@ public class PartyScreen implements Screen {
     OrthographicCamera camera;
     Texture background, mon1, mon2, mon3, mon4, mon5, mon6;
 
+    private Menu menu;
+
     public PartyScreen(final Boot game, Model model) {
         this.game = game;
         this.model = model;
@@ -46,7 +51,7 @@ public class PartyScreen implements Screen {
         partyFont.getData().setScale(0.75f);
         partyFont.setColor(0,0,0,1);
 
-
+        menu = MenuFactory.getPartyMenu(game, this, model);
 
         Label.LabelStyle fontStyle = new Label.LabelStyle();
         fontStyle.font = partyFont;
@@ -268,19 +273,22 @@ public class PartyScreen implements Screen {
         game.batch.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        draw();
+        //draw();
         shapeRenderer.end();
 
         game.batch.begin();
-        renderParty();
+        //renderParty();
+
         game.batch.end();
-        stage.draw();
+        menu.render();
+        //stage.draw();
 
     }
 
     @Override
     public void show() {
         loadNewTextures();
+        menu = MenuFactory.getPartyMenu(game, this, model);
     }
 
     @Override
@@ -305,6 +313,11 @@ public class PartyScreen implements Screen {
 
     @Override
     public void dispose() {
+
+    }
+
+    @Override
+    public void switchMenu(int index) {
 
     }
 }

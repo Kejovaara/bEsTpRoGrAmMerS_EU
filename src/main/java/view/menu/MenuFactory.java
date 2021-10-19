@@ -6,14 +6,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import input.AttackCombatMenu;
 import input.InventoryMenuController;
 import input.MainCombatMenu;
+import input.PartyMenuController;
 import model.Model;
 import run.Boot;
 import view.IRender;
 import view.IView;
-import view.screenObjects.AttackMenuItem;
-import view.screenObjects.CursorMenuItem;
-import view.screenObjects.InventoryMenuItem;
-import view.screenObjects.Text;
+import view.screenObjects.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +97,6 @@ public class MenuFactory {
     public static Menu getInventoryMenu(Boot game, IView view, Model model){
         int x = 100;
         int y = 480;
-        int xSpacing = 190;
         int ySpacing = 60;
         List<MenuItem> items = new ArrayList<>();
 
@@ -121,5 +118,43 @@ public class MenuFactory {
         items.get(items.size()-1).setDown(items.get(0));
 
         return new InventoryMenu(game.batch, new InventoryMenuController(view,model,game), items, model.getInventory(), 6, ySpacing);
+    }
+
+    public static Menu getPartyMenu(Boot game, IView view, Model model){
+        int x = 430;
+        int y = 610;
+        int ySpacing = 103;
+        List<MenuItem> items = new ArrayList<>();
+
+
+        IRender tempActive, tempDeactive;
+        if(model.getParty().size() > 0){
+            tempActive = new MainPartyItem(game.batch, model.getParty().get(0),40, y-200, 0.75f, true);
+            tempDeactive = new MainPartyItem(game.batch, model.getParty().get(0),40, y-200, 0.75f, false);
+            items.add(new MenuItem(tempActive,tempDeactive));
+        }
+
+
+        for (int i = 1; i < model.getParty().size(); i++) {
+            tempActive = new NormalPartyItem(game.batch, model.getParty().get(i),x, y-(ySpacing*i), 0.75f, true);
+            tempDeactive = new NormalPartyItem(game.batch, model.getParty().get(i),x, y-(ySpacing*i), 0.75f, false);
+            items.add(new MenuItem(tempActive,tempDeactive));
+        }
+
+        items.add(new MenuItem(new CursorMenuItem(game.batch,"Back", 750, 70, 0.75f, true),new CursorMenuItem(game.batch,"Back", 750, 70, 0.75f, false)));
+
+        for (int i = 0; i < items.size(); i++) {
+            if(i != items.size()-1) items.get(i).setDown(items.get(i+1));
+            if(i != 0) items.get(i).setUp(items.get(i-1));
+            if(i > 0) items.get(i).setLeft(items.get(0));
+        }
+
+        if(items.size() > 1){
+            items.get(0).setRight(items.get(1));
+        }
+
+
+
+        return new ParyMenu(game.batch, new PartyMenuController(view,model, game),items);
     }
 }

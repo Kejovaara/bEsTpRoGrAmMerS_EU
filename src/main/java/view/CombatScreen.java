@@ -178,6 +178,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     private void drawPuckeStats(){
 
+        //System.out.println(model.getPlayerPuckemon().getHealth());
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1,1,1,1);
