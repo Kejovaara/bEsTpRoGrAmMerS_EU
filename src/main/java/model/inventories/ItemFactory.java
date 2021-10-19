@@ -74,7 +74,7 @@ public class ItemFactory {
 
     public static Item getSuperKillPotion(){
         List<IEffect> effects = new ArrayList<>();
-        effects.add(new DoDamage(1000000, PTypes.NORMAL));
+        effects.add(new DoDamagePercentage(1.00f, PTypes.NORMAL));
         return new Item(6,"Super Kill Potion", "An item that instantly kills your opponent",1,1,20,true,effects);
     }
 

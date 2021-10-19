@@ -115,7 +115,7 @@ public abstract class Puckemon implements IPuckemon {
         }
     }
 
-    public IEffectContainer getAttack(int i) {
+    public Attack getAttack(int i) {
         return moveSet.get(i);
     }
 

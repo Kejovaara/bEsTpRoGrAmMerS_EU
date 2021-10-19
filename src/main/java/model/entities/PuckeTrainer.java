@@ -7,6 +7,7 @@ import model.effects.IEffectContainer;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import model.inventories.PuckeBag;
+import view.message.MessageHandler;
 
 import java.util.List;
 import java.util.Random;
@@ -46,9 +47,13 @@ public class PuckeTrainer implements IFighter, ITrainer {
             Puckemon bestPuckemon = activePuckemon;
             int bestPuckemonId = 0;
 
+            //The threshold for when the difference between the best multiplier and active Puckemon multiplier is
+            // high enough for switching Puckemon
+            double threshold = 0.2;
+
             //Save best multiplier and index for active puckemon
             double bestMultiplierActiveP = 0;
-            int indexActiveP;
+            int indexActiveP = 0;
 
             //Check for the most effective puckemon
             for (int i = 0; i < party.size(); i++) {
@@ -70,6 +75,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
                     if(puckemon.equals(activePuckemon)) {
                         if (attackMultiplier > bestMultiplierActiveP) {
                             bestMultiplierActiveP = attackMultiplier;
+                            indexActiveP = i;
                         }
                     }
 
@@ -87,22 +93,25 @@ public class PuckeTrainer implements IFighter, ITrainer {
             System.out.println("Diff: " + diff);
             System.out.println("Multiplier: " + bestMultiplier);
 
-
             if (!(bestPuckemon.equals(activePuckemon))) {
 //                double diff = bestMultiplier - bestMultiplierActiveP;
 
                 System.out.println("Diff: " + diff);
 
                 //Only switch Puckemon if difference is high enough
-                if (diff > 0.2){
+                if (diff > threshold){
                     switchPuckemon(bestPuckemonId);
+                    MessageHandler.getInstance().DisplayMessage("Opponent switched to " + puckeBag.getActivePuckemon().getName()
+                                                                + "!");
+                    System.out.println("Opponent trainer Switching");
+                    return null;
                 }
+                index = indexActiveP;
             }
 
         } else {
             Random rand = new Random(); //instance of random class
             int upperbound = activePuckemon.getMoveSet().size();
-            System.out.println("get upperbound:" + upperbound);
             //generate random values from 0-3
             index = rand.nextInt(upperbound);
 
@@ -110,8 +119,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
             //TODO: Fix so that it gets random attack
         }
 
-        index = 0;
-        System.out.println("get attack:" + index);
+        MessageHandler.getInstance().DisplayMessage("Opponent " + puckeBag.getActivePuckemon().getName() + " used " + activePuckemon.getAttack(index).getName() + "!");
         return activePuckemon.getAttack(index);
     }
 

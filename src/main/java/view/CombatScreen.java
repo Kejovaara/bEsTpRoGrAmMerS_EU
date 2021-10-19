@@ -16,28 +16,30 @@ import com.badlogic.gdx.utils.Timer;
 import model.Model;
 import model.attack.Attack;
 import model.entities.Puckemon;
-import org.apache.poi.ss.formula.functions.T;
 import run.Boot;
 import view.animation.*;
 import view.menu.Menu;
 import view.menu.MenuFactory;
+import view.message.MessageHandler;
 import view.screenObjects.RectangleBorder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombatScreen implements Screen, EffectObserver, IView{
+public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView{
 
     final Boot game;
     private Model model;
     private int screenWidth, screenHeight;
     private ShapeRenderer shapeRenderer;
-    private Stage stage = new Stage();
+    private Stage stage;
     private StringBuilder stringbuilder = new StringBuilder();
+    long expectedTime = System.currentTimeMillis();
 
     private BitmapFont menuFont;
     private BitmapFont combatFont;
     private BitmapFont statsFont;
+    private Timer timer = new Timer();
 
     OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
@@ -46,6 +48,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
     private int cursorIndex = 0;
     private int cursorX,cursorY;
 
+    private Label topLabel;
     private Label label;
     private int animationTick = 3;
 
@@ -54,6 +57,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
     private Menu activeMenu;
 
     private RectangleBorder mainMenuBackground1, mainMenuBackground2;
+    private Puckemon activeEnemyPuckemon;
 
     private TextAnimation textAnimation;
 
@@ -88,9 +92,11 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
         mainMenuBackground2 = new RectangleBorder(560,0,400,180,Color.BLACK,Color.WHITE,8);
 
+        activeEnemyPuckemon = model.getTrainerPuckemon();
 
 
         //COMABT BOX TEXT
+        stage = new Stage();
         combatFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
         combatFont.getData().setScale(0.75f);
 
@@ -98,28 +104,29 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         fontStyle.font = combatFont;
         fontStyle.fontColor = Color.BLACK;
 
-        label = new Label(" ",fontStyle);
+        label = new Label("What will " + model.getPlayerPuckemon().getName() + " do?",fontStyle);
         label.setSize(520,10);
-        label.setPosition(30,90);
+        label.setPosition(30,60);
         label.setWrap(true);
-        stage.addActor(label);
+        //stage.addActor(label);
 
-        String promptMessage = "What will " + model.getPlayerPuckemon().getName() + " do?";
-        textAnimation = new TextAnimation(label,promptMessage,30,90,520,10);
+        topLabel = new Label("",fontStyle);
+        topLabel.setSize(520,10);
+        topLabel.setPosition(30,80);
+        topLabel.setWrap(true);
+        stage.addActor(topLabel);
 
-        playerPuck = getTexture(model.getPlayerPuckemon().getId(), false);
-        enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
-        //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
 
         //ANIMATION
         EffectAnimationsHandler.getInstance().addObserver(this);
+        //MESSAGE
+        MessageHandler.getInstance().addObserver(this);
         Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY);
     }
 
     Texture getTexture(int id, boolean front) {
-
         if(front) {
             return new Texture(Gdx.files.internal("front/" + id + ".png"));
         }else{
@@ -129,8 +136,11 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
     @Override
     public void render(float delta) {
-        //animationTick--;
-        //System.out.println("" + animationTick);
+        if(activeEnemyPuckemon != model.getTrainerPuckemon()){
+            enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+            activeEnemyPuckemon = model.getTrainerPuckemon();
+        }
+
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
         camera.update();
@@ -147,24 +157,14 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         //game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.end();
 
-
-
         drawPuckeStats();
 
 
         mainMenuBackground1.render();
         stage.draw();
         if (model.getPlayerPuckemon().getHealth() <= 0){
-            label.setText("Your Puckemon fainted, Press any key to switch");
+            //label.setText("Your Puckemon fainted, Press any key to switch");
         }else{
-            /*String string = "What will " + model.getPlayerPuckemon().getName() + " do?";
-            if(animationTick <= 0 && string.length() > index){
-                stringbuilder.append(string.charAt(index));
-                label.setText(stringbuilder);
-                animationTick = 3;
-                index++;
-            }*/
-
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
@@ -184,7 +184,11 @@ public class CombatScreen implements Screen, EffectObserver, IView{
     }
 
 
+
+
     private void drawPuckeStats(){
+
+
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1,1,1,1);
         shapeRenderer.rect(40,this.camera.viewportHeight-140, 400, 120);
@@ -294,4 +298,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         if(index == 0) activeMenu = mainMenu;
         else activeMenu = attackMenu;
     }
+
+
+
 }

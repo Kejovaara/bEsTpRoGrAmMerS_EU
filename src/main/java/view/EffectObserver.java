@@ -1,8 +1,6 @@
 package view;
 
 import model.entities.Puckemon;
-import view.animation.EffectAnimation;
-import view.animation.EffectAnimationsHandler;
 
 public interface EffectObserver {
 

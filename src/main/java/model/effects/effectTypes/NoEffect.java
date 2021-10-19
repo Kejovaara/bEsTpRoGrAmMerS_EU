@@ -3,6 +3,7 @@ package model.effects.effectTypes;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
 import model.inventories.Item;
+import view.message.MessageHandler;
 
 public class NoEffect implements IEffect {
     String error;
@@ -19,5 +20,8 @@ public class NoEffect implements IEffect {
         System.out.print("You get confused what to do with your " + item.getName() + "..." + "\n");
         System.out.print("In despair, you toss your " + item.getName() + " at " + opponent.getName() + ", " + "\n");
         System.out.println("which has absolutely no effect at all.." + "\n");
+        MessageHandler.getInstance().DisplayMessage("You get confused what to do with your " + item.getName() + "..." + "\n"
+                +"In despair, you toss your " + item.getName() + " at " + opponent.getName() + ", " + "\n"+
+                "which has absolutely no effect at all.." + "\n");
     }
 }
