@@ -20,12 +20,13 @@ import run.Boot;
 import view.animation.*;
 import view.menu.Menu;
 import view.menu.MenuFactory;
+import view.message.MessageHandler;
 import view.screenObjects.RectangleBorder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombatScreen implements Screen, EffectObserver, IView{
+public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView{
 
     final Boot game;
     private Model model;
@@ -38,7 +39,6 @@ public class CombatScreen implements Screen, EffectObserver, IView{
     private BitmapFont menuFont;
     private BitmapFont combatFont;
     private BitmapFont statsFont;
-    private Timer timer = new Timer();
 
     OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
@@ -47,8 +47,8 @@ public class CombatScreen implements Screen, EffectObserver, IView{
     private int cursorIndex = 0;
     private int cursorX,cursorY;
 
+    private Label topLabel;
     private Label label;
-    private int animationTick = 3;
 
     private Menu mainMenu;
     private Menu attackMenu;
@@ -58,8 +58,6 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
-
-    private int index = 0;
 
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
@@ -96,20 +94,25 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         fontStyle.font = combatFont;
         fontStyle.fontColor = Color.BLACK;
 
-        label = new Label(" ",fontStyle);
+        label = new Label("What will " + model.getPlayerPuckemon().getName() + " do?",fontStyle);
         label.setSize(520,10);
         label.setPosition(30,90);
         label.setWrap(true);
         stage.addActor(label);
 
-        playerPuck = getTexture(model.getPlayerPuckemon().getId(), false);
-        enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
-        //pucke2 = new Texture(Gdx.files.internal("PuckemonBack/1.png"));
+        topLabel = new Label("",fontStyle);
+        topLabel.setSize(520,10);
+        topLabel.setPosition(30,110);
+        topLabel.setWrap(true);
+        stage.addActor(topLabel);
+
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
 
         //ANIMATION
         EffectAnimationsHandler.getInstance().addObserver(this);
+        //MESSAGE
+        MessageHandler.getInstance().addObserver(this);
         Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY);
     }
 
@@ -123,8 +126,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
     @Override
     public void render(float delta) {
-        animationTick--;
-        //System.out.println("" + animationTick);
+
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
         camera.update();
@@ -138,7 +140,6 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         game.batch.begin();
         game.batch.draw(enemyPuck, 570, 400, 192, 192);
         game.batch.draw(playerPuck, 200, 110, 256, 256);
-        //game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.end();
 
         drawPuckeStats();
@@ -149,13 +150,6 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         if (model.getPlayerPuckemon().getHealth() <= 0){
             label.setText("Your Puckemon fainted, Press any key to switch");
         }else{
-            /*String string = "What will " + model.getPlayerPuckemon().getName() + " do?";
-            if(animationTick <= 0 && string.length() > index){
-                stringbuilder.append(string.charAt(index));
-                label.setText(stringbuilder);
-                animationTick = 3;
-                index++;
-            }*/
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
@@ -173,12 +167,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         }
     }
 
-    private void drawCursor(){
-        game.batch.begin();
-        calculateCursorPos();
-        game.batch.draw(cursorTexture,cursorX, cursorY, 15, 15);
-        game.batch.end();
-    }
+
 
 
     private void drawPuckeStats(){
@@ -222,131 +211,6 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         game.batch.end();
     }
 
-    private void drawMainCombatMenu(){
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(0.8f,0.8f,0.8f,1);
-        shapeRenderer.rect(0,0,960, 180);
-        shapeRenderer.setColor(1,1,1,1);
-        shapeRenderer.rect(560,0,400, 180);
-        shapeRenderer.end();
-
-        Gdx.gl.glLineWidth(6);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(0,0,960, 180);
-        shapeRenderer.rect(560,0,400, 180);
-        shapeRenderer.end();
-
-        game.batch.begin();
-        menuFont.setColor(0,0,0,1);
-        menuFont.draw(game.batch, "Attack", 600, 140);
-        menuFont.draw(game.batch, "Switch", 600, 60);
-        menuFont.draw(game.batch, "Inventory", 800, 140);
-        menuFont.draw(game.batch, "Flee", 800, 60);
-        game.batch.end();
-        stage.draw();
-    }
-
-    public void drawCombatAttackMenu(){
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1,1,1,1);
-        shapeRenderer.rect(0,0,960, 180);
-        shapeRenderer.end();
-
-        Gdx.gl.glLineWidth(6);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(0,0,960, 180);
-        shapeRenderer.rect(660,0,300, 180);
-        shapeRenderer.end();
-
-        game.batch.begin();
-
-        printAttacks();
-        menuFont.setColor(0,0,0,1);
-        menuFont.draw(game.batch, "Back", 545, 60);
-        if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()){
-            Attack attack = model.getPlayerPuckemon().getMoveSet().get(cursorIndex);
-            menuFont.draw(game.batch, "pp", 700, 140);
-            menuFont.draw(game.batch, "Type/ " +attack.getType(), 700, 60);
-            menuFont.draw(game.batch, attack.getPP()+"/"+attack.getBasePP(), 850, 140);
-        }
-
-        game.batch.end();
-    }
-
-    public void printAttacks(){
-        for (int i = 0; i < model.getPlayerPuckemon().getMoveSet().size(); i++) {
-            if (model.getAttack(i).getPP()>0) menuFont.setColor(0,0,0,1);
-            else menuFont.setColor(0.6f,0.6f,0.6f,1);
-            menuFont.draw(game.batch, model.getAttack(i).getName(), 70+(i%2)*230, 140-((int)(i/2)*80));
-        }
-
-
-
-    }
-
-    public Boolean isMainCombatMenu() {
-        return mainCombatMenu;
-    }
-
-    public void setMainCombatMenu(boolean main){
-        mainCombatMenu = main;
-    }
-
-    public int getCursorIndex() {
-        return cursorIndex;
-    }
-
-    public void calculateCursorPos(){
-        if(mainCombatMenu){
-            cursorX = 580+(cursorIndex%2)*200;
-            cursorY = 123-((int)(cursorIndex/2))*80;
-        }else{
-            if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()){
-                cursorX = 50+(cursorIndex%2)*230;
-                cursorY = 123-((int)(cursorIndex/2))*80;
-            }else{
-                cursorX = 524;
-                cursorY = 43;
-            }
-
-        }
-    }
-
-    public void cursorUP(){
-        if(mainCombatMenu){
-            if(cursorIndex > 1) cursorIndex -= 2;
-        }else{
-            if(cursorIndex > 1) cursorIndex -= 2;
-        }
-    }
-
-    public void cursorDown(){
-        if(mainCombatMenu){
-            if(cursorIndex < 2) cursorIndex += 2;
-        }else{
-            if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()-2) cursorIndex += 2;
-        }
-    }
-
-    public void cursorLeft(){
-        if(mainCombatMenu){
-            if(cursorIndex > 0) cursorIndex -= 1;
-        }else{
-            if(cursorIndex > 0)cursorIndex -=1;
-        }
-    }
-
-    public void cursorRight(){
-        if(mainCombatMenu){
-            if(cursorIndex < 3) cursorIndex += 1;
-        }else{
-            if(cursorIndex < model.getPlayerPuckemon().getMoveSet().size()) cursorIndex += 1;
-        }
-    }
-
-
     @Override
     public void show() {
         attackMenu = MenuFactory.getAttackCombatMenu(game,this, model);
@@ -381,7 +245,10 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
     }
 
-
+    @Override
+    public void SetMessage(String message) {
+        this.topLabel.setText(message);
+    }
 
     @Override
     public void onDamage(int damage, Puckemon damageReceiver) {
@@ -419,12 +286,6 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         else activeMenu = attackMenu;
     }
 
-    public enum CombatOptions{
-        ATTACK,
-        INVENTORY,
-        SWITCH,
-        FLEE,
 
-    }
 
 }

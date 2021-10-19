@@ -31,6 +31,7 @@ public class GameBuilder {
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(3,10));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(2,10));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(3,15));
+        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(128,15));
     }
 
     private List<OwnedPuckemon> randOpponentTeam(int size, int level){

@@ -63,7 +63,7 @@ public class Combat {
         IPuckemon playerPuckemon = player.getPuckemon();
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         int pdiff = playerPuckemon.getHealth();
-        executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
+        executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
         System.out.println("player switched, player: " + (pdiff-playerPuckemon.getHealth()));
     }
 
@@ -77,12 +77,19 @@ public class Combat {
         int pdiff = playerPuckemon.getHealth();
         int fdiff = fighterPuckemon.getHealth();
 
-        if(attack.getPriority() < fighterMove.getPriority()){
-            executeEffects(attack.getEffects(), playerPuckemon, fighterPuckemon);
-            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
-        }else{
-            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
-            executeEffects(attack.getEffects(), playerPuckemon, fighterPuckemon);
+        //If enemy fighter made a move
+        if (fighterMove != null) {
+            //Check which move should be executed first
+            if(attack.getPriority() < fighterMove.getPriority()){
+                executeEffects(attack, playerPuckemon, fighterPuckemon);
+                executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
+            }else{
+                executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
+                executeEffects(attack, playerPuckemon, fighterPuckemon);
+            }
+        } else {
+            //Only execute players attack
+            executeEffects(attack, playerPuckemon, fighterPuckemon);
         }
 
         System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
@@ -101,12 +108,19 @@ public class Combat {
         int pdiff = playerPuckemon.getHealth();
         int fdiff = fighterPuckemon.getHealth();
 
-        if(item.getPriority() < fighterMove.getPriority()){
-            executeEffects(item.getEffects(), playerPuckemon, fighterPuckemon);
-            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
-        }else{
-            executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
-            executeEffects(item.getEffects(), playerPuckemon, fighterPuckemon);
+        //If enemy fighter made a move
+        if (fighterMove != null) {
+            //Check which move should be executed first
+            if(item.getPriority() < fighterMove.getPriority()){
+                executeEffects(item, playerPuckemon, fighterPuckemon);
+                executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
+            }else{
+                executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
+                executeEffects(item, playerPuckemon, fighterPuckemon);
+            }
+        } else {
+            //Only execute players attack
+            executeEffects(item, playerPuckemon, fighterPuckemon);
         }
 
         player.consumeItem(index);
@@ -116,12 +130,18 @@ public class Combat {
 //        System.out.println(fighterPuckemon.getName()+" used "+fighterPuckemon.getA);
     }
 
-    private void executeEffects(List<IEffect> effects, IPuckemon attackUser, IPuckemon opponent){
-        for(IEffect effect : effects){
-            if(attackUser.getHealth() == 0){
-                break;
+    private void executeEffects(IEffectContainer effectContainer, IPuckemon attackUser, IPuckemon opponent){
+        if (effectContainer != null) {
+            List<IEffect> effects = effectContainer.getEffects();
+
+            for(IEffect effect : effects){
+                if(attackUser.getHealth() == 0){
+                    break;
+                }
+                if (effect != null) {
+                    effect.execute(attackUser, opponent);
+                }
             }
-            effect.execute(attackUser, opponent);
         }
     }
 
