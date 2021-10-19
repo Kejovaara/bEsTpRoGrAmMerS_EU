@@ -90,46 +90,6 @@ public class InventoryScreen implements Screen,IView{
 
     }
 
-    public void renderItems(){
-
-
-    }
-
-    public void moveUp(){
-        if(targetIndex == 0){
-            targetIndex = inventory.size()-1;
-        }else{
-            targetIndex--;
-        }
-    }
-
-    public void moveDown(){
-        if(targetIndex == inventory.size()-1){
-            targetIndex = 0;
-        }else{
-            targetIndex++;
-        }
-    }
-
-    public void updateDescription(Item item){
-        itemTitle.setText(item.getName());
-        itemDescription.setText(item.getDescription());
-    }
-
-    private void listItemSelector(int index){
-        if(targetIndex == index){
-            listItem.setActive();
-            updateDescription(inventory.get(index));
-        }else{
-            listItem.setInactive();
-        }
-    }
-
-    public int getTargetIndex(){
-        return targetIndex;
-    }
-
-
     @Override
     public void render(float v) {
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
@@ -142,7 +102,6 @@ public class InventoryScreen implements Screen,IView{
             game.batch.draw(descriptionBox, 500,307,407,220);
         game.batch.end();
 
-        renderItems();
         stage.act();
         stage.draw();
 
@@ -179,11 +138,13 @@ public class InventoryScreen implements Screen,IView{
 
     @Override
     public void dispose() {
-
+        stage.dispose();
+        shapeRenderer.dispose();
     }
 
     @Override
     public void switchMenu(int index) {
+
 
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 import model.attack.Attack;
+import model.attack.AttackFactory;
 import model.combat.Combat;
 import model.entities.*;
 import model.inventories.Item;
