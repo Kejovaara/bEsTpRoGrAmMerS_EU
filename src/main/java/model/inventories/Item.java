@@ -53,16 +53,12 @@ public class Item implements IEffectContainer {
         return this.quantity;
     }
 
+    public void setQuantity(int a){
+        this.quantity = a;
+    }
+
     public int getValue(){
         return this.price;
-    }
-
-    public void incrementAmount(int num){
-        this.quantity += num;
-    }
-
-    public void decrementAmount(int num){
-        this.quantity -= num;
     }
 
     /*
@@ -87,7 +83,9 @@ public class Item implements IEffectContainer {
 
     @Override
     public void execute(IPuckemon user, IPuckemon opponent) {
-        decrementAmount(1);
+        setQuantity(getQuantity()-1);
+        /*Inventory i = new Inventory();
+        i.decrementItemAmount(this);*/
         for (IEffect effect: effects) {
             effect.execute(user, opponent);
         }

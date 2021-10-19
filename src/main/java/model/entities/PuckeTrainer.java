@@ -125,8 +125,8 @@ public class PuckeTrainer implements IFighter, ITrainer {
         }
 
         MessageHandler.getInstance().DisplayMessage("Opponent " + puckeBag.getActivePuckemon().getName() + " attacked!");
-
-        return activePuckemon.getAttack(index);
+        switchPuckemon(1);
+        return null;
     }
 
     @Override

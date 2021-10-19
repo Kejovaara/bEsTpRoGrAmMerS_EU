@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -16,13 +15,13 @@ import model.Model;
 import model.inventories.Item;
 import model.inventories.ListItem;
 import run.Boot;
+import view.menu.Menu;
+import view.menu.MenuFactory;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
-import java.util.ListIterator;
 
-public class InventoryScreen implements Screen {
+public class InventoryScreen implements Screen,IView{
 
     final Boot game;
     private Model model;
@@ -50,6 +49,8 @@ public class InventoryScreen implements Screen {
     Label itemTitle;
     Label itemDescription;
 
+    Menu menu;
+
     public InventoryScreen(final Boot game, Model model){
         this.game = game;
         this.model = model;
@@ -62,40 +63,16 @@ public class InventoryScreen implements Screen {
 
         shapeRenderer = new ShapeRenderer();
 
+        menu = MenuFactory.getInventoryMenu(game, this,model);
+
         // FONT SETTINGS
-        inventoryFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
-        inventoryFont.getData().setScale(0.75f);
-        backFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
-        backFont.getData().setScale(0.75f);
         inventoryTitleFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         inventoryTitleFont.getData().setScale(1.25f);
-        inventoryItemTitle = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
-        inventoryItemTitle.getData().setScale(1f);
 
         //FONT STYLING
-        fontStyle.font = inventoryFont;
-        fontStyle.fontColor = Color.BLACK;
         titleStyle.font = inventoryTitleFont;
         titleStyle.fontColor = Color.BLACK;
-        itemTitleStyle.font = inventoryItemTitle;
-        itemTitleStyle.fontColor = Color.BLACK;
-        backStyle.font = backFont;
 
-
-
-        itemTitle = new Label("Default Title", itemTitleStyle);
-        itemTitle.setSize(380,50);
-        itemTitle.setPosition(520,490);
-
-        itemDescription = new Label("Default description",fontStyle);
-        itemDescription.setSize(380,140);
-        itemDescription.setWrap(true);
-        itemDescription.setPosition(520,360);
-
-
-
-        renderItems();
-        //updateDescription(inventory.get(0));
 
         //Page Title
         Label titleLabel = new Label("INVENTORY", titleStyle);
@@ -104,117 +81,11 @@ public class InventoryScreen implements Screen {
         titleLabel.setAlignment(Align.center);
         titleLabel.setWrap(false);
         stage.addActor(titleLabel);
-/*
-        //Item title
-        Label itemTitleLabel = new Label("ITEM TITLE", titleStyle);
-        itemTitleLabel.setSize(300, 30);
-        itemTitleLabel.setPosition(350,570);
-        itemTitleLabel.setWrap(false);
-        stage.addActor(itemTitleLabel);*/
-/*
-        //Item list
-        Label itemListLabel = new Label("ITEM LIST", fontStyle);
-        itemListLabel.setSize(520, 10);
-        itemListLabel.setPosition(100,500);
-        itemListLabel.setWrap(false);
-        stage.addActor(itemListLabel);
-
-        //Item test
-        Label itemTestLabel = new Label("Small Healing Potion", fontStyle);
-        itemTestLabel.setSize(520, 10);
-        itemTestLabel.setPosition(100,475);
-        itemTestLabel.setWrap(false);
-        stage.addActor(itemTestLabel);
-
-        //Item quantity
-        Label itemAmountLabel = new Label("Item amount", fontStyle);
-        itemAmountLabel.setSize(520, 10);
-        itemAmountLabel.setPosition(400,475);
-        itemAmountLabel.setWrap(false);
-        stage.addActor(itemAmountLabel);*/
-/*
-        //Item description
-        Label itemDescriptionLabel = new Label("Small Healing Potion", fontStyle);
-        itemDescriptionLabel.setSize(200, 10);
-        itemDescriptionLabel.setPosition(600,500);
-        itemDescriptionLabel.setWrap(true);
-        stage.addActor(itemDescriptionLabel); */
-
-
 
         background = new Texture(Gdx.files.internal("inventory_background.png"));
         descriptionBox = new Texture(Gdx.files.internal("inventory_description_box.png"));
 
     }
-
-    public void renderItems(){
-        int y = 500;
-        int listItemDistance = 55;
-
-        inventory = model.getInventory();
-        listItems = new ArrayList<>();
-
-
-        int i = 0;
-        stage.clear();
-        stage.addActor(itemTitle);
-        stage.addActor(itemDescription);
-            //BACK BUTTON
-            Label backButtonLabel = new Label("PRESS SPACE TO GO BACK", fontStyle);
-            backButtonLabel.setSize(75,10);
-            backButtonLabel.setPosition(100,50);
-            backButtonLabel.setWrap(false);
-            stage.addActor(backButtonLabel);
-        for(Item item : inventory){
-            listItem = new ListItem(item, fontStyle,y);
-            if(targetIndex == i){
-                listItem.setActive();
-            }
-            listItems.add(listItem);
-            y -= listItemDistance;
-            stage.addActor(listItem.getListItemBackground());
-            stage.addActor(listItem.getItemImage());
-            stage.addActor(listItem.getItemLabel());
-            stage.addActor(listItem.getItemAmount());
-            i++;
-        }
-        listItemSelector(targetIndex);
-    }
-
-    public void moveUp(){
-        if(targetIndex == 0){
-            targetIndex = inventory.size()-1;
-        }else{
-            targetIndex--;
-        }
-    }
-
-    public void moveDown(){
-        if(targetIndex == inventory.size()-1){
-            targetIndex = 0;
-        }else{
-            targetIndex++;
-        }
-    }
-
-    public void updateDescription(Item item){
-        itemTitle.setText(item.getName());
-        itemDescription.setText(item.getDescription());
-    }
-
-    private void listItemSelector(int index){
-        if(targetIndex == index){
-            listItem.setActive();
-            updateDescription(inventory.get(index));
-        }else{
-            listItem.setInactive();
-        }
-    }
-
-    public int getTargetIndex(){
-        return targetIndex;
-    }
-
 
     @Override
     public void render(float v) {
@@ -225,17 +96,19 @@ public class InventoryScreen implements Screen {
 
         game.batch.begin();
             game.batch.draw(background, 0, 0, this.camera.viewportWidth,this.camera.viewportHeight);
-            game.batch.draw(descriptionBox, 500,320,407,220);
+            game.batch.draw(descriptionBox, 500,307,407,220);
         game.batch.end();
 
-        renderItems();
         stage.act();
         stage.draw();
+
+        menu.render();
     }
+
 
     @Override
     public void show() {
-
+        menu = MenuFactory.getInventoryMenu(game, this,model);
     }
 
 
@@ -262,6 +135,12 @@ public class InventoryScreen implements Screen {
 
     @Override
     public void dispose() {
+        stage.dispose();
+        shapeRenderer.dispose();
+    }
+
+    @Override
+    public void switchMenu(int index) {
 
     }
 }

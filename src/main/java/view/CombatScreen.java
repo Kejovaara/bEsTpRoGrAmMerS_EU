@@ -11,7 +11,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.StringBuilder;
+import com.badlogic.gdx.utils.Timer;
 import model.Model;
+import model.attack.Attack;
 import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
@@ -30,6 +33,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private int screenWidth, screenHeight;
     private ShapeRenderer shapeRenderer;
     private Stage stage;
+    private StringBuilder stringbuilder = new StringBuilder();
+    long expectedTime = System.currentTimeMillis();
 
     private BitmapFont menuFont;
     private BitmapFont combatFont;
@@ -50,6 +55,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private Menu activeMenu;
 
     private RectangleBorder mainMenuBackground1, mainMenuBackground2;
+    private Puckemon activeEnemyPuckemon;
 
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
@@ -79,6 +85,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
         mainMenuBackground2 = new RectangleBorder(560,0,400,180,Color.BLACK,Color.WHITE,8);
 
+        activeEnemyPuckemon = model.getTrainerPuckemon();
 
         //COMABT BOX TEXT
         stage = new Stage();
@@ -121,6 +128,10 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void render(float delta) {
+        if(activeEnemyPuckemon != model.getTrainerPuckemon()){
+            enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+            activeEnemyPuckemon = model.getTrainerPuckemon();
+        }
 
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
