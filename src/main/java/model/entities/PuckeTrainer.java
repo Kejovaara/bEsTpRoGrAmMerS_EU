@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class PuckeTrainer implements IFighter, ITrainer {
     private String name;
-    private PuckeBag puckeBag;
+    private TrainerBag puckeBag;
     private Inventory inventory;
     private boolean smart;
 
@@ -37,12 +37,24 @@ public class PuckeTrainer implements IFighter, ITrainer {
 //        return puckemon;
 //    }
 
+    @Override
+    public boolean checkIfDefeated(){
+        boolean defeated = true;
+        for (int i = 0; i < puckeBag.getParty().size(); i++) {
+            if(puckeBag.getParty().get(i).currentHealth>0){
+                defeated = false;
+                break;
+            }
+        }
+        return defeated;
+    }
+
     public IEffectContainer makeMove(IPuckemon enemy) {
         int index = 0;
         Puckemon activePuckemon = puckeBag.getActivePuckemon();
 
         if (this.smart) {
-            List<Puckemon> party = puckeBag.getParty();
+            List<VildPuckemon> party = puckeBag.getParty();
             double bestMultiplier = 0;
             Puckemon bestPuckemon = activePuckemon;
             int bestPuckemonId = 0;

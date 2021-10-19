@@ -5,15 +5,19 @@ import model.entities.OwnedPuckemon;
 import model.entities.Puckemon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PlayerBag extends PuckeBag{
 
     private final List<OwnedPuckemon> box = new ArrayList<>();
     private final CreatePuckemon createPuckemon;
+    private final List<OwnedPuckemon> party = new ArrayList<>();
 
     public PlayerBag(List<OwnedPuckemon> puckemons) {
-        super(puckemons);
+        for (int i = 0; i < puckemons.size(); i++) {
+            addToParty(puckemons.get(i));
+        }
         createPuckemon = new CreatePuckemon();
     }
 
@@ -25,11 +29,20 @@ public class PlayerBag extends PuckeBag{
         }
     }
 
+    protected void switchPuckemon(int index){
+        Collections.swap(party,0, index);
+    }
+
+    private void giveOutExp(){
+        for (int i = 0; i < party.size(); i++) {
+            party.get(i).giveExp(5000);
+        }
+    }
+
     private void evolvePuckemon(){
         for (int i = 0; i < party.size(); i++) {
-            OwnedPuckemon puckemon = (OwnedPuckemon) party.get(i);
-            if(puckemon.getEvolve() && puckemon.getHealth() != 0){
-                party.add(i,createPuckemon.createOwnedPuckemon(puckemon.getEvolutionId(),puckemon.getLevel()));
+            if(party.get(i).getEvolve() && party.get(i).getHealth() != 0){
+                party.set(i,createPuckemon.createOwnedPuckemon(party.get(i).getEvolutionId(),party.get(i).getLevel()));
             }
         }
     }
@@ -40,6 +53,17 @@ public class PlayerBag extends PuckeBag{
     public void addToBox(OwnedPuckemon puckemon){
         box.add(puckemon);
     }
-    public void addPuckemonToParty(OwnedPuckemon puckemon){addToParty(puckemon);}
-    public void checkEvolution(){evolvePuckemon();};
+    public List<OwnedPuckemon> getParty(){
+        return party;}
+    public void setActivePuckemon(int index) {
+        switchPuckemon(index);
+    }
+    public OwnedPuckemon getActivePuckemon(){return party.get(0);}
+    public void addPuckemonToParty(OwnedPuckemon puckemon){
+        addToParty(puckemon);
+    }
+    public void giveVictoryRewards(){
+        giveOutExp();
+        evolvePuckemon();
+    }
 }

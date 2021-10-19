@@ -19,10 +19,9 @@ public class Model {
     public Model() {
         gameBuilder = new GameBuilder();
         player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
-        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(5,5), true);
+        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(1,5), false);
 
         player.generateStartingInventory(15);
-
         combat = new Combat(player, trainer);
     }
     public void switchPuckemon(int i){player.switchPuckemon(i);}
@@ -52,7 +51,7 @@ public class Model {
         return player.getPuckemon().getMoveSet();
     }
 
-    public List<Puckemon> getParty(){
+    public List<OwnedPuckemon> getParty(){
         return player.getParty();
     }
 

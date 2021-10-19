@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import input.InputController;
 import model.Model;
+import model.entities.OwnedPuckemon;
 import model.entities.Puckemon;
 import run.Boot;
 
@@ -22,7 +23,7 @@ public class PartyScreen implements Screen {
 
     final Boot game;
     private Model model;
-    private List<Puckemon> party;
+    private List<OwnedPuckemon> party;
     private BitmapFont partyFont;
     private ShapeRenderer shapeRenderer;
     private int targetIndex = 0;

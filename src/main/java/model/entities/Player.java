@@ -64,7 +64,7 @@ public class Player implements ITrainer, IFighter {
         }
     }
 
-    public List<Puckemon> getParty(){
+    public List<OwnedPuckemon> getParty(){
         return playerBag.getParty();
     }
 
@@ -72,8 +72,20 @@ public class Player implements ITrainer, IFighter {
         return inventory.getInventory();
     }
 
-    private void addPuckemonToParty(Puckemon puckemon) {
-        playerBag.addPuckemonToParty(puckemon);
+    public void victoryEvent(){
+        playerBag.giveVictoryRewards();
+    }
+
+    @Override
+    public boolean checkIfDefeated(){
+        boolean defeated = true;
+        for (int i = 0; i < playerBag.getParty().size(); i++) {
+            if(playerBag.getParty().get(i).currentHealth >0){
+                defeated = false;
+                break;
+            }
+        }
+        return defeated;
     }
 
     @Override

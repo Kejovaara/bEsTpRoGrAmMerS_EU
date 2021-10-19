@@ -33,7 +33,9 @@ public class OwnedPuckemon extends Puckemon {
     private void gainExp(int experience){
         if (expPoints < (100^3)){
             expPoints += experience;
-            while (expPoints > ((level+1)^3)){
+            System.out.println(name +" gained "+expPoints);
+            System.out.println(level+" "+Math.pow((level+1),3));
+            while (expPoints > (Math.pow((level+1),3))){
                 levelUp();
             }
         }
@@ -49,11 +51,14 @@ public class OwnedPuckemon extends Puckemon {
 //            The puckemon keeps the same health percentage when it levels up.
             int healthPercentage = currentHealth/maxHealth;
             calculateLevelStats();
-            currentHealth = maxHealth/healthPercentage;
+            if(healthPercentage!=0){
+                currentHealth = maxHealth/healthPercentage;
+            }
         }
     }
 
     public void setNickName(String nickName){this.nickName=nickName;}
     public boolean getEvolve(){return evolve;}
     public int getEvolutionId(){return evolutionId;}
+    public void giveExp(int exp){gainExp(exp);}
 }

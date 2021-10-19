@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that creates the starting team of the Player and creates opponents with specific or random teams.
+ * Class that creates the starting team of the Player and creates the random or specific team of the Opponents.
  */
 
 public class GameBuilder {
@@ -27,7 +27,7 @@ public class GameBuilder {
      * Specify what the Player should start with.
      */
     private void fillPlayerStartingTeam(){
-        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(1,5));
+        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(1,15));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(2,5));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(3,10));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(4,17));
