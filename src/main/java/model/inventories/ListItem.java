@@ -11,21 +11,22 @@ public class ListItem {
     private Label itemLabel;
     private Label itemAmount;
     private int y;
+    private int x;
 
 
-    public ListItem(Item item, Label.LabelStyle labelStyle, int y){
+    public ListItem(Item item, Label.LabelStyle labelStyle, int x, int y){
 
         this.itemImage = new Image(new Texture(Gdx.files.internal("items/" + item.getId() + ".png")));
         itemImage.setSize(32,32);
-        itemImage.setPosition(100,y);
+        itemImage.setPosition(x,y);
 
         this.itemLabel = new Label(item.getName(),labelStyle);
         itemLabel.setSize(235,22);
-        itemLabel.setPosition(140,y+4);
+        itemLabel.setPosition(x+40,y+4);
 
         this.itemAmount = new Label("" + item.getQuantity(), labelStyle);
         itemAmount.setSize(45,22);
-        itemAmount.setPosition(430,y+4);
+        itemAmount.setPosition(x+330,y+4);
 
         this.y = y;
         setInactive();

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class ExcelReader {
 
+    private ArrayList excelData;
 
-    ArrayList excelData = new ArrayList();
     private ArrayList readPuckemonRegister(int id){
         try
         {
@@ -23,23 +23,35 @@ public class ExcelReader {
             //Get first/desired sheet from the workbook
             XSSFSheet sheet = workbook.getSheetAt(0);
             XSSFRow row = sheet.getRow(id);
-            excelData.add(row.getCell(1).getStringCellValue());
-            excelData.add(row.getCell(2).getStringCellValue());
-            excelData.add(row.getCell(3).getStringCellValue());
-            excelData.add((int) row.getCell(4).getNumericCellValue());
-            excelData.add((int) row.getCell(5).getNumericCellValue());
-            excelData.add((int) row.getCell(6).getNumericCellValue());
-            excelData.add((int) row.getCell(7).getNumericCellValue());
-            excelData.add((int) row.getCell(8).getNumericCellValue());
-            excelData.add((int) row.getCell(9).getNumericCellValue());
-            excelData.add(row.getCell(11).getStringCellValue());
+
+            // Att göra: loopa de under istället, hämta data med något annat än lista.
+            // Text meddelande när man försöker trycka på en puckemon man redan har ute
+            // Bug med switch
+
+            excelData = new ArrayList();
+
+            try{
+                excelData.add(row.getCell(1).getStringCellValue());
+                excelData.add(row.getCell(2).getStringCellValue());
+                excelData.add((int) row.getCell(3).getNumericCellValue());
+                excelData.add((int) row.getCell(4).getNumericCellValue());
+                excelData.add((int) row.getCell(5).getNumericCellValue());
+                excelData.add((int) row.getCell(6).getNumericCellValue());
+                excelData.add((int) row.getCell(7).getNumericCellValue());
+                excelData.add((int) row.getCell(8).getNumericCellValue());
+                excelData.add(row.getCell(10).getStringCellValue());
+            }
+            catch (Exception e){
+                System.out.println("Puckemon ID "+id+" does not exist");
+            }
+
 
             file.close();
         }
-        catch (Exception e)
-        {
+        catch (Exception e){
             e.printStackTrace();
         }
+
         return excelData;
     }
 

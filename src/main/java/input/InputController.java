@@ -51,6 +51,10 @@ public class    InputController {
         if(activeController != null) activeController.update();
     }
 
+    public IController getActiveController() {
+        return activeController;
+    }
+
     public enum Controllers{
         MAIN_MENU,
         COMBAT,

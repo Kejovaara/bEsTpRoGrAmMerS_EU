@@ -60,8 +60,8 @@ public class Combat {
     }*/
     public void useSwitch(){
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
-        IEffectContainer fighterMove = fighter.makeMove();
         IPuckemon playerPuckemon = player.getPuckemon();
+        IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         int pdiff = playerPuckemon.getHealth();
         executeEffects(fighterMove.getEffects(), fighterPuckemon, playerPuckemon);
         System.out.println("player switched, player: " + (pdiff-playerPuckemon.getHealth()));
@@ -71,7 +71,7 @@ public class Combat {
         IPuckemon playerPuckemon = player.getPuckemon();
         IEffectContainer attack = player.getPuckemon().getAttack(index);
 
-        IEffectContainer fighterMove = fighter.makeMove();
+        IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
 
         int pdiff = playerPuckemon.getHealth();
@@ -93,8 +93,9 @@ public class Combat {
     public void usePlayerItem(int index){
         IPuckemon playerPuckemon = player.getPuckemon();
         IEffectContainer item = player.getItem(index);
+        //player.consumeItem(index);
 
-        IEffectContainer fighterMove = fighter.makeMove();
+        IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
 
         int pdiff = playerPuckemon.getHealth();

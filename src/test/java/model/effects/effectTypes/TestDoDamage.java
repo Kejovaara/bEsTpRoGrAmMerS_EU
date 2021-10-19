@@ -3,6 +3,7 @@ package model.effects.effectTypes;
 import static org.junit.Assert.*;
 
 import model.PTypes;
+import model.entities.CreatePuckemon;
 import model.entities.IPuckemon;
 import model.entities.OwnedPuckemon;
 import org.junit.Test;
@@ -11,8 +12,9 @@ public class TestDoDamage {
 
     @Test
     public void testDoDamage() {
-        IPuckemon p = new OwnedPuckemon(1,1);
-        IPuckemon enemyP = new OwnedPuckemon(1,1);
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        IPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+        IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
 
         DoDamage damage = new DoDamage(2, PTypes.NORMAL);
         System.out.println(enemyP.getHealth());

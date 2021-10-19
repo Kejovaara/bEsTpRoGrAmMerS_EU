@@ -6,6 +6,7 @@ import model.Model;
 import run.Boot;
 import view.CombatScreen;
 import view.PartyScreen;
+import view.Screens;
 
 public class PartyController implements IController{
 
@@ -33,7 +34,7 @@ public class PartyController implements IController{
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.BACKSPACE)){
             if (getScreen().requiredSwitch()){
-                game.setView(new CombatScreen(game, model));
+                game.setView(Screens.COMBAT);
                 game.setController(InputController.Controllers.COMBAT);
             }
 
@@ -53,7 +54,7 @@ public class PartyController implements IController{
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             if (getScreen().backButton()){
                 if(getScreen().requiredSwitch()){
-                    game.setView(new CombatScreen(game, model));
+                    game.setView(Screens.COMBAT);
                     game.setController(InputController.Controllers.COMBAT);
                 }else {
                     getScreen().setMessage("You have to pick a Puckemon!");
