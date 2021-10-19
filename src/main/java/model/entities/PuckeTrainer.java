@@ -41,6 +41,16 @@ public class PuckeTrainer implements IFighter, ITrainer {
         int index = 0;
         Puckemon activePuckemon = puckeBag.getActivePuckemon();
 
+        //If Puckemon fainted
+        if (activePuckemon.getHealth() <= 0) {
+            Random rand = new Random(); //instance of random class
+            int upperbound = activePuckemon.getMoveSet().size();
+            //generate random values from 0-3
+            index = rand.nextInt(upperbound);
+            switchPuckemon(index);
+            return null;
+        }
+
         if (this.smart) {
             List<Puckemon> party = puckeBag.getParty();
             double bestMultiplier = 0;
@@ -96,14 +106,9 @@ public class PuckeTrainer implements IFighter, ITrainer {
             if (!(bestPuckemon.equals(activePuckemon))) {
 //                double diff = bestMultiplier - bestMultiplierActiveP;
 
-                System.out.println("Diff: " + diff);
-
                 //Only switch Puckemon if difference is high enough
                 if (diff > threshold){
                     switchPuckemon(bestPuckemonId);
-                    MessageHandler.getInstance().DisplayMessage("Opponent switched to " + puckeBag.getActivePuckemon().getName()
-                                                                + "!");
-                    System.out.println("Opponent trainer Switching");
                     return null;
                 }
                 index = indexActiveP;
@@ -135,6 +140,9 @@ public class PuckeTrainer implements IFighter, ITrainer {
 
     // Pick target in party to switch too
     public void switchPuckemon(int index){
+        MessageHandler.getInstance().DisplayMessage("Opponent switched to " + puckeBag.getActivePuckemon().getName()
+                + "!");
+        System.out.println("Opponent trainer Switching");
         puckeBag.setActivePuckemon(index);
     }
 
