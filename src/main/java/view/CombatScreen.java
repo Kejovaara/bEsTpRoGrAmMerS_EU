@@ -55,6 +55,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private Menu activeMenu;
 
     private RectangleBorder mainMenuBackground1, mainMenuBackground2;
+    private Puckemon activeEnemyPuckemon;
 
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
@@ -84,6 +85,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
         mainMenuBackground2 = new RectangleBorder(560,0,400,180,Color.BLACK,Color.WHITE,8);
 
+        activeEnemyPuckemon = model.getTrainerPuckemon();
 
         //COMABT BOX TEXT
         stage = new Stage();
@@ -96,7 +98,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         label = new Label("What will " + model.getPlayerPuckemon().getName() + " do?",fontStyle);
         label.setSize(520,10);
-        label.setPosition(30,90);
+        label.setPosition(30,60);
         label.setWrap(true);
         stage.addActor(label);
 
@@ -126,6 +128,10 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void render(float delta) {
+        if(activeEnemyPuckemon != model.getTrainerPuckemon()){
+            enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+            activeEnemyPuckemon = model.getTrainerPuckemon();
+        }
 
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
