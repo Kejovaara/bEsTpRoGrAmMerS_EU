@@ -8,23 +8,37 @@ public class Inventory {
 
     private List<Item> invList;
 
+    /**
+     * Creates a new inventory with an already existing list of items.
+     * @param invList
+     */
     public Inventory(List<Item> invList){ // CREATE INVENTORY WITH EXISTING LIST
         this.invList = invList;
     }
 
+    /**
+     * Creates a new empty inventory.
+     */
     public Inventory(){ // CREATE EMPTY INVENTORY
         invList = new ArrayList<Item>();
     }
 
+    /**
+     * Clears the entire inventory.
+     */
     public void clearInventory(){
-        this.invList.clear();
+        invList.clear();
     }
 
+    /**
+     * Adds an object of class Item to the inventory.
+     * @param item Object of class Item.
+     */
     public void addItem(Item item){
             boolean wasItemAdded = false;
             for(Item invItem : invList){
                 if(item.getId() == invItem.getId()){
-                    invItem.incrementAmount(1);
+                    invItem.setQuantity(invItem.getQuantity()+1);
                     wasItemAdded = true;
                     break;
                 }
@@ -33,31 +47,42 @@ public class Inventory {
                 invList.add(item);
             }
     }
-    //TODO : When item quantity == 0, remove object from list
 
-    public void deleteItemStack(int i){
-        invList.set(i, null);
-    }
-
-    public void deleteSingleItem(Item item){
-        if(invList.contains(item)){
-            item.decrementAmount(1);
+    /**
+     * Decrements the quantity of an item, if quantity hits 0, it gets removed completely from the list.
+     * @param item Object of class Item.
+     */
+    public void decrementItemAmount(Item item){
+        if(item.getQuantity() == 1){
+            this.invList.remove(item);
         }else{
-            System.out.println("Item does not exist");
+            item.setQuantity(item.getQuantity() - 1);
         }
-
     }
 
+    /**
+     * Returns an item at a specified index.
+     * @param i Given index.
+     * @return an object of class Item at a specified index of the Inventory.
+     */
     public Item getItem(int i){
-        return this.invList.get(i);
+        return invList.get(i);
     }
 
+    /**
+     * Returns the size of the Inventory.
+     * @return the size of the Inventory.
+     */
     public int getInventorySize(){
-        return  this.invList.size();
+        return invList.size();
     }
 
+    /**
+     * Returns a list of items.
+     * @return a list with objects of class Item.
+     */
     public List<Item> getInventory(){
-        return this.invList;
+        return invList;
     }
 
 }

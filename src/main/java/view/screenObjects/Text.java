@@ -26,9 +26,7 @@ public class Text implements IDraw,IRender {
         this.yPos = yPos;
         this.message = message;
         this.color = color;
-
         font.getData().setScale(scale);
-
         //font.setColor(color.get(0), color.get(1), color.get(2),1);
     }
 
@@ -45,5 +43,25 @@ public class Text implements IDraw,IRender {
     @Override
     public void draw() {
         render();
+    }
+
+    @Override
+    public void setX(int x) {
+        this.xPos = x;
+    }
+
+    @Override
+    public void setY(int y) {
+        this.yPos = y;
+    }
+
+    @Override
+    public int getX() {
+        return xPos;
+    }
+
+    @Override
+    public int getY() {
+        return yPos;
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 import model.attack.Attack;
+import model.attack.AttackFactory;
 import model.combat.Combat;
 import model.entities.*;
 import model.inventories.Item;
@@ -21,7 +22,8 @@ public class Model {
         player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
         trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(1,5), false);
 
-        player.generateStartingInventory(15);
+        player.generateStartingInventoryDEV(35);
+
         combat = new Combat(player, trainer);
     }
     public void switchPuckemon(int i){player.switchPuckemon(i);}

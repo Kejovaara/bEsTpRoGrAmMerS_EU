@@ -61,23 +61,27 @@ public class ItemFactory {
     }
 
     public static Item getGoldenNuggie(){
-        return new Item(4,"Golden Nuggie","A big nuggie of pure gold that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,100,false);
+        List<IEffect> effects = new ArrayList<>();
+        effects.add(new NoEffect(new Item(4,"Golden Nuggie","A big nuggie of pure gold that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,100,false)));
+        return new Item(4,"Golden Nuggie","A big nuggie of pure gold that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,100,false,effects);
     }
 
     public static Item getSilverNuggie(){
-        return new Item(5,"Silver Nuggie","A big nuggie of pure silver that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,35,false);
+        List<IEffect> effects = new ArrayList<>();
+        effects.add(new NoEffect(new Item(5,"Silver Nuggie","A big nuggie of pure silver that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,35,false)));
+        return new Item(5,"Silver Nuggie","A big nuggie of pure silver that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,35,false,effects);
     }
 
     public static Item getSuperKillPotion(){
         List<IEffect> effects = new ArrayList<>();
-        effects.add(new DoDamage(1000, PTypes.NORMAL));
+        effects.add(new DoDamagePercentage(1.00f, PTypes.NORMAL));
         return new Item(6,"Super Kill Potion", "An item that instantly kills your opponent",1,1,20,true,effects);
     }
 
     public static Item getEvolveNuggie(){
         List<IEffect> effects = new ArrayList<>();
-        effects.add(new GiveXP(1000)); //SPECIFY BETTER LATER
-        return new Item(7, "Evolve Potion", "Evolve your Puckemon to the next Puckemon",1,1,15,false,effects);
+        effects.add(new GiveXP(1000)); //SPECIFY BETTER LATER, ONLY FOR TESTING
+        return new Item(7, "Evolve Nuggie", "Evolve your Puckemon to the next more powerful Puckemon",1,1,15,false,effects);
     }
 
     public enum INames{

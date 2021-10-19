@@ -45,7 +45,7 @@ public class Player implements ITrainer, IFighter {
     }
 
     public void consumeItem(int index){
-        inventory.getItem(index).decrementAmount(1);
+        inventory.decrementItemAmount(inventory.getItem(index));
     }
 
     public void buyItem(Item item){
@@ -60,6 +60,12 @@ public class Player implements ITrainer, IFighter {
     public void generateStartingInventory(int maxAmount){
         int randomAmount = ThreadLocalRandom.current().nextInt(1, maxAmount + 1);
         for(int i = 0; i < randomAmount; i++){
+            addItem(ItemFactory.getRandom());
+        }
+    }
+
+    public void generateStartingInventoryDEV(int amount){
+        for(int i = 0; i < amount; i++){
             addItem(ItemFactory.getRandom());
         }
     }

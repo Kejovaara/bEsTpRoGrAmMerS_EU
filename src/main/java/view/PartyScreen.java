@@ -76,8 +76,6 @@ public class PartyScreen implements Screen {
         mon4 = new Texture(Gdx.files.internal("front/" + getPuckeId(3) + ".png"));
         mon5 = new Texture(Gdx.files.internal("front/" + getPuckeId(4) + ".png"));
         mon6 = new Texture(Gdx.files.internal("front/" + getPuckeId(5) + ".png"));
-
-
     }
 
     public void switchPuckemon(){

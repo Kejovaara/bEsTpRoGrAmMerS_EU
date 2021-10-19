@@ -27,29 +27,29 @@ public class InventoryController implements IController {
 
     @Override
     public void update() {
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            Gdx.app.exit();
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-            getScreen().moveUp();
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-            getScreen().moveDown();
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            int index = getScreen().getTargetIndex();
-            game.setView(new CombatScreen(game, model));
-            game.setController(InputController.Controllers.COMBAT);
-            model.useItem(index);
-            return;
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            System.out.println("TO COMBAT SCREEN");
-            game.setView(new CombatScreen(game, model));
-            game.setController(InputController.Controllers.COMBAT);
-        }
+//        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+//            Gdx.app.exit();
+//        }
+//
+//        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+//            getScreen().moveUp();
+//        }
+//        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+//            getScreen().moveDown();
+//        }
+//
+//        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+//            int index = getScreen().getTargetIndex();
+//            game.setView(new CombatScreen(game, model));
+//            game.setController(InputController.Controllers.COMBAT);
+//            model.useItem(index);
+//            return;
+//        }
+//
+//        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+//            System.out.println("TO COMBAT SCREEN");
+//            game.setView(new CombatScreen(game, model));
+//            game.setController(InputController.Controllers.COMBAT);
+//        }
     }
 }

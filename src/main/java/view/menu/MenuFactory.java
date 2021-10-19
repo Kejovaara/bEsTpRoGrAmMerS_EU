@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import input.AttackCombatMenu;
+import input.InventoryMenuController;
 import input.MainCombatMenu;
 import model.Model;
 import run.Boot;
@@ -11,6 +12,7 @@ import view.IRender;
 import view.IView;
 import view.screenObjects.AttackMenuItem;
 import view.screenObjects.CursorMenuItem;
+import view.screenObjects.InventoryMenuItem;
 import view.screenObjects.Text;
 
 import java.util.ArrayList;
@@ -92,5 +94,32 @@ public class MenuFactory {
 
 
         return new AttackMenu(game.batch, new AttackCombatMenu(view, model, game), items, model.getAttacks());
+    }
+
+    public static Menu getInventoryMenu(Boot game, IView view, Model model){
+        int x = 100;
+        int y = 480;
+        int xSpacing = 190;
+        int ySpacing = 60;
+        List<MenuItem> items = new ArrayList<>();
+
+        IRender tempActive, tempDeactive;
+        for (int i = 0; i < model.getInventory().size(); i++) {
+            tempActive = new InventoryMenuItem(game.batch, model.getInventory().get(i), x, y-(i*ySpacing), 0.75f,true);
+            tempDeactive =  new InventoryMenuItem(game.batch, model.getInventory().get(i), x, y-(i*ySpacing), 0.75f,false);
+            items.add(new MenuItem(tempActive,tempDeactive));
+        }
+
+        items.add(new MenuItem(new CursorMenuItem(game.batch,"Back", 700, 70, 0.75f, true),new CursorMenuItem(game.batch,"Back", 700, 70, 0.75f, false)));
+
+        for (int i = 0; i < items.size(); i++) {
+            if(i<items.size()-1) items.get(i).setDown(items.get(i+1));
+            if(i>0) items.get(i).setUp(items.get(i-1));
+        }
+
+        items.get(0).setUp(items.get(items.size()-1));
+        items.get(items.size()-1).setDown(items.get(0));
+
+        return new InventoryMenu(game.batch, new InventoryMenuController(view,model,game), items, model.getInventory(), 6, ySpacing);
     }
 }
