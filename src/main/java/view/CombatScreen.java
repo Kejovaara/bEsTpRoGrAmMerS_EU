@@ -59,6 +59,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
+    private List<Animable> textAnimations = new ArrayList<>();
 
 
     public CombatScreen(final Boot game, Model model) {
@@ -293,13 +294,4 @@ public class CombatScreen implements Screen, EffectObserver, IView{
         if(index == 0) activeMenu = mainMenu;
         else activeMenu = attackMenu;
     }
-
-    public enum CombatOptions{
-        ATTACK,
-        INVENTORY,
-        SWITCH,
-        FLEE,
-
-    }
-
 }
