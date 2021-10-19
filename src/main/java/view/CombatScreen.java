@@ -17,12 +17,13 @@ import run.Boot;
 import view.animation.*;
 import view.menu.Menu;
 import view.menu.MenuFactory;
+import view.message.MessageHandler;
 import view.screenObjects.RectangleBorder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombatScreen implements Screen, EffectObserver, IView{
+public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView{
 
     final Boot game;
     private Model model;
@@ -41,6 +42,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
     private int cursorIndex = 0;
     private int cursorX,cursorY;
 
+    private Label topLabel;
     private Label label;
 
     private Menu mainMenu;
@@ -89,15 +91,23 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
         label = new Label("What will " + model.getPlayerPuckemon().getName() + " do?",fontStyle);
         label.setSize(520,10);
-        label.setPosition(30,90);
+        label.setPosition(30,60);
         label.setWrap(true);
         stage.addActor(label);
+
+        topLabel = new Label("",fontStyle);
+        topLabel.setSize(520,10);
+        topLabel.setPosition(30,110);
+        topLabel.setWrap(true);
+        stage.addActor(topLabel);
 
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
 
         //ANIMATION
         EffectAnimationsHandler.getInstance().addObserver(this);
+        //MESSAGE
+        MessageHandler.getInstance().addObserver(this);
         Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY);
     }
 
@@ -111,6 +121,7 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
     @Override
     public void render(float delta) {
+
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
         camera.update();
@@ -229,7 +240,10 @@ public class CombatScreen implements Screen, EffectObserver, IView{
 
     }
 
-
+    @Override
+    public void SetMessage(String message) {
+        this.topLabel.setText(message);
+    }
 
     @Override
     public void onDamage(int damage, Puckemon damageReceiver) {
