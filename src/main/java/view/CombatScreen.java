@@ -153,9 +153,16 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         mainMenuBackground1.render();
         stage.draw();
+
         if (model.getPlayerPuckemon().getHealth() <= 0){
             label.setText("Your Puckemon fainted, Press any key to switch");
-        }else{
+        } else if (activeEnemyPuckemon.getHealth() <= 0){
+            label.setText("Opponent Puckemon fainted!");
+            drawAnimations();
+            mainMenuBackground2.render();
+            activeMenu.render();
+        } else{
+            label.setText("What will " + model.getPlayerPuckemon().getName() + " do?");
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
