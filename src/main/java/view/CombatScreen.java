@@ -99,6 +99,7 @@ CombatScreen implements Screen, EffectObserver{
     }
 
     Texture getTexture(int id, boolean front) {
+
         if(front) {
             return new Texture(Gdx.files.internal("front/" + id + ".png"));
         }else{
