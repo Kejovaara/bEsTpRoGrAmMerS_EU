@@ -1,8 +1,10 @@
 package view.animation;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import model.entities.Puckemon;
 
 public class HealAnimation implements Animable{
@@ -14,12 +16,15 @@ public class HealAnimation implements Animable{
 
     private BitmapFont font;
 
+
     public HealAnimation(int heal, int posX, int posY){
         this.heal = heal;
         this.posX = posX;
         this.posY = posY;
         font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
         font.getData().setScale(0.75f);
+
+
     }
 
     @Override
