@@ -5,8 +5,6 @@ import static org.junit.Assert.*;
 import model.GameBuilder;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 public class TestPuckeTrainer {
 
     @Test
@@ -19,6 +17,17 @@ public class TestPuckeTrainer {
 
         boolean isDefeated = trainer.checkIfDefeated();
         boolean expected = true;
+
+        assertEquals(expected, isDefeated);  // The logical check
+    }
+
+    @Test
+    public void testCheckIfNotDefeated() {
+        GameBuilder gameBuilder = new GameBuilder();
+        IFighter trainer = new PuckeTrainer("El bertil", gameBuilder.getRandOpponentTeam(1,5), false);
+
+        boolean isDefeated = trainer.checkIfDefeated();
+        boolean expected = false;
 
         assertEquals(expected, isDefeated);  // The logical check
     }
