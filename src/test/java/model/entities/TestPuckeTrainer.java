@@ -89,13 +89,12 @@ public class TestPuckeTrainer {
         IEffectContainer attack = trainer.makeMove(enemyP);
 
         IPuckemon activePuckemon = trainer.getActivePuckemon();
-        IPuckemon expectedPuckemon = strongP;
 
         //Check that no IEffectContainer has been returned
         assertNull(attack);
 
         //Check that switch has occured
-        assertEquals(activePuckemon, expectedPuckemon);
+        assertEquals(activePuckemon, strongP);
     }
 
 }

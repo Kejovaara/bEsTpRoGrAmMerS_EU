@@ -7,10 +7,12 @@ import model.effects.IEffectContainer;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import model.inventories.PuckeBag;
+import org.apache.commons.math3.util.Pair;
 import view.message.MessageHandler;
 import model.inventories.TrainerBag;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class PuckeTrainer implements IFighter, ITrainer {
@@ -65,81 +67,90 @@ public class PuckeTrainer implements IFighter, ITrainer {
     }
 
     public IEffectContainer makeMove(IPuckemon enemy) {
-        int index = 0;
+        int attackIndex = 0;
         Puckemon activePuckemon = puckeBag.getActivePuckemon();
 
         if (this.smart) {
-            List<VildPuckemon> party = puckeBag.getParty();
-            double bestMultiplier = 0;
-            Puckemon bestPuckemon = activePuckemon;
-            int bestPuckemonId = 0;
+            //Check for the most effective puckemon and its multiplier
+            Pair<Integer, Integer> bestPuckemonPair = mostEffectivePuckemon(enemy);
+            attackIndex = bestPuckemonPair.getFirst();
+            int bestPuckemonIndex = bestPuckemonPair.getSecond();
 
-            //The threshold for when the difference between the best multiplier and active Puckemon multiplier is
-            // high enough for switching Puckemon
-            double threshold = 0.2;
-
-            //Save best multiplier and index for active puckemon
-            double bestMultiplierActiveP = 0;
-            int indexActiveP = 0;
-
-            //Check for the most effective puckemon
-            for (int i = 0; i < party.size(); i++) {
-                Puckemon puckemon = party.get(i);
-
-                List<Attack> attacks = puckemon.getMoveSet();
-
-                //Check for the (perhaps) most effective attack
-                for (int j = 0; j < attacks.size(); j++) {
-                    Attack attack = attacks.get(j);
-                    double attackMultiplier = EffectHelper.getMultplier(attack.getType(), enemy.getTypes());
-
-                    List<PTypes> types = puckemon.getTypes();
-
-                    if(types.get(0) == attack.getType() || types.get(types.size()-1) == attack.getType()){
-                        attackMultiplier *= 1.5;
-                    }
-
-                    if(puckemon.equals(activePuckemon)) {
-                        if (attackMultiplier > bestMultiplierActiveP) {
-                            bestMultiplierActiveP = attackMultiplier;
-                            indexActiveP = i;
-                        }
-                    }
-
-                    if (attackMultiplier > bestMultiplier) {
-                        index = j;
-                        bestMultiplier = attackMultiplier;
-                        bestPuckemon = puckemon;
-                        bestPuckemonId = i;
-                    }
-                }
-            }
-
-            double diff = bestMultiplier - bestMultiplierActiveP;
-
-            System.out.println("Diff: " + diff);
-            System.out.println("Multiplier: " + bestMultiplier);
-
-            if (!(bestPuckemon.equals(activePuckemon))) {
-                //Only switch Puckemon if difference is high enough
-                if (diff > threshold){
-                    switchPuckemon(bestPuckemonId);
-                    return null;
-                }
-                index = indexActiveP;
+            //If bestPuckemon does not have index 0 it is not the active puckemon
+            if (bestPuckemonIndex != 0) {
+                switchPuckemon(bestPuckemonIndex);
+                return null;
             }
 
         } else {
+            //Return random attack
             Random rand = new Random(); //instance of random class
             int upperbound = activePuckemon.getMoveSet().size();
             //generate random values from 0-3
-            index = rand.nextInt(upperbound);
-
-            //TODO: Fix so that it gets random attack
+            attackIndex = rand.nextInt(upperbound);
         }
 
+        System.out.println("Index: " + attackIndex);
+
         MessageHandler.getInstance().DisplayMessage("Opponent " + puckeBag.getActivePuckemon().getName() + " attacked!");
-        return activePuckemon.getAttack(index);
+        return activePuckemon.getAttack(attackIndex);
+    }
+
+    private Pair<Integer, Integer> mostEffectivePuckemon(IPuckemon enemy) {
+        List<VildPuckemon> party = puckeBag.getParty();
+        int index = 0;
+        int puckemonIndex = 0;
+        double bestMultiplier = 0;
+
+        //Check for the most effective puckemon
+        for (int i = 0; i < party.size(); i++) {
+            Puckemon puckemon = party.get(i);
+
+            //Check for the (perhaps) most effective attack
+            Pair<Integer, Double> bestAttack = mostEffectiveAttack(puckemon, enemy);
+            int attackIndex = bestAttack.getFirst();
+            double attackMultiplier = bestAttack.getSecond();
+
+            //The threshold for when the difference between the best multiplier and active Puckemon multiplier is
+            //high enough for switching Puckemon
+            double threshold = 0.2;
+
+            //Since the active puckemon is always at index 0, the diff variable is used to see if a multiplier is
+            //high enough (over the threshold) for a switch to be worth it. Since the first bestMultiplier always will
+            // be from the active Puckemon, the switch later will never occur if the diff it is not over the threshold!
+            double diff = attackMultiplier - bestMultiplier;
+
+            if (diff > threshold) {
+                index = attackIndex;
+                bestMultiplier = attackMultiplier;
+                puckemonIndex = i;
+            }
+        }
+        return new Pair<>(index, puckemonIndex);
+    }
+
+    private Pair<Integer, Double> mostEffectiveAttack(Puckemon puckemon, IPuckemon enemy) {
+        List<Attack> attacks = puckemon.getMoveSet();
+        int index = 0;
+        double bestMultiplier = 0;
+
+        //Get the most effective attack based on type
+        for (int j = 0; j < attacks.size(); j++) {
+            Attack attack = attacks.get(j);
+            double attackMultiplier = EffectHelper.getMultplier(attack.getType(), enemy.getTypes());
+
+            List<PTypes> types = puckemon.getTypes();
+
+            if(types.get(0) == attack.getType() || types.get(types.size()-1) == attack.getType()){
+                attackMultiplier *= 1.5;
+            }
+
+            if (attackMultiplier > bestMultiplier) {
+                index = j;
+                bestMultiplier = attackMultiplier;
+            }
+        }
+        return new Pair<>(index, bestMultiplier);
     }
 
     @Override
