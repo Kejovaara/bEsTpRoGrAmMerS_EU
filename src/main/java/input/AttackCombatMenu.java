@@ -3,6 +3,7 @@ package input;
 import model.Model;
 import model.attack.Attack;
 import run.Boot;
+import run.VCHandler;
 import view.IView;
 
 import java.util.List;
@@ -11,10 +12,10 @@ public class AttackCombatMenu implements IMenuController{
 
     private IView view;
     private Model model;
-    private final Boot game;
+    private final VCHandler handler;
 
-    public AttackCombatMenu(IView view,Model model, Boot game){
-        this.game = game;
+    public AttackCombatMenu(IView view,Model model, VCHandler handler){
+        this.handler = handler;
         this.view = view;
         this.model = model;
     }

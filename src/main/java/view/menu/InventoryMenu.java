@@ -31,6 +31,15 @@ public class InventoryMenu extends Menu {
     private Image arrowDown;
 
 
+    /**
+     * Constructor for creating InventoryMenu
+     * @param batch
+     * @param controller
+     * @param menuItems
+     * @param inventory
+     * @param numDisplayItems
+     * @param ySpacing
+     */
     public InventoryMenu(SpriteBatch batch, IMenuController controller, List<MenuItem> menuItems, List<Item> inventory, int numDisplayItems, int ySpacing) {
         super(batch, controller, menuItems);
         BitmapFont nameFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
@@ -82,7 +91,6 @@ public class InventoryMenu extends Menu {
     @Override
     public void render() {
         int index = menuItems.indexOf(activeItem);
-
 
         batch.begin();
         if (maxIndex > numDisplayItems-1) arrowUp.render();

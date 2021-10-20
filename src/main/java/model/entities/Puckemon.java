@@ -13,8 +13,15 @@ public abstract class Puckemon implements IPuckemon {
 
     protected int id;
     protected String name;
+
+    /**
+     * A list of 1-2 puckemon types.
+     */
     protected List<PTypes> types;
 
+    /**
+     * These are specific for the Puckemon and remain the same.
+     */
     protected int baseHealth;
     protected int baseAttackPower;
     protected int baseDefence;
@@ -24,7 +31,7 @@ public abstract class Puckemon implements IPuckemon {
 
 
     /**
-     * These are a pokemons stats. They are solely based on the baseStats and current level.
+     * These are a puckemons stats. They are solely based on the baseStats and current level.
      */
     protected int maxHealth;
     protected int attackPower;
@@ -32,22 +39,32 @@ public abstract class Puckemon implements IPuckemon {
     protected int speed;
 
     /**
-     * These are a pokemons stats during the current combat. They can be altered.
+     * These are a puckemons stats during the current combat. They can be and are supposed to be altered.
      */
     protected int currentHealth;
     protected int currentAttackPower;
     protected int currentDefence;
     protected int currentSpeed;
 
+    /**
+     * BuffFactor are used to alter the CurrentStats. They can be changed by the effects of attacks.
+     */
     protected int attackPowerBuffFactor = 0;
     protected int defenceBuffFactor = 0;
     protected int speedBuffFactor = 0;
 
+    /**
+     * Future update/sprint. Should lock the stats from changing during combat.
+     */
     protected boolean lockHealth = false;
     protected boolean lockAttackPower = false;
     protected boolean lockDefence = false;
     protected boolean lockSpeed = false;
 
+    /**
+     * @moveList is a list of string with all the attacks a puckemon can use
+     * @moveSet is the 1-4 attacks a Puckemon can use during combat.
+     */
     protected List<String> moveList;
     protected ArrayList<Attack> moveSet = new ArrayList<>(4);
 
@@ -67,10 +84,13 @@ public abstract class Puckemon implements IPuckemon {
         fillMoveSet();
     }
 
+    /**
+     * Fills moveSet with moves from moveList. If there is more than 4 moves in list it chooses 4 at random.
+     */
     protected void fillMoveSet(){
         if (moveList.size() <= 4){
-            for (int i = 0; i < moveList.size(); i++){
-                moveSet.add(AttackFactory.createByName(moveList.get(i)));
+            for (String s : moveList) {
+                moveSet.add(AttackFactory.createByName(s));
             }
         } else{
             ArrayList<String> randList = new ArrayList<>(moveList);
@@ -88,6 +108,9 @@ public abstract class Puckemon implements IPuckemon {
         this.lockSpeed = false;
     }
 
+    /**
+     * Calculates the level stats depending on level. It then alters currentStats.
+     */
     protected void calculateLevelStats(){
         this.maxHealth = (2*baseHealth*level)/100 + level + 10;
         this.attackPower = (2*baseAttackPower*level)/100+5;
@@ -96,6 +119,10 @@ public abstract class Puckemon implements IPuckemon {
         alterCurrentStats();
     }
 
+    /**
+     * Sets the current attack/defence/speed depending on that stats buffFactor.
+     * +2 buff will result in 1.5 * currentAttack. -2 buff will result in 2/4 * currentAttack
+     */
     protected void alterCurrentStats(){
         if (attackPowerBuffFactor < 0){
             currentAttackPower = (int)(((double)attackPower) * (2/(2 +(-1)*(double)attackPowerBuffFactor)));
@@ -114,7 +141,7 @@ public abstract class Puckemon implements IPuckemon {
         }
     }
 
-    public IEffectContainer getAttack(int i) {
+    public Attack getAttack(int i) {
         return moveSet.get(i);
     }
     public List<String> getMoveList(){return moveList;}

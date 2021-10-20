@@ -32,16 +32,13 @@ public class MainCombatMenu implements IMenuController{
     @Override
     public void onCursorEnter(int index) {
         if(index == 0){
-            System.out.println("attack");
             view.switchMenu(1);
         }
         else if(index == 1){
-            System.out.println("inventory");
             handler.setView(Screens.INVENTORY);
             handler.setController(InputController.Controllers.INVENTORY);
         }
         else if(index == 2){
-            System.out.println("switch");
             handler.setView(Screens.PARTY);
             handler.setController(InputController.Controllers.PARTY
             );
