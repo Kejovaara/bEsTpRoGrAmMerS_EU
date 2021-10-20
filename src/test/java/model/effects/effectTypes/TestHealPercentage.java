@@ -19,8 +19,8 @@ public class TestHealPercentage {
         DoDamage damage = new DoDamage(50, PTypes.NORMAL);
         damage.execute(enemyP, p);
         int health = p.getHealth();
-        int amount = 1;
-        int expected = Math.min((health + (health * amount)), p.getMaxHealth());
+        float amount = 100f;
+        int expected = Math.min((health + Math.round(health * amount/100)), p.getMaxHealth());
 
         HealPercentage heal = new HealPercentage(amount, true);
         heal.execute(p, enemyP);
@@ -40,8 +40,8 @@ public class TestHealPercentage {
         DoDamage damage = new DoDamage(50, PTypes.NORMAL);
         damage.execute(p, enemyP);
         int health = enemyP.getHealth();
-        int amount = 1;
-        int expected = Math.min((health + (health * amount)), p.getMaxHealth());
+        float amount = 100f;
+        int expected = Math.min((health + Math.round(health * amount/100)), p.getMaxHealth());
 
         HealPercentage heal = new HealPercentage(amount, false);
         heal.execute(p, enemyP);

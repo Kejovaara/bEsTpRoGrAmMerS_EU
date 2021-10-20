@@ -22,9 +22,9 @@ public class Menu implements IRender {
     protected int xPos, yPos;
 
     /**
-     *
-     * @param batch This is used to display MenuItems and other IRender objects.
-     * @param controller This is The IMenuController that handles the input events that Menu creates.
+     * Constructor for Menu
+     * @param batch used to display MenuItems and other IRender objects.
+     * @param controller used to handle the input events that Menu creates.
      * @param menuItems The MenuItems that make up the Menu.
      * @param activeItem The MenuItem that should start as active.
      * @param xPos The x-origin for the menu.
@@ -42,9 +42,9 @@ public class Menu implements IRender {
     }
 
     /**
-     *
-     * @param batch This is used to display MenuItems and other IRender objects.
-     * @param controller This is The IMenuController that handles the input events that Menu creates.
+     * Constructor for Menu
+     * @param batch used to display MenuItems and other IRender objects.
+     * @param controller used to handle the input events that Menu creates.
      * @param menuItems The MenuItems that make up the Menu.
      */
     public Menu(SpriteBatch batch,IMenuController controller, List<MenuItem> menuItems){
@@ -53,9 +53,9 @@ public class Menu implements IRender {
     }
 
     /**
-     *
-     * @param batch This is used to display MenuItems and other IRender objects.
-     * @param controller This is The IMenuController that handles the input events that Menu creates.
+     * Constructor for Menu
+     * @param batch used to display MenuItems and other IRender objects.
+     * @param controller used to handle the input events that Menu creates.
      */
     public Menu(SpriteBatch batch,IMenuController controller){
         this(batch,controller, new ArrayList<>());
@@ -167,12 +167,20 @@ public class Menu implements IRender {
         }
     }
 
+    /**
+     * Sets menus x-origin and translates all MenuItems by te delta of the new and the old position.
+     * @param x X position
+     */
     @Override
     public void setX(int x) {
         translateX(x-this.xPos);
         this.xPos= x;
     }
 
+    /**
+     * Sets menus y-origin and translates all MenuItems by te delta of the new and the old position.
+     * @param y Y position
+     */
     @Override
     public void setY(int y) {
         translateY(y-this.yPos);
