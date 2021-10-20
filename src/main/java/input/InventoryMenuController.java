@@ -28,11 +28,9 @@ public class InventoryMenuController implements IMenuController{
             model.useItem(index);
             handler.setView(Screens.COMBAT);
             handler.setController(InputController.Controllers.COMBAT);
-            System.out.println("item: " + index);
         }else{
             handler.setView(Screens.COMBAT);
             handler.setController(InputController.Controllers.COMBAT);
-            System.out.println("back");
         }
     }
 }

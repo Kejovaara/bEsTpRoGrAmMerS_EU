@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import run.Boot;
 import view.menu.Menu;
-import view.menu.MenuFactory;
+import view.menu.MenuBuilder;
 
 
 import java.util.List;
@@ -52,7 +52,7 @@ public class InventoryScreen implements Screen,IView,MessageObserver{
 
         shapeRenderer = new ShapeRenderer();
 
-        menu = MenuFactory.getInventoryMenu(game, this,model);
+        menu = MenuBuilder.getInventoryMenu(game.batch, game, this, model);
 
         // FONT SETTINGS
         inventoryTitleFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
@@ -108,7 +108,7 @@ public class InventoryScreen implements Screen,IView,MessageObserver{
 
     @Override
     public void show() {
-        menu = MenuFactory.getInventoryMenu(game, this,model);
+        menu = MenuBuilder.getInventoryMenu(game.batch, game,this,model);
     }
 
 

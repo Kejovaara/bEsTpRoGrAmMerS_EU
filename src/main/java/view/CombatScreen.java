@@ -12,14 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.StringBuilder;
-import com.badlogic.gdx.utils.Timer;
 import model.Model;
-import model.attack.Attack;
 import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
 import view.menu.Menu;
-import view.menu.MenuFactory;
+import view.menu.MenuBuilder;
 import view.message.MessageHandler;
 import view.screenObjects.RectangleBorder;
 
@@ -79,8 +77,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
 
-        mainMenu = MenuFactory.getMainCombatMenu(game,this, model);
-        attackMenu = MenuFactory.getAttackCombatMenu( game,this, model);
+        mainMenu = MenuBuilder.getMainCombatMenu(game.batch, game,this, model);
+        attackMenu = MenuBuilder.getAttackCombatMenu( game.batch,game,this, model);
         activeMenu = mainMenu;
 
         mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
@@ -210,6 +208,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     private void drawPuckeStats(){
 
+        //System.out.println(model.getPlayerPuckemon().getHealth());
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1,1,1,1);
@@ -251,7 +250,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void show() {
-        attackMenu = MenuFactory.getAttackCombatMenu(game,this, model);
+        attackMenu = MenuBuilder.getAttackCombatMenu(game.batch,game,this, model);
         activeMenu = mainMenu;
 
         playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
@@ -275,7 +274,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void hide() {
-
+        playerAnimations.clear();
+        enemyAnimations.clear();
     }
 
     @Override
@@ -291,7 +291,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             playerAnimations.add(new EffectAnimation(damage, 210+(playerAnimations.size()*80), 330,"DMG", new Color(0.7f,0,0,1)));
         }
         else {
-            enemyAnimations.add(new EffectAnimation(damage, 530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"DMG", new Color(0.7f,0,0,1)));
+            enemyAnimations.add(new EffectAnimation(damage, 530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-60,"DMG", new Color(0.7f,0,0,1)));
         }
     }
 
@@ -301,7 +301,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             playerAnimations.add(new EffectAnimation(heal, 210+(playerAnimations.size()*80), 330,"HP+", new Color(0,0.7f,0,1)));
         }
         else {
-            enemyAnimations.add(new EffectAnimation(heal,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"HP+", new Color(0,0.7f,0,1)));
+            enemyAnimations.add(new EffectAnimation(heal,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-60,"HP+", new Color(0,0.7f,0,1)));
         }
     }
 
@@ -311,7 +311,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             playerAnimations.add(new EffectAnimation(buff,210+(playerAnimations.size()*80), 330,"ATK"));
         }
         else {
-            enemyAnimations.add(new EffectAnimation(buff,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"ATK"));
+            enemyAnimations.add(new EffectAnimation(buff,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-60,"ATK"));
         }
     }
 
