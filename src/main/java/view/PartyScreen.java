@@ -15,7 +15,7 @@ import model.Model;
 import model.entities.Puckemon;
 import run.Boot;
 import view.menu.Menu;
-import view.menu.MenuFactory;
+import view.menu.MenuBuilder;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class PartyScreen implements Screen, IView {
         partyFont.getData().setScale(0.75f);
         partyFont.setColor(0,0,0,1);
 
-        menu = MenuFactory.getPartyMenu(game, this, model);
+        menu = MenuBuilder.getPartyMenu(game.batch, game,this, model);
 
         Label.LabelStyle fontStyle = new Label.LabelStyle();
         fontStyle.font = partyFont;
@@ -286,7 +286,7 @@ public class PartyScreen implements Screen, IView {
     @Override
     public void show() {
         loadNewTextures();
-        menu = MenuFactory.getPartyMenu(game, this, model);
+        menu = MenuBuilder.getPartyMenu(game.batch,game, this, model);
     }
 
     @Override

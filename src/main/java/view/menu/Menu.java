@@ -9,6 +9,10 @@ import view.IRender;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that renders and controls MenuItem and other IRender objects
+ * @author Rasmus Almryd
+ */
 public class Menu implements IRender {
 
     protected List<MenuItem> menuItems;
@@ -17,6 +21,15 @@ public class Menu implements IRender {
     private IMenuController controller;
     protected int xPos, yPos;
 
+    /**
+     *
+     * @param batch This is used to display MenuItems and other IRender objects.
+     * @param controller This is The IMenuController that handles the input events that Menu creates.
+     * @param menuItems The MenuItems that make up the Menu.
+     * @param activeItem The MenuItem that should start as active.
+     * @param xPos The x-origin for the menu.
+     * @param yPos The y-origin for the menu.
+     */
     public Menu(SpriteBatch batch,IMenuController controller, List<MenuItem> menuItems, MenuItem activeItem, int xPos, int yPos){
         this.batch = batch;
         this.menuItems = menuItems;
@@ -28,39 +41,72 @@ public class Menu implements IRender {
         this.yPos = yPos;
     }
 
+    /**
+     *
+     * @param batch This is used to display MenuItems and other IRender objects.
+     * @param controller This is The IMenuController that handles the input events that Menu creates.
+     * @param menuItems The MenuItems that make up the Menu.
+     */
     public Menu(SpriteBatch batch,IMenuController controller, List<MenuItem> menuItems){
-        this(batch,controller, menuItems, menuItems.get(0), 0,0);
+         this(batch,controller, menuItems, menuItems.get(0), 0,0);
 
     }
 
+    /**
+     *
+     * @param batch This is used to display MenuItems and other IRender objects.
+     * @param controller This is The IMenuController that handles the input events that Menu creates.
+     */
     public Menu(SpriteBatch batch,IMenuController controller){
         this(batch,controller, new ArrayList<>());
     }
 
+    /**
+     * Add MenuItem to the menu
+     * @param menuItem Item to be added.
+     */
     public void addMenuItem(MenuItem menuItem){
         menuItems.add(menuItem);
     }
-
+    /**
+     * Remove MenuItem from the menu
+     * @param menuItem Item to be removed.
+     */
     public void removeMenuItem(MenuItem menuItem){
         menuItems.remove(menuItem);
     }
 
-    public void up(){
+    /**
+     * Sets the new active MenuItem to the object that the current MenuItem has as its up.
+     */
+    protected void up(){
         activeItem = activeItem.getUp();
     }
-    public void down(){
-        activeItem = activeItem.getDown();
 
+    /**
+     * Sets the new active MenuItem to the object that the current MenuItem has as its down.
+     */
+    protected void down(){
+        activeItem = activeItem.getDown();
     }
 
-    public void left(){
+    /**
+     * Sets the new active MenuItem to the object that the current MenuItem has as its left.
+     */
+    protected void left(){
         activeItem = activeItem.getLeft();
     }
 
-    public void right(){
+    /**
+     * Sets the new active MenuItem to the object that the current MenuItem has as its up.
+     */
+    protected void right(){
         activeItem = activeItem.getRight();
     }
 
+    /**
+     * Method that renders all MenuItems and IRender objects that make up the class
+     */
     @Override
     public void render() {
         update();
@@ -74,6 +120,9 @@ public class Menu implements IRender {
 
     }
 
+    /**
+     * Method that checks if there is any keypresses
+     */
     protected void update(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
             up();
@@ -96,6 +145,10 @@ public class Menu implements IRender {
         }
     }
 
+    /**
+     * translates all MenuItems on x
+     * @param xDelta Amount to translate objects in x
+     */
     protected void translateX(int xDelta){
         for(MenuItem menuItem: menuItems){
             menuItem.getActiveRender().setX(menuItem.getActiveRender().getX()+xDelta);
@@ -103,6 +156,10 @@ public class Menu implements IRender {
         }
     }
 
+    /**
+     * translates all MenuItems on y
+     * @param yDelta Amount to translate objects in y
+     */
     protected void translateY(int yDelta){
         for(MenuItem menuItem: menuItems){
             menuItem.getActiveRender().setY(menuItem.getActiveRender().getY()+yDelta);
@@ -118,7 +175,7 @@ public class Menu implements IRender {
 
     @Override
     public void setY(int y) {
-        translateX(y-this.yPos);
+        translateY(y-this.yPos);
         this.yPos = y;
     }
 
