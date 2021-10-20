@@ -1,7 +1,5 @@
 package view.animation;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -22,24 +20,12 @@ public class TextAnimation implements Animable{
     private Label.LabelStyle fontStyle = new Label.LabelStyle();
 
 
-    public TextAnimation(Label label, String text, int x, int y, int width, int height){
+    public TextAnimation(Label label, String text){
         this.label = label;
         this.text = text;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-
-        //FONT STYLING
-        font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
-        font.getData().setScale(0.75f);
-
-        // LABEL CONFIG
-        label.setPosition(x,y);
-        label.setSize(width, height);
-        label.setWrap(true);
-        stage.addActor(label);
     }
+
+
     @Override
     public void render(SpriteBatch batch) {
         if(!isDone()){
@@ -52,7 +38,7 @@ public class TextAnimation implements Animable{
             index++;
         }
         batch.begin();
-        label.draw(batch,1f);
+            label.draw(batch,1f);
         batch.end();
         System.out.println(animationTick);
     }

@@ -34,23 +34,19 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private ShapeRenderer shapeRenderer;
     private Stage stage;
     private StringBuilder stringbuilder = new StringBuilder();
-    long expectedTime = System.currentTimeMillis();
 
     private BitmapFont menuFont;
     private BitmapFont combatFont;
     private BitmapFont statsFont;
-    private Timer timer = new Timer();
+
+    private TextAnimation textAnimation;
+    private TextAnimation textAnimation2;
 
     OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
 
-    private Boolean mainCombatMenu = true;
-    private int cursorIndex = 0;
-    private int cursorX,cursorY;
-
     private Label topLabel;
     private Label label;
-    private int animationTick = 3;
 
     private Menu mainMenu;
     private Menu attackMenu;
@@ -59,11 +55,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private RectangleBorder mainMenuBackground1, mainMenuBackground2;
     private Puckemon activeEnemyPuckemon;
 
-    private TextAnimation textAnimation;
-
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
-    private List<Animable> textAnimations = new ArrayList<>();
 
 
     public CombatScreen(final Boot game, Model model) {
@@ -104,10 +97,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         fontStyle.font = combatFont;
         fontStyle.fontColor = Color.BLACK;
 
-        label = new Label("What will " + model.getPlayerPuckemon().getName() + " do?",fontStyle);
+        String openingText = "What will " + model.getPlayerPuckemon().getName() + " do?";
+        /*label = new Label(openingText,fontStyle);
         label.setSize(520,10);
         label.setPosition(30,60);
-        label.setWrap(true);
+        label.setWrap(true);*/
         //stage.addActor(label);
 
         topLabel = new Label("",fontStyle);
@@ -115,6 +109,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         topLabel.setPosition(30,80);
         topLabel.setWrap(true);
         stage.addActor(topLabel);
+
+        textAnimation = new TextAnimation(topLabel, openingText);
 
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
@@ -300,5 +296,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     }
 
 
-
+    @Override
+    public void SetMessage(String message) {
+        textAnimation = new TextAnimation(topLabel, message);
+    }
 }
