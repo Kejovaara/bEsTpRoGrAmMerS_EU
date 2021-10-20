@@ -12,8 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
-import model.inventories.Item;
-import model.inventories.ListItem;
 import run.Boot;
 import view.menu.Menu;
 import view.menu.MenuFactory;
