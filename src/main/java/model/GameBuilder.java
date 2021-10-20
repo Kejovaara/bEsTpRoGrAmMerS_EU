@@ -34,6 +34,9 @@ public class GameBuilder {
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(5,15));
     }
 
+    /**
+     * Creates a list with randomised Puckemon for the opponent
+     */
     private List<VildPuckemon> randOpponentTeam(int size, int level){
         List<VildPuckemon> opponentTeam = new ArrayList<>();
         for (int i = 0; i < size;i++){

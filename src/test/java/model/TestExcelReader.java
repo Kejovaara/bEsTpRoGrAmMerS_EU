@@ -12,7 +12,7 @@ public class TestExcelReader {
     @Test
     public void testGetExcelData() {
         ExcelReader excelReader = new ExcelReader();
-        ArrayList baseStats = excelReader.getExcelData(2);
+        List baseStats = excelReader.getExcelData(2);
 
         ArrayList expected = new ArrayList();
         expected.add("Ivysaur");

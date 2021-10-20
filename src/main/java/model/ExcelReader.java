@@ -7,12 +7,17 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExcelReader {
 
-    private ArrayList excelData;
+    private List excelData;
 
-    private ArrayList readPuckemonRegister(int id){
+
+    /**
+     * Reads the excel document and returns a list of data of specific Puckemon depending on the ID.
+     */
+    private List readPuckemonRegister(int id){
         try
         {
             FileInputStream file = new FileInputStream(new File("src/main/java/model/MonRegister.xlsx"));
@@ -23,10 +28,6 @@ public class ExcelReader {
             //Get first/desired sheet from the workbook
             XSSFSheet sheet = workbook.getSheetAt(0);
             XSSFRow row = sheet.getRow(id);
-
-            // Att göra: loopa de under istället, hämta data med något annat än lista.
-            // Text meddelande när man försöker trycka på en puckemon man redan har ute
-            // Bug med switch
 
             excelData = new ArrayList();
 
@@ -55,7 +56,7 @@ public class ExcelReader {
         return excelData;
     }
 
-    public ArrayList getExcelData(int id){
+    public List getExcelData(int id){
         return readPuckemonRegister(id);
     }
 
