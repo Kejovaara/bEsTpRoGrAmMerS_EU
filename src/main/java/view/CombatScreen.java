@@ -99,11 +99,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         String openingText = "What will " + model.getPlayerPuckemon().getName() + " do?";
 
-        label = new Label("",fontStyle);
+        label = new Label(openingText,fontStyle);
         label.setSize(520,10);
         label.setPosition(30,60);
         label.setWrap(true);
-        stage.addActor(label);
+        //stage.addActor(label);
 
         topLabel = new Label("",fontStyle);
         topLabel.setSize(520,10);
@@ -155,7 +155,6 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         drawPuckeStats();
 
-
         mainMenuBackground1.render();
         stage.draw();
 
@@ -163,12 +162,13 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             faintedPuckemonText();
             drawTextAnimations();
         } else if (activeEnemyPuckemon.getHealth() <= 0){
+            faintedOpponentText();
             drawTextAnimations();
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
         } else{
-            promptMessage();
+            drawTextAnimations();
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
@@ -192,17 +192,17 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     private void faintedPuckemonText(){
         String message = "Your Puckemon fainted, Press any key to switch";
-        textAnimator = new TextAnimation(topLabel,message);
+        textAnimator.setMessage(message);
     }
 
     private void faintedOpponentText(){
         String message = "Opponent Puckemon fainted!";
-        textAnimator = new TextAnimation(topLabel,message);
+        textAnimator.setMessage(message);
     }
 
     private void promptMessage(){
         String message = "What will " + model.getPlayerPuckemon().getName() + " do?";
-        textAnimator = new TextAnimation(label,message);
+        textAnimator.setMessage(message);
     }
 
 
@@ -324,7 +324,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void SetMessage(String message) {
-        textAnimator = new TextAnimation(topLabel, message);
-        label.setText("");
+        System.out.println("BLABLALBLABLBALABLLABL" +  message);
+        textAnimator.setMessage(message);
     }
 }
