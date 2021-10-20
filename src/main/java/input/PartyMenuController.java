@@ -1,6 +1,7 @@
 package input;
 
 import model.Model;
+import org.lwjgl.Sys;
 import run.VCHandler;
 import view.IView;
 import view.Screens;
@@ -24,8 +25,9 @@ public class PartyMenuController implements IMenuController{
 
     @Override
     public void onCursorEnter(int index) {
+        System.out.println(index);
         if(index < model.getParty().size()){
-            if(model.getParty().get(index).getHealth() > 0 && index > 1){
+            if(model.getParty().get(index).getHealth() > 0 && index >= 1){
                 if (model.getPlayerPuckemon().getHealth()>0){
                     model.switchPuckemon(index);
                     model.useSwitch();

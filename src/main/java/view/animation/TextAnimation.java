@@ -27,12 +27,11 @@ public class TextAnimation implements Animable{
 
 
     public void setMessage(String message){
-        if(text.equals(message)){
+        if(text.equals(message) && !isDone()){
             System.out.println("SAME MESSAGE");
             return;
         }
         System.out.println(message);
-        //label.setText("");
         sb.clear();
         index = 0;
         text = message;
@@ -52,7 +51,6 @@ public class TextAnimation implements Animable{
         batch.begin();
             label.draw(batch,1f);
         batch.end();
-        System.out.println(animationTick);
     }
 
     @Override

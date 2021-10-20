@@ -14,11 +14,11 @@ import java.util.List;
 public class PartyMenu extends Menu{
 
     private TextBox infoText;
-    private List<Puckemon> puckemons;
+    private List<? extends Puckemon> puckemons;
 
     BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
 
-    public PartyMenu(SpriteBatch batch, IMenuController controller, List<MenuItem> menuItems, List<Puckemon> puckemons){
+    public PartyMenu(SpriteBatch batch, IMenuController controller, List<MenuItem> menuItems, List<? extends Puckemon> puckemons){
         super(batch,controller, menuItems);
         this.puckemons = puckemons;
         infoText = new TextBox(font, batch, Color.BLACK, 50,125,300, 180, true, "Pick a Puckemon", 0.75f);

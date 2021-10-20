@@ -105,7 +105,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         topLabel = new Label("",fontStyle);
         topLabel.setSize(520,10);
-        topLabel.setPosition(30,110);
+        topLabel.setPosition(30,80);
         topLabel.setWrap(true);
         stage.addActor(topLabel);
 
@@ -129,12 +129,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         }
     }
 
+    boolean isPrinted = false;
+
     @Override
     public void render(float delta) {
-        if(activeEnemyPuckemon != model.getTrainerPuckemon()){
-            enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
-            activeEnemyPuckemon = model.getTrainerPuckemon();
-        }
+        checkOpponentTexture();
 
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
@@ -157,10 +156,17 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         stage.draw();
 
         if (model.getPlayerPuckemon().getHealth() <= 0){
-            faintedPuckemonText();
+            if (!isPrinted){
+                faintedPuckemonText();
+                isPrinted = true;
+            }
             drawTextAnimations();
+            drawAnimations();
         } else if (activeEnemyPuckemon.getHealth() <= 0){
-            faintedOpponentText();
+            if (!isPrinted){
+                faintedOpponentText();
+                isPrinted = true;
+            }
             drawTextAnimations();
             drawAnimations();
             mainMenuBackground2.render();
@@ -170,6 +176,14 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
+            isPrinted = false;
+        }
+    }
+
+    private void checkOpponentTexture(){
+        if(activeEnemyPuckemon != model.getTrainerPuckemon()){
+            enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+            activeEnemyPuckemon = model.getTrainerPuckemon();
         }
     }
 
@@ -255,6 +269,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
         enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+
+        if (textAnimator.isDone())textAnimator.setMessage("What will " + model.getPlayerPuckemon().getName() + " do?");
     }
 
     @Override

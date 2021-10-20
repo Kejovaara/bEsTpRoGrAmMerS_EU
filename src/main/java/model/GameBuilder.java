@@ -37,7 +37,7 @@ public class GameBuilder {
     private List<VildPuckemon> randOpponentTeam(int size, int level){
         List<VildPuckemon> opponentTeam = new ArrayList<>();
         for (int i = 0; i < size;i++){
-            opponentTeam.add(createPuckemon.createVildPuckemon(randomNumber(1,3),randomNumber(level,level+10)));
+            opponentTeam.add(createPuckemon.createVildPuckemon(randomNumber(1,5),randomNumber(level,level+10)));
         }
         return opponentTeam;
     }

@@ -1,5 +1,6 @@
 package view.message;
 
+import org.lwjgl.Sys;
 import view.MessageObserver;
 import view.animation.TextAnimation;
 
