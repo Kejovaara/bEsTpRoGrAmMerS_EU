@@ -32,7 +32,6 @@ public interface IPuckemon {
     void lockDefence();
     void modifyDefence(int buffFactor);
 
-
     List<Attack> getMoveSet();
     IEffectContainer getAttack(int i);
     List<PTypes> getTypes();

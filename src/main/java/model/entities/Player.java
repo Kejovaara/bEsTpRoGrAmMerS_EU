@@ -7,32 +7,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Player implements ITrainer, IFighter {
+public class Player implements ITrainer {
     private String name = "Bamse";
-    private PuckeBag puckeBag;
+    private PlayerBag playerBag;
     private Inventory inventory;
     private int coins;
 
     public Player(List<OwnedPuckemon> puckemons, Inventory inventory, int coins){
-        this.puckeBag = new PuckeBag(puckemons);
+        this.playerBag = new PlayerBag(puckemons);
         this.inventory = inventory;
         this.coins = coins;
     }
 
     public Player(List<OwnedPuckemon> puckemons,  int coins){
-        this.puckeBag = new PuckeBag(puckemons);
+        this.playerBag = new PlayerBag(puckemons);
         this.inventory = new Inventory();
         this.coins = coins;
     }
 
     // Pick target in party to switch too
     public void switchPuckemon(int index){
-        puckeBag.setActivePuckemon(index);
+        playerBag.setActivePuckemon(index);
     }
 
     // Get Mons moveSet
     public void selectMoves(int index) {
-        puckeBag.getActivePuckemon().getAttack(index);
+        playerBag.getActivePuckemon().getAttack(index);
     }
 
 
@@ -70,29 +70,30 @@ public class Player implements ITrainer, IFighter {
         }
     }
 
-    public List<Puckemon> getParty(){
-        return puckeBag.getParty();
+    public List<OwnedPuckemon> getParty(){
+        return playerBag.getParty();
     }
 
     public List<Item> getInventory(){
         return inventory.getInventory();
     }
 
-    private void addPuckemonToParty(Puckemon puckemon) {
-        puckeBag.addPuckemonToParty(puckemon);
+    public void victoryEvent(){
+        playerBag.giveVictoryRewards();
     }
 
-    @Override
-    public IEffectContainer makeMove(IPuckemon p) {
-        return null;
-    }
-
-    @Override
-    public IPuckemon getActivePuckemon() {
-        return null;
+    public boolean checkIfDefeated(){
+        boolean defeated = true;
+        for (int i = 0; i < playerBag.getParty().size(); i++) {
+            if(playerBag.getParty().get(i).currentHealth >0){
+                defeated = false;
+                break;
+            }
+        }
+        return defeated;
     }
 
     public Puckemon getPuckemon(){
-        return puckeBag.getActivePuckemon();
+        return playerBag.getActivePuckemon();
     }
 }

@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import input.InputController;
 import model.Model;
+import model.entities.OwnedPuckemon;
 import model.entities.Puckemon;
 import run.Boot;
 import view.menu.Menu;
@@ -23,7 +24,7 @@ public class PartyScreen implements Screen, IView {
 
     final Boot game;
     private Model model;
-    private List<Puckemon> party;
+    private List<OwnedPuckemon> party;
     private BitmapFont partyFont;
     private ShapeRenderer shapeRenderer;
     private int targetIndex = 0;
@@ -78,8 +79,6 @@ public class PartyScreen implements Screen, IView {
         mon4 = new Texture(Gdx.files.internal("front/" + getPuckeId(3) + ".png"));
         mon5 = new Texture(Gdx.files.internal("front/" + getPuckeId(4) + ".png"));
         mon6 = new Texture(Gdx.files.internal("front/" + getPuckeId(5) + ".png"));
-
-
     }
 
     public void switchPuckemon(){

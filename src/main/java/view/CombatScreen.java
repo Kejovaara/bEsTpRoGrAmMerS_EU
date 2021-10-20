@@ -32,11 +32,12 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private ShapeRenderer shapeRenderer;
     private Stage stage;
     private StringBuilder stringbuilder = new StringBuilder();
-    long expectedTime = System.currentTimeMillis();
 
     private BitmapFont menuFont;
     private BitmapFont combatFont;
     private BitmapFont statsFont;
+
+    private TextAnimation textAnimator;
 
     OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
@@ -94,7 +95,9 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         fontStyle.font = combatFont;
         fontStyle.fontColor = Color.BLACK;
 
-        label = new Label("What will " + model.getPlayerPuckemon().getName() + " do?",fontStyle);
+        String openingText = "What will " + model.getPlayerPuckemon().getName() + " do?";
+
+        label = new Label(openingText,fontStyle);
         label.setSize(520,10);
         label.setPosition(30,60);
         label.setWrap(true);
@@ -102,9 +105,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         topLabel = new Label("",fontStyle);
         topLabel.setSize(520,10);
-        topLabel.setPosition(30,80);
+        topLabel.setPosition(30,110);
         topLabel.setWrap(true);
         stage.addActor(topLabel);
+
+        textAnimator = new TextAnimation(topLabel, openingText);
 
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
@@ -148,12 +153,20 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         drawPuckeStats();
 
-
         mainMenuBackground1.render();
         stage.draw();
+
         if (model.getPlayerPuckemon().getHealth() <= 0){
-            //label.setText("Your Puckemon fainted, Press any key to switch");
-        }else{
+            faintedPuckemonText();
+            drawTextAnimations();
+        } else if (activeEnemyPuckemon.getHealth() <= 0){
+            faintedOpponentText();
+            drawTextAnimations();
+            drawAnimations();
+            mainMenuBackground2.render();
+            activeMenu.render();
+        } else{
+            drawTextAnimations();
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
@@ -169,6 +182,25 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             enemyAnimations.get(i).render(game.batch);
             if (enemyAnimations.get(i).isDone()) enemyAnimations.remove(i);
         }
+    }
+
+    private void drawTextAnimations(){
+        textAnimator.render(game.batch);
+    }
+
+    private void faintedPuckemonText(){
+        String message = "Your Puckemon fainted, Press any key to switch";
+        textAnimator.setMessage(message);
+    }
+
+    private void faintedOpponentText(){
+        String message = "Opponent Puckemon fainted!";
+        textAnimator.setMessage(message);
+    }
+
+    private void promptMessage(){
+        String message = "What will " + model.getPlayerPuckemon().getName() + " do?";
+        textAnimator.setMessage(message);
     }
 
 
@@ -251,10 +283,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     }
 
-    @Override
-    public void SetMessage(String message) {
-        this.topLabel.setText(message);
-    }
+
 
     @Override
     public void onDamage(int damage, Puckemon damageReceiver) {
@@ -293,5 +322,9 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     }
 
 
-
+    @Override
+    public void SetMessage(String message) {
+        System.out.println("BLABLALBLABLBALABLLABL" +  message);
+        textAnimator.setMessage(message);
+    }
 }

@@ -12,8 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
-import model.inventories.Item;
-import model.inventories.ListItem;
 import run.Boot;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
@@ -21,7 +19,7 @@ import view.menu.MenuBuilder;
 
 import java.util.List;
 
-public class InventoryScreen implements Screen,IView{
+public class InventoryScreen implements Screen,IView,MessageObserver{
 
     final Boot game;
     private Model model;
@@ -29,25 +27,16 @@ public class InventoryScreen implements Screen,IView{
     private int screenWidth, screenHeight;
     private ShapeRenderer shapeRenderer;
     private Stage stage;
-    private boolean isActive = false;
-    private int targetIndex = 0;
-    private List<ListItem> listItems;
-    private List<Item> inventory;
-    ListItem listItem;
 
-    private BitmapFont inventoryFont, inventoryTitleFont,inventoryItemTitle, backFont;
+    private Label topLabel;
+    private Label label;
+
+    private BitmapFont inventoryTitleFont;
+    private BitmapFont inventoryFont;
     OrthographicCamera camera;
     Texture descriptionBox, background;
 
-    Label.LabelStyle fontStyle = new Label.LabelStyle();
     Label.LabelStyle titleStyle = new Label.LabelStyle();
-    Label.LabelStyle itemTitleStyle = new Label.LabelStyle();
-    Label.LabelStyle backStyle = new Label.LabelStyle();
-
-
-
-    Label itemTitle;
-    Label itemDescription;
 
     Menu menu;
 
@@ -68,11 +57,16 @@ public class InventoryScreen implements Screen,IView{
         // FONT SETTINGS
         inventoryTitleFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         inventoryTitleFont.getData().setScale(1.25f);
+        inventoryFont =new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
+        inventoryFont.getData().setScale(0.75f);
 
         //FONT STYLING
         titleStyle.font = inventoryTitleFont;
         titleStyle.fontColor = Color.BLACK;
 
+        Label.LabelStyle fontStyle = new Label.LabelStyle();
+        fontStyle.font = inventoryFont;
+        fontStyle.fontColor = Color.BLACK;
 
         //Page Title
         Label titleLabel = new Label("INVENTORY", titleStyle);
@@ -81,6 +75,12 @@ public class InventoryScreen implements Screen,IView{
         titleLabel.setAlignment(Align.center);
         titleLabel.setWrap(false);
         stage.addActor(titleLabel);
+
+        topLabel = new Label("",fontStyle);
+        topLabel.setSize(520,10);
+        topLabel.setPosition(30,80);
+        topLabel.setWrap(true);
+        stage.addActor(topLabel);
 
         background = new Texture(Gdx.files.internal("inventory_background.png"));
         descriptionBox = new Texture(Gdx.files.internal("inventory_description_box.png"));
@@ -141,6 +141,11 @@ public class InventoryScreen implements Screen,IView{
 
     @Override
     public void switchMenu(int index) {
+
+    }
+
+    @Override
+    public void SetMessage(String message) {
 
     }
 }

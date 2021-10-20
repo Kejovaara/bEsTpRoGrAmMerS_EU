@@ -20,7 +20,6 @@ public class CombatController implements IController{
         this.model = model;
     }
 
-
     @Override
     public void update() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
