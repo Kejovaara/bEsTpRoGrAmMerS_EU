@@ -73,4 +73,29 @@ public class TestPuckeTrainer {
         assertEquals(expected, name);
     }
 
+    @Test
+    public void testMakeMoveSwitch() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
+        VildPuckemon p = createPuckemon.createVildPuckemon(1,1);
+        //Create strong Puckemon that is worth switching to
+        VildPuckemon strongP = createPuckemon.createVildPuckemon(5,1);
+
+        ArrayList<VildPuckemon> party = new ArrayList<>();
+        party.add(p);
+        party.add(strongP);
+        IFighter trainer = new PuckeTrainer("El bertil", party, true);
+
+        IEffectContainer attack = trainer.makeMove(enemyP);
+
+        IPuckemon activePuckemon = trainer.getActivePuckemon();
+        IPuckemon expectedPuckemon = strongP;
+
+        //Check that no IEffectContainer has been returned
+        assertNull(attack);
+
+        //Check that switch has occured
+        assertEquals(activePuckemon, expectedPuckemon);
+    }
+
 }
