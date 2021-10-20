@@ -7,9 +7,9 @@ import model.effects.IEffectContainer;
 import java.util.List;
 import java.util.Random;
 
-public class WildPuckemon extends Puckemon implements IFighter{
+public class VildPuckemon extends Puckemon implements IFighter{
 
-    public WildPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList) {
+    public VildPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList) {
         super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
     }
 
@@ -21,6 +21,12 @@ public class WildPuckemon extends Puckemon implements IFighter{
 
         //TODO: make random attack
         return AttackFactory.getTackle();
+    }
+
+    @Override
+    public boolean checkIfDefeated(){
+        boolean defeated = currentHealth <= 0;
+        return defeated;
     }
 
     @Override

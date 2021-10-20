@@ -21,10 +21,10 @@ public class CreatePuckemon {
                 ,(int)data.get(4),(int)data.get(5),(int)data.get(6),(int)data.get(7), dissectList((String)data.get(8)));
     }
 
-    private WildPuckemon buildWild(int id, int level){
+    private VildPuckemon buildVild(int id, int level){
         List<Object> data = excelReader.getExcelData(id);
-        return new WildPuckemon(id,level,(String)data.get(0), dissectListTypes((String)data.get(1)),(int) data.get(2),(int)data.get(3)
-                ,(int)data.get(4),(int)data.get(5),dissectList((String)data.get(6)));
+        return new VildPuckemon(id,level,(String)data.get(0), dissectListTypes((String)data.get(1)),(int) data.get(2),(int)data.get(3)
+                ,(int)data.get(4),(int)data.get(5),dissectList((String)data.get(8)));
     }
 
     private List<PTypes> dissectListTypes(String cellString){
@@ -42,8 +42,8 @@ public class CreatePuckemon {
         return buildOwned(id,level);
     }
 
-    public WildPuckemon createWildPuckemon(int id, int level){
-        return buildWild(id,level);
+    public VildPuckemon createVildPuckemon(int id, int level){
+        return buildVild(id,level);
     }
 
 }

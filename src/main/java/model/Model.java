@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    
+
     private Player player;
     private PuckeTrainer trainer;
     private Combat combat;
@@ -20,7 +20,7 @@ public class Model {
     public Model() {
         gameBuilder = new GameBuilder();
         player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
-        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(5,5), true);
+        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(3,5), false);
 
         player.generateStartingInventoryDEV(35);
 
@@ -53,7 +53,7 @@ public class Model {
         return player.getPuckemon().getMoveSet();
     }
 
-    public List<Puckemon> getParty(){
+    public List<OwnedPuckemon> getParty(){
         return player.getParty();
     }
 

@@ -1,32 +1,64 @@
-//import model.entities.OwnedPuckemon;
-//import org.junit.Test;
-//
-//import static java.lang.System.out;
-//import static org.junit.Assert.*;
-//
-//import model.attack.Attack;
-//import model.attack.AttackFactory;
-//import model.effects.IEffectContainer;
-//import model.entities.OwnedPuckemon;
-//import model.entities.Puckemon;
-//import org.junit.After;
-//import org.junit.AfterClass;
-//import org.junit.Before;
-//import org.junit.BeforeClass;
-//import org.junit.Test;
-//
-//import java.util.ArrayList;
-//
-//public class TestOwnedPuckemon {
-//    @Test
-//    public void testSetNickame() {
-//        OwnedPuckemon p = new OwnedPuckemon(1, 1);
-//
-//        String name = "Bamse";
-//
-//        p.setNickName(name);
-//
-//        assertEquals(name, p.getName());  // The logical check
-//    }
-//
-//}
+import model.entities.CreatePuckemon;
+import model.entities.OwnedPuckemon;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class TestOwnedPuckemon {
+
+    private CreatePuckemon createPuckemon = new CreatePuckemon();
+
+    @Test
+    public void testSetNickame() {
+        OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemon(1,10);
+        String name = "Bamse";
+        puckemon.setNickName(name);
+
+        assertEquals(name, puckemon.getNickName());  // The logical check
+    }
+
+    @Test
+    public void testEvolve(){
+        OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemon(1,15);
+        puckemon.giveExp(10000);
+        assertEquals(true, puckemon.getEvolve());  // The logical check
+    }
+
+    @Test
+    public void testLevelUp(){
+        OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemon(1,10);
+        puckemon.giveExp(1332);
+        int expected = 11;
+
+        assertEquals(expected, puckemon.getLevel());  // The logical check
+    }
+
+    @Test
+    public void testLevelUpStats(){
+        OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemon(2,10);
+        puckemon.giveExp(1332);
+        int expected = 18;
+
+        assertEquals(expected, puckemon.getAttackPower());  // The logical check
+    }
+
+    @Test
+    public void testLevelUpKeepHealthPercentage(){
+        OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemon(1,11);
+        puckemon.doDamage(puckemon.getMaxHealth()/2);
+        puckemon.giveExp(1729);
+        double expected = puckemon.getMaxHealth()/2;
+        double healthPercentage = puckemon.getHealth();
+
+        assertEquals(expected,healthPercentage,1);  // The logical check
+    }
+
+    @Test
+    public void testMaxExperience(){
+        OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemon(1,99);
+        puckemon.giveExp(10000000);
+
+        assertEquals(100,puckemon.getLevel());  // The logical check
+    }
+
+}

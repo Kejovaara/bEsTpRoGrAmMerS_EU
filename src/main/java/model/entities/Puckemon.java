@@ -21,7 +21,7 @@ public abstract class Puckemon implements IPuckemon {
     protected int baseSpeed;
 
     protected int level;
-    // -------------
+
 
     /**
      * These are a pokemons stats. They are solely based on the baseStats and current level.
@@ -63,9 +63,7 @@ public abstract class Puckemon implements IPuckemon {
         this.moveList = moveList;
 
         calculateLevelStats();
-        alterCurrentStats();
         this.currentHealth = this.maxHealth;
-        this.currentDefence = this.defence;
         fillMoveSet();
     }
 
@@ -95,21 +93,22 @@ public abstract class Puckemon implements IPuckemon {
         this.attackPower = (2*baseAttackPower*level)/100+5;
         this.defence = (2*baseDefence*level)/100+5;
         this.speed = (2*baseSpeed*level)/100+5;
+        alterCurrentStats();
     }
 
     protected void alterCurrentStats(){
         if (attackPowerBuffFactor < 0){
-            currentAttackPower = (attackPower) * (2 / (2 + (-1) * attackPowerBuffFactor));
+            currentAttackPower = (int)(((double)attackPower) * (2/(2 +(-1)*(double)attackPowerBuffFactor)));
         }else{
             currentAttackPower = (int) (attackPower * (1 + attackPowerBuffFactor * 0.25));
         }
         if (defenceBuffFactor < 0){
-            currentDefence = (defence) * (2 / (2 + (-1) * defenceBuffFactor));
+            currentDefence = (int)(((double)defence) * (2/(2 +(-1)*(double)defenceBuffFactor)));
         }else{
             currentDefence = (int) (defence * (1 + defenceBuffFactor * 0.25));
         }
         if (speedBuffFactor < 0){
-            currentSpeed =  (speed) * (2 / (2 + (-1) * speedBuffFactor));
+            currentSpeed =  (int)(((double)speed) * (2/(2 +(-1)*(double)speedBuffFactor)));
         }else{
             currentSpeed = (int) (speed * (1 + speedBuffFactor * 0.25));
         }
@@ -118,8 +117,9 @@ public abstract class Puckemon implements IPuckemon {
     public Attack getAttack(int i) {
         return moveSet.get(i);
     }
+    public List<String> getMoveList(){return moveList;}
 
-
+    @Override
     public List<Attack> getMoveSet(){return moveSet;}
 
     @Override

@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.StringBuilder;
+import com.badlogic.gdx.utils.Timer;
 import model.Model;
+import model.attack.Attack;
 import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
@@ -41,6 +43,10 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
+
+    private Boolean mainCombatMenu = true;
+    private int cursorIndex = 0;
+    private int cursorX,cursorY;
 
     private Label topLabel;
     private Label label;
@@ -82,7 +88,6 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         activeEnemyPuckemon = model.getTrainerPuckemon();
 
-
         //COMABT BOX TEXT
         stage = new Stage();
         combatFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
@@ -94,15 +99,15 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         String openingText = "What will " + model.getPlayerPuckemon().getName() + " do?";
 
-        label = new Label(openingText,fontStyle);
+        label = new Label("",fontStyle);
         label.setSize(520,10);
         label.setPosition(30,60);
         label.setWrap(true);
-        //stage.addActor(label);
+        stage.addActor(label);
 
         topLabel = new Label("",fontStyle);
         topLabel.setSize(520,10);
-        topLabel.setPosition(30,80);
+        topLabel.setPosition(30,110);
         topLabel.setWrap(true);
         stage.addActor(topLabel);
 
@@ -146,7 +151,6 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         game.batch.begin();
         game.batch.draw(enemyPuck, 570, 400, 192, 192);
         game.batch.draw(playerPuck, 200, 110, 256, 256);
-        //game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
         game.batch.end();
 
         drawPuckeStats();
@@ -154,11 +158,17 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         mainMenuBackground1.render();
         stage.draw();
+
         if (model.getPlayerPuckemon().getHealth() <= 0){
             faintedPuckemonText();
             drawTextAnimations();
-        }else{
+        } else if (activeEnemyPuckemon.getHealth() <= 0){
             drawTextAnimations();
+            drawAnimations();
+            mainMenuBackground2.render();
+            activeMenu.render();
+        } else{
+            promptMessage();
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
@@ -185,10 +195,21 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         textAnimator = new TextAnimation(topLabel,message);
     }
 
+    private void faintedOpponentText(){
+        String message = "Opponent Puckemon fainted!";
+        textAnimator = new TextAnimation(topLabel,message);
+    }
+
+    private void promptMessage(){
+        String message = "What will " + model.getPlayerPuckemon().getName() + " do?";
+        textAnimator = new TextAnimation(label,message);
+    }
+
 
 
 
     private void drawPuckeStats(){
+
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1,1,1,1);

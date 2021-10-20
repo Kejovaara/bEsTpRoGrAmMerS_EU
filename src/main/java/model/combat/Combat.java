@@ -1,44 +1,21 @@
 package model.combat;
 
-import model.attack.Attack;
 import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IFighter;
 import model.entities.IPuckemon;
-import model.entities.ITrainer;
 import model.entities.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Combat {
 
-    private List<IFighter> players = new ArrayList<IFighter>();
-
-    IFighter fighter1;
-    IFighter fighter2;
-
     IFighter fighter;
     Player player;
-
-    private List<IEffect> playerDOTEffects = new ArrayList<>();
-    private List<IEffect> opponentDOTEffects = new ArrayList<>();
-
-
-    public Combat(IFighter fighter1, IFighter fighter2){
-        this.fighter1 = fighter1;
-        this.fighter2 = fighter2;
-        enterCombat(this.fighter1, this.fighter2);
-    }
 
     public Combat(Player player, IFighter fighter){
         this.player = player;
         this.fighter = fighter;
-    }
-
-    public void enterCombat(IFighter player, IFighter opponent){
-        players.add(this.fighter1);
-        players.add(this.fighter2);
     }
 
     /*public void doTurn(){
@@ -58,6 +35,26 @@ public class Combat {
 
 
     }*/
+    private void checkDefeat(){
+        if(fighter.checkIfDefeated()){
+            System.out.println("You Won :)");
+            victory();
+        }
+
+        if(player.checkIfDefeated()){
+            System.out.println("You Lost :(");
+            defeat();
+        }
+    }
+
+    private void victory(){
+        player.victoryEvent();
+    }
+
+    private void defeat(){
+
+    }
+
     public void useSwitch(){
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
         IPuckemon playerPuckemon = player.getPuckemon();
@@ -93,6 +90,7 @@ public class Combat {
         }
 
         System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
+        checkDefeat();
 //        System.out.println(playerPuckemon.getName()+" used "+player.getPuckemon().getAttack(index).get);
 //        System.out.println(fighterPuckemon.getName()+" used "+fighterPuckemon.getA);
     }
@@ -142,21 +140,6 @@ public class Combat {
                     effect.execute(attackUser, opponent);
                 }
             }
-        }
-    }
-
-
-    public boolean isCombat(){
-        //TODO
-        while(1 == 1 /*this.player.getHealth() > 0 || this.opponent.getHealth()*/ ){
-            return true;
-        }
-    }
-
-    public void removeFromCombat(ITrainer player, ITrainer opponent){
-        if(!isCombat()){
-            players.remove(player);
-            players.remove(opponent);
         }
     }
 
