@@ -14,7 +14,7 @@ import java.util.List;
 public class GameBuilder {
 
     private final CreatePuckemon createPuckemon;
-    private List<OwnedPuckemon> playerStartingTeam;
+    private final List<OwnedPuckemon> playerStartingTeam;
 
     public GameBuilder(){
         createPuckemon = new CreatePuckemon();
