@@ -1,7 +1,6 @@
 package view.menu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import input.AttackCombatMenu;
 import input.InventoryMenuController;
@@ -155,6 +154,6 @@ public class MenuFactory {
 
 
 
-        return new ParyMenu(game.batch, new PartyMenuController(view,model, game),items);
+        return new PartyMenu(game.batch, new PartyMenuController(view,model, game),items, model.getParty());
     }
 }

@@ -20,6 +20,7 @@ public class MainPartyItem  implements IRender {
     private boolean active;
 
     private Color aliveColor = new Color(138/255f, 206/255f, 227/255f,1);
+    private Color faintedColor = new Color(205/255f, 97/255f, 97/255f,1);
 
     private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
 
@@ -32,7 +33,7 @@ public class MainPartyItem  implements IRender {
 
         Color bgColor;
         if(puckemon.getHealth() <= 0){
-            bgColor = Color.RED;
+            bgColor = faintedColor;
         }else{
             bgColor =aliveColor;
         }
@@ -43,13 +44,13 @@ public class MainPartyItem  implements IRender {
         background = new RectangleBorder(xPos,yPos,320,157,Color.BLACK, bgColor,6);
 
         Texture puckeTexture = new Texture(Gdx.files.internal("front/" + puckemon.getId() + ".png"));
-        image = new Image(batch, xPos, yPos, 130,130,puckeTexture);
+        image = new Image(batch, xPos, yPos, 100,100,puckeTexture);
 
         healthBar = new HealthBar(xPos,yPos,251,22,puckemon.getMaxHealth(),puckemon.getHealth());
 
-        hp = new Text(font, batch, Color.BLACK, xPos,yPos,puckemon.getMaxHealth()+"/"+puckemon.getHealth(), 0.75f);
-        level = new Text(font, batch, Color.BLACK, xPos,yPos,"LV. "+puckemon.getLevel(), 0.75f);
-        name = new Text(font, batch, Color.BLACK, xPos,yPos,puckemon.getName(), 0.75f);
+        hp = new Text(font, batch, Color.BLACK, xPos,yPos,puckemon.getMaxHealth()+"/"+puckemon.getHealth(), scale);
+        level = new Text(font, batch, Color.BLACK, xPos,yPos,"LV. "+puckemon.getLevel(), scale);
+        name = new Text(font, batch, Color.BLACK, xPos,yPos,puckemon.getName(), scale);
 
         setX(xPos);
         setY(yPos);
@@ -69,7 +70,7 @@ public class MainPartyItem  implements IRender {
     @Override
     public void setX(int x) {
         background.setX(x);
-        image.setX(x);
+        image.setX(x+10);
         healthBar.setX(x+30);
         hp.setX(x+220);
         name.setX(x+120);
@@ -79,7 +80,7 @@ public class MainPartyItem  implements IRender {
     @Override
     public void setY(int y) {
         background.setY(y);
-        image.setY(y+40);
+        image.setY(y+50);
         healthBar.setY(y+40);
         hp.setY(y+35);
         name.setY(y+130);

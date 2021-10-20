@@ -16,10 +16,8 @@ import model.entities.Puckemon;
 import run.Boot;
 import view.menu.Menu;
 import view.menu.MenuFactory;
-import view.menu.ParyMenu;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class PartyScreen implements Screen, IView {
 

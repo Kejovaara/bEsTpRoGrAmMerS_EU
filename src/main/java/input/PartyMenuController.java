@@ -3,6 +3,7 @@ package input;
 import model.Model;
 import run.VCHandler;
 import view.IView;
+import view.Screens;
 
 public class PartyMenuController implements IMenuController{
 
@@ -23,6 +24,20 @@ public class PartyMenuController implements IMenuController{
 
     @Override
     public void onCursorEnter(int index) {
-
+        if(index < model.getParty().size()){
+            if(model.getParty().get(index).getHealth() > 0 && index > 1){
+                if (model.getPlayerPuckemon().getHealth()>0){
+                    model.switchPuckemon(index);
+                    model.useSwitch();
+                }else{
+                    model.switchPuckemon(index);
+                }
+                handler.setView(Screens.COMBAT);
+                handler.setController(InputController.Controllers.COMBAT);
+            }
+        }else{
+            handler.setView(Screens.COMBAT);
+            handler.setController(InputController.Controllers.COMBAT);
+        }
     }
 }

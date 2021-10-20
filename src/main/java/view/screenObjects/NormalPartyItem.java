@@ -21,6 +21,7 @@ public class NormalPartyItem implements IRender {
     private boolean active;
 
     private Color aliveColor = new Color(138/255f, 206/255f, 227/255f,1);
+    private Color faintedColor = new Color(205/255f, 97/255f, 97/255f,1);
 
     private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
 
@@ -33,7 +34,7 @@ public class NormalPartyItem implements IRender {
 
         Color bgColor;
         if(puckemon.getHealth() <= 0){
-            bgColor = Color.RED;
+            bgColor = faintedColor;
         }else{
             bgColor =aliveColor;
         }

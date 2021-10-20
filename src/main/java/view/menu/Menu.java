@@ -92,7 +92,6 @@ public class Menu implements IRender {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            System.out.println("aaaaa: " + Gdx.input.isKeyJustPressed(Input.Keys.ENTER));
             controller.onCursorEnter(menuItems.indexOf(activeItem));
         }
     }

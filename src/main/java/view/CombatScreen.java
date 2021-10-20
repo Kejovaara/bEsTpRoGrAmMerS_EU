@@ -227,8 +227,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
 
 
-        playerAnimations.clear();
-        enemyAnimations.clear();
+
     }
 
     @Override
@@ -248,7 +247,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void hide() {
-
+        playerAnimations.clear();
+        enemyAnimations.clear();
     }
 
     @Override
@@ -267,7 +267,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             playerAnimations.add(new EffectAnimation(damage, 210+(playerAnimations.size()*80), 330,"DMG", new Color(0.7f,0,0,1)));
         }
         else {
-            enemyAnimations.add(new EffectAnimation(damage, 530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"DMG", new Color(0.7f,0,0,1)));
+            enemyAnimations.add(new EffectAnimation(damage, 530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-60,"DMG", new Color(0.7f,0,0,1)));
         }
     }
 
@@ -277,7 +277,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             playerAnimations.add(new EffectAnimation(heal, 210+(playerAnimations.size()*80), 330,"HP+", new Color(0,0.7f,0,1)));
         }
         else {
-            enemyAnimations.add(new EffectAnimation(heal,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"HP+", new Color(0,0.7f,0,1)));
+            enemyAnimations.add(new EffectAnimation(heal,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-60,"HP+", new Color(0,0.7f,0,1)));
         }
     }
 
@@ -287,7 +287,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             playerAnimations.add(new EffectAnimation(buff,210+(playerAnimations.size()*80), 330,"ATK"));
         }
         else {
-            enemyAnimations.add(new EffectAnimation(buff,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"ATK"));
+            enemyAnimations.add(new EffectAnimation(buff,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-60,"ATK"));
         }
     }
 
