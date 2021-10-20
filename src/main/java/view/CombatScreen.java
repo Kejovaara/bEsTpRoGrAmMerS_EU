@@ -12,9 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.StringBuilder;
-import com.badlogic.gdx.utils.Timer;
 import model.Model;
-import model.attack.Attack;
 import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
@@ -39,8 +37,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private BitmapFont combatFont;
     private BitmapFont statsFont;
 
-    private TextAnimation textAnimation;
-    private TextAnimation textAnimation2;
+    private TextAnimation textAnimator;
 
     OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
@@ -58,7 +55,6 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();
 
-
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
         this.model = model;
@@ -66,7 +62,6 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         this.screenHeight = game.getScreenHeight();
 
         shapeRenderer = new ShapeRenderer();
-
 
         //Menu Font
         menuFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
@@ -98,10 +93,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         fontStyle.fontColor = Color.BLACK;
 
         String openingText = "What will " + model.getPlayerPuckemon().getName() + " do?";
-        /*label = new Label(openingText,fontStyle);
+
+        label = new Label(openingText,fontStyle);
         label.setSize(520,10);
         label.setPosition(30,60);
-        label.setWrap(true);*/
+        label.setWrap(true);
         //stage.addActor(label);
 
         topLabel = new Label("",fontStyle);
@@ -110,7 +106,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         topLabel.setWrap(true);
         stage.addActor(topLabel);
 
-        textAnimation = new TextAnimation(topLabel, openingText);
+        textAnimator = new TextAnimation(topLabel, openingText);
 
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
@@ -159,8 +155,10 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         mainMenuBackground1.render();
         stage.draw();
         if (model.getPlayerPuckemon().getHealth() <= 0){
-            //label.setText("Your Puckemon fainted, Press any key to switch");
+            faintedPuckemonText();
+            drawTextAnimations();
         }else{
+            drawTextAnimations();
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
@@ -168,7 +166,6 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     }
 
     private void drawAnimations() {
-        textAnimation.render(game.batch);
         for(int i = 0; i < playerAnimations.size(); i++){
             playerAnimations.get(i).render(game.batch);
             if (playerAnimations.get(i).isDone()) playerAnimations.remove(i);
@@ -179,11 +176,19 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         }
     }
 
+    private void drawTextAnimations(){
+        textAnimator.render(game.batch);
+    }
+
+    private void faintedPuckemonText(){
+        String message = "Your Puckemon fainted, Press any key to switch";
+        textAnimator = new TextAnimation(topLabel,message);
+    }
+
 
 
 
     private void drawPuckeStats(){
-
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1,1,1,1);
@@ -298,6 +303,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void SetMessage(String message) {
-        textAnimation = new TextAnimation(topLabel, message);
+        textAnimator = new TextAnimation(topLabel, message);
+        label.setText("");
     }
 }
