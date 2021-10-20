@@ -3,6 +3,10 @@ package model.entities;
 import model.PTypes;
 import java.util.List;
 
+/**
+ * A OwnedPuckemon is a puckemon that can level up, have a nickName and evolve.
+ * @author  Lukas Jigberg
+ */
 public class OwnedPuckemon extends Puckemon {
 
     private String nickName;
@@ -11,7 +15,9 @@ public class OwnedPuckemon extends Puckemon {
     private boolean evolve = false;
     private int expPoints;
 
-
+    /**
+     * The same as below but doesn't contain nickName.
+     */
     public OwnedPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, int evolutionLevel, int evolutionId, List<String> moveList){
         super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
         this.evolutionId = evolutionId;
@@ -19,6 +25,11 @@ public class OwnedPuckemon extends Puckemon {
 
     }
 
+    /**
+     * @param evolutionId is the puckemon it will evolve into.
+     * @param evolutionLevel is the level that is required to evolve.
+     * @param nickName is a Puckemons nickname.
+     */
     public OwnedPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, int evolutionLevel, int evolutionId, List<String> moveList, String nickName){
         super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
         this.evolutionId = evolutionId;
@@ -27,8 +38,8 @@ public class OwnedPuckemon extends Puckemon {
     }
 
     /**
-     * 100 * level * trainer ( 1,5) = gained exp
-     * expPoints needed to reach level x is x^3
+     * Gives the Puckemon experience Point needed to level.
+     * If the experience points are more than level^3 it will reach that level by level up.
      */
     private void gainExp(int experience){
         if (level<=100){
@@ -39,6 +50,11 @@ public class OwnedPuckemon extends Puckemon {
         }
     }
 
+    /**
+     * Increases the level, can't be more than 100.
+     * It makes it so that it keeps the same maxHealth / currentHealth ratio as before it leveled.
+     * If the Puckemon leveled and is now the same or above its evolutionLevel it will be able to evolve.
+     */
     private void levelUp(){
         if (level < 100){
             level++;
@@ -48,11 +64,9 @@ public class OwnedPuckemon extends Puckemon {
             if(healthPercentage!=0){
             currentHealth = (int) (maxHealth*healthPercentage);
             }
-
             if (level >= evolutionLevel) {
                 evolve = true;
             }
-
         }
     }
 
