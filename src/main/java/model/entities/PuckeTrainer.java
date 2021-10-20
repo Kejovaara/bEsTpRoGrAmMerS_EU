@@ -121,8 +121,6 @@ public class PuckeTrainer implements IFighter, ITrainer {
             System.out.println("Multiplier: " + bestMultiplier);
 
             if (!(bestPuckemon.equals(activePuckemon))) {
-//                double diff = bestMultiplier - bestMultiplierActiveP;
-
                 //Only switch Puckemon if difference is high enough
                 if (diff > threshold){
                     switchPuckemon(bestPuckemonId);

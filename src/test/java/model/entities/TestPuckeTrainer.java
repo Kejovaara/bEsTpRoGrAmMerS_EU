@@ -3,7 +3,14 @@ package model.entities;
 import static org.junit.Assert.*;
 
 import model.GameBuilder;
+import model.attack.Attack;
+import model.attack.AttackFactory;
+import model.effects.IEffect;
+import model.effects.IEffectContainer;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestPuckeTrainer {
 
@@ -18,7 +25,7 @@ public class TestPuckeTrainer {
         boolean isDefeated = trainer.checkIfDefeated();
         boolean expected = true;
 
-        assertEquals(expected, isDefeated);  // The logical check
+        assertEquals(expected, isDefeated);
     }
 
     @Test
@@ -29,7 +36,7 @@ public class TestPuckeTrainer {
         boolean isDefeated = trainer.checkIfDefeated();
         boolean expected = false;
 
-        assertEquals(expected, isDefeated);  // The logical check
+        assertEquals(expected, isDefeated);
     }
 
     @Test
@@ -44,7 +51,26 @@ public class TestPuckeTrainer {
         boolean isDefeated = trainer.checkIfDefeated();
         boolean expected = false;
 
-        assertEquals(expected, isDefeated);  // The logical check
+        assertEquals(expected, isDefeated);
+    }
+
+    @Test
+    public void testMakeMoveWithActive() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
+        VildPuckemon p = createPuckemon.createVildPuckemon(1,1);
+
+        ArrayList<VildPuckemon> party = new ArrayList<>();
+        party.add(p);
+        IFighter trainer = new PuckeTrainer("El bertil", party, true);
+
+        Attack expectedAttack = AttackFactory.createByName("Tackle");
+        Attack attack = (Attack)trainer.makeMove(enemyP);
+
+        String name = attack.getName();
+        String expected = expectedAttack.getName();
+
+        assertEquals(expected, name);
     }
 
 }
