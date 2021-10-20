@@ -1,6 +1,8 @@
 package view.message;
 
+import org.lwjgl.Sys;
 import view.MessageObserver;
+import view.animation.TextAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ public class MessageHandler {
 
     private static MessageHandler instance;
     private List<MessageObserver> observers = new ArrayList<>();
+    private TextAnimation textAnimator;
 
     private MessageHandler(){
 

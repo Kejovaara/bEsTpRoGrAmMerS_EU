@@ -24,8 +24,6 @@ public class MenuController implements IController{
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            Screen view = new CombatScreen(game, model);
-
             game.setController(InputController.Controllers.COMBAT);
             game.setView(Screens.COMBAT);
         }

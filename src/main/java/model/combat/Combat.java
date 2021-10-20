@@ -98,7 +98,6 @@ public class Combat {
     public void usePlayerItem(int index){
         IPuckemon playerPuckemon = player.getPuckemon();
         IEffectContainer item = player.getItem(index);
-        //player.consumeItem(index);
 
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
@@ -122,7 +121,7 @@ public class Combat {
         }
 
         player.consumeItem(index);
-
+        checkDefeat();
         System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
 //        System.out.println(playerPuckemon.getName()+" used "+player.getPuckemon().getAttack(index).get);
 //        System.out.println(fighterPuckemon.getName()+" used "+fighterPuckemon.getA);

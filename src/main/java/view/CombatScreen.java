@@ -12,14 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.StringBuilder;
-import com.badlogic.gdx.utils.Timer;
 import model.Model;
-import model.attack.Attack;
 import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
 import view.menu.Menu;
-import view.menu.MenuFactory;
+import view.menu.MenuBuilder;
 import view.message.MessageHandler;
 import view.screenObjects.RectangleBorder;
 
@@ -34,11 +32,12 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private ShapeRenderer shapeRenderer;
     private Stage stage;
     private StringBuilder stringbuilder = new StringBuilder();
-    long expectedTime = System.currentTimeMillis();
 
     private BitmapFont menuFont;
     private BitmapFont combatFont;
     private BitmapFont statsFont;
+
+    private TextAnimation textAnimator;
 
     OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
@@ -78,8 +77,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
 
-        mainMenu = MenuFactory.getMainCombatMenu(game,this, model);
-        attackMenu = MenuFactory.getAttackCombatMenu( game,this, model);
+        mainMenu = MenuBuilder.getMainCombatMenu(game.batch, game,this, model);
+        attackMenu = MenuBuilder.getAttackCombatMenu( game.batch,game,this, model);
         activeMenu = mainMenu;
 
         mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
@@ -96,17 +95,21 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         fontStyle.font = combatFont;
         fontStyle.fontColor = Color.BLACK;
 
-        label = new Label("What will " + model.getPlayerPuckemon().getName() + " do?",fontStyle);
+        String openingText = "What will " + model.getPlayerPuckemon().getName() + " do?";
+
+        label = new Label(openingText,fontStyle);
         label.setSize(520,10);
         label.setPosition(30,60);
         label.setWrap(true);
-        stage.addActor(label);
+        //stage.addActor(label);
 
         topLabel = new Label("",fontStyle);
         topLabel.setSize(520,10);
-        topLabel.setPosition(30,110);
+        topLabel.setPosition(30,80);
         topLabel.setWrap(true);
         stage.addActor(topLabel);
+
+        textAnimator = new TextAnimation(topLabel, openingText);
 
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
@@ -126,12 +129,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         }
     }
 
+    boolean isPrinted = false;
+
     @Override
     public void render(float delta) {
-        if(activeEnemyPuckemon != model.getTrainerPuckemon()){
-            enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
-            activeEnemyPuckemon = model.getTrainerPuckemon();
-        }
+        checkOpponentTexture();
 
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
@@ -150,22 +152,38 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         drawPuckeStats();
 
-
         mainMenuBackground1.render();
         stage.draw();
 
         if (model.getPlayerPuckemon().getHealth() <= 0){
-            label.setText("Your Puckemon fainted, Press any key to switch");
+            if (!isPrinted){
+                faintedPuckemonText();
+                isPrinted = true;
+            }
+            drawTextAnimations();
+            drawAnimations();
         } else if (activeEnemyPuckemon.getHealth() <= 0){
-            label.setText("Opponent Puckemon fainted!");
+            if (!isPrinted){
+                faintedOpponentText();
+                isPrinted = true;
+            }
+            drawTextAnimations();
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
         } else{
-            label.setText("What will " + model.getPlayerPuckemon().getName() + " do?");
+            drawTextAnimations();
             drawAnimations();
             mainMenuBackground2.render();
             activeMenu.render();
+            isPrinted = false;
+        }
+    }
+
+    private void checkOpponentTexture(){
+        if(activeEnemyPuckemon != model.getTrainerPuckemon()){
+            enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+            activeEnemyPuckemon = model.getTrainerPuckemon();
         }
     }
 
@@ -180,11 +198,31 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         }
     }
 
+    private void drawTextAnimations(){
+        textAnimator.render(game.batch);
+    }
+
+    private void faintedPuckemonText(){
+        String message = "Your Puckemon fainted, Press any key to switch";
+        textAnimator.setMessage(message);
+    }
+
+    private void faintedOpponentText(){
+        String message = "Opponent Puckemon fainted!";
+        textAnimator.setMessage(message);
+    }
+
+    private void promptMessage(){
+        String message = "What will " + model.getPlayerPuckemon().getName() + " do?";
+        textAnimator.setMessage(message);
+    }
+
 
 
 
     private void drawPuckeStats(){
 
+        //System.out.println(model.getPlayerPuckemon().getHealth());
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(1,1,1,1);
@@ -226,11 +264,13 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void show() {
-        attackMenu = MenuFactory.getAttackCombatMenu(game,this, model);
+        attackMenu = MenuBuilder.getAttackCombatMenu(game.batch,game,this, model);
         activeMenu = mainMenu;
 
         playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
         enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+
+        if (textAnimator.isDone())textAnimator.setMessage("What will " + model.getPlayerPuckemon().getName() + " do?");
     }
 
     @Override
@@ -250,7 +290,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void hide() {
-
+        playerAnimations.clear();
+        enemyAnimations.clear();
     }
 
     @Override
@@ -258,10 +299,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     }
 
-    @Override
-    public void SetMessage(String message) {
-        this.topLabel.setText(message);
-    }
+
 
     @Override
     public void onDamage(int damage, Puckemon damageReceiver) {
@@ -269,7 +307,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             playerAnimations.add(new EffectAnimation(damage, 210+(playerAnimations.size()*80), 330,"DMG", new Color(0.7f,0,0,1)));
         }
         else {
-            enemyAnimations.add(new EffectAnimation(damage, 530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"DMG", new Color(0.7f,0,0,1)));
+            enemyAnimations.add(new EffectAnimation(damage, 530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-60,"DMG", new Color(0.7f,0,0,1)));
         }
     }
 
@@ -279,7 +317,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             playerAnimations.add(new EffectAnimation(heal, 210+(playerAnimations.size()*80), 330,"HP+", new Color(0,0.7f,0,1)));
         }
         else {
-            enemyAnimations.add(new EffectAnimation(heal,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"HP+", new Color(0,0.7f,0,1)));
+            enemyAnimations.add(new EffectAnimation(heal,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-60,"HP+", new Color(0,0.7f,0,1)));
         }
     }
 
@@ -289,7 +327,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
             playerAnimations.add(new EffectAnimation(buff,210+(playerAnimations.size()*80), 330,"ATK"));
         }
         else {
-            enemyAnimations.add(new EffectAnimation(buff,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-40,"ATK"));
+            enemyAnimations.add(new EffectAnimation(buff,530 +(enemyAnimations.size()*80), (int)camera.viewportHeight-60,"ATK"));
         }
     }
 
@@ -300,5 +338,9 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     }
 
 
-
+    @Override
+    public void SetMessage(String message) {
+        System.out.println("BLABLALBLABLBALABLLABL" +  message);
+        textAnimator.setMessage(message);
+    }
 }
