@@ -30,7 +30,7 @@ public class GameBuilder {
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(1,15));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(2,5));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(3,10));
-        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(4,17));
+        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(4,15));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(5,15));
     }
 
