@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Player implements ITrainer, IFighter {
+public class Player implements ITrainer {
     private String name = "Bamse";
     private PlayerBag playerBag;
     private Inventory inventory;
@@ -82,7 +82,6 @@ public class Player implements ITrainer, IFighter {
         playerBag.giveVictoryRewards();
     }
 
-    @Override
     public boolean checkIfDefeated(){
         boolean defeated = true;
         for (int i = 0; i < playerBag.getParty().size(); i++) {
@@ -92,16 +91,6 @@ public class Player implements ITrainer, IFighter {
             }
         }
         return defeated;
-    }
-
-    @Override
-    public IEffectContainer makeMove(IPuckemon p) {
-        return null;
-    }
-
-    @Override
-    public IPuckemon getActivePuckemon() {
-        return null;
     }
 
     public Puckemon getPuckemon(){

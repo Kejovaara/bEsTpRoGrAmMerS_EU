@@ -8,5 +8,4 @@ public interface ITrainer {
     IEffectContainer getItem(int index);
     void addItem(Item item);
 
-
 }

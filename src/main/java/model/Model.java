@@ -20,7 +20,7 @@ public class Model {
     public Model() {
         gameBuilder = new GameBuilder();
         player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
-        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(2,5), false);
+        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(3,5), false);
 
         player.generateStartingInventoryDEV(35);
 

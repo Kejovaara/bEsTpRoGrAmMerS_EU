@@ -33,52 +33,40 @@ public class PuckeTrainer implements IFighter, ITrainer {
         this.smart = smart;
     }
 
-//    public Puckemon selectPuckemon(){
-//        Puckemon puckemon = puckeBag.getNextPuckemon();
-//        return puckemon;
-//    }
-
     @Override
     public boolean checkIfDefeated(){
-        boolean defeated = true;
-        for (int i = 0; i < puckeBag.getParty().size(); i++) {
-            if(puckeBag.getParty().get(i).currentHealth>0){
-                defeated = false;
-                break;
-            }
-        }
-        return defeated;
-    }
-
-    public IEffectContainer makeMove(IPuckemon enemy) {
-        int index = 0;
         Puckemon activePuckemon = puckeBag.getActivePuckemon();
+        List<VildPuckemon> party = puckeBag.getParty();
 
-        //If Puckemon fainted
+        //If active Puckemon fainted
         if (activePuckemon.getHealth() <= 0) {
-            int partySize = puckeBag.getParty().size();
+            int partySize = party.size();
+            int index = 0;
 
-            //Switch to random puckemon which is alive
+            //Switch to puckemon which is alive
             for (int i = 0; i <= partySize; i++) {
-                //If no puckemon is alive. Perhaps not useful after end game implementation?
+                index = i;
+                //If no puckemon is alive, return defeated = true
                 if (i == partySize) {
-                    MessageHandler.getInstance().DisplayMessage("GAME WON");
-                    //End game?
-                    return null;
+                    return true;
                 }
 
-                Random rand = new Random(); //instance of random class
-                index = rand.nextInt(partySize);
-
                 //Save index if puckemon has health
-                if (puckeBag.getParty().get(index).getHealth() > 0) {
+                if (party.get(i).getHealth() > 0) {
                     break;
                 }
             }
 
             switchPuckemon(index);
-            return null;
         }
+
+        //If at least one Puckemon is alive
+        return false;
+    }
+
+    public IEffectContainer makeMove(IPuckemon enemy) {
+        int index = 0;
+        Puckemon activePuckemon = puckeBag.getActivePuckemon();
 
         if (this.smart) {
             List<VildPuckemon> party = puckeBag.getParty();
