@@ -1,15 +1,11 @@
 package model.combat;
 
-import model.attack.Attack;
 import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IFighter;
 import model.entities.IPuckemon;
-import model.entities.ITrainer;
 import model.entities.Player;
-import org.lwjgl.Sys;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Combat {
