@@ -36,24 +36,23 @@ public class PuckeTrainer implements IFighter, ITrainer {
     @Override
     public boolean checkIfDefeated(){
         Puckemon activePuckemon = puckeBag.getActivePuckemon();
+        List<VildPuckemon> party = puckeBag.getParty();
 
         //If active Puckemon fainted
         if (activePuckemon.getHealth() <= 0) {
-            int partySize = puckeBag.getParty().size();
+            int partySize = party.size();
             int index = 0;
 
-            //Switch to random puckemon which is alive
+            //Switch to puckemon which is alive
             for (int i = 0; i <= partySize; i++) {
+                index = i;
                 //If no puckemon is alive, return defeated = true
                 if (i == partySize) {
                     return true;
                 }
 
-                Random rand = new Random(); //instance of random class
-                index = rand.nextInt(partySize);
-
                 //Save index if puckemon has health
-                if (puckeBag.getParty().get(index).getHealth() > 0) {
+                if (party.get(i).getHealth() > 0) {
                     break;
                 }
             }
