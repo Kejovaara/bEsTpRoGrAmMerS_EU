@@ -45,6 +45,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
             int partySize = party.size();
             int index = 0;
 
+
             //Switch to puckemon which is alive
             for (int i = 0; i <= partySize; i++) {
                 index = i;

@@ -1,8 +1,6 @@
 package run;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -24,7 +22,7 @@ public class Boot extends Game implements VCHandler{
 
     int screenWidth, screenHeight;
 
-    private Screen mainScreen, combatScreen, invetoryScreen, partyScreen;
+    private Screen mainScreen, combatScreen, invetoryScreen, partyScreen, gameOverScreen, victoryScreen;
 
     public Boot(int screenHeight, int screenWidth){
         this.screenWidth = screenWidth;
@@ -50,6 +48,8 @@ public class Boot extends Game implements VCHandler{
         this.combatScreen = new CombatScreen(this, model);
         this.invetoryScreen = new InventoryScreen(this, model);
         this.partyScreen = new PartyScreen(this, model);
+        this.gameOverScreen = new GameOverScreen(this,model);
+        this.victoryScreen = new VictoryScreen(this,model);
     }
 
     public void render() {
@@ -78,6 +78,12 @@ public class Boot extends Game implements VCHandler{
                 break;
             case INVENTORY:
                 switchView(invetoryScreen);
+                break;
+            case GAME_OVER:
+                switchView(gameOverScreen);
+                break;
+            case VICTORY:
+                switchView(victoryScreen);
                 break;
         }
     }

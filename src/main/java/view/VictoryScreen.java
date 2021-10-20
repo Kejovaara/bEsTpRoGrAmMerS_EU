@@ -8,16 +8,16 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import run.Boot;
 
-public class MainMenuScreen implements Screen {
+public class VictoryScreen implements Screen {
 
     final Boot game;
     private Model model;
     private int screenWidth, screenHeight;
 
     OrthographicCamera camera;
-    Texture menu, arrow;
+    Texture menu;
 
-    public MainMenuScreen(final Boot game, Model model) {
+    public VictoryScreen(final Boot game, Model model) {
         this.game = game;
         this.model = model;
         this.screenWidth = game.getScreenWidth();
@@ -26,8 +26,7 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
-        menu = new Texture(Gdx.files.internal("StartMenu.png"));
-        arrow = new Texture(Gdx.files.internal("Arrow.png"));
+        menu = new Texture(Gdx.files.internal("Victory.png"));
     }
 
 
@@ -40,7 +39,6 @@ public class MainMenuScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(menu, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
-        game.batch.draw(arrow, 260, 100, 20, 30);
         game.batch.end();
 
     }
