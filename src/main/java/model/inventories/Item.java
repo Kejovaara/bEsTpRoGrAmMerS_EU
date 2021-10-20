@@ -39,6 +39,27 @@ public class Item implements IEffectContainer {
     }
 
     /**
+     * Constructor for effectless items
+     * @param id id of object Item
+     * @param name name of object Item
+     * @param desc description of object Item
+     * @param prio priority of object Item
+     * @param quantity amount of object Item
+     * @param price cost of object Item
+     * @param isCombatItem weather or not item is an item to be used in combat
+     */
+    //CONSTRUCTOR FOR EFFECTLESS ITEMS
+    public Item(int id,String name, String desc, int prio, int quantity, int price, boolean isCombatItem){
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.prio = prio;
+        this.quantity = quantity;
+        this.price = price;
+        this.isCombatItem = isCombatItem;
+    }
+
+    /**
      * Calls the id of the item
      * @return the id of the item
      */
