@@ -32,4 +32,19 @@ public class TestPuckeTrainer {
         assertEquals(expected, isDefeated);  // The logical check
     }
 
+    @Test
+    public void testSwitchWhenFainted() {
+        GameBuilder gameBuilder = new GameBuilder();
+        IFighter trainer = new PuckeTrainer("El bertil", gameBuilder.getRandOpponentTeam(2,5), false);
+
+        IPuckemon activePuckemon = trainer.getActivePuckemon();
+        activePuckemon.setHealth(0);
+
+        //Opponent should switch
+        boolean isDefeated = trainer.checkIfDefeated();
+        boolean expected = false;
+
+        assertEquals(expected, isDefeated);  // The logical check
+    }
+
 }
