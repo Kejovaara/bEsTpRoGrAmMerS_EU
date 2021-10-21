@@ -4,16 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import run.Boot;
+import run.VCHandler;
 import view.CombatScreen;
 import model.Model;
 import view.Screens;
 
 public class VictoryController implements IController{
     private Model model;
-    private final Boot game;
+    private final VCHandler handler;
 
-    public VictoryController(Boot game, Model model) {
-        this.game = game;
+    public VictoryController(VCHandler handler, Model model) {
+        this.handler = handler;
         this.model = model;
     }
 
@@ -22,9 +23,18 @@ public class VictoryController implements IController{
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
             Gdx.app.exit();
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
 
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            Gdx.app.exit();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.S)){
+            model.startCombat(3,10,false);
+            handler.setView(Screens.COMBAT);
+            handler.setController(InputController.Controllers.COMBAT);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.D)){
+            model.startCombat(6,17,true);
+            handler.setView(Screens.COMBAT);
+            handler.setController(InputController.Controllers.COMBAT);
         }
     }
 }

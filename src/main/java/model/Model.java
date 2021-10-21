@@ -20,12 +20,20 @@ public class Model {
     public Model() {
         gameBuilder = new GameBuilder();
         player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
-        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(3,10), false);
-
         player.generateStartingInventoryDEV(35);
+        startCombat(3,10,false);
+    }
 
+    public void startCombat(int size, int minLevel, boolean smart){
+        createNoviceTrainer(size, minLevel, smart);
         combat = new Combat(player, trainer);
     }
+
+    private PuckeTrainer createNoviceTrainer(int size, int minLevel, boolean smart){
+        trainer = new PuckeTrainer("Bertil", gameBuilder.getRandOpponentTeam(size,minLevel), smart);
+        return trainer;
+    }
+
     public void switchPuckemon(int i){player.switchPuckemon(i);}
 
     public Puckemon getPlayerPuckemon() {
@@ -58,4 +66,5 @@ public class Model {
     }
 
     public List<Item> getInventory(){ return player.getInventory();}
+    public String getBattleOutcome(){return combat.getBattleOutcome();}
 }

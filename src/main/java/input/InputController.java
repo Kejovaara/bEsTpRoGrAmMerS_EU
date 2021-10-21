@@ -13,6 +13,8 @@ public class    InputController {
     private CombatController combatController;
     private InventoryController inventoryController;
     private PartyController partyController;
+    private VictoryController victoryController;
+    private GameOverController gameOverController;
 
     public InputController(Boot game, Model model) {
         this.game = game;
@@ -21,6 +23,8 @@ public class    InputController {
         this.combatController = new CombatController(game, model);
         this.partyController = new PartyController(game, model);
         this.inventoryController = new InventoryController(game, model);
+        this.victoryController = new VictoryController(game,model);
+        this.gameOverController = new GameOverController();
     }
 
     public void switchController(Controllers controllerEnum){
@@ -36,6 +40,12 @@ public class    InputController {
                 break;
             case PARTY:
                 activeController = partyController;
+                break;
+            case VICTORY:
+                activeController = victoryController;
+                break;
+            case DEFEAT:
+                activeController = gameOverController;
                 break;
             default:
                 activeController = null;
@@ -60,5 +70,7 @@ public class    InputController {
         COMBAT,
         PARTY,
         INVENTORY,
+        VICTORY,
+        DEFEAT,
     }
 }

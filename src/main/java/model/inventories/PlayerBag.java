@@ -35,7 +35,9 @@ public class PlayerBag extends PuckeBag{
 
     private void giveOutExp(){
         for (int i = 0; i < party.size(); i++) {
-            party.get(i).giveExp(5000);
+            if(party.get(i).getHealth()>0){
+                party.get(i).giveExp(1000);
+            }
         }
     }
 

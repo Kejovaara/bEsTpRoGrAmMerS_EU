@@ -49,7 +49,7 @@ public class Boot extends Game implements VCHandler{
         this.invetoryScreen = new InventoryScreen(this, model);
         this.partyScreen = new PartyScreen(this, model);
         this.gameOverScreen = new GameOverScreen(this,model);
-        this.victoryScreen = new VictoryScreen(this,model);
+        this.victoryScreen = new VictoryScreen(this,batch);
     }
 
     public void render() {

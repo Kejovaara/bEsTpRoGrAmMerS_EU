@@ -9,21 +9,10 @@ import model.Model;
 import view.Screens;
 
 public class GameOverController implements IController{
-    private Model model;
-    private final Boot game;
-
-    public GameOverController(Boot game, Model model) {
-        this.game = game;
-        this.model = model;
-    }
 
     @Override
     public void update() {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            Gdx.app.exit();
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
             Gdx.app.exit();
         }
     }
