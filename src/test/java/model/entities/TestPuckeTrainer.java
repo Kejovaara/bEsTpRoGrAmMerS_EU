@@ -5,12 +5,10 @@ import static org.junit.Assert.*;
 import model.GameBuilder;
 import model.attack.Attack;
 import model.attack.AttackFactory;
-import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TestPuckeTrainer {
 
@@ -93,7 +91,7 @@ public class TestPuckeTrainer {
         //Check that no IEffectContainer has been returned
         assertNull(attack);
 
-        //Check that switch has occured
+        //Check that switch has occurred
         assertEquals(activePuckemon, strongP);
     }
 

@@ -52,7 +52,11 @@ public class Combat {
     }
 
     private void defeat(){
+        System.out.println("DEFEAT");
+    }
 
+    public void useFlee(){
+        defeat();
     }
 
     public void useSwitch(){

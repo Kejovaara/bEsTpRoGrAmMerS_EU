@@ -46,6 +46,10 @@ public class Model {
         combat.useSwitch();
     }
 
+    public void useFlee(){
+        combat.useFlee();
+    }
+
     public Attack getAttack(int index){
         return player.getPuckemon().getMoveSet().get(index);
     }

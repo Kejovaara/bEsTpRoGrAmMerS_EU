@@ -48,7 +48,7 @@ public class MainCombatMenu implements IMenuController{
             );
         }
         else if(index == 3){
-            System.out.println("Flee");
+            model.useFlee();
         }
     }
 }
