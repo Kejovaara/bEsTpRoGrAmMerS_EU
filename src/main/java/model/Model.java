@@ -32,8 +32,8 @@ public class Model {
         return player.getPuckemon();
     }
 
-    public Puckemon getTrainerPuckemon() {
-        return trainer.getPuckemon();
+    public IPuckemon getTrainerPuckemon() {
+        return trainer.getActivePuckemon();
     }
 
     public void useAttack(int index){
