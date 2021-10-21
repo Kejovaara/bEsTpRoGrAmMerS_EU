@@ -1,13 +1,10 @@
 package model;
 
 import model.attack.Attack;
-import model.attack.AttackFactory;
 import model.combat.Combat;
 import model.entities.*;
 import model.inventories.Item;
-import model.inventories.ItemFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
@@ -15,11 +12,11 @@ public class Model {
     private Player player;
     private PuckeTrainer trainer;
     private Combat combat;
-    private GameBuilder gameBuilder;
+    private PartyBuilder partyBuilder;
 
     public Model() {
-        gameBuilder = new GameBuilder();
-        player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
+        partyBuilder = new PartyBuilder();
+        player = new Player(partyBuilder.getPlayerStartingTeam(), 10);
         player.generateStartingInventoryDEV(35);
         startCombat(3,10,false);
     }
@@ -30,7 +27,7 @@ public class Model {
     }
 
     private PuckeTrainer createNoviceTrainer(int size, int minLevel, boolean smart){
-        trainer = new PuckeTrainer("Bertil", gameBuilder.getRandOpponentTeam(size,minLevel), smart);
+        trainer = new PuckeTrainer("Bertil", partyBuilder.getRandOpponentTeam(size,minLevel), smart);
         return trainer;
     }
 
