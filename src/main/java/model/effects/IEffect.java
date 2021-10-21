@@ -5,6 +5,7 @@ import model.entities.IPuckemon;
 /**
  * An Interface that specifies common a method for all effects. An object of type IEffect can execute some
  * calculation/modification on IPuckemon's
+ * @author Rasmus Almryd
  */
 public interface IEffect {
 

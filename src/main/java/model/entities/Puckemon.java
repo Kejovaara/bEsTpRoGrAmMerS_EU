@@ -3,6 +3,7 @@ package model.entities;
 import model.PTypes;
 import model.attack.Attack;
 import model.attack.AttackFactory;
+import model.attack.AttackBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,13 +95,13 @@ public abstract class Puckemon implements IPuckemon {
     protected void fillMoveSet(){
         if (moveList.size() <= 4){
             for (String s : moveList) {
-                moveSet.add(AttackFactory.createByName(s));
+                moveSet.add(AttackBuilder.createByName(s));
             }
         } else{
             ArrayList<String> randList = new ArrayList<>(moveList);
             Collections.shuffle(randList);
             for (int i = 0; i < 4; i++) {
-                moveSet.add(AttackFactory.createByName(randList.get(i)));
+                moveSet.add(AttackBuilder.createByName(randList.get(i)));
             }
         }
     }
