@@ -29,6 +29,14 @@ public class CombatController implements IController{
 
     @Override
     public void update() {
+        if(model.getBattleOutcome()=="Victory"){
+            handler.setView(Screens.VICTORY);
+            handler.setController(InputController.Controllers.VICTORY);
+        }
+        if(model.getBattleOutcome()=="Defeat"){
+            handler.setView(Screens.GAME_OVER);
+            handler.setController(InputController.Controllers.DEFEAT);
+        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
             if(model.getPlayerPuckemon().getHealth() <= 0){
                 handler.setView(Screens.PARTY);

@@ -2,7 +2,7 @@ package model.entities;
 
 import static org.junit.Assert.*;
 
-import model.GameBuilder;
+import model.PartyBuilder;
 import model.attack.Attack;
 import model.attack.AttackFactory;
 import model.effects.IEffectContainer;
@@ -14,8 +14,8 @@ public class TestPuckeTrainer {
 
     @Test
     public void testCheckIfDefeated() {
-        GameBuilder gameBuilder = new GameBuilder();
-        IFighter trainer = new PuckeTrainer("El bertil", gameBuilder.getRandOpponentTeam(1,5), false);
+        PartyBuilder partyBuilder = new PartyBuilder();
+        IFighter trainer = new PuckeTrainer("El bertil", partyBuilder.getRandOpponentTeam(1,5), false);
 
         IPuckemon activePuckemon = trainer.getActivePuckemon();
         activePuckemon.setHealth(0);
@@ -28,8 +28,8 @@ public class TestPuckeTrainer {
 
     @Test
     public void testCheckIfNotDefeated() {
-        GameBuilder gameBuilder = new GameBuilder();
-        IFighter trainer = new PuckeTrainer("El bertil", gameBuilder.getRandOpponentTeam(1,5), false);
+        PartyBuilder partyBuilder = new PartyBuilder();
+        IFighter trainer = new PuckeTrainer("El bertil", partyBuilder.getRandOpponentTeam(1,5), false);
 
         boolean isDefeated = trainer.checkIfDefeated();
         boolean expected = false;
@@ -39,8 +39,8 @@ public class TestPuckeTrainer {
 
     @Test
     public void testSwitchWhenFainted() {
-        GameBuilder gameBuilder = new GameBuilder();
-        IFighter trainer = new PuckeTrainer("El bertil", gameBuilder.getRandOpponentTeam(2,5), false);
+        PartyBuilder partyBuilder = new PartyBuilder();
+        IFighter trainer = new PuckeTrainer("El bertil", partyBuilder.getRandOpponentTeam(2,5), false);
 
         IPuckemon activePuckemon = trainer.getActivePuckemon();
         activePuckemon.setHealth(0);

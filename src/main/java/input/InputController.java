@@ -17,6 +17,8 @@ public class InputController {
     private CombatController combatController;
     private InventoryController inventoryController;
     private PartyController partyController;
+    private VictoryController victoryController;
+    private GameOverController gameOverController;
 
     /**
      * Constructor of InputController
@@ -30,6 +32,8 @@ public class InputController {
         this.combatController = new CombatController(handler, model);
         this.partyController = new PartyController(handler, model);
         this.inventoryController = new InventoryController(handler, model);
+        this.victoryController = new VictoryController(handler,model);
+        this.gameOverController = new GameOverController();
     }
 
     /**
@@ -49,6 +53,12 @@ public class InputController {
                 break;
             case PARTY:
                 activeController = partyController;
+                break;
+            case VICTORY:
+                activeController = victoryController;
+                break;
+            case DEFEAT:
+                activeController = gameOverController;
                 break;
             default:
                 activeController = null;
@@ -78,5 +88,7 @@ public class InputController {
         COMBAT,
         PARTY,
         INVENTORY,
+        VICTORY,
+        DEFEAT,
     }
 }

@@ -9,14 +9,14 @@ import java.util.List;
 
 /**
  * Class that creates the starting team of the Player and creates the random or specific team of the Opponents.
+ * @author Lukas Jigberg
  */
-
-public class GameBuilder {
+public class PartyBuilder {
 
     private final CreatePuckemon createPuckemon;
     private final List<OwnedPuckemon> playerStartingTeam;
 
-    public GameBuilder(){
+    public PartyBuilder(){
         createPuckemon = new CreatePuckemon();
         playerStartingTeam = new ArrayList<>();
         fillPlayerStartingTeam();
@@ -35,7 +35,10 @@ public class GameBuilder {
     }
 
     /**
-     * Creates a list with randomised Puckemon for the opponent
+     * Creates a random team of Puckemon for the opponent.
+     * @param level determines the lowest level.
+     * @param size is how many puckemon the team should consist of.
+     * @return List of VildPuckemon
      */
     private List<VildPuckemon> randOpponentTeam(int size, int level){
         List<VildPuckemon> opponentTeam = new ArrayList<>();

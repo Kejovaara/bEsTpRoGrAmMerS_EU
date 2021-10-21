@@ -12,6 +12,7 @@ public class Combat {
 
     IFighter fighter;
     Player player;
+    private String battleOutcome = "Ongoing";
 
     public Combat(Player player, IFighter fighter){
         this.player = player;
@@ -40,7 +41,6 @@ public class Combat {
             System.out.println("You Won :)");
             victory();
         }
-
         if(player.checkIfDefeated()){
             System.out.println("You Lost :(");
             defeat();
@@ -49,10 +49,11 @@ public class Combat {
 
     private void victory(){
         player.victoryEvent();
+        battleOutcome = "Victory";
     }
 
     private void defeat(){
-        System.out.println("DEFEAT");
+        battleOutcome = "Defeat";
     }
 
     public void useFlee(){
@@ -145,5 +146,7 @@ public class Combat {
             }
         }
     }
+
+    public String getBattleOutcome(){return battleOutcome;}
 
 }

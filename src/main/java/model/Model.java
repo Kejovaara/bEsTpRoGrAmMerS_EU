@@ -1,13 +1,10 @@
 package model;
 
 import model.attack.Attack;
-import model.attack.AttackFactory;
 import model.combat.Combat;
 import model.entities.*;
 import model.inventories.Item;
-import model.inventories.ItemFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
@@ -15,17 +12,25 @@ public class Model {
     private Player player;
     private PuckeTrainer trainer;
     private Combat combat;
-    private GameBuilder gameBuilder;
+    private PartyBuilder partyBuilder;
 
     public Model() {
-        gameBuilder = new GameBuilder();
-        player = new Player(gameBuilder.getPlayerStartingTeam(), 10);
-        trainer = new PuckeTrainer("Bertil the great", gameBuilder.getRandOpponentTeam(3,10), false);
-
+        partyBuilder = new PartyBuilder();
+        player = new Player(partyBuilder.getPlayerStartingTeam(), 10);
         player.generateStartingInventoryDEV(35);
+        startCombat(3,10,false);
+    }
 
+    public void startCombat(int size, int minLevel, boolean smart){
+        createNoviceTrainer(size, minLevel, smart);
         combat = new Combat(player, trainer);
     }
+
+    private PuckeTrainer createNoviceTrainer(int size, int minLevel, boolean smart){
+        trainer = new PuckeTrainer("Bertil", partyBuilder.getRandOpponentTeam(size,minLevel), smart);
+        return trainer;
+    }
+
     public void switchPuckemon(int i){player.switchPuckemon(i);}
 
     public Puckemon getPlayerPuckemon() {
@@ -62,4 +67,5 @@ public class Model {
     }
 
     public List<Item> getInventory(){ return player.getInventory();}
+    public String getBattleOutcome(){return combat.getBattleOutcome();}
 }

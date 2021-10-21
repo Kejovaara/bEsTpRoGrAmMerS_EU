@@ -5,4 +5,6 @@ public enum Screens {
     COMBAT,
     PARTY,
     INVENTORY,
+    GAME_OVER,
+    VICTORY,
 }

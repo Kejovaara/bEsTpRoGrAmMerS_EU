@@ -22,6 +22,7 @@ public class OwnedPuckemon extends Puckemon {
         super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
         this.evolutionId = evolutionId;
         this.evolutionLevel = evolutionLevel;
+        this.expPoints = (int) Math.pow(level,3);
 
     }
 
@@ -35,6 +36,7 @@ public class OwnedPuckemon extends Puckemon {
         this.evolutionId = evolutionId;
         this.evolutionLevel = evolutionLevel;
         this.nickName = nickName;
+        this.expPoints = (int) Math.pow(level,3);
     }
 
     /**
