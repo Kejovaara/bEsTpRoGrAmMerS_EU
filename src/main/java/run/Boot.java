@@ -38,11 +38,7 @@ public class Boot extends Game implements VCHandler{
 
         model = new Model();
 
-        activeScreen = new MainMenuScreen(this, model);
-        this.setScreen(activeScreen);
 
-        controller = new InputController(this, model);
-        controller.switchController(InputController.Controllers.MAIN_MENU);
 
         this.mainScreen = new MainMenuScreen(this, model);
         this.combatScreen = new CombatScreen(this, model);
@@ -50,6 +46,13 @@ public class Boot extends Game implements VCHandler{
         this.partyScreen = new PartyScreen(this, model);
         this.gameOverScreen = new GameOverScreen(this,model);
         this.victoryScreen = new VictoryScreen(this,batch);
+
+
+        setView(Screens.MAIN_MENU);
+
+        controller = new InputController(this, model);
+        setController(InputController.Controllers.MAIN_MENU);
+
     }
 
     public void render() {

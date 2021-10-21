@@ -1,22 +1,26 @@
 package input;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import model.Model;
-import run.Boot;
 import run.VCHandler;
-import view.CombatScreen;
 import view.IView;
-import view.InventoryScreen;
 import view.Screens;
-import view.menu.Menu;
 
+/**
+ * A class that listens to events from a Menu defined in IMenuController. In this implementation
+ * the class handles the inputs from the Menu with the options Attack, Inventory, Switch and Flee.
+ */
 public class MainCombatMenu implements IMenuController{
 
     private IView view;
     private Model model;
     private final VCHandler handler;
 
+    /**
+     * Constructor of MainCombatMenu
+     * @param handler used to switch controller and/or screen.
+     * @param model used to check and interact with the model.
+     * @param view used to switch between the menus on a Screen.
+     */
     public MainCombatMenu(IView view, Model model, VCHandler handler){
         this.handler = handler;
         this.view = view;
@@ -44,7 +48,7 @@ public class MainCombatMenu implements IMenuController{
             );
         }
         else if(index == 3){
-            System.out.println("Flee");
+            model.useFlee();
         }
     }
 }

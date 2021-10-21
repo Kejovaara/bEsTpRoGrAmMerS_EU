@@ -56,6 +56,10 @@ public class Combat {
         battleOutcome = "Defeat";
     }
 
+    public void useFlee(){
+        defeat();
+    }
+
     public void useSwitch(){
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
         IPuckemon playerPuckemon = player.getPuckemon();

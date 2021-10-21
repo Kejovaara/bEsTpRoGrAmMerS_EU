@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.StringBuilder;
 import model.Model;
+import model.entities.IPuckemon;
 import model.entities.Puckemon;
 import run.Boot;
 import view.animation.*;
@@ -54,7 +55,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private Menu activeMenu;
 
     private RectangleBorder mainMenuBackground1, mainMenuBackground2;
-    private Puckemon activeEnemyPuckemon;
+    private IPuckemon activeEnemyPuckemon;
 
     private List<Animable> playerAnimations = new ArrayList<>();
     private List<Animable> enemyAnimations = new ArrayList<>();

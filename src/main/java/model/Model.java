@@ -40,8 +40,8 @@ public class Model {
         return player.getPuckemon();
     }
 
-    public Puckemon getTrainerPuckemon() {
-        return trainer.getPuckemon();
+    public IPuckemon getTrainerPuckemon() {
+        return trainer.getActivePuckemon();
     }
 
     public void useAttack(int index){
@@ -52,6 +52,10 @@ public class Model {
 
     public void useSwitch(){
         combat.useSwitch();
+    }
+
+    public void useFlee(){
+        combat.useFlee();
     }
 
     public Attack getAttack(int index){

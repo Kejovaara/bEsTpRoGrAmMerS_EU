@@ -147,7 +147,7 @@ public class MenuBuilder {
         items.get(0).setUp(items.get(items.size()-1));
         items.get(items.size()-1).setDown(items.get(0));
 
-        return new InventoryMenu(batch, new InventoryMenuController(view,model,handler), items, model.getInventory(), 6, ySpacing);
+        return new InventoryMenu(batch, new InventoryMenuController(view,model,handler), items, model.getInventory(), 6,y, ySpacing);
     }
 
     /**

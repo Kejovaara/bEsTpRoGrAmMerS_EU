@@ -42,7 +42,7 @@ public class AttackFactory {
 
     public static Attack getAbsorb(){
         List<IEffect> effects = new ArrayList<>();
-        effects.add(new HpSteal(20, PTypes.GRASS));
+        effects.add(new HpSteal(20, PTypes.GRASS, 0.5f));
         return new Attack("Absorb",3, effects,5,PTypes.GRASS);
     }
 
