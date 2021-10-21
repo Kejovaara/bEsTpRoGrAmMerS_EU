@@ -38,7 +38,7 @@ public class VildPuckemon extends Puckemon implements IFighter{
      */
     public IEffectContainer makeMove(IPuckemon enemyP) {
         Random rand = new Random(); //instance of random class
-        int upperbound = this.getMoveSet().size();
+        int upperbound = this.moveSet.size();
         int int_random = rand.nextInt(upperbound);
 
         return getAttack(int_random);
