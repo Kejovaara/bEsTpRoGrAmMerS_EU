@@ -2,7 +2,6 @@ package model.entities;
 
 import model.PTypes;
 import model.attack.Attack;
-import model.attack.AttackFactory;
 import model.attack.AttackBuilder;
 
 import java.util.ArrayList;
