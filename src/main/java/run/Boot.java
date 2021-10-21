@@ -40,16 +40,19 @@ public class Boot extends Game implements VCHandler{
 
         model = new Model();
 
-        activeScreen = new MainMenuScreen(this, model);
-        this.setScreen(activeScreen);
 
-        controller = new InputController(this, model);
-        controller.switchController(InputController.Controllers.MAIN_MENU);
 
         this.mainScreen = new MainMenuScreen(this, model);
         this.combatScreen = new CombatScreen(this, model);
         this.invetoryScreen = new InventoryScreen(this, model);
         this.partyScreen = new PartyScreen(this, model);
+
+
+        setView(Screens.MAIN_MENU);
+
+        controller = new InputController(this, model);
+        setController(InputController.Controllers.MAIN_MENU);
+
     }
 
     public void render() {

@@ -4,16 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import run.Boot;
+import run.VCHandler;
 import view.CombatScreen;
 import model.Model;
 import view.Screens;
 
+/**
+ * A class to handle input events when the MainMenuScreen is active.
+ * @author Rasmus Almryd
+ */
 public class MenuController implements IController{
     private Model model;
-    private final Boot game;
+    private final VCHandler handler;
 
-    public MenuController(Boot game, Model model) {
-        this.game = game;
+    /**
+     * Constructor of MenuController
+     * @param handler used to switch controller and/or screen.
+     * @param model used to check and interact with the model.
+     */
+    public MenuController(VCHandler handler, Model model) {
+        this.handler = handler;
         this.model = model;
     }
 
@@ -24,8 +34,8 @@ public class MenuController implements IController{
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            game.setController(InputController.Controllers.COMBAT);
-            game.setView(Screens.COMBAT);
+            handler.setController(InputController.Controllers.COMBAT);
+            handler.setView(Screens.COMBAT);
         }
     }
 }

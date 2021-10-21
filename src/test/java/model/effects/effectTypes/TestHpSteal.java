@@ -19,7 +19,7 @@ public class TestHpSteal {
 
         int enemyPreHealth = enemyP.getHealth();
         int preHealth = p.getHealth();
-        HpSteal steal = new HpSteal(2, PTypes.NORMAL);
+        HpSteal steal = new HpSteal(2, PTypes.NORMAL,0.5f);
         steal.execute(p, enemyP);
 
         int damage = enemyPreHealth - enemyP.getHealth();
