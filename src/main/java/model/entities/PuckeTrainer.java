@@ -15,7 +15,7 @@ import java.util.Random;
 
 /**
  * A class representing a Puckemon trainer meant to function as an opponent in the game similar to the player.
- * @author EmilJonsson
+ * @author Emil Jonsson
  */
 public class PuckeTrainer implements IFighter, ITrainer {
     private String name;

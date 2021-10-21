@@ -3,7 +3,7 @@ import model.effects.IEffectContainer;
 
 /**
  * An Interface representing a fighter with common methods used in combat
- * @author EmilJonsson
+ * @author Emil Jonsson
  */
 public interface IFighter {
 

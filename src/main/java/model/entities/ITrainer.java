@@ -5,7 +5,7 @@ import model.inventories.Item;
 
 /**
  * An Interface representing a trainer
- * @author EmilJonsson
+ * @author Emil Jonsson
  */
 public interface ITrainer {
 
