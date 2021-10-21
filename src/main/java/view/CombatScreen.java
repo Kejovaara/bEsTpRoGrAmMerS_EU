@@ -43,10 +43,6 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
 
-    private Boolean mainCombatMenu = true;
-    private int cursorIndex = 0;
-    private int cursorX,cursorY;
-
     private Label topLabel;
     private Label label;
 

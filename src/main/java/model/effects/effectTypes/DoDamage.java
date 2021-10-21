@@ -13,8 +13,8 @@ import view.animation.EffectAnimationsHandler;
  */
 public class DoDamage implements IEffect {
 
-    int power;
-    PTypes attackType;
+    private int power;
+    private PTypes attackType;
 
     /**
      * Constructor of DoDamage
