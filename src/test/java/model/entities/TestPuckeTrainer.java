@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import model.PartyBuilder;
 import model.attack.Attack;
-import model.attack.AttackFactory;
+import model.attack.AttackBuilder;
 import model.effects.IEffectContainer;
 import org.junit.Test;
 
@@ -62,7 +62,7 @@ public class TestPuckeTrainer {
         party.add(p);
         IFighter trainer = new PuckeTrainer("El bertil", party, true);
 
-        Attack expectedAttack = AttackFactory.createByName("Tackle");
+        Attack expectedAttack = AttackBuilder.createByName("Tackle");
         Attack attack = (Attack)trainer.makeMove(enemyP);
 
         String name = attack.getName();

@@ -13,6 +13,11 @@ public class VictoryController implements IController{
     private Model model;
     private final VCHandler handler;
 
+    /**
+     * Constructor of VictoryController
+     * @param handler used to switch controller and/or screen
+     * @param model used to check and interact with the model.
+     */
     public VictoryController(VCHandler handler, Model model) {
         this.handler = handler;
         this.model = model;
