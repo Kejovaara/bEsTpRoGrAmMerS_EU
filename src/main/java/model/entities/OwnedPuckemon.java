@@ -74,7 +74,11 @@ public class OwnedPuckemon extends Puckemon {
 
     public int getEvolutionLevel(){return evolutionLevel;}
     public void setNickName(String nickName){this.nickName=nickName;}
-    public String getNickName(){return nickName;}
+    public String getNickName(){
+        if(nickName!=null){
+            return nickName;
+        }else{return name;}
+    }
     public boolean getEvolve(){return evolve;}
     public int getEvolutionId(){return evolutionId;}
     public void giveExp(int exp){gainExp(exp);}

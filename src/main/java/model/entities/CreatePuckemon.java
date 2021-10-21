@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 /**
  * Class that returns/creates a type of Puckemon using the ExcelReader class.
+ * @author Lukas Jigberg
  */
-
 public class CreatePuckemon {
 
     ExcelReader excelReader = new ExcelReader();
@@ -34,7 +34,7 @@ public class CreatePuckemon {
     }
 
     /**
-     * dissect turns the string from excel to list of Types and String respectively
+     * dissect turns a string from the excel to a list of Types and Strings respectively
      */
     private List<PTypes> dissectListTypes(String cellString){
         return Arrays.stream(cellString.split(",\\s+"))

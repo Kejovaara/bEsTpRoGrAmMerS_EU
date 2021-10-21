@@ -13,7 +13,7 @@ import java.util.List;
  * <br> Box holds all the puckemon that the player is not currently using.
  * @author Lukas Jigberg
  */
-public class PlayerBag extends PuckeBag{
+public class PlayerBag extends PuckeBag {
 
     private final List<OwnedPuckemon> box = new ArrayList<>();
     private final CreatePuckemon createPuckemon;
@@ -26,25 +26,29 @@ public class PlayerBag extends PuckeBag{
         createPuckemon = new CreatePuckemon();
     }
 
+    /**
+     * Adds Puckemon to party. Adds it to the box if party is full.
+     */
     private void addToParty(OwnedPuckemon puckemon) {
-        if (party.size() >= 6){
+        if (party.size() >= 6) {
             box.add(puckemon);
-        }else{
+        } else {
             party.add(puckemon);
         }
     }
 
     /**
-     * @param index The index of the Puckemon the player want to switch to.
+     * Choose index in party to switch to. Chosen Puckemon is "cleansed" of prior stats altercations.
      */
-    private void switchPuckemon(int index){
-        Collections.swap(party,0, index);
+    private void switchPuckemon(int index) {
+        Collections.swap(party, 0, index);
+        party.get(0).resetStats();
     }
 
     /**
      * Gives each Puckemon in the party a set amount of experience point
      */
-    private void giveOutExp(){
+    private void giveOutExp() {
         for (OwnedPuckemon ownedPuckemon : party) {
             if (ownedPuckemon.getHealth() > 0) {
                 ownedPuckemon.giveExp(1000);
@@ -55,15 +59,23 @@ public class PlayerBag extends PuckeBag{
     /**
      * If a puckemon is ready to evolve and has hp remaining it will be replaced by its evolution. It will keep its specific level and nickname.
      */
-    private void evolvePuckemon(){
+    private void evolvePuckemon() {
         for (int i = 0; i < party.size(); i++) {
-            if(party.get(i).getEvolve() && party.get(i).getHealth() != 0){
-                party.set(i,createPuckemon.createOwnedPuckemon(party.get(i).getEvolutionId(),party.get(i).getLevel()));
+            if (party.get(i).getEvolve() && party.get(i).getHealth() != 0) {
+                party.set(i, createPuckemon.createOwnedPuckemon(party.get(i).getEvolutionId(), party.get(i).getLevel()));
             }
         }
     }
 
-//    public List<OwnedPuckemon> getBox() {
+    public void afterVictory() {
+        giveOutExp();
+        evolvePuckemon();
+        for (OwnedPuckemon puckemon : party) {
+            puckemon.resetStats();
+        }
+    }
+
+    //    public List<OwnedPuckemon> getBox() {
 //        return box;
 //    }
 //    public void addToBox(OwnedPuckemon puckemon){
@@ -72,15 +84,15 @@ public class PlayerBag extends PuckeBag{
 //    public void addPuckemonToParty(OwnedPuckemon puckemon){
 //    addToParty(puckemon);
 //}
-    public List<OwnedPuckemon> getParty(){
-        return party;}
+    public List<OwnedPuckemon> getParty() {
+        return party;
+    }
+
     public void setActivePuckemon(int index) {
         switchPuckemon(index);
     }
-    public OwnedPuckemon getActivePuckemon(){return party.get(0);}
 
-    public void giveVictoryRewards(){
-        giveOutExp();
-        evolvePuckemon();
+    public OwnedPuckemon getActivePuckemon() {
+        return party.get(0);
     }
 }

@@ -3,7 +3,6 @@ package model.entities;
 import model.effects.IEffectContainer;
 import model.inventories.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -79,7 +78,7 @@ public class Player implements ITrainer {
     }
 
     public void victoryEvent(){
-        playerBag.giveVictoryRewards();
+        playerBag.afterVictory();
     }
 
     public boolean checkIfDefeated(){

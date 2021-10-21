@@ -50,8 +50,7 @@ public class VildPuckemon extends Puckemon implements IFighter{
      */
     @Override
     public boolean checkIfDefeated(){
-        boolean defeated = currentHealth <= 0;
-        return defeated;
+        return currentHealth <= 0;
     }
 
     @Override

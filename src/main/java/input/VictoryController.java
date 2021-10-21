@@ -2,15 +2,16 @@ package input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import run.Boot;
 import run.VCHandler;
-import view.CombatScreen;
 import model.Model;
 import view.Screens;
 
+/**
+ * Gives the User 2 new options. Combat another easy trainer or try a more difficult opponent.
+ * @author Lukas Jigberg
+ */
 public class VictoryController implements IController{
-    private Model model;
+    private final Model model;
     private final VCHandler handler;
 
     public VictoryController(VCHandler handler, Model model) {

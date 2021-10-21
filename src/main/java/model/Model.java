@@ -9,10 +9,10 @@ import java.util.List;
 
 public class Model {
 
-    private Player player;
+    private final Player player;
     private PuckeTrainer trainer;
     private Combat combat;
-    private PartyBuilder partyBuilder;
+    private final PartyBuilder partyBuilder;
 
     public Model() {
         partyBuilder = new PartyBuilder();
@@ -26,9 +26,8 @@ public class Model {
         combat = new Combat(player, trainer);
     }
 
-    private PuckeTrainer createNoviceTrainer(int size, int minLevel, boolean smart){
+    private void createNoviceTrainer(int size, int minLevel, boolean smart){
         trainer = new PuckeTrainer("Bertil", partyBuilder.getRandOpponentTeam(size,minLevel), smart);
-        return trainer;
     }
 
     public void switchPuckemon(int i){player.switchPuckemon(i);}

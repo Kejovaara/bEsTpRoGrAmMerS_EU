@@ -3,12 +3,15 @@ package model.entities;
 import model.PTypes;
 import model.attack.Attack;
 import model.attack.AttackFactory;
-import model.effects.IEffectContainer;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * A puckemon fights during combat. It has its personal characteristics, but every puckemon has/need the following data.
+ * @author Lukas Jigberg
+ */
 public abstract class Puckemon implements IPuckemon {
 
     protected int id;
@@ -26,12 +29,12 @@ public abstract class Puckemon implements IPuckemon {
     protected int baseAttackPower;
     protected int baseDefence;
     protected int baseSpeed;
-
     protected int level;
 
 
     /**
      * These are a puckemons stats. They are solely based on the baseStats and current level.
+     * @see "calculateLevelStat"
      */
     protected int maxHealth;
     protected int attackPower;
@@ -40,6 +43,7 @@ public abstract class Puckemon implements IPuckemon {
 
     /**
      * These are a puckemons stats during the current combat. They can be and are supposed to be altered.
+     * @see "alterCurrentStats"
      */
     protected int currentHealth;
     protected int currentAttackPower;
@@ -62,8 +66,8 @@ public abstract class Puckemon implements IPuckemon {
     protected boolean lockSpeed = false;
 
     /**
-     * @moveList is a list of string with all the attacks a puckemon can use
-     * @moveSet is the 1-4 attacks a Puckemon can use during combat.
+     * <br> moveList is a list of strings with all the attacks a puckemon can use.
+     * <br> moveSet is the 1-4 attacks a Puckemon can use during combat.
      */
     protected List<String> moveList;
     protected ArrayList<Attack> moveSet = new ArrayList<>(4);
@@ -101,6 +105,9 @@ public abstract class Puckemon implements IPuckemon {
         }
     }
 
+    /**
+     * Future update/sprint unlocks stats after locking them.
+     */
     protected void unlockStats(){
         this.lockHealth = false;
         this.lockAttackPower = false;
@@ -139,6 +146,16 @@ public abstract class Puckemon implements IPuckemon {
         }else{
             currentSpeed = (int) (speed * (1 + speedBuffFactor * 0.25));
         }
+    }
+
+    /**
+     * Resets the modifications done to a Puckemon when defeated, switched or when battle is over.
+     */
+    public void resetStats(){
+        attackPowerBuffFactor = 0;
+        defenceBuffFactor = 0;
+        speedBuffFactor = 0;
+        alterCurrentStats();
     }
 
     public Attack getAttack(int i) {

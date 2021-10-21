@@ -44,7 +44,7 @@ public class Boot extends Game implements VCHandler{
         this.combatScreen = new CombatScreen(this, model);
         this.invetoryScreen = new InventoryScreen(this, model);
         this.partyScreen = new PartyScreen(this, model);
-        this.gameOverScreen = new GameOverScreen(this,model);
+        this.gameOverScreen = new GameOverScreen(this);
         this.victoryScreen = new VictoryScreen(this,batch);
 
 

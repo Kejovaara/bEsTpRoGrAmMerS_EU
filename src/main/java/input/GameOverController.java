@@ -2,12 +2,11 @@ package input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import run.Boot;
-import view.CombatScreen;
-import model.Model;
-import view.Screens;
 
+/**
+ * Only gives the User the option to exit the game.
+ * @author Lukas Jigberg
+ */
 public class GameOverController implements IController{
 
     @Override
