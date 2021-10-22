@@ -52,19 +52,22 @@ public class TestCombat {
 
         Combat combat = new Combat(p,opponent);
 
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
-        opponent.makeMove(opponent.getActivePuckemon());
+        combat.usePlayerAttack(0);
+        combat.usePlayerAttack(0);
+        combat.usePlayerAttack(0);
+        combat.usePlayerAttack(0);
+        combat.usePlayerAttack(0);
+        combat.usePlayerAttack(0);
+        combat.usePlayerAttack(0);
 
+       /* String status = combat.getBattleOutcome();
+
+        if(p.getActivePuckemon().getHealth() <= 0){
+            status = "Defeat";
+        }*/
 
         assertEquals("Defeat",combat.getBattleOutcome());
     }
+
+
 }
