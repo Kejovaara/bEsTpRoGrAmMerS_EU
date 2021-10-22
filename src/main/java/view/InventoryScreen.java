@@ -19,6 +19,10 @@ import view.menu.MenuBuilder;
 
 import java.util.List;
 
+/**
+ * Screen that present the inventory in the game.
+ * @author André Kejovaara
+ */
 public class InventoryScreen implements Screen,IView,MessageObserver{
 
     final Boot game;
@@ -40,6 +44,11 @@ public class InventoryScreen implements Screen,IView,MessageObserver{
 
     Menu menu;
 
+    /**
+     * Constructor for Inventory Screen
+     * @param game the game
+     * @param model the model
+     */
     public InventoryScreen(final Boot game, Model model){
         this.game = game;
         this.model = model;

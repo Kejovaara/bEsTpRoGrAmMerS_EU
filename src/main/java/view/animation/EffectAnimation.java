@@ -5,6 +5,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * A class that animates effects in the game as they happen in combat.
+ * @author Rasmus Almryd
+ */
+
 public class EffectAnimation implements Animable{
 
     private int effectPower;
@@ -15,13 +20,38 @@ public class EffectAnimation implements Animable{
     private Color color;
     private BitmapFont font;
 
+    /**
+     * Constructor for EffectAnimation
+     * @param effectPower
+     * @param posX
+     * @param posY
+     * @param effectUnit
+     */
     public EffectAnimation(int effectPower, int posX, int posY, String effectUnit){
         this(effectPower,posX,posY,effectUnit, 200, new Color(170f/255f,169f/255f,173f/255f,1));
     }
+
+    /**
+     * Constructor for EffectAnimation
+     * @param effectPower
+     * @param posX
+     * @param posY
+     * @param effectUnit
+     * @param color
+     */
     public EffectAnimation(int effectPower, int posX, int posY, String effectUnit, Color color){
         this(effectPower,posX,posY,effectUnit, 200, color);
     }
 
+    /**
+     * Default constructor for EffectAnimation with duration and colors.
+     * @param effectPower
+     * @param posX
+     * @param posY
+     * @param effectUnit
+     * @param animationDuration
+     * @param color
+     */
     public EffectAnimation(int effectPower, int posX, int posY, String effectUnit, int animationDuration, Color color) {
         this.effectPower = effectPower;
         this.posX = posX;

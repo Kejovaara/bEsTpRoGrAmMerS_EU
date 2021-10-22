@@ -6,6 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.StringBuilder;
 
+/**
+ * Class that animates the text in a typing fashion.
+ * @author André Kejovaara
+ */
+
 public class TextAnimation implements Animable{
     private int animationTick = 3;
     private StringBuilder sb = new StringBuilder();
@@ -19,13 +24,20 @@ public class TextAnimation implements Animable{
     private BitmapFont font;
     private Label.LabelStyle fontStyle = new Label.LabelStyle();
 
-
+    /**
+     * Constructor for the TextAnimation
+     * @param label which label to print to
+     * @param text what text is to be printed
+     */
     public TextAnimation(Label label, String text){
         this.label = label;
         this.text = text;
     }
 
-
+    /**
+     * Sets the message of an existing text animator
+     * @param message the message to display
+     */
     public void setMessage(String message){
         if(text.equals(message) && !isDone()){
             System.out.println("SAME MESSAGE");

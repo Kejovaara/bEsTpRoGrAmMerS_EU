@@ -25,6 +25,9 @@ import view.screenObjects.RectangleBorder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView{
 
     final Boot game;

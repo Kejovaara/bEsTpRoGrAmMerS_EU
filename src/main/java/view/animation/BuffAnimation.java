@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+/**
+ * Class that animates buffs in the game.
+ * @author Rasmus Almryd
+ */
 public class BuffAnimation implements Animable{
 
     private int buff;
@@ -14,6 +18,13 @@ public class BuffAnimation implements Animable{
 
     private BitmapFont font;
 
+    /**
+     * Constructor of BuffAnimation
+     * @param buff
+     * @param buffType
+     * @param posX
+     * @param posY
+     */
     public BuffAnimation(int buff, String buffType, int posX, int posY) {
         this.buff = buff;
         this.buffType = buffType;
