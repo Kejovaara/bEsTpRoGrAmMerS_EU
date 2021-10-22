@@ -2,10 +2,7 @@ package input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import run.Boot;
 import run.VCHandler;
-import view.CombatScreen;
 import model.Model;
 import view.Screens;
 

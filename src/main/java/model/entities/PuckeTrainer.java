@@ -21,49 +21,49 @@ import java.util.Random;
  */
 public class PuckeTrainer implements IFighter, ITrainer {
     private String name;
-    private TrainerPuckeBag puckeBag;
-    private Inventory inventory;
-    private boolean smart;
+    private final TrainerPuckeBag trainerBag;
+    private final Inventory inventory;
+    private final boolean smart;
 
     /**
      * First constructor of PuckeTrainer which allows Items to be added to the inventory
      * @param name the name of the PuckeTrainer
-     * @param puckemons list of Puckemons to add to the trainers puckeBag
-     * @param items list of Items to add to the trainers inventory
+     * @param puckemons list of Puckemons to add to the trainers trainerBag
+     * @param inventory a class containing items
      * @param smart boolean to specify if PuckeTrainer should be able to make smart/calculated moves. False if random
      *              available attack should be returned from makeMove method.
      */
-    public PuckeTrainer(String name, List<FixedPuckemon> puckemons, List<Item> items, boolean smart){
+    public PuckeTrainer(String name, List<FixedPuckemon> puckemons, Inventory inventory, boolean smart){
         this.name = name;
-        this.puckeBag = new TrainerPuckeBag(puckemons);
-        this.inventory = new Inventory(items);
+        this.trainerBag = new TrainerPuckeBag(puckemons);
+        this.inventory = inventory;
         this.smart = smart;
     }
 
     /**
      * Second constructor of PuckeTrainer which does not allow Items to be added to the inventory
      * @param name the name of the PuckeTrainer
-     * @param puckemons list of Puckemons to add to the trainers puckeBag
+     * @param puckemons list of Puckemons to add to the trainers trainerBag
      * @param smart boolean to specify if PuckeTrainer should be able to make smart/calculated moves. False if random
      *              available attack should be returned from makeMove method.
      */
     public PuckeTrainer(String name, List<FixedPuckemon> puckemons, boolean smart){
         this.name = name;
-        this.puckeBag = new TrainerPuckeBag(puckemons);
+        this.trainerBag = new TrainerPuckeBag(puckemons);
         this.inventory = new Inventory();
         this.smart = smart;
     }
 
     /**
      * First checks if the active Puckemon fighting is defeated and tries to switch to one that is alive in the
-     * puckeBag. If there is no Puckemon available the method returns true, representing that the trainer has been
+     * trainerBag. If there is no Puckemon available the method returns true, representing that the trainer has been
      * defeated.
      * @return true if the trainer is defeated, false if there is Puckemon left to fight.
      */
     @Override
     public boolean checkIfDefeated(){
-        Puckemon activePuckemon = puckeBag.getActivePuckemon();
-        List<FixedPuckemon> party = puckeBag.getParty();
+        Puckemon activePuckemon = trainerBag.getActivePuckemon();
+        List<FixedPuckemon> party = trainerBag.getParty();
 
         //If active Puckemon fainted
         if (activePuckemon.getHealth() <= 0) {
@@ -104,8 +104,8 @@ public class PuckeTrainer implements IFighter, ITrainer {
      */
     @Override
     public IEffectContainer makeMove(IPuckemon enemyP) {
-        int attackIndex = 0;
-        Puckemon activePuckemon = puckeBag.getActivePuckemon();
+        int attackIndex;
+        Puckemon activePuckemon = trainerBag.getActivePuckemon();
 
         if (this.smart) {
             //Check for the most effective puckemon and its index
@@ -116,7 +116,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
             //If bestPuckemon does not have index 0 it is not the active puckemon
             if (bestPuckemonIndex != 0) {
                 switchPuckemon(bestPuckemonIndex);
-                MessageHandler.getInstance().DisplayMessage("Opponent switched to " + puckeBag.getActivePuckemon().getName()
+                MessageHandler.getInstance().DisplayMessage("Opponent switched to " + trainerBag.getActivePuckemon().getName()
                         + "!");
                 return null;
             }
@@ -128,19 +128,19 @@ public class PuckeTrainer implements IFighter, ITrainer {
             attackIndex = rand.nextInt(upperbound);
         }
 
-        MessageHandler.getInstance().DisplayMessage("Opponent " + puckeBag.getActivePuckemon().getName() + " used "+activePuckemon.getAttack(attackIndex).getName());
+        MessageHandler.getInstance().DisplayMessage("Opponent " + trainerBag.getActivePuckemon().getName() + " used "+activePuckemon.getAttack(attackIndex).getName());
         return activePuckemon.getAttack(attackIndex);
     }
 
     /**
-     * Returns the most effective Puckemon from the PuckeBag based on which one has the most effective attack against an
+     * Returns the most effective Puckemon from the TrainerBag based on which one has the most effective attack against an
      * enemy Puckemon
      * @param enemyP the opposing Puckemon
      * @return a pair of Integers where the first one is the index for the most effective attack on the most effective
-     *          Puckemon. The second Integer is the index for the most effective Puckemon in the PuckeBag
+     *          Puckemon. The second Integer is the index for the most effective Puckemon in the TrainerBag
      */
     private Pair<Integer, Integer> mostEffectivePuckemon(IPuckemon enemyP) {
-        List<FixedPuckemon> party = puckeBag.getParty();
+        List<FixedPuckemon> party = trainerBag.getParty();
         int index = 0;
         int puckemonIndex = 0;
         double bestMultiplier = 0;
@@ -214,16 +214,16 @@ public class PuckeTrainer implements IFighter, ITrainer {
      */
     @Override
     public IPuckemon getActivePuckemon() {
-        return puckeBag.getActivePuckemon();
+        return trainerBag.getActivePuckemon();
     }
 
     /**
-     * Switches Puckemon to the specified index in the PuckeBag. Also displays message to observers
-     * @param index the index where the Puckemon lies in the PuckeBag
+     * Switches Puckemon to the specified index in the TrainerBag.
+     * @param index the index where the Puckemon lies in the TrainerBag
      */
     @Override
     public void switchPuckemon(int index){
-        puckeBag.switchPuckemon(index);
+        trainerBag.switchPuckemon(index);
     }
 
     /**

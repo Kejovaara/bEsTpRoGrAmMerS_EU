@@ -3,11 +3,7 @@ package input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import model.Model;
-import run.Boot;
 import run.VCHandler;
-import view.CombatScreen;
-import view.InventoryScreen;
-import view.PartyScreen;
 
 /**
  * A class to handle input events when the InventoryScreen is active.

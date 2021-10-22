@@ -17,8 +17,6 @@ import view.menu.Menu;
 import view.menu.MenuBuilder;
 
 
-import java.util.List;
-
 /**
  * Screen that present the inventory in the game.
  * @author André Kejovaara

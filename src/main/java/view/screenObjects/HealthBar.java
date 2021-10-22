@@ -7,7 +7,7 @@ import view.IRender;
  * Screen object that renders health bars on the screen
  */
 
-public class HealthBar implements IRender {
+public class HealthBar implements IDraw, IRender {
 
     private final ShapeRenderer shapeRenderer;
     private int xPos;
