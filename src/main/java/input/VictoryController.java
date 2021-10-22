@@ -30,15 +30,17 @@ public class VictoryController implements IController{
             Gdx.app.exit();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
-
+            model.startCombatWildPuckemon(10);
+            handler.setView(Screens.COMBAT);
+            handler.setController(InputController.Controllers.COMBAT);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            model.startCombat(3,10,false);
+            model.startCombatTrainer(3,10,false);
             handler.setView(Screens.COMBAT);
             handler.setController(InputController.Controllers.COMBAT);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            model.startCombat(6,17,true);
+            model.startCombatTrainer(6,17,true);
             handler.setView(Screens.COMBAT);
             handler.setController(InputController.Controllers.COMBAT);
         }
