@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * A class that builds items.
+ * @author André Kejovaara
+ */
 public class ItemBuilder {
 
     public static Item getRandom(){
