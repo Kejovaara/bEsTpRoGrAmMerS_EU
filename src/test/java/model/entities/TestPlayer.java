@@ -151,4 +151,17 @@ public class TestPlayer {
         assertEquals(4, player.getParty().size());
     }
 
+    @Test
+    public void testVictoryEvent() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        OwnedPuckemon p = createPuckemon.createOwnedPuckemon(1,10);
+
+        List<OwnedPuckemon> party = new ArrayList<>();
+        party.add(p);
+
+        Player player = new Player(party, 0);
+        player.victoryEvent();
+
+        assertEquals(12, player.getActivePuckemon().getLevel());
+    }
 }
