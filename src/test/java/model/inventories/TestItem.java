@@ -62,7 +62,7 @@ public class TestItem {
     @Test
     public void testWrongEnum() throws Exception{
         try{
-            Item item = ItemBuilder.getItem(ItemBuilder.INames.TEST);
+            Item item = ItemBuilder.getItem(null);
         }catch(Exception e){
             System.out.println("WRONG ENUM");
         }

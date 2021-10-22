@@ -4,11 +4,8 @@ import static org.junit.Assert.*;
 
 import model.PartyBuilder;
 import model.PTypes;
-import model.PartyBuilder;
-import model.attack.Attack;
 import model.effects.IEffect;
 import model.effects.effectTypes.HealAmount;
-import model.effects.effectTypes.HealPercentage;
 import model.entities.*;
 import model.entities.puckemon.FixedPuckemon;
 import model.entities.puckemon.OwnedPuckemon;
