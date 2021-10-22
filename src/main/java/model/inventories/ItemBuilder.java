@@ -36,7 +36,7 @@ public class ItemBuilder {
                 return getSuperKillPotion();
             case EVOLVE_NUGGIE:
                 return getEvolveNuggie();
-            default: throw new IllegalArgumentException("Wrong Enum");
+            default: throw new IllegalArgumentException("Wrong Enum "+name);
         }
     }
 
@@ -94,6 +94,5 @@ public class ItemBuilder {
         SILVER_NUGGIE,
         SUPER_KILL_POTION,
         EVOLVE_NUGGIE,
-        TEST,
     }
 }
