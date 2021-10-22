@@ -71,7 +71,7 @@ public class Model {
         //Random level between minLEvel -> minLEvel+10
         int level = (int)Math.floor(Math.random()*((minLevel+10)-minLevel+1)+minLevel);
 
-        opponent = createPuckemon.createVildPuckemon(id, level);
+        opponent = createPuckemon.createFixedPuckemon(id, level);
     }
 
     /**
