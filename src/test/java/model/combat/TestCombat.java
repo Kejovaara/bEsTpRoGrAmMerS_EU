@@ -3,13 +3,9 @@ package model.combat;
 import static org.junit.Assert.*;
 
 import model.PartyBuilder;
-import model.entities.CreatePuckemon;
-import model.entities.IFighter;
-import model.entities.Player;
-import model.entities.PuckeTrainer;
+import model.entities.*;
 import model.entities.puckemon.FixedPuckemon;
 import model.entities.puckemon.OwnedPuckemon;
-import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
 import model.inventories.ItemBuilder;
 import org.junit.Test;
@@ -61,12 +57,6 @@ public class TestCombat {
         combat.usePlayerAttack(0);
         combat.usePlayerAttack(0);
 
-       /* String status = combat.getBattleOutcome();
-
-        if(p.getActivePuckemon().getHealth() <= 0){
-            status = "Defeat";
-        }*/
-
         assertEquals("Defeat",combat.getBattleOutcome());
     }
 
@@ -114,7 +104,26 @@ public class TestCombat {
 
     @Test
     public void testOnlyExecutePlayerAttack(){
+        Combat combat;
+        CreatePuckemon cp = new CreatePuckemon();
 
+        OwnedPuckemon puck = cp.createOwnedPuckemon(5,15);
+        FixedPuckemon oppPuck = cp.createFixedPuckemon(4,15);
+        FixedPuckemon oppPuck2 = cp.createFixedPuckemon(4,15);
+
+        List<FixedPuckemon> opList = new ArrayList<>();
+        opList.add(oppPuck);
+        opList.add(oppPuck2);
+        ITrainer opp = new PuckeTrainer("Bertil",opList,false);
+
+        List<OwnedPuckemon> pList = new ArrayList<>();
+        pList.add(puck);
+        Player p = new Player(pList,10);
+
+        combat = new Combat(p,(IFighter)opp);
+
+        opp.switchPuckemon(1);
+        combat.usePlayerAttack(0);
     }
 
 
