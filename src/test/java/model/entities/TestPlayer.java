@@ -3,6 +3,7 @@ package model.entities;
 import model.PartyBuilder;
 import model.entities.puckemon.FixedPuckemon;
 import model.entities.puckemon.OwnedPuckemon;
+import model.entities.puckemon.Puckemon;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -19,12 +20,12 @@ public class TestPlayer {
 
         List<OwnedPuckemon> party = new ArrayList<>();
         party.add(p);
-        Player trainer = new Player(party, 0);
+        Player player = new Player(party, 0);
 
-        IPuckemon activePuckemon = trainer.getActivePuckemon();
+        IPuckemon activePuckemon = player.getActivePuckemon();
         activePuckemon.doDamage(5000);
 
-        boolean isDefeated = trainer.checkIfDefeated();
+        boolean isDefeated = player.checkIfDefeated();
 
         assertTrue(isDefeated);
     }
@@ -36,10 +37,27 @@ public class TestPlayer {
 
         List<OwnedPuckemon> party = new ArrayList<>();
         party.add(p);
-        Player trainer = new Player(party, 0);
+        Player player = new Player(party, 0);
 
-        boolean isDefeated = trainer.checkIfDefeated();
+        boolean isDefeated = player.checkIfDefeated();
 
         assertFalse(isDefeated);
+    }
+
+    @Test
+    public void testSwitch() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        OwnedPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+        OwnedPuckemon p1 = createPuckemon.createOwnedPuckemon(1,1);
+
+        List<OwnedPuckemon> party = new ArrayList<>();
+        party.add(p);
+        party.add(p1);
+        Player player = new Player(party, 0);
+
+        player.switchPuckemon(1);
+        Puckemon puckemon = player.getActivePuckemon();
+
+        assertEquals(puckemon, p1);
     }
 }
