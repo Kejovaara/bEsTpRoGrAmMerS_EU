@@ -118,4 +118,20 @@ public class TestPlayer {
 
         assertEquals(player.getInventory().size(), 0);
     }
+
+    @Test
+    public void testGenerateStartingInventory() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        OwnedPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+
+        List<OwnedPuckemon> party = new ArrayList<>();
+        party.add(p);
+
+        Player player = new Player(party, 0);
+
+        int maxSize = 5;
+        player.generateStartingInventory(maxSize);
+
+        assertTrue((player.getInventory().size() > 0) && (player.getInventory().size() <= maxSize));
+    }
 }
