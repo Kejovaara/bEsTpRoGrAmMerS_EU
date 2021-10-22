@@ -82,6 +82,7 @@ public class Combat {
             }
         } else {
             //Only execute players attack
+            System.out.println("OPPONENT SWITCHED");
             executeEffects(attack, playerPuckemon, fighterPuckemon);
         }
 

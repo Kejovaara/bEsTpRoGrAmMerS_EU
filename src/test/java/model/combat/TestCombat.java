@@ -92,6 +92,32 @@ public class TestCombat {
     }
 
     @Test
+    public void testAttackOpponentNoMove(){
+        Combat combat;
+        CreatePuckemon cp = new CreatePuckemon();
+
+        OwnedPuckemon puck = cp.createOwnedPuckemon(5,100);
+        FixedPuckemon weakPuck = cp.createFixedPuckemon(1,5);
+        FixedPuckemon strongPuck2 = cp.createFixedPuckemon(5,90);
+
+        List<FixedPuckemon> opList = new ArrayList<>();
+        opList.add(weakPuck);
+        opList.add(strongPuck2);
+        PuckeTrainer opp = new PuckeTrainer("Bertil",opList,true);
+
+        List<OwnedPuckemon> pList = new ArrayList<>();
+        pList.add(puck);
+        Player p = new Player(pList,10);
+
+        combat = new Combat(p,opp);
+
+        opp.makeMove(p.getActivePuckemon());
+        combat.usePlayerAttack(0);
+
+        assertTrue(p.getActivePuckemon().getHealth() == p.getActivePuckemon().getMaxHealth());
+    }
+
+    @Test
     public void testCheckVictory(){
         PartyBuilder partyBuilder = new PartyBuilder();
         IFighter opponent = new PuckeTrainer("Bertil",partyBuilder.getRandOpponentTeam(1,1),false);
@@ -178,27 +204,5 @@ public class TestCombat {
         combat.usePlayerAttack(0);
     }
 
-    @Test
-    public void testOnlyExecutePlayerAttack(){
-        Combat combat;
-        CreatePuckemon cp = new CreatePuckemon();
 
-        OwnedPuckemon puck = cp.createOwnedPuckemon(5,15);
-        FixedPuckemon oppPuck = cp.createFixedPuckemon(4,15);
-        FixedPuckemon oppPuck2 = cp.createFixedPuckemon(4,15);
-
-        List<FixedPuckemon> opList = new ArrayList<>();
-        opList.add(oppPuck);
-        opList.add(oppPuck2);
-        ITrainer opp = new PuckeTrainer("Bertil",opList,false);
-
-        List<OwnedPuckemon> pList = new ArrayList<>();
-        pList.add(puck);
-        Player p = new Player(pList,10);
-
-        combat = new Combat(p,(IFighter)opp);
-
-        opp.switchPuckemon(1);
-        combat.usePlayerAttack(0);
-    }
 }
