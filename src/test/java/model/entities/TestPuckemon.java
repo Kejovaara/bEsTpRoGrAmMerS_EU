@@ -1,3 +1,5 @@
+package model.entities;
+
 import model.entities.CreatePuckemon;
 import org.junit.Test;
 

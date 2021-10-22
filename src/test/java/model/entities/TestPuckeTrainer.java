@@ -7,9 +7,12 @@ import model.attack.Attack;
 import model.attack.AttackBuilder;
 import model.effects.IEffectContainer;
 import model.entities.puckemon.FixedPuckemon;
+import model.inventories.Item;
+import model.inventories.ItemBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestPuckeTrainer {
 
@@ -94,6 +97,21 @@ public class TestPuckeTrainer {
 
         //Check that switch has occurred
         assertEquals(activePuckemon, strongP);
+    }
+
+    @Test
+    public void testGetItem() {
+        Item item = ItemBuilder.getRandom();
+        List<Item> items = new ArrayList<>();
+        items.add(item);
+
+        PartyBuilder partyBuilder = new PartyBuilder();
+        //Second constructor of PuckeTrainer
+        PuckeTrainer trainer = new PuckeTrainer("El bertil",  partyBuilder.getRandOpponentTeam(1,5), items, false);
+
+
+        //Check that no IEffectContainer has been returned
+        assertEquals(trainer.getItem(0),item);
     }
 
 }
