@@ -1,9 +1,10 @@
 package model.entities;
 
-import model.PartyBuilder;
-import model.entities.puckemon.FixedPuckemon;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.Puckemon;
+import model.inventories.Inventory;
+import model.inventories.Item;
+import model.inventories.ItemBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -59,5 +60,23 @@ public class TestPlayer {
         Puckemon puckemon = player.getActivePuckemon();
 
         assertEquals(puckemon, p1);
+    }
+
+    @Test
+    public void testGetItem() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        OwnedPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+
+        List<OwnedPuckemon> party = new ArrayList<>();
+        party.add(p);
+
+        Item item = ItemBuilder.getRandom();
+        List<Item> items = new ArrayList<>();
+        items.add(item);
+        Inventory inventory = new Inventory(items);
+
+        Player player = new Player(party, inventory, 0);
+
+        assertEquals(player.getItem(0), item);
     }
 }
