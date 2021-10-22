@@ -183,4 +183,19 @@ public class TestPlayer {
         assertEquals(player.getInventory().size(), 1);
     }
 
+    @Test
+    public void testCannotBuyItem() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        OwnedPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+
+        List<OwnedPuckemon> party = new ArrayList<>();
+        party.add(p);
+        Player player = new Player(party, 0);
+
+        Item item = ItemBuilder.getItem(ItemBuilder.INames.GOLDEN_NUGGIE);
+
+        player.buyItem(item);
+
+        assertEquals(player.getInventory().size(), 0);
+    }
 }
