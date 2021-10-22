@@ -14,6 +14,11 @@ public class Combat {
     Player player;
     private String battleOutcome = "Ongoing";
 
+    /**
+     * Constructor for combat
+     * @param player is the user in the game.
+     * @param fighter is the opponent in the game.
+     */
     public Combat(Player player, IFighter fighter){
         this.player = player;
         this.fighter = fighter;
@@ -60,6 +65,9 @@ public class Combat {
         defeat();
     }
 
+    /**
+     * The method for switching Puckemons in the game.
+     */
     public void useSwitch(){
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
         IPuckemon playerPuckemon = player.getPuckemon();
@@ -69,6 +77,10 @@ public class Combat {
         System.out.println("player switched, player: " + (pdiff-playerPuckemon.getHealth()));
     }
 
+    /**
+     * The method for using an attack in game.
+     * @param index is the index of the chosen attack.
+     */
     public void usePlayerAttack(int index){
         IPuckemon playerPuckemon = player.getPuckemon();
         IEffectContainer attack = player.getPuckemon().getAttack(index);
@@ -100,6 +112,10 @@ public class Combat {
 //        System.out.println(fighterPuckemon.getName()+" used "+fighterPuckemon.getA);
     }
 
+    /**
+     * The method for using an item in game.
+     * @param index index of chosen item.
+     */
     public void usePlayerItem(int index){
         IPuckemon playerPuckemon = player.getPuckemon();
         IEffectContainer item = player.getItem(index);
@@ -147,6 +163,9 @@ public class Combat {
         }
     }
 
+    /**
+     * @return the outcome of the game.
+     */
     public String getBattleOutcome(){return battleOutcome;}
 
 }

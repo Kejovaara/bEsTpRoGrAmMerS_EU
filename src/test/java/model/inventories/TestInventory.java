@@ -11,7 +11,7 @@ public class TestInventory {
     @Test
     public void testAddItem(){
         Inventory i = new Inventory();
-        Item item = ItemFactory.getRandom();
+        Item item = ItemBuilder.getRandom();
 
         i.addItem(item);
 
@@ -21,7 +21,7 @@ public class TestInventory {
     @Test
     public void testDecrementItemAmount(){
         Inventory i = new Inventory();
-        Item item = ItemFactory.getRandom();
+        Item item = ItemBuilder.getRandom();
 
         i.addItem(item);
         assertEquals(i.getInventorySize(),1);
@@ -32,7 +32,7 @@ public class TestInventory {
     @Test
     public void testItemStacking(){
         Inventory i = new Inventory();
-        Item item = ItemFactory.getRandom();
+        Item item = ItemBuilder.getRandom();
 
         i.addItem(item);
         i.addItem(item);
@@ -43,7 +43,7 @@ public class TestInventory {
     @Test
     public void testGetItem(){
         Inventory i = new Inventory();
-        Item item = ItemFactory.getRandom();
+        Item item = ItemBuilder.getRandom();
 
         i.addItem(item);
 
@@ -55,9 +55,9 @@ public class TestInventory {
         Inventory i = new Inventory();
         List<Item> itemList = new ArrayList<Item>();
 
-        Item item = ItemFactory.getRandom();
-        Item item2 = ItemFactory.getRandom();
-        Item item3 = ItemFactory.getRandom();
+        Item item = ItemBuilder.getRandom();
+        Item item2 = ItemBuilder.getRandom();
+        Item item3 = ItemBuilder.getRandom();
 
         itemList.add(item);
         itemList.add(item2);

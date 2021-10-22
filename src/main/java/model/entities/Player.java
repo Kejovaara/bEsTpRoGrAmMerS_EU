@@ -59,13 +59,13 @@ public class Player implements ITrainer {
     public void generateStartingInventory(int maxAmount){
         int randomAmount = ThreadLocalRandom.current().nextInt(1, maxAmount + 1);
         for(int i = 0; i < randomAmount; i++){
-            addItem(ItemFactory.getRandom());
+            addItem(ItemBuilder.getRandom());
         }
     }
 
     public void generateStartingInventoryDEV(int amount){
         for(int i = 0; i < amount; i++){
-            addItem(ItemFactory.getRandom());
+            addItem(ItemBuilder.getRandom());
         }
     }
 
