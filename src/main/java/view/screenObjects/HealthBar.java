@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import view.IDraw;
 import view.IRender;
 
-import java.util.List;
 
 /**
  * Screen object that renders health bars on the screen

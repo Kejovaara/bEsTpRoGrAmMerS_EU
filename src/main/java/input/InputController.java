@@ -1,6 +1,5 @@
 package input;
 
-import run.Boot;
 import model.Model;
 import run.VCHandler;
 

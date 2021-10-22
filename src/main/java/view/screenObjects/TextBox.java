@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import view.IRender;
 
-import java.util.List;
 
 /**
  * Labels work different from most libGdx, it isn't rendered, it is added to a Stage.

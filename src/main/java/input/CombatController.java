@@ -3,10 +3,8 @@ package input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import model.Model;
-import run.Boot;
 import run.VCHandler;
 import view.Screens;
-import view.menu.Menu;
 
 /**
  * A class to handle input events when the CombatScreen is active.

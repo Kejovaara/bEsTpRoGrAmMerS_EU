@@ -5,6 +5,7 @@ import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.inventories.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -116,20 +117,23 @@ public class Player implements ITrainer {
     }
 
     /**
+     * Returns a copy of playerBags party
      * @return the players party of puckemons
      */
-    public List<OwnedPuckemon> getParty(){
-        return playerBag.getParty();
-    }
+    public List<OwnedPuckemon> getParty(){return new ArrayList<>(playerBag.getParty());}
 
     /**
+     * Returns a copy of the inventory
      * @return the inventory list
      */
     public List<Item> getInventory(){
-        return inventory.getInventory();
+        return new ArrayList<>(inventory.getInventory());
     }
 
 
+    /**
+     * Triggers the victory event, meant to handle the puckemons after victory (giving them xp)
+     */
     public void victoryEvent(){
         playerBag.afterVictory();
     }
