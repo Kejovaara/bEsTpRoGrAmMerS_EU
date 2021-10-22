@@ -7,6 +7,7 @@ import model.entities.CreatePuckemon;
 import model.entities.IFighter;
 import model.entities.Player;
 import model.entities.PuckeTrainer;
+import model.entities.puckemon.FixedPuckemon;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
@@ -67,6 +68,53 @@ public class TestCombat {
         }*/
 
         assertEquals("Defeat",combat.getBattleOutcome());
+    }
+
+    @Test
+    public void testHighPrio(){
+        Combat combat;
+        CreatePuckemon cp = new CreatePuckemon();
+
+        OwnedPuckemon puck = cp.createOwnedPuckemon(4,15);
+        FixedPuckemon oppPuck = cp.createFixedPuckemon(5,15);
+
+        List<FixedPuckemon> opList = new ArrayList<>();
+        opList.add(oppPuck);
+        IFighter opp = new PuckeTrainer("Bertil",opList,false);
+
+        List<OwnedPuckemon> pList = new ArrayList<>();
+        pList.add(puck);
+        Player p = new Player(pList,10);
+
+        combat = new Combat(p,opp);
+
+        combat.usePlayerAttack(0);
+    }
+
+    @Test
+    public void testLowPrio(){
+        Combat combat;
+        CreatePuckemon cp = new CreatePuckemon();
+
+        OwnedPuckemon puck = cp.createOwnedPuckemon(5,15);
+        FixedPuckemon oppPuck = cp.createFixedPuckemon(4,15);
+
+        List<FixedPuckemon> opList = new ArrayList<>();
+        opList.add(oppPuck);
+        IFighter opp = new PuckeTrainer("Bertil",opList,false);
+
+        List<OwnedPuckemon> pList = new ArrayList<>();
+        pList.add(puck);
+        Player p = new Player(pList,10);
+
+        combat = new Combat(p,opp);
+
+        combat.usePlayerAttack(0);
+    }
+
+    @Test
+    public void testOnlyExecutePlayerAttack(){
+
     }
 
 

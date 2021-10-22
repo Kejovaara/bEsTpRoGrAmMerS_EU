@@ -102,10 +102,9 @@ public class Combat {
                 executeEffects(attack, playerPuckemon, fighterPuckemon);
             }
         } else {
-            //Only execute players attack
+            //Only execute players att  ack
             executeEffects(attack, playerPuckemon, fighterPuckemon);
         }
-
         System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
         checkDefeat();
 //        System.out.println(playerPuckemon.getName()+" used "+player.getPuckemon().getAttack(index).get);
