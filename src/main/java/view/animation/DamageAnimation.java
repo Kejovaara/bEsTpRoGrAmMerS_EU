@@ -3,7 +3,6 @@ package view.animation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import model.entities.Puckemon;
 
 public class DamageAnimation implements Animable{
 

@@ -2,6 +2,9 @@ package model.entities;
 
 import model.ExcelReader;
 import model.PTypes;
+import model.entities.puckemon.OwnedPuckemon;
+import model.entities.puckemon.FixedPuckemon;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,11 +28,11 @@ public class CreatePuckemon {
     }
 
     /**
-     * buildVild Returns a VildPuckemon
+     * buildFixed Returns a FixedPuckemon
      */
-    private VildPuckemon buildVild(int id, int level){
+    private FixedPuckemon buildFixed(int id, int level){
         List<Object> data = excelReader.getExcelData(id);
-        return new VildPuckemon(id,level,(String)data.get(0), dissectListTypes((String)data.get(1)),(int) data.get(2),(int)data.get(3)
+        return new FixedPuckemon(id,level,(String)data.get(0), dissectListTypes((String)data.get(1)),(int) data.get(2),(int)data.get(3)
                 ,(int)data.get(4),(int)data.get(5),dissectList((String)data.get(8)));
     }
 
@@ -51,8 +54,8 @@ public class CreatePuckemon {
         return buildOwned(id,level);
     }
 
-    public VildPuckemon createVildPuckemon(int id, int level){
-        return buildVild(id,level);
+    public FixedPuckemon createFixedPuckemon(int id, int level){
+        return buildFixed(id,level);
     }
 
 }

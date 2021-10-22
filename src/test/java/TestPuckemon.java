@@ -3,7 +3,7 @@ import org.junit.Test;
 
 import static org.junit.Assert .*;
 
-import model.entities.OwnedPuckemon;
+import model.entities.puckemon.OwnedPuckemon;
 
 public class TestPuckemon {
 

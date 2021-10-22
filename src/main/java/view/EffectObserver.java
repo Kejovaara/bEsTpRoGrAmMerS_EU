@@ -1,6 +1,6 @@
 package view;
 
-import model.entities.Puckemon;
+import model.entities.puckemon.Puckemon;
 
 public interface EffectObserver {
 

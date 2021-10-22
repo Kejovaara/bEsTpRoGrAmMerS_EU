@@ -1,6 +1,8 @@
 package model.entities;
 
 import model.effects.IEffectContainer;
+import model.entities.puckemon.OwnedPuckemon;
+import model.entities.puckemon.Puckemon;
 import model.inventories.*;
 
 import java.util.List;
@@ -126,7 +128,7 @@ public class Player implements ITrainer {
     public boolean checkIfDefeated(){
         boolean defeated = true;
         for (int i = 0; i < playerBag.getParty().size(); i++) {
-            if(playerBag.getParty().get(i).currentHealth >0){
+            if(playerBag.getParty().get(i).getHealth() >0){
                 defeated = false;
                 break;
             }
@@ -137,7 +139,7 @@ public class Player implements ITrainer {
     /**
      * @return the active puckemon of the player.
      */
-    public Puckemon getPuckemon(){
+    public Puckemon getActivePuckemon(){
         return playerBag.getActivePuckemon();
     }
 }

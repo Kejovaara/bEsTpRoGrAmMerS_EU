@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.StringBuilder;
 import model.Model;
 import model.entities.IPuckemon;
-import model.entities.Puckemon;
+import model.entities.puckemon.Puckemon;
 import run.Boot;
 import view.animation.*;
 import view.menu.Menu;

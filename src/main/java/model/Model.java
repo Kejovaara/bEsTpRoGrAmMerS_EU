@@ -3,6 +3,8 @@ package model;
 import model.attack.Attack;
 import model.combat.Combat;
 import model.entities.*;
+import model.entities.puckemon.OwnedPuckemon;
+import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
 
 import java.util.List;
@@ -14,7 +16,6 @@ import java.util.List;
  * @author André Kejovaara
  * @author Emil Jonsson
  */
-
 public class Model {
 
     private final Player player;
@@ -57,7 +58,7 @@ public class Model {
      * @return the players puckemon.
      */
     public Puckemon getPlayerPuckemon() {
-        return player.getPuckemon();
+        return player.getActivePuckemon();
     }
 
     /**
@@ -100,14 +101,14 @@ public class Model {
      * @return the chosen attack.
      */
     public Attack getAttack(int index){
-        return player.getPuckemon().getMoveSet().get(index);
+        return player.getActivePuckemon().getMoveSet().get(index);
     }
 
     /**
      * @return the list of attacks a puckemon has.
      */
     public List<Attack> getAttacks(){
-        return player.getPuckemon().getMoveSet();
+        return player.getActivePuckemon().getMoveSet();
     }
 
     /**
@@ -118,7 +119,7 @@ public class Model {
     }
 
     /**
-     * @return the list of items in the playeres inventory.
+     * @return the list of items in the players inventory.
      */
     public List<Item> getInventory(){ return player.getInventory();}
 

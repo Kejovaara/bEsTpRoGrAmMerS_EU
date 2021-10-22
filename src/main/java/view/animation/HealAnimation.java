@@ -1,11 +1,9 @@
 package view.animation;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import model.entities.Puckemon;
+import model.entities.puckemon.Puckemon;
 
 public class HealAnimation implements Animable{
 

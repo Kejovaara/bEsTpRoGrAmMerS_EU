@@ -1,8 +1,9 @@
-package model.entities;
+package model.entities.puckemon;
 
 import model.PTypes;
 import model.attack.Attack;
 import model.attack.AttackBuilder;
+import model.entities.IPuckemon;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -161,6 +162,8 @@ public abstract class Puckemon implements IPuckemon {
     public Attack getAttack(int i) {
         return moveSet.get(i);
     }
+
+    // tas bort kanske
     public List<String> getMoveList(){return moveList;}
 
     @Override
