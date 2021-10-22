@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Enums of different types of puckemons
+ */
 public enum PTypes {
     NORMAL,
     FIGHTING,

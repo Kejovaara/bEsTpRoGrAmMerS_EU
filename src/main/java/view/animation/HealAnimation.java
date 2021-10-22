@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import model.entities.Puckemon;
 
+/**
+ * A class for animating heals that happens during combat.
+ */
 public class HealAnimation implements Animable{
 
     private int heal;
