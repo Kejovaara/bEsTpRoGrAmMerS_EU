@@ -6,11 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import input.IMenuController;
-import model.attack.Attack;
-import model.inventories.Inventory;
 import model.inventories.Item;
 import view.screenObjects.Image;
-import view.screenObjects.RectangleBorder;
 import view.screenObjects.Text;
 import view.screenObjects.TextBox;
 

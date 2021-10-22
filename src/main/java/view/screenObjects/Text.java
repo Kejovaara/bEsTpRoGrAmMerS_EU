@@ -1,14 +1,12 @@
 package view.screenObjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import run.Boot;
 import view.IDraw;
 import view.IRender;
 
-import java.util.List;
+
 /**
  * Screen object that renders static text on the screen
  */

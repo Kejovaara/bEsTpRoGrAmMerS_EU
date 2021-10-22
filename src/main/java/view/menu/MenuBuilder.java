@@ -8,7 +8,6 @@ import input.InventoryMenuController;
 import input.MainCombatMenu;
 import input.PartyMenuController;
 import model.Model;
-import run.Boot;
 import run.VCHandler;
 import view.IRender;
 import view.IView;

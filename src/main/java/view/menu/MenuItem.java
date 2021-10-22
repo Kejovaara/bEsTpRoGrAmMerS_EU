@@ -1,6 +1,5 @@
 package view.menu;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import view.IRender;
 
 /**

@@ -2,7 +2,6 @@ package view.screenObjects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import run.Boot;
 import view.IRender;
 
 /**
