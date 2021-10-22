@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.StringBuilder;
 import model.Model;
 import model.entities.IPuckemon;
 import model.entities.puckemon.Puckemon;
@@ -31,44 +30,35 @@ import java.util.List;
 public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView{
 
     final Boot game;
-    private Model model;
-    private int screenWidth, screenHeight;
-    private ShapeRenderer shapeRenderer;
-    private Stage stage;
-    private StringBuilder stringbuilder = new StringBuilder();
+    private final Model model;
+    private final ShapeRenderer shapeRenderer;
+    private final Stage stage;
 
-    private BitmapFont menuFont;
-    private BitmapFont combatFont;
-    private BitmapFont statsFont;
+    private final BitmapFont statsFont;
 
-    private TextAnimation textAnimator;
+    private final TextAnimation textAnimator;
 
     OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
 
-    private Label topLabel;
-    private Label label;
-
-    private Menu mainMenu;
+    private final Menu mainMenu;
     private Menu attackMenu;
     private Menu activeMenu;
 
-    private RectangleBorder mainMenuBackground1, mainMenuBackground2;
+    private final RectangleBorder mainMenuBackground1, mainMenuBackground2;
     private IPuckemon activeEnemyPuckemon;
 
-    private List<Animable> playerAnimations = new ArrayList<>();
-    private List<Animable> enemyAnimations = new ArrayList<>();
+    private final List<Animable> playerAnimations = new ArrayList<>();
+    private final List<Animable> enemyAnimations = new ArrayList<>();
 
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
         this.model = model;
-        this.screenWidth = game.getScreenWidth();
-        this.screenHeight = game.getScreenHeight();
 
         shapeRenderer = new ShapeRenderer();
 
         //Menu Font
-        menuFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
+        BitmapFont menuFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
         menuFont.getData().setScale(0.75f);
 
         statsFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
@@ -88,7 +78,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         //COMABT BOX TEXT
         stage = new Stage();
-        combatFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));;
+        BitmapFont combatFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         combatFont.getData().setScale(0.75f);
 
         Label.LabelStyle fontStyle = new Label.LabelStyle();
@@ -97,19 +87,19 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         String openingText = "What will " + model.getPlayerPuckemon().getName() + " do?";
 
-        label = new Label(openingText,fontStyle);
+        Label label = new Label(openingText,fontStyle);
         label.setSize(520,10);
         label.setPosition(30,60);
         label.setWrap(true);
         //stage.addActor(label);
 
-        topLabel = new Label("",fontStyle);
+        Label topLabel = new Label("",fontStyle);
         topLabel.setSize(520,10);
         topLabel.setPosition(30,80);
         topLabel.setWrap(true);
         stage.addActor(topLabel);
 
-        textAnimator = new TextAnimation(topLabel, openingText);
+        this.textAnimator = new TextAnimation(topLabel, openingText);
 
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));

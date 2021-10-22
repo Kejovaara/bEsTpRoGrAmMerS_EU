@@ -110,7 +110,6 @@ public class Menu implements IRender {
     @Override
     public void render() {
         update();
-        IRender renderObject;
 
         for (MenuItem menuItem : menuItems) {
             batch.begin();

@@ -1,4 +1,4 @@
-package model.entities;
+package model.entities.puckemon;
 
 import model.entities.CreatePuckemon;
 import org.junit.Test;
@@ -50,5 +50,13 @@ public class TestPuckemon {
             OwnedPuckemon puckemon =  createPuckemon.createOwnedPuckemon(3,5);
             int expected = 3;
             assertEquals(expected, puckemon.getMoveSet().size());  // The logical check
+        }
+
+        @Test
+        public void testUnlockStats(){
+            OwnedPuckemon puckemon =  createPuckemon.createOwnedPuckemon(3,5);
+            puckemon.lockHealth = true;
+            puckemon.unlockStats();
+            assertEquals(false, puckemon.lockHealth);  // The logical check
         }
     }

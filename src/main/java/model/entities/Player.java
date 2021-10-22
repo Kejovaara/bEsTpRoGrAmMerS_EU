@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Player implements ITrainer {
     private String name = "Bamse";
-    private final PlayerBag playerBag;
+    private final PlayerPuckeBag playerPuckeBag;
     private final Inventory inventory;
     private int coins;
 
@@ -26,7 +26,7 @@ public class Player implements ITrainer {
      * @param coins amount of coins
      */
     public Player(List<OwnedPuckemon> puckemons, Inventory inventory, int coins){
-        this.playerBag = new PlayerBag(puckemons);
+        this.playerPuckeBag = new PlayerPuckeBag(puckemons);
         this.inventory = inventory;
         this.coins = coins;
     }
@@ -37,7 +37,7 @@ public class Player implements ITrainer {
      * @param coins amount of coins
      */
     public Player(List<OwnedPuckemon> puckemons,  int coins){
-        this.playerBag = new PlayerBag(puckemons);
+        this.playerPuckeBag = new PlayerPuckeBag(puckemons);
         this.inventory = new Inventory();
         this.coins = coins;
     }
@@ -47,12 +47,12 @@ public class Player implements ITrainer {
      * @param index the index where the Puckemon lies in the PlayerBag
      */
     public void switchPuckemon(int index){
-        playerBag.setActivePuckemon(index);
+        playerPuckeBag.switchPuckemon(index);
     }
 
     // Get Mons moveSet
     public void selectMoves(int index) {
-        playerBag.getActivePuckemon().getAttack(index);
+        playerPuckeBag.getActivePuckemon().getAttack(index);
     }
 
     /**
@@ -120,7 +120,9 @@ public class Player implements ITrainer {
      * Returns a copy of playerBags party
      * @return the players party of puckemons
      */
-    public List<OwnedPuckemon> getParty(){return new ArrayList<>(playerBag.getParty());}
+    public List<OwnedPuckemon> getParty(){
+        return playerPuckeBag.getParty();
+    }
 
     /**
      * Returns a copy of the inventory
@@ -135,7 +137,7 @@ public class Player implements ITrainer {
      * Triggers the victory event, meant to handle the puckemons after victory (giving them xp)
      */
     public void victoryEvent(){
-        playerBag.afterVictory();
+        playerPuckeBag.afterVictory();
     }
 
     /**
@@ -144,8 +146,8 @@ public class Player implements ITrainer {
      */
     public boolean checkIfDefeated(){
         boolean defeated = true;
-        for (int i = 0; i < playerBag.getParty().size(); i++) {
-            if(playerBag.getParty().get(i).getHealth() >0){
+        for (int i = 0; i < playerPuckeBag.getParty().size(); i++) {
+            if(playerPuckeBag.getParty().get(i).getHealth() >0){
                 defeated = false;
                 break;
             }
@@ -158,6 +160,6 @@ public class Player implements ITrainer {
      * @return active puckemon
      */
     public Puckemon getActivePuckemon(){
-        return playerBag.getActivePuckemon();
+        return playerPuckeBag.getActivePuckemon();
     }
 }

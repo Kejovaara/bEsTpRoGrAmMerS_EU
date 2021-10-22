@@ -3,13 +3,13 @@ package view.screenObjects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import run.Boot;
-import view.IDraw;
+import view.IRender;
 
 /**
  * Screen object that renders Sprites on the screen
  */
 
-public class Sprite implements IDraw {
+public class Sprite implements IRender {
 
     private final Boot game;
     private final SpriteBatch batch;
@@ -21,12 +21,13 @@ public class Sprite implements IDraw {
 
     /**
      * Constructor for Sprite
-     * @param game the game
-     * @param batch the batch
-     * @param xPos the x-position where to print
-     * @param yPos the y-position where to print
-     * @param width the width of the sprite
-     * @param height the height of the sprite
+     *
+     * @param game     the game
+     * @param batch    the batch
+     * @param xPos     the x-position where to print
+     * @param yPos     the y-position where to print
+     * @param width    the width of the sprite
+     * @param height   the height of the sprite
      * @param puckemon the puckemon
      */
     public Sprite(Boot game, SpriteBatch batch, int xPos, int yPos, int width, int height, Texture puckemon) {
@@ -39,12 +40,28 @@ public class Sprite implements IDraw {
         this.puckemon = puckemon;
     }
 
-    private void render(){
-        game.batch.draw(puckemon, xPos,yPos,width,height);
+    @Override
+    public void render() {
+        game.batch.draw(puckemon, xPos, yPos, width, height);
     }
 
     @Override
-    public void draw() {
-        render();
+    public void setX(int x) {
+
+    }
+
+    @Override
+    public void setY(int y) {
+
+    }
+
+    @Override
+    public int getX() {
+        return 0;
+    }
+
+    @Override
+    public int getY() {
+        return 0;
     }
 }

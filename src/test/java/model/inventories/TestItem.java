@@ -60,7 +60,7 @@ public class TestItem {
     }
 
     @Test
-    public void testWrongEnum() throws Exception{
+    public void testWrongEnum(){
         try{
             Item item = ItemBuilder.getItem(null);
         }catch(Exception e){

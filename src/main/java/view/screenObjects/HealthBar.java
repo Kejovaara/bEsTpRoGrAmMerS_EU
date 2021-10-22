@@ -1,15 +1,13 @@
 package view.screenObjects;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import view.IDraw;
 import view.IRender;
-
 
 /**
  * Screen object that renders health bars on the screen
  */
 
-public class HealthBar implements IDraw, IRender {
+public class HealthBar implements IRender {
 
     private final ShapeRenderer shapeRenderer;
     private int xPos;
@@ -84,10 +82,4 @@ public class HealthBar implements IDraw, IRender {
     public int getY() {
         return yPos;
     }
-
-    @Override
-    public void draw() {
-        render();
-    }
-
 }

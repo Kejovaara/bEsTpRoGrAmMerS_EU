@@ -5,23 +5,17 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
-import model.Model;
 import run.Boot;
 
 public class MainMenuScreen implements Screen {
 
     final Boot game;
-    private Model model;
-    private int screenWidth, screenHeight;
 
     OrthographicCamera camera;
     Texture menu, arrow;
 
-    public MainMenuScreen(final Boot game, Model model) {
+    public MainMenuScreen(final Boot game) {
         this.game = game;
-        this.model = model;
-        this.screenWidth = game.getScreenWidth();
-        this.screenHeight = game.getScreenHeight();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
