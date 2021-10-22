@@ -204,9 +204,6 @@ public abstract class Puckemon implements IPuckemon {
     }
 
     @Override
-    public void setHealth(int health){this.currentHealth = health;}
-
-    @Override
     public void lockHealth() {
         this.lockHealth = true;
     }
