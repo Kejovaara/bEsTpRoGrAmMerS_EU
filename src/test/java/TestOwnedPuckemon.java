@@ -27,7 +27,7 @@ public class TestOwnedPuckemon {
     @Test
     public void testLevelUp(){
         OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemon(1,10);
-        puckemon.giveExp(1332);
+        puckemon.giveExp(332);
         int expected = 11;
 
         assertEquals(expected, puckemon.getLevel());  // The logical check
@@ -36,7 +36,7 @@ public class TestOwnedPuckemon {
     @Test
     public void testLevelUpStats(){
         OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemon(2,10);
-        puckemon.giveExp(1332);
+        puckemon.giveExp(332);
         int expected = 18;
 
         assertEquals(expected, puckemon.getAttackPower());  // The logical check
