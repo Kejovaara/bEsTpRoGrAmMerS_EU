@@ -85,7 +85,6 @@ public class Combat {
             executeEffects(attack, playerPuckemon, fighterPuckemon);
         }
 
-
         checkDefeat();
     }
 

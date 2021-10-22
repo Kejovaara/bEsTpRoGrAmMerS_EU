@@ -31,7 +31,7 @@ public class Model {
     public Model() {
         partyBuilder = new PartyBuilder();
         player = new Player(partyBuilder.getPlayerStartingTeam(), 10);
-        player.generateStartingInventoryDEV(35);
+        player.generateStartingInventory(35);
         startCombatTrainer(3,10,false);
 //        startCombatWildPuckemon(10);
     }
@@ -88,7 +88,7 @@ public class Model {
     }
 
     /**
-     * @return the trainers active puckemon.
+     * @return the opponents active puckemon.
      */
     public IPuckemon getOpponentPuckemon() {
         return opponent.getActivePuckemon();

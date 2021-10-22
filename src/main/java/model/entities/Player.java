@@ -105,17 +105,6 @@ public class Player implements ITrainer {
         }
     }
 
-    //FOR DEVELOPMENT PURPOSES ONLY
-    /**
-     * Adds a set amount of items to inventory
-     * @param amount the amount of items to be added to the inventory.
-     */
-    public void generateStartingInventoryDEV(int amount){
-        for(int i = 0; i < amount; i++){
-            addItem(ItemBuilder.getRandom());
-        }
-    }
-
     /**
      * Returns a copy of playerBags party
      * @return the players party of puckemons
