@@ -24,7 +24,6 @@ public class TestHealPercentage {
         HealPercentage heal = new HealPercentage(amount, true);
         heal.execute(p, enemyP);
 
-        System.out.println(expected);
 
         assertEquals(p.getHealth(), expected);  // The logical check
     }
@@ -44,9 +43,27 @@ public class TestHealPercentage {
 
         HealPercentage heal = new HealPercentage(amount, false);
         heal.execute(p, enemyP);
-        System.out.println(expected);
 
         assertEquals(enemyP.getHealth(), expected);  // The logical check
+    }
+
+    @Test
+    public void testHealOnlyPercentage(){
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        IPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+        IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
+
+        DoDamage damage = new DoDamage(50, PTypes.NORMAL);
+        damage.execute(enemyP, p);
+        int health = p.getHealth();
+        float amount = 100f;
+        int expected = Math.min((health + Math.round(health * amount/100)), p.getMaxHealth());
+
+        HealPercentage heal = new HealPercentage(amount);
+        heal.execute(p, enemyP);
+
+
+        assertEquals(p.getHealth(), expected);  // The logical check
     }
 
 }

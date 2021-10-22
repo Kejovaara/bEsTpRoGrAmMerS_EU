@@ -20,6 +20,6 @@ public class GiveXP implements IEffect {
     }
 
     public void execute(IPuckemon user, IPuckemon opp){
-        //TODO
+
     }
 }
