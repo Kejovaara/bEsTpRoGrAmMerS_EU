@@ -50,11 +50,6 @@ public class Player implements ITrainer {
         playerPuckeBag.switchPuckemon(index);
     }
 
-    // Get Mons moveSet
-    public void selectMoves(int index) {
-        playerPuckeBag.getActivePuckemon().getAttack(index);
-    }
-
     /**
      * Returns the Item at the specified index in the Inventory
      * @param index the index where the Item lies in the inventory
