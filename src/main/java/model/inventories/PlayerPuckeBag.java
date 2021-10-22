@@ -13,13 +13,13 @@ import java.util.List;
  * <br> Box holds all the puckemon that the player is not currently using.
  * @author Lukas Jigberg
  */
-public class PlayerBag {
+public class PlayerPuckeBag {
 
     private final List<OwnedPuckemon> box = new ArrayList<>();
     private final CreatePuckemon createPuckemon;
     private final List<OwnedPuckemon> party = new ArrayList<>();
 
-    public PlayerBag(List<OwnedPuckemon> puckemons) {
+    public PlayerPuckeBag(List<OwnedPuckemon> puckemons) {
         for (OwnedPuckemon puckemon : puckemons) {
             addToParty(puckemon);
         }
@@ -35,14 +35,6 @@ public class PlayerBag {
         } else {
             party.add(puckemon);
         }
-    }
-
-    /**
-     * Choose index in party to switch to. Chosen Puckemon is "cleansed" of prior stats altercations.
-     */
-    private void switchPuckemon(int index) {
-        Collections.swap(party, 0, index);
-        party.get(0).resetStats();
     }
 
     /**
@@ -67,6 +59,14 @@ public class PlayerBag {
         }
     }
 
+    /**
+     * Choose index in party to switch to. Chosen Puckemon is "cleansed" of prior stats altercations.
+     */
+    public void switchPuckemon(int index) {
+        Collections.swap(party, 0, index);
+        party.get(0).resetStats();
+    }
+
     public void afterVictory() {
         giveOutExp();
         evolvePuckemon();
@@ -75,21 +75,19 @@ public class PlayerBag {
         }
     }
 
-    //    public List<OwnedPuckemon> getBox() {
-//        return box;
-//    }
+    public List<OwnedPuckemon> getBox() {
+        return box;
+    }
+
 //    public void addToBox(OwnedPuckemon puckemon){
 //        box.add(puckemon);
 //    }
 //    public void addPuckemonToParty(OwnedPuckemon puckemon){
 //    addToParty(puckemon);
-//}
+//    }
+
     public List<OwnedPuckemon> getParty() {
         return party;
-    }
-
-    public void setActivePuckemon(int index) {
-        switchPuckemon(index);
     }
 
     public OwnedPuckemon getActivePuckemon() {

@@ -14,33 +14,32 @@ import java.util.List;
 public class PartyBuilder {
 
     private final CreatePuckemon createPuckemon;
-    private final List<OwnedPuckemon> playerStartingTeam;
 
     public PartyBuilder(){
         createPuckemon = new CreatePuckemon();
-        playerStartingTeam = new ArrayList<>();
-        fillPlayerStartingTeam();
     }
-
 
     /**
      * Specify what the Player should start with.
      */
-    private void fillPlayerStartingTeam(){
+    public List<OwnedPuckemon> getPlayerStartingTeam(){
+        List<OwnedPuckemon> playerStartingTeam = new ArrayList<>();
+
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(1,15));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(2,5));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(3,10));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(4,15));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(5,15));
+        return playerStartingTeam;
     }
 
     /**
      * Creates a random team of Puckemon for the opponent.
      * @param level determines the lowest level.
      * @param size is how many puckemon the team should consist of.
-     * @return List of VildPuckemon
+     * @return List of FixedPuckemon
      */
-    private List<FixedPuckemon> randOpponentTeam(int size, int level){
+    public List<FixedPuckemon> getRandOpponentTeam(int size, int level){
         List<FixedPuckemon> opponentTeam = new ArrayList<>();
         for (int i = 0; i < size;i++){
             opponentTeam.add(createPuckemon.createFixedPuckemon(randomNumber(1,5),randomNumber(level,level+10)));
@@ -50,13 +49,5 @@ public class PartyBuilder {
 
     private int randomNumber(int min, int max){
         return (int)Math.floor(Math.random()*(max-min+1)+min);
-    }
-
-    public List<OwnedPuckemon> getPlayerStartingTeam() {
-        return playerStartingTeam;
-    }
-
-    public List<FixedPuckemon> getRandOpponentTeam(int partySize, int minLevel){
-        return randOpponentTeam(partySize,minLevel);
     }
 }

@@ -2,16 +2,13 @@ package view.screenObjects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import view.IDraw;
 import view.IRender;
-
-import java.util.List;
 
 /**
  * Screen object that renders rectangle borders on the screen
  */
 
-public class RectangleBorder implements IDraw , IRender {
+public class RectangleBorder implements IRender {
 
     private ShapeRenderer shapeRenderer;
     private int xPos;
@@ -43,6 +40,7 @@ public class RectangleBorder implements IDraw , IRender {
         this.lineWidth = lineWidth;
     }
 
+    @Override
     public void render(){
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(outerColor);
@@ -70,11 +68,6 @@ public class RectangleBorder implements IDraw , IRender {
     @Override
     public int getY() {
         return yPos;
-    }
-
-    @Override
-    public void draw() {
-        render();
     }
 
 }

@@ -1,19 +1,15 @@
 package view.screenObjects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import run.Boot;
-import view.IDraw;
 import view.IRender;
 
-import java.util.List;
 /**
  * Screen object that renders static text on the screen
  */
 
-public class Text implements IDraw,IRender {
+public class Text implements IRender {
 
     private BitmapFont font;
     private final SpriteBatch batch;
@@ -47,15 +43,10 @@ public class Text implements IDraw,IRender {
         this.message = message;
     }
 
+    @Override
     public void render(){
         font.setColor(color);
         font.draw(batch, message, xPos, yPos);
-    }
-
-
-    @Override
-    public void draw() {
-        render();
     }
 
     @Override

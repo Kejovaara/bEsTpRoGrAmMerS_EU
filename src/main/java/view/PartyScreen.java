@@ -6,28 +6,19 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
-import model.entities.puckemon.OwnedPuckemon;
 import run.Boot;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
 
-import java.util.List;
-
 public class PartyScreen implements Screen, IView {
 
-    final Boot game;
-    private Model model;
-    private List<OwnedPuckemon> party;
-    private BitmapFont partyFont;
-    private ShapeRenderer shapeRenderer;
-    private Label partyLabel;
-    private Stage stage;
-    private String message = "Pick a Puckemon";
+    private final Boot game;
+    private final Model model;
+    private final Label partyLabel;
 
     OrthographicCamera camera;
     Texture background;
@@ -38,10 +29,8 @@ public class PartyScreen implements Screen, IView {
         this.game = game;
         this.model = model;
 
-        shapeRenderer = new ShapeRenderer();
-
         background = new Texture(Gdx.files.internal("PartyBackground.png"));
-        partyFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
+        BitmapFont partyFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         partyFont.getData().setScale(0.75f);
         partyFont.setColor(0,0,0,1);
 
@@ -51,14 +40,14 @@ public class PartyScreen implements Screen, IView {
         fontStyle.font = partyFont;
         fontStyle.fontColor = Color.BLACK;
 
+        Stage stage;
+
         stage = new Stage();
-        partyLabel = new Label(message,fontStyle);
+        partyLabel = new Label("Pick a Puckemon",fontStyle);
         partyLabel.setSize(300,300);
         partyLabel.setPosition(55,60);
         partyLabel.setWrap(true);
         stage.addActor(partyLabel);
-
-        this.party = model.getParty();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);

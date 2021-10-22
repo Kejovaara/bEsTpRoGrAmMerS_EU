@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TrainerBag {
+public class TrainerPuckeBag {
 
     private final List<FixedPuckemon> party = new ArrayList<>();
 
-    public TrainerBag(List<FixedPuckemon> puckemons){
+    public TrainerPuckeBag(List<FixedPuckemon> puckemons){
         for (int i = 0; i < puckemons.size(); i++) {
             addToParty(puckemons.get(i));
         }

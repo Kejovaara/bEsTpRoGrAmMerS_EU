@@ -1,3 +1,5 @@
+package model.entities.puckemon;
+
 import model.entities.CreatePuckemon;
 import model.entities.puckemon.OwnedPuckemon;
 import org.junit.Test;
@@ -10,11 +12,9 @@ public class TestOwnedPuckemon {
 
     @Test
     public void testSetNickame() {
-        OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemon(1,10);
-        String name = "Bamse";
-        puckemon.setNickName(name);
+        OwnedPuckemon puckemon = createPuckemon.createOwnedPuckemonNickname(1,10,"Bamse");
 
-        assertEquals(name, puckemon.getNickName());  // The logical check
+        assertEquals("Bamse", puckemon.getNickName());  // The logical check
     }
 
     @Test

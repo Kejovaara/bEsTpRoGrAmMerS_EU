@@ -10,7 +10,7 @@ import model.inventories.Inventory;
 import model.inventories.Item;
 import org.apache.commons.math3.util.Pair;
 import view.message.MessageHandler;
-import model.inventories.TrainerBag;
+import model.inventories.TrainerPuckeBag;
 
 import java.util.List;
 import java.util.Random;
@@ -21,7 +21,7 @@ import java.util.Random;
  */
 public class PuckeTrainer implements IFighter, ITrainer {
     private String name;
-    private TrainerBag puckeBag;
+    private TrainerPuckeBag puckeBag;
     private Inventory inventory;
     private boolean smart;
 
@@ -35,7 +35,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
      */
     public PuckeTrainer(String name, List<FixedPuckemon> puckemons, List<Item> items, boolean smart){
         this.name = name;
-        this.puckeBag = new TrainerBag(puckemons);
+        this.puckeBag = new TrainerPuckeBag(puckemons);
         this.inventory = new Inventory(items);
         this.smart = smart;
     }
@@ -49,7 +49,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
      */
     public PuckeTrainer(String name, List<FixedPuckemon> puckemons, boolean smart){
         this.name = name;
-        this.puckeBag = new TrainerBag(puckemons);
+        this.puckeBag = new TrainerPuckeBag(puckemons);
         this.inventory = new Inventory();
         this.smart = smart;
     }

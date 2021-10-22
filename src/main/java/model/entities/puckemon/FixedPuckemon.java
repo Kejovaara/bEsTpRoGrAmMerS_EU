@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A class representing a wild Puckemon meant to function as an opponent in the game similar to the players Puckemon.
- * The difference from an OwnedPuckemon is that it cannot level up, have a nickName nor evolve.
+ * A class representing a fixed Puckemon meant to function as an opponent in the game similar to the players Puckemon.
+ * The difference from an OwnedPuckemon is that it cannot level up, have a nickName nor evolve. It remains the same.
  * @author Lukas Jigberg
  * @author Emil Jonsson
  */
@@ -35,7 +35,7 @@ public class FixedPuckemon extends Puckemon implements IFighter {
 
     /**
      * Makes a move during combat and returns the move if one is made. For now returns a random available attack
-     * @param enemyP the opposing Puckemon, can be used to make calculated move
+     * @param enemyP the opposing Puckemon, can be used to make calculated move. It is currently not being used, but might be later.
      * @return an IEffectContainer containing effects from the move chosen
      */
     public IEffectContainer makeMove(IPuckemon enemyP) {

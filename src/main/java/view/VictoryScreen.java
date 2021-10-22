@@ -27,7 +27,7 @@ public class VictoryScreen implements Screen {
     public VictoryScreen(final Boot game, SpriteBatch batch) {
         this.game = game;
         BitmapFont desFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
-        TextBox textBox = new TextBox(desFont, batch, Color.BLACK, 30, 640 - 100, 380, 140, true, battleReport(), 0.75f);
+        TextBox textBox = new TextBox(desFont, batch, Color.BLACK, 30, 640 - 120, 380, 140, true, "Your Puckemon gained 1000 experience each.", 0.75f);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -36,12 +36,6 @@ public class VictoryScreen implements Screen {
         stage = new Stage();
         stage.addActor(textBox.getLabel());
     }
-
-    private String battleReport(){
-        String s = "aaaaaaaaaaaaaaaaaaaaaaaaa";
-        return s;
-    }
-
 
     @Override
     public void render(float delta) {

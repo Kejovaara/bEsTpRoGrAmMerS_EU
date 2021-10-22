@@ -1,7 +1,7 @@
 package view.screenObjects;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import view.IDraw;
+import view.IRender;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * Screen object that renders rectangles on the screen
  */
 
-public class Rectangle implements IDraw {
+public class Rectangle implements IRender{
 
     private ShapeRenderer shapeRenderer;
     private int xPos;
@@ -35,14 +35,29 @@ public class Rectangle implements IDraw {
         this.color = color;
     }
 
-    private void render(){
+    @Override
+    public void render(){
         shapeRenderer.setColor(color.get(0), color.get(1), color.get(2),1);
         shapeRenderer.rect( xPos,yPos,width,height);
     }
 
     @Override
-    public void draw() {
-        render();
+    public void setX(int x) {
+
     }
 
+    @Override
+    public void setY(int y) {
+
+    }
+
+    @Override
+    public int getX() {
+        return 0;
+    }
+
+    @Override
+    public int getY() {
+        return 0;
+    }
 }

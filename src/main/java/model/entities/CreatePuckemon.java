@@ -19,7 +19,9 @@ public class CreatePuckemon {
     ExcelReader excelReader = new ExcelReader();
 
     /**
-     * buildOwned returns a OwnedPuckemon
+     * buildOwned returns a OwnedPuckemon.
+     * @param id which puckemon from the register you want
+     * @param level which level you want it to be
      */
     private OwnedPuckemon buildOwned(int id, int level){
         List<Object> data = excelReader.getExcelData(id);
@@ -28,7 +30,21 @@ public class CreatePuckemon {
     }
 
     /**
+     * buildOwned returns a OwnedPuckemon, with a nickName.
+     * @param id which puckemon from the register you want.
+     * @param level which level you want it to be.
+     * @param nickName its nickname.
+     */
+    private OwnedPuckemon buildOwned(int id, int level,String nickName){
+        List<Object> data = excelReader.getExcelData(id);
+        return new OwnedPuckemon(id,level,(String)data.get(0), dissectListTypes((String)data.get(1)),(int) data.get(2),(int)data.get(3)
+                ,(int)data.get(4),(int)data.get(5),(int)data.get(6),(int)data.get(7), dissectList((String)data.get(8)),nickName);
+    }
+
+    /**
      * buildFixed Returns a FixedPuckemon
+     * @param id which puckemon from the register you want.
+     * @param level which level you want it to be.
      */
     private FixedPuckemon buildFixed(int id, int level){
         List<Object> data = excelReader.getExcelData(id);
@@ -53,7 +69,9 @@ public class CreatePuckemon {
     public OwnedPuckemon createOwnedPuckemon(int id, int level){
         return buildOwned(id,level);
     }
-
+    public OwnedPuckemon createOwnedPuckemonNickname(int id, int level, String nickName){
+        return buildOwned(id,level,nickName);
+    }
     public FixedPuckemon createFixedPuckemon(int id, int level){
         return buildFixed(id,level);
     }
