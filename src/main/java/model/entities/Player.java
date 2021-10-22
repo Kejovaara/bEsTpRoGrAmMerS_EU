@@ -8,17 +8,21 @@ import model.inventories.*;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * A class representing the player meant to function as a trainer in the game.
+ * @author Emil Jonsson
+ */
 public class Player implements ITrainer {
     private String name = "Bamse";
-    private PlayerBag playerBag;
-    private Inventory inventory;
+    private final PlayerBag playerBag;
+    private final Inventory inventory;
     private int coins;
 
     /**
      * Constructor for creating a player that already has an inventory to be sent with the new player.
-     * @param puckemons
-     * @param inventory
-     * @param coins
+     * @param puckemons list of Puckemons to add to the trainers puckeBag
+     * @param inventory a class containing items
+     * @param coins amount of coins
      */
     public Player(List<OwnedPuckemon> puckemons, Inventory inventory, int coins){
         this.playerBag = new PlayerBag(puckemons);
@@ -28,8 +32,8 @@ public class Player implements ITrainer {
 
     /**
      * Constructor for Player.
-     * @param puckemons
-     * @param coins
+     * @param puckemons list of Puckemons to add to the trainers puckeBag
+     * @param coins amount of coins
      */
     public Player(List<OwnedPuckemon> puckemons,  int coins){
         this.playerBag = new PlayerBag(puckemons);
@@ -37,7 +41,10 @@ public class Player implements ITrainer {
         this.coins = coins;
     }
 
-    // Pick target in party to switch too
+    /**
+     * Switches Puckemon to the specified index in the PlayerBag.
+     * @param index the index where the Puckemon lies in the PlayerBag
+     */
     public void switchPuckemon(int index){
         playerBag.setActivePuckemon(index);
     }
@@ -47,6 +54,11 @@ public class Player implements ITrainer {
         playerBag.getActivePuckemon().getAttack(index);
     }
 
+    /**
+     * Returns the Item at the specified index in the Inventory
+     * @param index the index where the Item lies in the inventory
+     * @return the sought after Item
+     */
     public IEffectContainer getItem(int index) {
         return inventory.getItem(index);
     }
@@ -123,7 +135,8 @@ public class Player implements ITrainer {
     }
 
     /**
-     * @return a boolean weather or not the combat is done.
+     * Checks if the player is defeated, used to end combat
+     * @return true if defeated, false if not
      */
     public boolean checkIfDefeated(){
         boolean defeated = true;
@@ -137,7 +150,8 @@ public class Player implements ITrainer {
     }
 
     /**
-     * @return the active puckemon of the player.
+     * Returns the Puckemon currently fighting
+     * @return active puckemon
      */
     public Puckemon getActivePuckemon(){
         return playerBag.getActivePuckemon();

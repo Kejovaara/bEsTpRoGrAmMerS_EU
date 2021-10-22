@@ -16,8 +16,6 @@ public class TestDoDamage {
         IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
 
         DoDamage damage = new DoDamage(2, PTypes.NORMAL);
-        System.out.println(enemyP.getHealth());
-
         damage.execute(p, enemyP);
 
         //Because damage has a random factor the check involves a range
