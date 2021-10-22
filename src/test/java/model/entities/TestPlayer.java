@@ -134,4 +134,21 @@ public class TestPlayer {
 
         assertTrue((player.getInventory().size() > 0) && (player.getInventory().size() <= maxSize));
     }
+
+    @Test
+    public void testGetParty() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        OwnedPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+
+        List<OwnedPuckemon> party = new ArrayList<>();
+        party.add(p);
+        party.add(p);
+        party.add(p);
+        party.add(p);
+
+        Player player = new Player(party, 0);
+
+        assertEquals(4, player.getParty().size());
+    }
+
 }

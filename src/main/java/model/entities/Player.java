@@ -131,6 +131,9 @@ public class Player implements ITrainer {
     }
 
 
+    /**
+     * Triggers the victory event, meant to handle the puckemons after victory (giving them xp)
+     */
     public void victoryEvent(){
         playerBag.afterVictory();
     }
