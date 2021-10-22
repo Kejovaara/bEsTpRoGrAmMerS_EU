@@ -7,6 +7,9 @@ import run.VCHandler;
 /**
  * A class to handle which IController that should be used by the game.
  * @author Rasmus Almryd
+ * @author André Kejovaara
+ * @author Lukas Jigberg
+ * @author Emil Jonsson
  */
 public class InputController {
     private final VCHandler handler;
