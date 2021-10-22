@@ -114,4 +114,17 @@ public class TestPuckeTrainer {
         assertEquals(trainer.getItem(0),item);
     }
 
+    @Test
+    public void testAddItem() {
+        Item item = ItemBuilder.getRandom();
+
+        PartyBuilder partyBuilder = new PartyBuilder();
+        PuckeTrainer trainer = new PuckeTrainer("El bertil",  partyBuilder.getRandOpponentTeam(1,5), false);
+
+        trainer.addItem(item);
+
+        //Check that no IEffectContainer has been returned
+        assertEquals(trainer.getItem(0),item);
+    }
+
 }
