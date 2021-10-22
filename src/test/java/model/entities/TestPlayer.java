@@ -164,4 +164,23 @@ public class TestPlayer {
 
         assertEquals(12, player.getActivePuckemon().getLevel());
     }
+
+    @Test
+    public void testBuyItem() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        OwnedPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+
+        List<OwnedPuckemon> party = new ArrayList<>();
+        party.add(p);
+        Player player = new Player(party, 100);
+
+        Item item = ItemBuilder.getItem(ItemBuilder.INames.GOLDEN_NUGGIE);
+
+        player.buyItem(item);
+        player.buyItem(item);
+
+        //Check that only one golden nuggie could be bought since the price is 100 coins
+        assertEquals(player.getInventory().size(), 1);
+    }
+
 }
