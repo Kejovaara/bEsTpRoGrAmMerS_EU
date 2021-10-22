@@ -204,5 +204,25 @@ public class TestCombat {
         combat.usePlayerAttack(0);
     }
 
+    @Test
+    public void testFlee(){
+        Combat combat;
+        CreatePuckemon cp = new CreatePuckemon();
+        List<OwnedPuckemon> plist = new ArrayList<>();
+        plist.add(cp.createOwnedPuckemon(1,1));
+
+        List<FixedPuckemon> opplist = new ArrayList<>();
+        opplist.add(cp.createFixedPuckemon(1,1));
+
+        Player p = new Player(plist,10);
+        PuckeTrainer pt = new PuckeTrainer("Bertil",opplist,true);
+
+        combat = new Combat(p,pt);
+        combat.useFlee();
+
+        assertTrue(combat.getBattleOutcome() == "Defeat");
+
+    }
+
 
 }
