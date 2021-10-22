@@ -82,7 +82,8 @@ public class PuckeTrainer implements IFighter, ITrainer {
                     break;
                 }
             }
-
+            MessageHandler.getInstance().DisplayMessage("Opponent " + activePuckemon.getName()
+                    + " fainted and switched to " + party.get(index).getName() + "!");
             switchPuckemon(index);
         }
 
@@ -113,6 +114,8 @@ public class PuckeTrainer implements IFighter, ITrainer {
             //If bestPuckemon does not have index 0 it is not the active puckemon
             if (bestPuckemonIndex != 0) {
                 switchPuckemon(bestPuckemonIndex);
+                MessageHandler.getInstance().DisplayMessage("Opponent switched to " + puckeBag.getActivePuckemon().getName()
+                        + "!");
                 return null;
             }
 
@@ -219,8 +222,6 @@ public class PuckeTrainer implements IFighter, ITrainer {
     @Override
     public void switchPuckemon(int index){
         puckeBag.setActivePuckemon(index);
-        MessageHandler.getInstance().DisplayMessage("Opponent switched to " + puckeBag.getActivePuckemon().getName()
-                + "!");
     }
 
     /**
