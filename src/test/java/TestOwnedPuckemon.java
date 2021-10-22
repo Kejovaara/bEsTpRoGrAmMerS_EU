@@ -1,5 +1,5 @@
 import model.entities.CreatePuckemon;
-import model.entities.OwnedPuckemon;
+import model.entities.puckemon.OwnedPuckemon;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

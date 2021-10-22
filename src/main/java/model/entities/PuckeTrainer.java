@@ -4,6 +4,8 @@ import model.PTypes;
 import model.attack.Attack;
 import model.effects.EffectHelper;
 import model.effects.IEffectContainer;
+import model.entities.puckemon.Puckemon;
+import model.entities.puckemon.FixedPuckemon;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import org.apache.commons.math3.util.Pair;
@@ -31,7 +33,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
      * @param smart boolean to specify if PuckeTrainer should be able to make smart/calculated moves. False if random
      *              available attack should be returned from makeMove method.
      */
-    public PuckeTrainer(String name, List<VildPuckemon> puckemons, List<Item> items, boolean smart){
+    public PuckeTrainer(String name, List<FixedPuckemon> puckemons, List<Item> items, boolean smart){
         this.name = name;
         this.puckeBag = new TrainerBag(puckemons);
         this.inventory = new Inventory(items);
@@ -45,7 +47,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
      * @param smart boolean to specify if PuckeTrainer should be able to make smart/calculated moves. False if random
      *              available attack should be returned from makeMove method.
      */
-    public PuckeTrainer(String name, List<VildPuckemon> puckemons, boolean smart){
+    public PuckeTrainer(String name, List<FixedPuckemon> puckemons, boolean smart){
         this.name = name;
         this.puckeBag = new TrainerBag(puckemons);
         this.inventory = new Inventory();
@@ -61,7 +63,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
     @Override
     public boolean checkIfDefeated(){
         Puckemon activePuckemon = puckeBag.getActivePuckemon();
-        List<VildPuckemon> party = puckeBag.getParty();
+        List<FixedPuckemon> party = puckeBag.getParty();
 
         //If active Puckemon fainted
         if (activePuckemon.getHealth() <= 0) {
@@ -126,7 +128,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
             attackIndex = rand.nextInt(upperbound);
         }
 
-        MessageHandler.getInstance().DisplayMessage("Opponent " + puckeBag.getActivePuckemon().getName() + " attacked!");
+        MessageHandler.getInstance().DisplayMessage("Opponent " + puckeBag.getActivePuckemon().getName() + " used "+activePuckemon.getAttack(attackIndex).getName());
         return activePuckemon.getAttack(attackIndex);
     }
 
@@ -138,7 +140,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
      *          Puckemon. The second Integer is the index for the most effective Puckemon in the PuckeBag
      */
     private Pair<Integer, Integer> mostEffectivePuckemon(IPuckemon enemyP) {
-        List<VildPuckemon> party = puckeBag.getParty();
+        List<FixedPuckemon> party = puckeBag.getParty();
         int index = 0;
         int puckemonIndex = 0;
         double bestMultiplier = 0;
@@ -221,7 +223,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
      */
     @Override
     public void switchPuckemon(int index){
-        puckeBag.setActivePuckemon(index);
+        puckeBag.switchPuckemon(index);
     }
 
     /**

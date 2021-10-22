@@ -6,6 +6,7 @@ import model.PartyBuilder;
 import model.attack.Attack;
 import model.attack.AttackBuilder;
 import model.effects.IEffectContainer;
+import model.entities.puckemon.FixedPuckemon;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -56,9 +57,9 @@ public class TestPuckeTrainer {
     public void testMakeMoveWithActive() {
         CreatePuckemon createPuckemon = new CreatePuckemon();
         IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
-        VildPuckemon p = createPuckemon.createVildPuckemon(1,1);
+        FixedPuckemon p = createPuckemon.createFixedPuckemon(1,1);
 
-        ArrayList<VildPuckemon> party = new ArrayList<>();
+        ArrayList<FixedPuckemon> party = new ArrayList<>();
         party.add(p);
         IFighter trainer = new PuckeTrainer("El bertil", party, true);
 
@@ -75,11 +76,11 @@ public class TestPuckeTrainer {
     public void testMakeMoveSwitch() {
         CreatePuckemon createPuckemon = new CreatePuckemon();
         IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
-        VildPuckemon p = createPuckemon.createVildPuckemon(1,1);
+        FixedPuckemon p = createPuckemon.createFixedPuckemon(1,1);
         //Create strong Puckemon that is worth switching to
-        VildPuckemon strongP = createPuckemon.createVildPuckemon(5,1);
+        FixedPuckemon strongP = createPuckemon.createFixedPuckemon(5,1);
 
-        ArrayList<VildPuckemon> party = new ArrayList<>();
+        ArrayList<FixedPuckemon> party = new ArrayList<>();
         party.add(p);
         party.add(strongP);
         IFighter trainer = new PuckeTrainer("El bertil", party, true);

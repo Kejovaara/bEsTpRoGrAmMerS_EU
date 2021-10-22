@@ -4,7 +4,7 @@
 //
 //import model.PTypes;
 //import model.entities.IPuckemon;
-//import model.entities.OwnedPuckemon;
+//import model.entities.puckemon.OwnedPuckemon;
 //import org.junit.Test;
 //
 //public class TestEffectHelper {

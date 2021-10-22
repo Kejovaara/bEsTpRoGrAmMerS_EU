@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import model.PTypes;
 import model.entities.CreatePuckemon;
 import model.entities.IPuckemon;
-import model.entities.OwnedPuckemon;
 import org.junit.Test;
 
 public class TestHpSteal {

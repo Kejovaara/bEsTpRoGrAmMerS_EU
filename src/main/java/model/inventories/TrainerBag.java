@@ -1,40 +1,37 @@
 package model.inventories;
 
-import model.entities.VildPuckemon;
+import model.entities.puckemon.FixedPuckemon;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TrainerBag extends PuckeBag{
+public class TrainerBag {
 
-    private final List<VildPuckemon> party = new ArrayList<>();
+    private final List<FixedPuckemon> party = new ArrayList<>();
 
-    public TrainerBag(List<VildPuckemon> puckemons){
+    public TrainerBag(List<FixedPuckemon> puckemons){
         for (int i = 0; i < puckemons.size(); i++) {
             addToParty(puckemons.get(i));
         }
     }
 
-    private void addToParty(VildPuckemon puckemon) {
+    private void addToParty(FixedPuckemon puckemon) {
         if (party.size() < 6){
             party.add(puckemon);
         }
     }
 
-    protected void switchPuckemon(int index){
+    public void switchPuckemon(int index){
         Collections.swap(party,0, index);
+        party.get(0).resetStats();
     }
 
-    public List<VildPuckemon> getParty(){
+    public List<FixedPuckemon> getParty(){
         return party;
     }
-    public void setActivePuckemon(int index) {
-        switchPuckemon(index);
-    }
-    public VildPuckemon getActivePuckemon(){
+    public FixedPuckemon getActivePuckemon(){
         return party.get(0);
     }
-    public void addPuckemonToParty(VildPuckemon puckemon){addToParty(puckemon);}
 
 }

@@ -70,7 +70,7 @@ public class Combat {
      */
     public void useSwitch(){
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
-        IPuckemon playerPuckemon = player.getPuckemon();
+        IPuckemon playerPuckemon = player.getActivePuckemon();
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         int pdiff = playerPuckemon.getHealth();
         executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
@@ -82,8 +82,8 @@ public class Combat {
      * @param index is the index of the chosen attack.
      */
     public void usePlayerAttack(int index){
-        IPuckemon playerPuckemon = player.getPuckemon();
-        IEffectContainer attack = player.getPuckemon().getAttack(index);
+        IPuckemon playerPuckemon = player.getActivePuckemon();
+        IEffectContainer attack = player.getActivePuckemon().getAttack(index);
 
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
@@ -117,7 +117,7 @@ public class Combat {
      * @param index index of chosen item.
      */
     public void usePlayerItem(int index){
-        IPuckemon playerPuckemon = player.getPuckemon();
+        IPuckemon playerPuckemon = player.getActivePuckemon();
         IEffectContainer item = player.getItem(index);
 
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);

@@ -1,7 +1,7 @@
 package model.inventories;
 
 import model.entities.CreatePuckemon;
-import model.entities.OwnedPuckemon;
+import model.entities.puckemon.OwnedPuckemon;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import java.util.List;
  * <br> Box holds all the puckemon that the player is not currently using.
  * @author Lukas Jigberg
  */
-public class PlayerBag extends PuckeBag {
+public class PlayerBag {
 
     private final List<OwnedPuckemon> box = new ArrayList<>();
     private final CreatePuckemon createPuckemon;

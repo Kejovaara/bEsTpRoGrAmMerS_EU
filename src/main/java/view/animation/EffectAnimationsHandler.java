@@ -1,7 +1,7 @@
 package view.animation;
 
 import model.entities.IPuckemon;
-import model.entities.Puckemon;
+import model.entities.puckemon.Puckemon;
 import view.EffectObserver;
 
 import java.util.ArrayList;

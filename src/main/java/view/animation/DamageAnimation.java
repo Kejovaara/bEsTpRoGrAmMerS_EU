@@ -3,7 +3,6 @@ package view.animation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import model.entities.Puckemon;
 
 /**
  * A class that animates the damage in the game as it happens.
