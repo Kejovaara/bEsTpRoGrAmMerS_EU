@@ -36,8 +36,6 @@ public class ItemBuilder {
                 return getSilverNuggie();
             case SUPER_KILL_POTION:
                 return getSuperKillPotion();
-            case EVOLVE_NUGGIE:
-                return getEvolveNuggie();
             default: throw new IllegalArgumentException("Wrong Enum");
         }
     }
@@ -54,7 +52,7 @@ public class ItemBuilder {
 
     public static Item getMajorHealingPotion(){
         List<IEffect> effects = new ArrayList<>();
-        effects.add(new HealAmount(75));
+        effects.add(new HealAmount(100));
         return new Item(2,"Major Healing Potion","Restores 100 HP",1,1,5,true,effects);
     }
 
@@ -82,11 +80,6 @@ public class ItemBuilder {
         return new Item(6,"Super Kill Potion", "An item that instantly kills your opponent",1,1,20,true,effects);
     }
 
-    public static Item getEvolveNuggie(){
-        List<IEffect> effects = new ArrayList<>();
-        effects.add(new GiveXP(1000)); //SPECIFY BETTER LATER, ONLY FOR TESTING
-        return new Item(7, "Evolve Nuggie", "Evolve your Puckemon to the next more powerful Puckemon",1,1,15,false,effects);
-    }
 
     public enum INames{
         MINOR_HEALING_POTION,
@@ -95,6 +88,5 @@ public class ItemBuilder {
         GOLDEN_NUGGIE,
         SILVER_NUGGIE,
         SUPER_KILL_POTION,
-        EVOLVE_NUGGIE,
     }
 }

@@ -126,6 +126,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
             Random rand = new Random(); //instance of random class
             int upperbound = activePuckemon.getMoveSet().size();
             attackIndex = rand.nextInt(upperbound);
+
         }
 
         MessageHandler.getInstance().DisplayMessage("Opponent " + trainerBag.getActivePuckemon().getName() + " used "+activePuckemon.getAttack(attackIndex).getName());

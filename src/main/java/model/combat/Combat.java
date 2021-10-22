@@ -24,23 +24,7 @@ public class Combat {
         this.fighter = fighter;
     }
 
-    /*public void doTurn(){
-        IEffectContainer f1Move = fighter1.makeMove();
-        IPuckemon f1Puckemon = fighter1.getActivePuckemon();
-        IEffectContainer f2Move = fighter2.makeMove();
-        IPuckemon f2Puckemon = fighter2.getActivePuckemon();
 
-
-        if(f1Move.getPriority() < f2Move.getPriority()){
-            executeEffects(f1Move.getEffects(), f1Puckemon, f2Puckemon);
-            executeEffects(f2Move.getEffects(), f2Puckemon, f1Puckemon);
-        }else if(f1Move.getPriority() > f2Move.getPriority()){
-            executeEffects(f2Move.getEffects(), f2Puckemon, f1Puckemon);
-            executeEffects(f1Move.getEffects(), f1Puckemon, f2Puckemon);
-        }
-
-
-    }*/
     private void checkDefeat(){
         if(fighter.checkIfDefeated()){
             System.out.println("You Won :)");
@@ -72,9 +56,7 @@ public class Combat {
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
         IPuckemon playerPuckemon = player.getActivePuckemon();
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
-        int pdiff = playerPuckemon.getHealth();
         executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
-        System.out.println("player switched, player: " + (pdiff-playerPuckemon.getHealth()));
     }
 
     /**
@@ -87,9 +69,6 @@ public class Combat {
 
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
-
-        int pdiff = playerPuckemon.getHealth();
-        int fdiff = fighterPuckemon.getHealth();
 
         //If enemy fighter made a move
         if (fighterMove != null) {
@@ -106,10 +85,8 @@ public class Combat {
             executeEffects(attack, playerPuckemon, fighterPuckemon);
         }
 
-        System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
+
         checkDefeat();
-//        System.out.println(playerPuckemon.getName()+" used "+player.getPuckemon().getAttack(index).get);
-//        System.out.println(fighterPuckemon.getName()+" used "+fighterPuckemon.getA);
     }
 
     /**
@@ -122,9 +99,6 @@ public class Combat {
 
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
-
-        int pdiff = playerPuckemon.getHealth();
-        int fdiff = fighterPuckemon.getHealth();
 
         //If enemy fighter made a move
         if (fighterMove != null) {
@@ -143,9 +117,6 @@ public class Combat {
 
         player.consumeItem(index);
         checkDefeat();
-        System.out.println("player: " + (pdiff-playerPuckemon.getHealth()) + ", fighter: " + (fdiff-fighterPuckemon.getHealth()));
-//        System.out.println(playerPuckemon.getName()+" used "+player.getPuckemon().getAttack(index).get);
-//        System.out.println(fighterPuckemon.getName()+" used "+fighterPuckemon.getA);
     }
 
     private void executeEffects(IEffectContainer effectContainer, IPuckemon attackUser, IPuckemon opponent){
