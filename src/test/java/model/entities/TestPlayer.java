@@ -96,4 +96,26 @@ public class TestPlayer {
 
         assertEquals(player.getItem(0), item);
     }
+
+    @Test
+    public void testConsumeItem() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        OwnedPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+
+        List<OwnedPuckemon> party = new ArrayList<>();
+        party.add(p);
+
+        Item item = ItemBuilder.getRandom();
+        List<Item> items = new ArrayList<>();
+        items.add(item);
+        Inventory inventory = new Inventory(items);
+
+        Player player = new Player(party, inventory, 0);
+
+        assertEquals(player.getInventory().size(), 1);
+
+        player.consumeItem(0);
+
+        assertEquals(player.getInventory().size(), 0);
+    }
 }
