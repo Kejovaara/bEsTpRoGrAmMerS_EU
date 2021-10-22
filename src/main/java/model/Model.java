@@ -6,6 +6,7 @@ import model.entities.*;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
+import view.message.MessageHandler;
 
 import java.util.List;
 
@@ -19,9 +20,10 @@ import java.util.List;
 public class Model {
 
     private final Player player;
-    private PuckeTrainer trainer;
+    private IFighter opponent;
     private Combat combat;
     private final PartyBuilder partyBuilder;
+    private boolean fleePermitted = true;
 
     /**
      * Constructor of the model, generates what's needed for playing the game.
@@ -30,7 +32,8 @@ public class Model {
         partyBuilder = new PartyBuilder();
         player = new Player(partyBuilder.getPlayerStartingTeam(), 10);
         player.generateStartingInventoryDEV(35);
-        startCombat(3,10,false);
+        startCombatTrainer(3,10,false);
+//        startCombatWildPuckemon(10);
     }
 
     /**
@@ -39,13 +42,36 @@ public class Model {
      * @param minLevel minimum level of the puckemons that is generated
      * @param smart decides the difficulty of the trainer
      */
-    public void startCombat(int size, int minLevel, boolean smart){
+    public void startCombatTrainer(int size, int minLevel, boolean smart){
+        fleePermitted = false;
         createNoviceTrainer(size, minLevel, smart);
-        combat = new Combat(player, trainer);
+        combat = new Combat(player, opponent);
+    }
+
+    /**
+     * Method for starting combat with a random wild Puckemon
+     * @param minLevel minimum level of the puckemon that is generated
+     */
+    public void startCombatWildPuckemon(int minLevel){
+        fleePermitted = true;
+        createRandomWildPuckemon(minLevel);
+        combat = new Combat(player, opponent);
     }
 
     private void createNoviceTrainer(int size, int minLevel, boolean smart){
-        trainer = new PuckeTrainer("Bertil", partyBuilder.getRandOpponentTeam(size,minLevel), smart);
+        opponent = new PuckeTrainer("Bertil", partyBuilder.getRandOpponentTeam(size,minLevel), smart);
+    }
+
+    private void createRandomWildPuckemon(int minLevel){
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+
+        //Random id between 1 -> 5
+        int id = (int)Math.floor(Math.random()*(5)+1);
+
+        //Random level between minLEvel -> minLEvel+10
+        int level = (int)Math.floor(Math.random()*((minLevel+10)-minLevel+1)+minLevel);
+
+        opponent = createPuckemon.createFixedPuckemon(id, level);
     }
 
     /**
@@ -64,8 +90,8 @@ public class Model {
     /**
      * @return the trainers active puckemon.
      */
-    public IPuckemon getTrainerPuckemon() {
-        return trainer.getActivePuckemon();
+    public IPuckemon getOpponentPuckemon() {
+        return opponent.getActivePuckemon();
     }
 
     /**
@@ -93,7 +119,11 @@ public class Model {
      * Use flee method
      */
     public void useFlee(){
-        combat.useFlee();
+        if (fleePermitted){
+            combat.useFlee();
+        } else {
+            MessageHandler.getInstance().DisplayMessage("You cannot flee when fighting a trainer!");
+        }
     }
 
     /**

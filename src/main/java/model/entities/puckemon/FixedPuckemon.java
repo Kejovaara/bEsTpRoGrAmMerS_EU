@@ -57,7 +57,7 @@ public class FixedPuckemon extends Puckemon implements IFighter {
 
     @Override
     public IPuckemon getActivePuckemon() {
-        return null;
+        return this;
     }
 
 }
