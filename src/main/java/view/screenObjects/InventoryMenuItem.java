@@ -9,6 +9,12 @@ import model.inventories.Item;
 import view.IRender;
 import view.menu.MenuItem;
 
+/**
+ * Screen object that renders Inventory menu items on the screen
+ * @author André Kejovaara
+ * @author Rasmus Almryd
+ */
+
 public class InventoryMenuItem implements IRender {
 
     private SpriteBatch batch;
@@ -25,6 +31,15 @@ public class InventoryMenuItem implements IRender {
 
     private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
 
+    /**
+     * Constructor for InventoryMenuItem
+     * @param batch the batch
+     * @param item the item
+     * @param xPos the position where to print
+     * @param yPos the position where to print
+     * @param scale the scale of the inventory menu item
+     * @param active whether the item is active or not.
+     */
     public InventoryMenuItem(SpriteBatch batch, Item item, int xPos, int yPos, float scale, Boolean active){
         this.batch = batch;
         this.active = active;

@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import view.IRender;
 
+/**
+ * Screen object that renders CursorMenu items on the screen
+ */
 public class CursorMenuItem implements IRender {
 
     private SpriteBatch batch;
@@ -19,6 +22,15 @@ public class CursorMenuItem implements IRender {
 
     private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
 
+    /**
+     * Constructor for CurstorMenuItem
+     * @param batch the batch
+     * @param message the attack
+     * @param xPos the position where to print
+     * @param yPos the position where to print
+     * @param scale the scale of the object to print
+     * @param active whether the item is active or not
+     */
     public CursorMenuItem(SpriteBatch batch, String message, int xPos, int yPos, float scale, Boolean active){
         this.batch = batch;
         this.active = active;
@@ -32,6 +44,10 @@ public class CursorMenuItem implements IRender {
         this.arrow = new Image(batch,xPos-25,yPos-15,16,16,arrow);
     }
 
+    /**
+     * Change the color of the Cursor item
+     * @param color the given color
+     */
     protected void changeTextColor(Color color){
         this.text = new Text(font, batch, color, xPos, yPos, message ,scale);
     }

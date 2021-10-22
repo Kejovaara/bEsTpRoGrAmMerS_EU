@@ -7,6 +7,10 @@ import view.IRender;
 
 import java.util.List;
 
+/**
+ * Screen object that renders rectangle borders on the screen
+ */
+
 public class RectangleBorder implements IDraw , IRender {
 
     private ShapeRenderer shapeRenderer;
@@ -18,7 +22,16 @@ public class RectangleBorder implements IDraw , IRender {
     private Color innerColor;
     private int lineWidth;
 
-
+    /**
+     * Constructor for Rectangle border
+     * @param xPos the x-position where to print
+     * @param yPos the y-position where to print
+     * @param width the width of the rectangle border
+     * @param height the height of the rectangle border
+     * @param outerColor the border color of the rectangle
+     * @param innerColor the inner color of the rectangle
+     * @param lineWidth the width of the border
+     */
     public RectangleBorder(int xPos, int yPos, int width, int height, Color outerColor, Color innerColor, int lineWidth) {
         shapeRenderer = new ShapeRenderer();
         this.xPos = xPos;

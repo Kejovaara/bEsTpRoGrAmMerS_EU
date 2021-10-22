@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import run.Boot;
 import view.IDraw;
 
+/**
+ * Screen object that renders Sprites on the screen
+ */
+
 public class Sprite implements IDraw {
 
     private final Boot game;
@@ -16,6 +20,16 @@ public class Sprite implements IDraw {
     private int height;
     private final Texture puckemon;
 
+    /**
+     * Constructor for Sprite
+     * @param game the game
+     * @param batch the batch
+     * @param xPos the x-position where to print
+     * @param yPos the y-position where to print
+     * @param width the width of the sprite
+     * @param height the height of the sprite
+     * @param puckemon the puckemon
+     */
     public Sprite(Boot game, SpriteBatch batch, int xPos, int yPos, int width, int height, Texture puckemon) {
         this.game = game;
         this.batch = batch;
