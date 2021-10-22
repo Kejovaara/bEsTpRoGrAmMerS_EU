@@ -26,9 +26,8 @@ public class TestPuckeTrainer {
         activePuckemon.doDamage(5000);
 
         boolean isDefeated = trainer.checkIfDefeated();
-        boolean expected = true;
 
-        assertEquals(expected, isDefeated);
+        assertTrue(isDefeated);
     }
 
     @Test
@@ -37,9 +36,8 @@ public class TestPuckeTrainer {
         IFighter trainer = new PuckeTrainer("El bertil", partyBuilder.getRandOpponentTeam(1,5), false);
 
         boolean isDefeated = trainer.checkIfDefeated();
-        boolean expected = false;
 
-        assertEquals(expected, isDefeated);
+        assertFalse(isDefeated);
     }
 
     @Test
@@ -52,9 +50,8 @@ public class TestPuckeTrainer {
 
         //Opponent should switch
         boolean isDefeated = trainer.checkIfDefeated();
-        boolean expected = false;
 
-        assertEquals(expected, isDefeated);
+        assertFalse(isDefeated);
     }
 
     @Test
