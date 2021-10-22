@@ -24,7 +24,7 @@ public class ExcelReader {
     private List<Object> readPuckemonRegister(int id){
         try
         {
-            FileInputStream file = new FileInputStream(("src/main/java/model/MonRegister.xlsx"));
+            FileInputStream file = new FileInputStream("src/main/java/model/MonRegister.xlsx");
 
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);

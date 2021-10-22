@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import model.inventories.Item;
 import view.IRender;
-import view.menu.MenuItem;
 
 /**
  * Screen object that renders Inventory menu items on the screen

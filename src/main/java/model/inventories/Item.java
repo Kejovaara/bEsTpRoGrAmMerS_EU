@@ -4,7 +4,6 @@ import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IPuckemon;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

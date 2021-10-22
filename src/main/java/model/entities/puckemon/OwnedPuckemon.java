@@ -1,7 +1,6 @@
 package model.entities.puckemon;
 
 import model.PTypes;
-import model.entities.puckemon.Puckemon;
 
 import java.util.List;
 

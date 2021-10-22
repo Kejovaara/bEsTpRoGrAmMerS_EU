@@ -2,7 +2,6 @@ package model.inventories;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * The class representing an inventory which can be used by the trainers in the game and the player him-/herself.

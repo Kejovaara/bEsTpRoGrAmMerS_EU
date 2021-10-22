@@ -1,9 +1,7 @@
 package model.inventories;
 
-import model.PTypes;
 import model.effects.IEffect;
 import model.effects.effectTypes.*;
-import org.apache.pdfbox.contentstream.operator.state.Restore;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,6 @@
 package view.message;
 
-import org.lwjgl.Sys;
 import view.MessageObserver;
-import view.animation.TextAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +11,7 @@ import java.util.List;
 public class MessageHandler {
 
     private static MessageHandler instance;
-    private List<MessageObserver> observers = new ArrayList<>();
-    private TextAnimation textAnimator;
-
-    private MessageHandler(){
-
-    }
+    private final List<MessageObserver> observers = new ArrayList<>();
 
     /**
      * @return the instance of the MessageHandler.
@@ -44,10 +37,6 @@ public class MessageHandler {
      */
     public void removeObserver(MessageObserver observer){
         observers.remove(observer);
-    }
-
-    public void setView(){
-        //TODO: set a view variable so that this class can talk to it
     }
 
     /**
