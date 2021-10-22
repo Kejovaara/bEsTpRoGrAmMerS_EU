@@ -4,23 +4,27 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Every Puckemon has set never changing values that the dynamic values of a puckemon (Ex speed and moveSet) are based on.
+ * These are stored in an Excel document 'MonRegister.xlsx' for easy manipulation. This class function is to read that sheet.
+ * @author Lukas Jigberg
+ */
 public class ExcelReader {
 
-    private List excelData;
+    private List<Object> excelData;
 
 
     /**
      * Reads the excel document and returns a list of data of specific Puckemon depending on the ID.
      */
-    private List readPuckemonRegister(int id){
+    private List<Object> readPuckemonRegister(int id){
         try
         {
-            FileInputStream file = new FileInputStream(new File("src/main/java/model/MonRegister.xlsx"));
+            FileInputStream file = new FileInputStream(("src/main/java/model/MonRegister.xlsx"));
 
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -29,7 +33,7 @@ public class ExcelReader {
             XSSFSheet sheet = workbook.getSheetAt(0);
             XSSFRow row = sheet.getRow(id);
 
-            excelData = new ArrayList();
+            excelData = new ArrayList<>();
 
             try{
                 excelData.add(row.getCell(1).getStringCellValue());
@@ -56,7 +60,7 @@ public class ExcelReader {
         return excelData;
     }
 
-    public List getExcelData(int id){
+    public List<Object> getExcelData(int id){
         return readPuckemonRegister(id);
     }
 

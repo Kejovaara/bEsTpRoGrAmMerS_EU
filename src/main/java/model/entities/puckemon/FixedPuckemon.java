@@ -1,7 +1,9 @@
-package model.entities;
+package model.entities.puckemon;
 
 import model.PTypes;
 import model.effects.IEffectContainer;
+import model.entities.IFighter;
+import model.entities.IPuckemon;
 
 import java.util.List;
 import java.util.Random;
@@ -12,10 +14,10 @@ import java.util.Random;
  * @author Lukas Jigberg
  * @author Emil Jonsson
  */
-public class VildPuckemon extends Puckemon implements IFighter{
+public class FixedPuckemon extends Puckemon implements IFighter {
 
     /**
-     * Constructor of VildPuckemon, the same as Puckemon.
+     * Constructor of FixedPuckemon, the same as Puckemon.
      * @param id the ID of the Puckemon
      * @param level the level of the Puckemon
      * @param name the name of the Puckemon
@@ -26,8 +28,8 @@ public class VildPuckemon extends Puckemon implements IFighter{
      * @param baseSpeed amount of base speed
      * @param moveList a list of string with all the attacks the Puckemon can use
      */
-    public VildPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower,
-                        int baseDefence, int baseSpeed, List<String> moveList) {
+    public FixedPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower,
+                         int baseDefence, int baseSpeed, List<String> moveList) {
         super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
     }
 
@@ -50,13 +52,12 @@ public class VildPuckemon extends Puckemon implements IFighter{
      */
     @Override
     public boolean checkIfDefeated(){
-        boolean defeated = currentHealth <= 0;
-        return defeated;
+        return currentHealth <= 0;
     }
 
     @Override
     public IPuckemon getActivePuckemon() {
-        return null;
+        return this;
     }
 
 }

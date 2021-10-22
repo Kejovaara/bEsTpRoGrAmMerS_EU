@@ -5,8 +5,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import model.entities.Puckemon;
+import model.entities.puckemon.Puckemon;
 import view.IRender;
+
+/**
+ * Screen object that renders Main party item on the screen, the active puckemon.
+ */
 
 public class MainPartyItem  implements IRender {
 
@@ -24,7 +28,15 @@ public class MainPartyItem  implements IRender {
 
     private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
 
-
+    /**
+     * Constructor for MainPartyItem
+     * @param batch the batch
+     * @param puckemon the puckemon
+     * @param xPos the x-position where to print
+     * @param yPos the y-position where to print
+     * @param scale the scale of the main party item
+     * @param active whether the main party item menu is active or not
+     */
     public MainPartyItem(SpriteBatch batch, Puckemon puckemon, int xPos, int yPos, float scale, Boolean active){
         this.batch = batch;
         this.active = active;

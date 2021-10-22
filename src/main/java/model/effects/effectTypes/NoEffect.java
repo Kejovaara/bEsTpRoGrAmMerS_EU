@@ -5,10 +5,18 @@ import model.entities.IPuckemon;
 import model.inventories.Item;
 import view.message.MessageHandler;
 
+/**
+ * Class to handle how items with no effect works.
+ * @author André Kejovaara
+ */
 public class NoEffect implements IEffect {
     String error;
     Item item;
 
+    /**
+     * Constructor for NoEffect
+     * @param item to be used to define that an item has no effect.
+     */
     public NoEffect(Item item){
         this.item = item;
         error = "" + this.item.getName() + " does not have an effect" + " \n";

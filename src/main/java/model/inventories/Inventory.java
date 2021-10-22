@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * The class representing an inventory which can be used by the trainers in the game and the player him-/herself.
+ * The inventory contains items that can be used in the game during and outside of combat.
+ * @author André Kejovaara
+ */
 public class Inventory {
 
     private List<Item> invList;

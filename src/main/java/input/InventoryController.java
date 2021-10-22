@@ -12,6 +12,7 @@ import view.PartyScreen;
 /**
  * A class to handle input events when the InventoryScreen is active.
  * @author Rasmus Almryd
+ * @author André Kejovaara
  */
 public class InventoryController implements IController {
     private Model model;

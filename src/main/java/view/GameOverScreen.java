@@ -5,23 +5,21 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
-import model.Model;
 import run.Boot;
 
+/**
+ * Shows the GameOver screen.
+ * @author Lukas Jigberg
+ */
 public class GameOverScreen implements Screen {
 
     final Boot game;
-    private Model model;
-    private int screenWidth, screenHeight;
 
     OrthographicCamera camera;
     Texture menu;
 
-    public GameOverScreen(final Boot game, Model model) {
+    public GameOverScreen(final Boot game) {
         this.game = game;
-        this.model = model;
-        this.screenWidth = game.getScreenWidth();
-        this.screenHeight = game.getScreenHeight();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);

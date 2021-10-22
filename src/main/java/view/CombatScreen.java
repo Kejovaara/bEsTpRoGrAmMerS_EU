@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.StringBuilder;
 import model.Model;
 import model.entities.IPuckemon;
-import model.entities.Puckemon;
+import model.entities.puckemon.Puckemon;
 import run.Boot;
 import view.animation.*;
 import view.menu.Menu;
@@ -25,6 +25,9 @@ import view.screenObjects.RectangleBorder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView{
 
     final Boot game;
@@ -81,7 +84,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
         mainMenuBackground2 = new RectangleBorder(560,0,400,180,Color.BLACK,Color.WHITE,8);
 
-        activeEnemyPuckemon = model.getTrainerPuckemon();
+        activeEnemyPuckemon = model.getOpponentPuckemon();
 
         //COMABT BOX TEXT
         stage = new Stage();
@@ -178,9 +181,9 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     }
 
     private void checkOpponentTexture(){
-        if(activeEnemyPuckemon != model.getTrainerPuckemon()){
-            enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
-            activeEnemyPuckemon = model.getTrainerPuckemon();
+        if(activeEnemyPuckemon != model.getOpponentPuckemon()){
+            enemyPuck = getTexture(model.getOpponentPuckemon().getId(), true);
+            activeEnemyPuckemon = model.getOpponentPuckemon();
         }
     }
 
@@ -230,7 +233,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         shapeRenderer.setColor(0.7f,0.7f,0.7f,1);
         shapeRenderer.rect(60, this.camera.viewportHeight-100, 360,40);
         shapeRenderer.setColor(0.698f, 1, 0.729f,1);
-        shapeRenderer.rect(60, this.camera.viewportHeight-100,((float)model.getTrainerPuckemon().getHealth()/model.getTrainerPuckemon().getMaxHealth())*360,40);
+        shapeRenderer.rect(60, this.camera.viewportHeight-100,((float)model.getOpponentPuckemon().getHealth()/model.getOpponentPuckemon().getMaxHealth())*360,40);
 
         shapeRenderer.setColor(0.7f,0.7f,0.7f,1);
         shapeRenderer.rect(this.camera.viewportWidth-420, 240, 360,40);
@@ -248,8 +251,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
         game.batch.begin();
         statsFont.setColor(0,0,0,1);
-        statsFont.draw(game.batch, model.getTrainerPuckemon().getName(),60,this.camera.viewportHeight-40);
-        statsFont.draw(game.batch, "Lv "+model.getTrainerPuckemon().getLevel(),360,this.camera.viewportHeight-40);
+        statsFont.draw(game.batch, model.getOpponentPuckemon().getName(),60,this.camera.viewportHeight-40);
+        statsFont.draw(game.batch, "Lv "+model.getOpponentPuckemon().getLevel(),360,this.camera.viewportHeight-40);
 
         statsFont.draw(game.batch, model.getPlayerPuckemon().getName(),this.camera.viewportWidth-420,300);
         statsFont.draw(game.batch, "Lv "+model.getPlayerPuckemon().getLevel(),this.camera.viewportWidth-120,300);
@@ -265,7 +268,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         activeMenu = mainMenu;
 
         playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
-        enemyPuck = getTexture(model.getTrainerPuckemon().getId(), true);
+        enemyPuck = getTexture(model.getOpponentPuckemon().getId(), true);
 
         if (textAnimator.isDone())textAnimator.setMessage("What will " + model.getPlayerPuckemon().getName() + " do?");
     }

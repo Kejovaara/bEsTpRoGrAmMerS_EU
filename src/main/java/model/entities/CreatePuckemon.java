@@ -2,6 +2,9 @@ package model.entities;
 
 import model.ExcelReader;
 import model.PTypes;
+import model.entities.puckemon.OwnedPuckemon;
+import model.entities.puckemon.FixedPuckemon;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,8 +12,8 @@ import java.util.stream.Collectors;
 
 /**
  * Class that returns/creates a type of Puckemon using the ExcelReader class.
+ * @author Lukas Jigberg
  */
-
 public class CreatePuckemon {
 
     ExcelReader excelReader = new ExcelReader();
@@ -25,16 +28,16 @@ public class CreatePuckemon {
     }
 
     /**
-     * buildVild Returns a VildPuckemon
+     * buildFixed Returns a FixedPuckemon
      */
-    private VildPuckemon buildVild(int id, int level){
+    private FixedPuckemon buildFixed(int id, int level){
         List<Object> data = excelReader.getExcelData(id);
-        return new VildPuckemon(id,level,(String)data.get(0), dissectListTypes((String)data.get(1)),(int) data.get(2),(int)data.get(3)
+        return new FixedPuckemon(id,level,(String)data.get(0), dissectListTypes((String)data.get(1)),(int) data.get(2),(int)data.get(3)
                 ,(int)data.get(4),(int)data.get(5),dissectList((String)data.get(8)));
     }
 
     /**
-     * dissect turns the string from excel to list of Types and String respectively
+     * dissect turns a string from the excel to a list of Types and Strings respectively
      */
     private List<PTypes> dissectListTypes(String cellString){
         return Arrays.stream(cellString.split(",\\s+"))
@@ -51,8 +54,8 @@ public class CreatePuckemon {
         return buildOwned(id,level);
     }
 
-    public VildPuckemon createVildPuckemon(int id, int level){
-        return buildVild(id,level);
+    public FixedPuckemon createFixedPuckemon(int id, int level){
+        return buildFixed(id,level);
     }
 
 }

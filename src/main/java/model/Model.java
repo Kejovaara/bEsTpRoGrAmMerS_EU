@@ -3,69 +3,158 @@ package model;
 import model.attack.Attack;
 import model.combat.Combat;
 import model.entities.*;
+import model.entities.puckemon.OwnedPuckemon;
+import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
+import view.message.MessageHandler;
 
 import java.util.List;
 
+/**
+ * This class represents the actual model of the game, contains methods that the game uses to operate.
+ * @author Rasmus Almryd
+ * @author Lukas Jigberg
+ * @author André Kejovaara
+ * @author Emil Jonsson
+ */
 public class Model {
 
-    private Player player;
-    private PuckeTrainer trainer;
+    private final Player player;
+    private IFighter opponent;
     private Combat combat;
-    private PartyBuilder partyBuilder;
+    private final PartyBuilder partyBuilder;
+    private boolean fleePermitted = true;
 
+    /**
+     * Constructor of the model, generates what's needed for playing the game.
+     */
     public Model() {
         partyBuilder = new PartyBuilder();
         player = new Player(partyBuilder.getPlayerStartingTeam(), 10);
         player.generateStartingInventoryDEV(35);
-        startCombat(3,10,false);
+        startCombatTrainer(3,10,false);
+//        startCombatWildPuckemon(10);
     }
 
-    public void startCombat(int size, int minLevel, boolean smart){
+    /**
+     * Method for starting combat with a trainer
+     * @param size is the size of party
+     * @param minLevel minimum level of the puckemons that is generated
+     * @param smart decides the difficulty of the trainer
+     */
+    public void startCombatTrainer(int size, int minLevel, boolean smart){
+        fleePermitted = false;
         createNoviceTrainer(size, minLevel, smart);
-        combat = new Combat(player, trainer);
+        combat = new Combat(player, opponent);
     }
 
-    private PuckeTrainer createNoviceTrainer(int size, int minLevel, boolean smart){
-        trainer = new PuckeTrainer("Bertil", partyBuilder.getRandOpponentTeam(size,minLevel), smart);
-        return trainer;
+    /**
+     * Method for starting combat with a random wild Puckemon
+     * @param minLevel minimum level of the puckemon that is generated
+     */
+    public void startCombatWildPuckemon(int minLevel){
+        fleePermitted = true;
+        createRandomWildPuckemon(minLevel);
+        combat = new Combat(player, opponent);
     }
 
+    private void createNoviceTrainer(int size, int minLevel, boolean smart){
+        opponent = new PuckeTrainer("Bertil", partyBuilder.getRandOpponentTeam(size,minLevel), smart);
+    }
+
+    private void createRandomWildPuckemon(int minLevel){
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+
+        //Random id between 1 -> 5
+        int id = (int)Math.floor(Math.random()*(5)+1);
+
+        //Random level between minLEvel -> minLEvel+10
+        int level = (int)Math.floor(Math.random()*((minLevel+10)-minLevel+1)+minLevel);
+
+        opponent = createPuckemon.createFixedPuckemon(id, level);
+    }
+
+    /**
+     * Switches puckemon in the bag.
+     * @param i index of the puckemon to be switched to.
+     */
     public void switchPuckemon(int i){player.switchPuckemon(i);}
 
+    /**
+     * @return the players puckemon.
+     */
     public Puckemon getPlayerPuckemon() {
-        return player.getPuckemon();
+        return player.getActivePuckemon();
     }
 
-    public IPuckemon getTrainerPuckemon() {
-        return trainer.getActivePuckemon();
+    /**
+     * @return the trainers active puckemon.
+     */
+    public IPuckemon getOpponentPuckemon() {
+        return opponent.getActivePuckemon();
     }
 
+    /**
+     * Uses an attack of the given index
+     * @param index the given index which decides what attack to use
+     */
     public void useAttack(int index){
         if (getAttack(index).getPP() > 0)combat.usePlayerAttack(index);
     }
 
+    /**
+     * Use the chosen item in the inventory
+     * @param index the index of the item in the inventory
+     */
     public void useItem(int index) {combat.usePlayerItem(index);}
 
+    /**
+     * Use switch method
+     */
     public void useSwitch(){
         combat.useSwitch();
     }
 
+    /**
+     * Use flee method
+     */
     public void useFlee(){
-        combat.useFlee();
+        if (fleePermitted){
+            combat.useFlee();
+        } else {
+            MessageHandler.getInstance().DisplayMessage("You cannot flee when fighting a trainer!");
+        }
     }
 
+    /**
+     * @param index of the given attack
+     * @return the chosen attack.
+     */
     public Attack getAttack(int index){
-        return player.getPuckemon().getMoveSet().get(index);
-    }
-    public List<Attack> getAttacks(){
-        return player.getPuckemon().getMoveSet();
+        return player.getActivePuckemon().getMoveSet().get(index);
     }
 
+    /**
+     * @return the list of attacks a puckemon has.
+     */
+    public List<Attack> getAttacks(){
+        return player.getActivePuckemon().getMoveSet();
+    }
+
+    /**
+     * @return the party of the player
+     */
     public List<OwnedPuckemon> getParty(){
         return player.getParty();
     }
 
+    /**
+     * @return the list of items in the players inventory.
+     */
     public List<Item> getInventory(){ return player.getInventory();}
+
+    /**
+     * @return the outcome of the battle
+     */
     public String getBattleOutcome(){return combat.getBattleOutcome();}
 }

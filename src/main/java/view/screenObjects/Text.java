@@ -9,6 +9,9 @@ import view.IDraw;
 import view.IRender;
 
 import java.util.List;
+/**
+ * Screen object that renders static text on the screen
+ */
 
 public class Text implements IDraw,IRender {
 
@@ -19,6 +22,16 @@ public class Text implements IDraw,IRender {
     private String message;
     private Color color;
 
+    /**
+     * Constructor for Text
+     * @param font the font
+     * @param batch the batch
+     * @param color the color
+     * @param xPos the x-position where to print
+     * @param yPos the y-position where to print
+     * @param message the message to display
+     * @param scale the scale of the text
+     */
     public Text(BitmapFont font, SpriteBatch batch, Color color, int xPos, int yPos, String message, float scale) {
         this.font = font;
         this.batch = batch;

@@ -7,6 +7,10 @@ import model.entities.IPuckemon;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A class for handling how items work in the game.
+ * @author André Kejovaara
+ */
 public class Item implements IEffectContainer {
 
     private List<IEffect> effects;

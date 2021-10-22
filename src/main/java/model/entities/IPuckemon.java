@@ -12,7 +12,6 @@ public interface IPuckemon {
 
     int getId();
 
-    void setHealth(int health);
     void doDamage(int damage);
     void heal(int heal);
     int getHealth();

@@ -1,8 +1,8 @@
 package model;
 
 import model.entities.CreatePuckemon;
-import model.entities.OwnedPuckemon;
-import model.entities.VildPuckemon;
+import model.entities.puckemon.OwnedPuckemon;
+import model.entities.puckemon.FixedPuckemon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +40,10 @@ public class PartyBuilder {
      * @param size is how many puckemon the team should consist of.
      * @return List of VildPuckemon
      */
-    private List<VildPuckemon> randOpponentTeam(int size, int level){
-        List<VildPuckemon> opponentTeam = new ArrayList<>();
+    private List<FixedPuckemon> randOpponentTeam(int size, int level){
+        List<FixedPuckemon> opponentTeam = new ArrayList<>();
         for (int i = 0; i < size;i++){
-            opponentTeam.add(createPuckemon.createVildPuckemon(randomNumber(1,5),randomNumber(level,level+10)));
+            opponentTeam.add(createPuckemon.createFixedPuckemon(randomNumber(1,5),randomNumber(level,level+10)));
         }
         return opponentTeam;
     }
@@ -56,7 +56,7 @@ public class PartyBuilder {
         return playerStartingTeam;
     }
 
-    public List<VildPuckemon> getRandOpponentTeam(int partySize, int minLevel){
+    public List<FixedPuckemon> getRandOpponentTeam(int partySize, int minLevel){
         return randOpponentTeam(partySize,minLevel);
     }
 }

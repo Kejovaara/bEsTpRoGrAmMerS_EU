@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import model.PTypes;
 import model.entities.CreatePuckemon;
 import model.entities.IPuckemon;
-import model.entities.OwnedPuckemon;
 import org.junit.Test;
 
 public class TestHpSteal {
@@ -15,7 +14,7 @@ public class TestHpSteal {
         CreatePuckemon createPuckemon = new CreatePuckemon();
         IPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
         IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
-        p.setHealth(3);
+        p.doDamage(5000);
 
         int enemyPreHealth = enemyP.getHealth();
         int preHealth = p.getHealth();
@@ -25,7 +24,6 @@ public class TestHpSteal {
         int damage = enemyPreHealth - enemyP.getHealth();
 
         int healAmount = (int)Math.ceil((float)damage/2);
-        System.out.println("heal exp: " + healAmount);
         int expected = preHealth + healAmount;
         System.out.println(expected);
 

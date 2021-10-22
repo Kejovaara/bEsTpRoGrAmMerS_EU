@@ -6,6 +6,10 @@ import view.IRender;
 
 import java.util.List;
 
+/**
+ * Screen object that renders health bars on the screen
+ */
+
 public class HealthBar implements IDraw, IRender {
 
     private final ShapeRenderer shapeRenderer;
@@ -16,7 +20,15 @@ public class HealthBar implements IDraw, IRender {
     private float maxHealth;
     private float health;
 
-
+    /**
+     * Constructor for health bar
+     * @param xPos the position where to print
+     * @param yPos the position where to print
+     * @param width the width of the health bar
+     * @param height the height of the health bar
+     * @param maxHealth the max health of the puckemon
+     * @param health the current health of the puckemon
+     */
     public HealthBar(int xPos, int yPos, int width, int height, int maxHealth, int health){
         shapeRenderer = new ShapeRenderer();
         this.xPos = xPos;
@@ -37,6 +49,10 @@ public class HealthBar implements IDraw, IRender {
 
     }
 
+    /**
+     * Sets the health of the health bar
+     * @param health the current health
+     */
     public void setHealth(int health){
         this.health = health;
     }

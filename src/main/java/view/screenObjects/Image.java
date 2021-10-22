@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import run.Boot;
 import view.IRender;
 
+/**
+ * Screen object that renders images on the screen
+ */
+
 public class Image implements IRender {
 
     private final SpriteBatch batch;
@@ -14,6 +18,15 @@ public class Image implements IRender {
     private int height;
     private Texture texture;
 
+    /**
+     * Constructor for Image
+     * @param batch the batch
+     * @param xPos the position where to print
+     * @param yPos the position where to print
+     * @param width the width of the imaage
+     * @param height the height of the image
+     * @param texture the texture of the image
+     */
     public Image(SpriteBatch batch, int xPos, int yPos, int width, int height, Texture texture) {
         this.batch = batch;
         this.xPos = xPos;

@@ -4,11 +4,16 @@ import static org.junit.Assert.*;
 
 import model.PartyBuilder;
 import model.attack.Attack;
-import model.attack.AttackFactory;
+import model.attack.AttackBuilder;
 import model.effects.IEffectContainer;
+import model.entities.puckemon.FixedPuckemon;
+import model.inventories.Inventory;
+import model.inventories.Item;
+import model.inventories.ItemBuilder;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestPuckeTrainer {
 
@@ -18,7 +23,7 @@ public class TestPuckeTrainer {
         IFighter trainer = new PuckeTrainer("El bertil", partyBuilder.getRandOpponentTeam(1,5), false);
 
         IPuckemon activePuckemon = trainer.getActivePuckemon();
-        activePuckemon.setHealth(0);
+        activePuckemon.doDamage(5000);
 
         boolean isDefeated = trainer.checkIfDefeated();
         boolean expected = true;
@@ -43,7 +48,7 @@ public class TestPuckeTrainer {
         IFighter trainer = new PuckeTrainer("El bertil", partyBuilder.getRandOpponentTeam(2,5), false);
 
         IPuckemon activePuckemon = trainer.getActivePuckemon();
-        activePuckemon.setHealth(0);
+        activePuckemon.doDamage(5000);
 
         //Opponent should switch
         boolean isDefeated = trainer.checkIfDefeated();
@@ -56,13 +61,13 @@ public class TestPuckeTrainer {
     public void testMakeMoveWithActive() {
         CreatePuckemon createPuckemon = new CreatePuckemon();
         IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
-        VildPuckemon p = createPuckemon.createVildPuckemon(1,1);
+        FixedPuckemon p = createPuckemon.createFixedPuckemon(1,1);
 
-        ArrayList<VildPuckemon> party = new ArrayList<>();
+        List<FixedPuckemon> party = new ArrayList<>();
         party.add(p);
         IFighter trainer = new PuckeTrainer("El bertil", party, true);
 
-        Attack expectedAttack = AttackFactory.createByName("Tackle");
+        Attack expectedAttack = AttackBuilder.createByName("Tackle");
         Attack attack = (Attack)trainer.makeMove(enemyP);
 
         String name = attack.getName();
@@ -75,11 +80,11 @@ public class TestPuckeTrainer {
     public void testMakeMoveSwitch() {
         CreatePuckemon createPuckemon = new CreatePuckemon();
         IPuckemon enemyP = createPuckemon.createOwnedPuckemon(1,1);
-        VildPuckemon p = createPuckemon.createVildPuckemon(1,1);
+        FixedPuckemon p = createPuckemon.createFixedPuckemon(1,1);
         //Create strong Puckemon that is worth switching to
-        VildPuckemon strongP = createPuckemon.createVildPuckemon(5,1);
+        FixedPuckemon strongP = createPuckemon.createFixedPuckemon(5,1);
 
-        ArrayList<VildPuckemon> party = new ArrayList<>();
+        List<FixedPuckemon> party = new ArrayList<>();
         party.add(p);
         party.add(strongP);
         IFighter trainer = new PuckeTrainer("El bertil", party, true);
@@ -93,6 +98,35 @@ public class TestPuckeTrainer {
 
         //Check that switch has occurred
         assertEquals(activePuckemon, strongP);
+    }
+
+    @Test
+    public void testGetItem() {
+        Item item = ItemBuilder.getRandom();
+        List<Item> items = new ArrayList<>();
+        items.add(item);
+        Inventory inventory = new Inventory(items);
+
+        PartyBuilder partyBuilder = new PartyBuilder();
+        //Second constructor of PuckeTrainer
+        PuckeTrainer trainer = new PuckeTrainer("El bertil",  partyBuilder.getRandOpponentTeam(1,5), inventory, false);
+
+
+        //Check that no IEffectContainer has been returned
+        assertEquals(trainer.getItem(0),item);
+    }
+
+    @Test
+    public void testAddItem() {
+        Item item = ItemBuilder.getRandom();
+
+        PartyBuilder partyBuilder = new PartyBuilder();
+        PuckeTrainer trainer = new PuckeTrainer("El bertil",  partyBuilder.getRandOpponentTeam(1,5), false);
+
+        trainer.addItem(item);
+
+        //Check that no IEffectContainer has been returned
+        assertEquals(trainer.getItem(0),item);
     }
 
 }

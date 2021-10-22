@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ItemFactory {
+/**
+ * A class that builds items.
+ * @author André Kejovaara
+ */
+public class ItemBuilder {
 
     public static Item getRandom(){
         // nextInt is normally exclusive of the top value,
