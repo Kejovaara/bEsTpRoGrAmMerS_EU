@@ -79,4 +79,21 @@ public class TestPlayer {
 
         assertEquals(player.getItem(0), item);
     }
+
+    @Test
+    public void testAddItem() {
+        CreatePuckemon createPuckemon = new CreatePuckemon();
+        OwnedPuckemon p = createPuckemon.createOwnedPuckemon(1,1);
+
+        List<OwnedPuckemon> party = new ArrayList<>();
+        party.add(p);
+
+        Item item = ItemBuilder.getRandom();
+
+        Player player = new Player(party, 0);
+
+        player.addItem(item);
+
+        assertEquals(player.getItem(0), item);
+    }
 }
