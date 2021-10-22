@@ -96,5 +96,6 @@ public class ItemBuilder {
         SILVER_NUGGIE,
         SUPER_KILL_POTION,
         EVOLVE_NUGGIE,
+        TEST,
     }
 }
