@@ -1,7 +1,5 @@
 package model;
 
-import model.entities.puckemon.Puckemon;
-import org.apache.poi.ss.formula.functions.Fixed;
 import services.puckemonGenerator.CreatePuckemon;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.FixedPuckemon;

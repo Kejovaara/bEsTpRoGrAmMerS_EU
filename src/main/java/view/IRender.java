@@ -12,12 +12,12 @@ public interface IRender {
 
     /**
      * Sets the x position.
-     * @param x
+     * @param x x postion
      */
     void setX(int x);
     /**
      * Sets the y position.
-     * @param y
+     * @param y y position
      */
     void setY(int y);
 

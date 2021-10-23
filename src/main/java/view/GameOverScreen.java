@@ -18,8 +18,7 @@ public class GameOverScreen implements Screen {
     private final Texture menu;
 
     /**
-     *
-     * @param batch
+     * @param batch used to render to screen.
      */
     public GameOverScreen(Batch batch) {
         this.batch = batch;

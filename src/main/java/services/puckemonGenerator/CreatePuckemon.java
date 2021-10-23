@@ -1,6 +1,5 @@
 package services.puckemonGenerator;
 
-import services.puckemonGenerator.ExcelReader;
 import model.PTypes;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.FixedPuckemon;
