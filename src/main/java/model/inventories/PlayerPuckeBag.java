@@ -1,6 +1,6 @@
 package model.inventories;
 
-import model.entities.CreatePuckemon;
+import services.puckemonGenerator.CreatePuckemon;
 import model.entities.puckemon.OwnedPuckemon;
 
 import java.util.ArrayList;

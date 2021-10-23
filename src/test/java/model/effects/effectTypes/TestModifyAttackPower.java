@@ -1,7 +1,6 @@
 package model.effects.effectTypes;
 
-import model.PTypes;
-import model.entities.CreatePuckemon;
+import services.puckemonGenerator.CreatePuckemon;
 import model.entities.IPuckemon;
 import org.junit.Test;
 

@@ -1,9 +1,8 @@
-package model;
+package services.puckemonGenerator;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import services.puckemonGenerator.ExcelReader;
 
 import java.util.ArrayList;
 import java.util.List;

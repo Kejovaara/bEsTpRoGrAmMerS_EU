@@ -7,6 +7,7 @@ import model.entities.IPuckemon;
 import model.entities.Player;
 
 import java.util.List;
+import java.util.Random;
 
 public class Combat {
 
@@ -27,11 +28,9 @@ public class Combat {
 
     private void checkDefeat(){
         if(fighter.checkIfDefeated()){
-            System.out.println("You Won :)");
             victory();
         }
         if(player.checkIfDefeated()){
-            System.out.println("You Lost :(");
             defeat();
         }
     }
@@ -65,27 +64,60 @@ public class Combat {
      */
     public void usePlayerAttack(int index){
         IPuckemon playerPuckemon = player.getActivePuckemon();
-        IEffectContainer attack = player.getActivePuckemon().getAttack(index);
+        IEffectContainer playerAttack = player.getActivePuckemon().getAttack(index);
 
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
 
         //If enemy fighter made a move
-        if (fighterMove != null) {
+        executeMoves(playerPuckemon,playerAttack,fighterPuckemon,fighterMove);
+
+        checkDefeat();
+    }
+
+    private void executeMoves(IPuckemon playerPuckemon, IEffectContainer playerMove, IPuckemon fighterPuckemon, IEffectContainer enemyMove){
+        if (enemyMove != null) {
             //Check which move should be executed first
-            if(attack.getPriority() < fighterMove.getPriority()){
-                executeEffects(attack, playerPuckemon, fighterPuckemon);
-                executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
+            if(playerMove.getPriority() < enemyMove.getPriority()){
+                //player attacks first
+                executeEffects(playerMove, playerPuckemon, fighterPuckemon);
+                executeEffects(enemyMove, fighterPuckemon, playerPuckemon);
+            }else if(playerMove.getPriority() > enemyMove.getPriority()){
+                //enemy attacks first
+                executeEffects(enemyMove, fighterPuckemon, playerPuckemon);
+                executeEffects(playerMove, playerPuckemon, fighterPuckemon);
             }else{
-                executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
-                executeEffects(attack, playerPuckemon, fighterPuckemon);
+                samePriority(playerPuckemon,playerMove,fighterPuckemon,enemyMove);
             }
         } else {
             //Only execute players attack
-            executeEffects(attack, playerPuckemon, fighterPuckemon);
+            executeEffects(playerMove, playerPuckemon, fighterPuckemon);
         }
+    }
 
-        checkDefeat();
+    private void samePriority(IPuckemon playerPuckemon, IEffectContainer playerMove, IPuckemon fighterPuckemon, IEffectContainer enemyMove){
+        if(playerPuckemon.getSpeed()>fighterPuckemon.getSpeed()){
+            //player attacks first
+            executeEffects(playerMove, playerPuckemon, fighterPuckemon);
+            executeEffects(enemyMove, fighterPuckemon, playerPuckemon);
+        }else if(playerPuckemon.getSpeed()>fighterPuckemon.getSpeed()){
+            //enemy attacks first
+            executeEffects(enemyMove, fighterPuckemon, playerPuckemon);
+            executeEffects(playerMove, playerPuckemon, fighterPuckemon);
+        }else if(playerAttacksFirst()){
+            //player attacks first
+            executeEffects(playerMove, playerPuckemon, fighterPuckemon);
+            executeEffects(enemyMove, fighterPuckemon, playerPuckemon);
+        }else{
+            //enemy attacks first
+            executeEffects(enemyMove, fighterPuckemon, playerPuckemon);
+            executeEffects(playerMove, playerPuckemon, fighterPuckemon);
+        }
+    }
+
+    private boolean playerAttacksFirst(){
+        Random r = new Random();
+        return (r.nextInt(2)==1);
     }
 
     /**
@@ -99,20 +131,7 @@ public class Combat {
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
 
-        //If enemy fighter made a move
-        if (fighterMove != null) {
-            //Check which move should be executed first
-            if(item.getPriority() < fighterMove.getPriority()){
-                executeEffects(item, playerPuckemon, fighterPuckemon);
-                executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
-            }else{
-                executeEffects(fighterMove, fighterPuckemon, playerPuckemon);
-                executeEffects(item, playerPuckemon, fighterPuckemon);
-            }
-        } else {
-            //Only execute players attack
-            executeEffects(item, playerPuckemon, fighterPuckemon);
-        }
+        executeMoves(playerPuckemon,item,fighterPuckemon,fighterMove);
 
         player.consumeItem(index);
         checkDefeat();

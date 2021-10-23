@@ -1,4 +1,4 @@
-package model.entities;
+package services.puckemonGenerator;
 
 import services.puckemonGenerator.ExcelReader;
 import model.PTypes;
@@ -20,8 +20,8 @@ public class CreatePuckemon {
 
     /**
      * buildOwned returns a OwnedPuckemon.
-     * @param id which puckemon from the register you want
-     * @param level which level you want it to be
+     * @param id which puckemon from the register you want.
+     * @param level which level you want it to be.
      */
     private OwnedPuckemon buildOwned(int id, int level){
         List<Object> data = excelReader.getExcelData(id);
@@ -42,7 +42,7 @@ public class CreatePuckemon {
     }
 
     /**
-     * buildFixed Returns a FixedPuckemon
+     * buildFixed Returns a FixedPuckemon.
      * @param id which puckemon from the register you want.
      * @param level which level you want it to be.
      */
@@ -53,7 +53,8 @@ public class CreatePuckemon {
     }
 
     /**
-     * dissect turns a string from the excel to a list of Types and Strings respectively
+     * dissect turns a string from the excel to a list of Types and Strings respectively.
+     * @param cellString String with attacks or types divided by commas (,).
      */
     private List<PTypes> dissectListTypes(String cellString){
         return Arrays.stream(cellString.split(",\\s+"))
