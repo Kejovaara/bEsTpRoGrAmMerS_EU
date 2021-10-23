@@ -3,6 +3,7 @@ package services.puckemonGenerator;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.xmlbeans.ResourceLoader;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -22,7 +23,8 @@ class ExcelReader {
         List<Object> excelData = new ArrayList<>();
         try
         {
-            FileInputStream file = new FileInputStream("src/main/java/services/puckemonGenerator/MonRegister.xlsx");
+            ClassLoader classLoader = getClass().getClassLoader();
+            FileInputStream file = new FileInputStream(classLoader.getResource("MonRegister.xlsx").getFile());
 
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);

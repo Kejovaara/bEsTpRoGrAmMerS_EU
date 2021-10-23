@@ -72,7 +72,6 @@ public class Combat {
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
 
-        System.out.println(fighterMove == null);
         //If enemy fighter made a move
         executeMoves(playerPuckemon,playerAttack,fighterPuckemon,fighterMove);
 

@@ -23,7 +23,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestCombat implements EffectObserver {
+public class TestCombat{
 
     @Test
     public void testCombatUseItem() {
@@ -192,7 +192,6 @@ public class TestCombat implements EffectObserver {
 
     @Test
     public void testHighPrio(){
-        EffectHandler.getInstance().addObserver(this);
         Combat combat;
         CreatePuckemon cp = new CreatePuckemon();
 
@@ -209,34 +208,13 @@ public class TestCombat implements EffectObserver {
 
         combat = new Combat(p,opp);
 
-        combat.usePlayerAttack(1);
+        combat.usePlayerAttack(0);
         boolean bool = false;
         if(opp.getActivePuckemon().getMaxHealth()!=opp.getActivePuckemon().getHealth()){
             bool = true;
         };
 
         assertTrue(bool);
-    }
-
-    @Test
-    public void testLowPrio(){
-        Combat combat;
-        CreatePuckemon cp = new CreatePuckemon();
-
-        OwnedPuckemon puck = cp.createOwnedPuckemon(5,15);
-        FixedPuckemon oppPuck = cp.createFixedPuckemon(4,15);
-
-        List<FixedPuckemon> opList = new ArrayList<>();
-        opList.add(oppPuck);
-        IFighter opp = new PuckeTrainer("Bertil",opList,false);
-
-        List<OwnedPuckemon> pList = new ArrayList<>();
-        pList.add(puck);
-        Player p = new Player(pList,10);
-
-        combat = new Combat(p,opp);
-
-        combat.usePlayerAttack(0);
     }
 
     @Test
@@ -256,22 +234,6 @@ public class TestCombat implements EffectObserver {
         combat.useFlee();
 
         assertTrue(combat.getBattleOutcome() == "Defeat");
-
-    }
-
-
-    @Override
-    public void onDamage(int damage, Puckemon damageReceiver) {
-        System.out.println("damage " + damage);
-    }
-
-    @Override
-    public void onHeal(int heal, Puckemon healReceiver) {
-
-    }
-
-    @Override
-    public void onAttackBuff(int buff, Puckemon buffReceiver) {
 
     }
 }
