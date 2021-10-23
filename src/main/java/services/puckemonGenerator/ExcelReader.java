@@ -24,6 +24,9 @@ class ExcelReader {
         try
         {
             InputStream file = this.getClass().getResourceAsStream("/MonRegister.xlsx");
+            if (file == null) {
+                throw new IllegalStateException();
+            }
 
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(OPCPackage.open(file));

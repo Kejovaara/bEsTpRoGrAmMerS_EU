@@ -9,13 +9,10 @@ import model.effects.effectTypes.HealAmount;
 import model.entities.*;
 import model.entities.puckemon.FixedPuckemon;
 import model.entities.puckemon.OwnedPuckemon;
-import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
 import model.inventories.ItemBuilder;
 import model.inventories.Items;
 import org.junit.Test;
-import services.observers.EffectHandler;
-import services.observers.EffectObserver;
 import services.puckemonGenerator.CreatePuckemon;
 
 import java.util.ArrayList;
