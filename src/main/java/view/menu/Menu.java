@@ -18,7 +18,7 @@ public class Menu implements IRender {
     protected List<MenuItem> menuItems;
     protected MenuItem activeItem;
     protected SpriteBatch batch;
-    private IMenuController controller;
+    private final IMenuController controller;
     protected int xPos, yPos;
 
     /**
@@ -42,7 +42,7 @@ public class Menu implements IRender {
     }
 
     /**
-     * Constructor for Menu
+     * Constructor for Menu.
      * @param batch used to display MenuItems and other IRender objects.
      * @param controller used to handle the input events that Menu creates.
      * @param menuItems The MenuItems that make up the Menu.
@@ -53,7 +53,7 @@ public class Menu implements IRender {
     }
 
     /**
-     * Constructor for Menu
+     * Constructor for Menu.
      * @param batch used to display MenuItems and other IRender objects.
      * @param controller used to handle the input events that Menu creates.
      */
@@ -62,14 +62,14 @@ public class Menu implements IRender {
     }
 
     /**
-     * Add MenuItem to the menu
+     * Add MenuItem to the menu.
      * @param menuItem Item to be added.
      */
     public void addMenuItem(MenuItem menuItem){
         menuItems.add(menuItem);
     }
     /**
-     * Remove MenuItem from the menu
+     * Remove MenuItem from the menu.
      * @param menuItem Item to be removed.
      */
     public void removeMenuItem(MenuItem menuItem){

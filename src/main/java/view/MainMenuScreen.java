@@ -4,18 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import run.Boot;
 
+/**
+ * The first menu of the game, the starting view.
+ * @author Emil Jonsson
+ */
 public class MainMenuScreen implements Screen {
 
-    final Boot game;
+    private final Batch batch;
 
-    OrthographicCamera camera;
-    Texture menu, arrow;
+    private final OrthographicCamera camera;
+    private final Texture menu, arrow;
 
-    public MainMenuScreen(final Boot game) {
-        this.game = game;
+    /**
+     * Constructor for the main menu.
+     * @param batch used to render objects.
+     */
+    public MainMenuScreen(Batch batch) {
+        this.batch = batch;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -24,18 +32,21 @@ public class MainMenuScreen implements Screen {
         arrow = new Texture(Gdx.files.internal("Arrow.png"));
     }
 
-
+    /**
+     * Renders the background and the arrow.
+     * @param delta LibGdx needed variable for frame updating.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-        game.batch.draw(menu, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
-        game.batch.draw(arrow, 260, 100, 20, 30);
-        game.batch.end();
+        batch.begin();
+        batch.draw(menu, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
+        batch.draw(arrow, 260, 100, 20, 30);
+        batch.end();
 
     }
 

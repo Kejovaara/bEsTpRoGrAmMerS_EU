@@ -8,19 +8,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import view.IRender;
 
 /**
- * Screen object that renders CursorMenu items on the screen
+ * Screen object that renders CursorMenu items on the screen.
+ * @author Rasmus Almryd.
  */
 public class CursorMenuItem implements IRender {
 
-    private SpriteBatch batch;
-    private  Text text;
-    private Image arrow;
-    private Boolean active;
+    private final SpriteBatch batch;
+    private Text text;
+    private final Image arrow;
+    private final Boolean active;
     private int xPos,yPos;
-    private float scale;
-    private String message;
+    private final float scale;
+    private final String message;
 
-    private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
+    private final BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
 
     /**
      * Constructor for CurstorMenuItem
@@ -52,12 +53,19 @@ public class CursorMenuItem implements IRender {
         this.text = new Text(font, batch, color, xPos, yPos, message ,scale);
     }
 
+    /**
+     * Renders the CursorMenuItem
+     */
     @Override
     public void render() {
         text.render();
         if (active) arrow.render();
     }
 
+    /**
+     * Sets x for all relevant parts of the item.
+     * @param x x coordinate.
+     */
     @Override
     public void setX(int x) {
         this.xPos = x;
@@ -65,6 +73,10 @@ public class CursorMenuItem implements IRender {
         arrow.setX(x-25);
     }
 
+    /**
+     * Sets y for all relevant parts of the item.
+     * @param y y coordinate.
+     */
     @Override
     public void setY(int y) {
         this.yPos = y;

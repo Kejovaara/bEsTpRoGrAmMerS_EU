@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import run.Boot;
 
 /**
  * Shows the GameOver screen.
@@ -13,13 +13,16 @@ import run.Boot;
  */
 public class GameOverScreen implements Screen {
 
-    final Boot game;
+    private final Batch batch;
+    private final OrthographicCamera camera;
+    private final Texture menu;
 
-    OrthographicCamera camera;
-    Texture menu;
-
-    public GameOverScreen(final Boot game) {
-        this.game = game;
+    /**
+     *
+     * @param batch
+     */
+    public GameOverScreen(Batch batch) {
+        this.batch = batch;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -27,17 +30,20 @@ public class GameOverScreen implements Screen {
         menu = new Texture(Gdx.files.internal("GameOver.png"));
     }
 
-
+    /**
+     * Renders the inventory background and textbox.
+     * @param delta LibGdx needed variable for frame updating.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-        game.batch.draw(menu, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
-        game.batch.end();
+        batch.begin();
+        batch.draw(menu, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
+        batch.end();
 
     }
 

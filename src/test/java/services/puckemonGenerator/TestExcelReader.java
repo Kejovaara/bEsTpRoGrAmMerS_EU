@@ -1,4 +1,4 @@
-package model;
+package services.puckemonGenerator;
 
 import static org.junit.Assert.*;
 

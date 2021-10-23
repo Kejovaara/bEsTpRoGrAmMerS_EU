@@ -1,7 +1,6 @@
 package model.entities.puckemon;
 
-import model.entities.CreatePuckemon;
-import model.entities.puckemon.OwnedPuckemon;
+import services.puckemonGenerator.CreatePuckemon;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

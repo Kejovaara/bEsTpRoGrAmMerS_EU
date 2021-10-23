@@ -3,9 +3,8 @@ package model.effects;
 import static org.junit.Assert.*;
 
 import model.PTypes;
-import model.entities.CreatePuckemon;
+import services.puckemonGenerator.CreatePuckemon;
 import model.entities.IPuckemon;
-import model.entities.puckemon.OwnedPuckemon;
 import org.junit.Test;
 
 public class TestEffectHelper {

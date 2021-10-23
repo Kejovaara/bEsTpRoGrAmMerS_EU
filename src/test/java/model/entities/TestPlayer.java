@@ -6,6 +6,7 @@ import model.inventories.Inventory;
 import model.inventories.Item;
 import model.inventories.ItemBuilder;
 import org.junit.Test;
+import services.puckemonGenerator.CreatePuckemon;
 
 import java.util.ArrayList;
 import java.util.List;

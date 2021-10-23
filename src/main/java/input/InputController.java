@@ -11,29 +11,25 @@ import run.VCHandler;
  * @author Emil Jonsson
  */
 public class InputController {
-    private final VCHandler handler;
-    private Model model;
 
     private IController activeController;
-    private MenuController menuController;
-    private CombatController combatController;
-    private InventoryController inventoryController;
-    private PartyController partyController;
-    private VictoryController victoryController;
-    private GameOverController gameOverController;
+    private final MenuController menuController;
+    private final CombatController combatController;
+    private final InventoryController inventoryController;
+    private final PartyController partyController;
+    private final VictoryController victoryController;
+    private final GameOverController gameOverController;
 
     /**
-     * Constructor of InputController
+     * Constructor of InputController.
      * @param handler used by the controllers to switch controller and/or screen.
      * @param model used to check and interact with the model.
      */
     public InputController(VCHandler handler, Model model) {
-        this.handler = handler;
-        this.model = model;
-        this.menuController = new MenuController(handler, model);
+        this.menuController = new MenuController(handler);
         this.combatController = new CombatController(handler, model);
-        this.partyController = new PartyController(handler, model);
-        this.inventoryController = new InventoryController(handler, model);
+        this.partyController = new PartyController();
+        this.inventoryController = new InventoryController();
         this.victoryController = new VictoryController(handler,model);
         this.gameOverController = new GameOverController();
     }
@@ -83,7 +79,7 @@ public class InputController {
     }
 
     /**
-     * The different controller states the program can have
+     * The different controller states the program can have.
      */
     public enum Controllers{
         MAIN_MENU,

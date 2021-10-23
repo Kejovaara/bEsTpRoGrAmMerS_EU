@@ -11,15 +11,15 @@ public class MenuItem{
 
     private MenuItem up, down, left, right;
 
-    private IRender activeRender, deactiveRender;
+    private final IRender activeRender, deactiveRender;
 
     private Boolean active;
 
 
     /**
      * Constructor of MenuItem. By default, MenuItems are not active.
-     * @param activeRender The IRender object that is rendered when MenuItem is the active element in a Menu
-     * @param deactiveRender The IRender object that is rendered when MenuItem is not the active element in a Menu
+     * @param activeRender The IRender object that is rendered when MenuItem is the active element in a Menu.
+     * @param deactiveRender The IRender object that is rendered when MenuItem is not the active element in a Menu.
      */
     public MenuItem(IRender activeRender, IRender deactiveRender){
         this.activeRender = activeRender;
@@ -29,7 +29,7 @@ public class MenuItem{
     }
 
     /**
-     * Sets MenuItems active state
+     * Sets MenuItems active state.
      * @param active The parameter that the active state is set to.
      */
     public void setActive(Boolean active) {
@@ -37,15 +37,15 @@ public class MenuItem{
     }
 
     /**
-     * Sets the MenuItem that comes after this MenuItem when the up-arrow is pressed
-     * @param up MenuItem that should come next
+     * Sets the MenuItem that comes after this MenuItem when the up-arrow is pressed.
+     * @param up MenuItem that should come next.
      */
     public void setUp(MenuItem up) {
         this.up = up;
     }
 
     /**
-     * Sets the MenuItem that comes after this MenuItem when the down-arrow is pressed
+     * Sets the MenuItem that comes after this MenuItem when the down-arrow is pressed.
      * @param down MenuItem that should come next
      */
     public void setDown(MenuItem down) {
@@ -53,16 +53,16 @@ public class MenuItem{
     }
 
     /**
-     * Sets the MenuItem that comes after this MenuItem when the left-arrow is pressed
-     * @param left MenuItem that should come next
+     * Sets the MenuItem that comes after this MenuItem when the left-arrow is pressed.
+     * @param left MenuItem that should come next.
      */
     public void setLeft(MenuItem left) {
         this.left = left;
     }
 
     /**
-     * Sets the MenuItem that comes after this MenuItem when the right-arrow is pressed
-     * @param right MenuItem that should come next
+     * Sets the MenuItem that comes after this MenuItem when the right-arrow is pressed.
+     * @param right MenuItem that should come next.
      */
     public void setRight(MenuItem right) {
         this.right = right;
@@ -121,14 +121,14 @@ public class MenuItem{
     }
 
     /**
-     * @return IRender object for when the MenuItem is active
+     * @return IRender object for when the MenuItem is active.
      */
     protected IRender getActiveRender() {
         return activeRender;
     }
 
     /**
-     * @return IRender object for when the MenuItem is not active
+     * @return IRender object for when the MenuItem is not active.
      */
     protected IRender getDeactiveRender() {
         return deactiveRender;

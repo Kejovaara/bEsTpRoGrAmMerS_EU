@@ -8,11 +8,12 @@ import view.Screens;
 /**
  * A class that listens to events from a Menu defined in IMenuController. In this implementation
  * the class handles the inputs from the Menu with the options Attack, Inventory, Switch and Flee.
+ * @author Rasmus Almryd
  */
 public class MainCombatMenu implements IMenuController{
 
-    private IView view;
-    private Model model;
+    private final IView view;
+    private final Model model;
     private final VCHandler handler;
 
     /**
@@ -27,12 +28,11 @@ public class MainCombatMenu implements IMenuController{
         this.model = model;
     }
 
-
-    @Override
-    public void onCursorMove(int index) {
-
-    }
-
+    /**
+     * Depending on the selected MenuItem, switch to a particular view/menu or
+     * do an action.
+     * @param index the index of the selected MenuItem in a Menu.
+     */
     @Override
     public void onCursorEnter(int index) {
         if(index == 0){

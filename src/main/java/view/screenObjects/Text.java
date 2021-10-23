@@ -6,27 +6,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import view.IRender;
 
 /**
- * Screen object that renders static text on the screen
+ * Screen object that renders static text on the screen.
+ * @author Lukas Jigberg
  */
-
 public class Text implements IRender {
 
-    private BitmapFont font;
+    private final BitmapFont font;
     private final SpriteBatch batch;
     private int xPos;
     private int yPos;
     private String message;
-    private Color color;
+    private final Color color;
 
     /**
-     * Constructor for Text
-     * @param font the font
-     * @param batch the batch
-     * @param color the color
-     * @param xPos the x-position where to print
-     * @param yPos the y-position where to print
-     * @param message the message to display
-     * @param scale the scale of the text
+     * Constructor for Text.
+     * @param font the font.
+     * @param batch the batch.
+     * @param color the color.
+     * @param xPos the x-position where to print.
+     * @param yPos the y-position where to print.
+     * @param message the message to display.
+     * @param scale the scale of the text.
      */
     public Text(BitmapFont font, SpriteBatch batch, Color color, int xPos, int yPos, String message, float scale) {
         this.font = font;
@@ -39,10 +39,17 @@ public class Text implements IRender {
         //font.setColor(color.get(0), color.get(1), color.get(2),1);
     }
 
+    /**
+     * Sets the message of the text.
+     * @param message message to set text to.
+     */
     public void setMessage(String message) {
         this.message = message;
     }
 
+    /**
+     * Renders text.
+     */
     @Override
     public void render(){
         font.setColor(color);

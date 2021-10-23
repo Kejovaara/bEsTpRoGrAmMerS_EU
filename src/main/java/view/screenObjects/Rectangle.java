@@ -6,25 +6,26 @@ import view.IRender;
 import java.util.List;
 
 /**
- * Screen object that renders rectangles on the screen
+ * Screen object that renders rectangles on the screen.
+ * @author Lukas Jigberg
  */
 
 public class Rectangle implements IRender{
 
-    private ShapeRenderer shapeRenderer;
+    private final ShapeRenderer shapeRenderer;
     private int xPos;
     private int yPos;
-    private int width;
-    private int height;
-    private List<Float> color;
+    private final int width;
+    private final int height;
+    private final List<Float> color;
 
     /**
-     * Constructor for Rectangle
-     * @param xPos the x-position where to print
-     * @param yPos the y-position where to print
-     * @param width the width of the rectangle
-     * @param height the height of the rectangle
-     * @param color the color of the rectangle
+     * Constructor for Rectangle.
+     * @param xPos the x-position where to print.
+     * @param yPos the y-position where to print.
+     * @param width the width of the rectangle.
+     * @param height the height of the rectangle.
+     * @param color the color of the rectangle.
      */
     public Rectangle(int xPos, int yPos, int width, int height, List<Float> color) {
         shapeRenderer = new ShapeRenderer();
@@ -35,6 +36,9 @@ public class Rectangle implements IRender{
         this.color = color;
     }
 
+    /**
+     * Renders the rectangle.
+     */
     @Override
     public void render(){
         shapeRenderer.setColor(color.get(0), color.get(1), color.get(2),1);
@@ -43,21 +47,21 @@ public class Rectangle implements IRender{
 
     @Override
     public void setX(int x) {
-
+        this.xPos = x;
     }
 
     @Override
     public void setY(int y) {
-
+        this.yPos = y;
     }
 
     @Override
     public int getX() {
-        return 0;
+        return xPos;
     }
 
     @Override
     public int getY() {
-        return 0;
+        return yPos;
     }
 }

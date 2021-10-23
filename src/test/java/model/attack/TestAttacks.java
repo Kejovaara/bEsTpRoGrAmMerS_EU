@@ -1,9 +1,7 @@
 package model.attack;
 
-import model.PTypes;
 import model.effects.IEffect;
-import model.effects.effectTypes.DoDamage;
-import model.entities.CreatePuckemon;
+import services.puckemonGenerator.CreatePuckemon;
 import model.entities.IPuckemon;
 import org.junit.Test;
 

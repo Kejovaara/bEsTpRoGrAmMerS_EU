@@ -7,7 +7,7 @@ import model.Model;
 import view.Screens;
 
 /**
- * Gives the User 2 new options. Combat another easy trainer or try a more difficult opponent.
+ * Gives the User 3 new options after victory.
  * @author Lukas Jigberg
  */
 public class VictoryController implements IController{
@@ -24,6 +24,10 @@ public class VictoryController implements IController{
         this.model = model;
     }
 
+    /**
+     * 3 Options for the user when they have won the game. Creates a new battle with one out of the 3 different combatant.
+     * FixedPuckemon, DumbTrainer and SmartTrainer. Essentially "restarting" the game.
+     */
     @Override
     public void update() {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){

@@ -9,7 +9,7 @@ import model.entities.puckemon.FixedPuckemon;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import org.apache.commons.math3.util.Pair;
-import view.message.MessageHandler;
+import services.observers.MessageHandler;
 import model.inventories.TrainerPuckeBag;
 
 import java.util.List;

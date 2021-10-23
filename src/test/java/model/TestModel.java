@@ -2,7 +2,7 @@ package model;
 
 import model.attack.Attack;
 import model.attack.AttackBuilder;
-import model.entities.CreatePuckemon;
+import services.puckemonGenerator.CreatePuckemon;
 import model.entities.IPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
@@ -59,7 +59,7 @@ public class TestModel {
         Model model = new Model();
         CreatePuckemon createPuckemon = new CreatePuckemon();
 
-        Puckemon puckemon = model.getPlayerPuckemon();
+        Puckemon puckemon = model.getActivePlayerPuckemon();
         Puckemon expectedPuckemon = createPuckemon.createOwnedPuckemon(1, 1);
 
         assertEquals(expectedPuckemon.getName(), puckemon.getName());
@@ -122,27 +122,14 @@ public class TestModel {
     @Test
     public void testSwitchPuckemon() {
         Model model = new Model();
-        Puckemon pre = model.getPlayerPuckemon();
+        Puckemon pre = model.getActivePlayerPuckemon();
 
         int index = 1;
         Puckemon switchedTo = model.getParty().get(index);
         model.switchPuckemon(index);
-        Puckemon post = model.getPlayerPuckemon();
+        Puckemon post = model.getActivePlayerPuckemon();
 
         assertNotEquals(pre, post);
         assertEquals(post, switchedTo);
     }
-
-    @Test
-    public void testUseSwitch() {
-        Model model = new Model();
-        Puckemon playerP = model.getPlayerPuckemon();
-        IPuckemon opponentP = model.getOpponentPuckemon();
-
-        model.useSwitch();
-
-        assertTrue(playerP.getHealth() < playerP.getMaxHealth());
-        assertEquals(opponentP.getHealth(), opponentP.getMaxHealth());
-    }
-
 }

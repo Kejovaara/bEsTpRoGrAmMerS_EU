@@ -1,4 +1,4 @@
-package model;
+package services.puckemonGenerator;
 
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -13,18 +13,16 @@ import java.util.List;
  * These are stored in an Excel document 'MonRegister.xlsx' for easy manipulation. This class function is to read that sheet.
  * @author Lukas Jigberg
  */
-public class ExcelReader {
-
-    private List<Object> excelData;
-
+class ExcelReader {
 
     /**
      * Reads the excel document and returns a list of data of specific Puckemon depending on the ID.
      */
     private List<Object> readPuckemonRegister(int id){
+        List<Object> excelData = new ArrayList<>();
         try
         {
-            FileInputStream file = new FileInputStream("src/main/java/model/MonRegister.xlsx");
+            FileInputStream file = new FileInputStream("src/main/java/services/puckemonGenerator/MonRegister.xlsx");
 
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -32,8 +30,6 @@ public class ExcelReader {
             //Get first/desired sheet from the workbook
             XSSFSheet sheet = workbook.getSheetAt(0);
             XSSFRow row = sheet.getRow(id);
-
-            excelData = new ArrayList<>();
 
             try{
                 excelData.add(row.getCell(1).getStringCellValue());
@@ -60,6 +56,11 @@ public class ExcelReader {
         return excelData;
     }
 
+    /**
+     *
+     * @param id The id of the puckemon the data it wants to collect.
+     * @return All the stats of the Puckemon.
+     */
     public List<Object> getExcelData(int id){
         return readPuckemonRegister(id);
     }

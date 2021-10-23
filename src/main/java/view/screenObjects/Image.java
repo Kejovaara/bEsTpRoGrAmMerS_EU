@@ -6,6 +6,7 @@ import view.IRender;
 
 /**
  * Screen object that renders images on the screen
+ * @author Rasmus Almryd
  */
 
 public class Image implements IRender {
@@ -13,9 +14,9 @@ public class Image implements IRender {
     private final SpriteBatch batch;
     private int xPos;
     private int yPos;
-    private int width;
-    private int height;
-    private Texture texture;
+    private final int width;
+    private final int height;
+    private final Texture texture;
 
     /**
      * Constructor for Image
@@ -35,6 +36,9 @@ public class Image implements IRender {
         this.texture = texture;
     }
 
+    /**
+     * Renders the image.
+     */
     @Override
     public void render() {
         batch.draw(texture, xPos,yPos,width,height);

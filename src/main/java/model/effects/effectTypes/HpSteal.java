@@ -4,7 +4,7 @@ import model.PTypes;
 import model.effects.EffectHelper;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
-import view.animation.EffectAnimationsHandler;
+import services.observers.EffectHandler;
 
 /**
  * A class that implements IEffect with the purpose of doing damage to an
@@ -40,8 +40,8 @@ public class HpSteal implements IEffect {
         int damage = EffectHelper.calculateDamage(attackUser,opponent,power,attackType);
         opponent.doDamage(damage);
         attackUser.heal((int)Math.ceil((float)damage*fraction));
-        EffectAnimationsHandler.getInstance().displayDamage(damage,opponent);
-        EffectAnimationsHandler.getInstance().displayHealing((int)Math.ceil(damage*fraction), attackUser);
+        EffectHandler.getInstance().displayDamage(damage,opponent);
+        EffectHandler.getInstance().displayHealing((int)Math.ceil(damage*fraction), attackUser);
 
     }
 

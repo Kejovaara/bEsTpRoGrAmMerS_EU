@@ -3,7 +3,7 @@ package model.effects.effectTypes;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
 import model.inventories.Item;
-import view.message.MessageHandler;
+import services.observers.MessageHandler;
 
 /**
  * Class to handle how items with no effect works.
