@@ -40,7 +40,7 @@ public class CombatController implements IController{
             handler.setController(InputController.Controllers.DEFEAT);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){
-            if(model.getPlayerPuckemon().getHealth() <= 0){
+            if(model.getActivePlayerPuckemon().getHealth() <= 0){
                 handler.setView(Screens.PARTY);
                 handler.setController(InputController.Controllers.PARTY);
             }

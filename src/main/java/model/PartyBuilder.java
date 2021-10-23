@@ -1,5 +1,7 @@
 package model;
 
+import model.entities.puckemon.Puckemon;
+import org.apache.poi.ss.formula.functions.Fixed;
 import services.puckemonGenerator.CreatePuckemon;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.FixedPuckemon;
@@ -45,6 +47,15 @@ public class PartyBuilder {
             opponentTeam.add(createPuckemon.createFixedPuckemon(randomNumber(1,5),randomNumber(level,level+10)));
         }
         return opponentTeam;
+    }
+
+    /**
+     * Creates a random wild puckemon .
+     * @param minLevel determines the lowest level.
+     * @return FixedPuckemon with a random level.
+     */
+    public FixedPuckemon createRandomWildPuckemon(int minLevel){
+        return createPuckemon.createFixedPuckemon(randomNumber(1,5),randomNumber(minLevel,minLevel+10));
     }
 
     private int randomNumber(int min, int max){

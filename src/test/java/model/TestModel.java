@@ -59,7 +59,7 @@ public class TestModel {
         Model model = new Model();
         CreatePuckemon createPuckemon = new CreatePuckemon();
 
-        Puckemon puckemon = model.getPlayerPuckemon();
+        Puckemon puckemon = model.getActivePlayerPuckemon();
         Puckemon expectedPuckemon = createPuckemon.createOwnedPuckemon(1, 1);
 
         assertEquals(expectedPuckemon.getName(), puckemon.getName());
@@ -122,12 +122,12 @@ public class TestModel {
     @Test
     public void testSwitchPuckemon() {
         Model model = new Model();
-        Puckemon pre = model.getPlayerPuckemon();
+        Puckemon pre = model.getActivePlayerPuckemon();
 
         int index = 1;
         Puckemon switchedTo = model.getParty().get(index);
         model.switchPuckemon(index);
-        Puckemon post = model.getPlayerPuckemon();
+        Puckemon post = model.getActivePlayerPuckemon();
 
         assertNotEquals(pre, post);
         assertEquals(post, switchedTo);

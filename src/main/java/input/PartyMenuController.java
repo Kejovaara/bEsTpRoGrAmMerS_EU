@@ -34,7 +34,7 @@ public class PartyMenuController implements IMenuController{
     public void onCursorEnter(int index) {
         if(index < model.getParty().size()){ //checks if MenuItem is in puckemon
             if(model.getPlayerPuckemon(index).getHealth() > 0 && index >= 1){ //if selected puckemon is not fainted, and it's not the active puckemon (active puckemon always index 0)
-                if (model.getPlayerPuckemon().getHealth()>0){
+                if (model.getActivePlayerPuckemon().getHealth()>0){
                     model.switchPuckemon(index);
                     model.useSwitch(); //Only execute opponents attack if switch was used when active Puckemon had health
                 }else{
@@ -44,7 +44,7 @@ public class PartyMenuController implements IMenuController{
                 handler.setController(InputController.Controllers.COMBAT);
             }
         }else{ // Back button
-            if(model.getPlayerPuckemon().getHealth()>0) {
+            if(model.getActivePlayerPuckemon().getHealth()>0) {
                 handler.setView(Screens.COMBAT);
                 handler.setController(InputController.Controllers.COMBAT);
             }

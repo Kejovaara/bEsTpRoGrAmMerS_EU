@@ -88,7 +88,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         enemyBox = new RectangleBorder(40, (int)this.camera.viewportHeight-140, 400,120, Color.BLACK,Color.WHITE, 4);
         playerBox = new RectangleBorder((int)this.camera.viewportWidth-440, 200,400,120, Color.BLACK,Color.WHITE,4);
         enemyBar = new HealthBar(60,(int) this.camera.viewportHeight-100, 360,40,model.getOpponentPuckemon().getMaxHealth(),model.getOpponentPuckemon().getHealth());
-        playerBar = new HealthBar((int)this.camera.viewportWidth-420,240, 360,40,model.getPlayerPuckemon().getHealth(),model.getPlayerPuckemon().getMaxHealth());
+        playerBar = new HealthBar((int)this.camera.viewportWidth-420,240, 360,40,model.getActivePlayerPuckemon().getHealth(),model.getActivePlayerPuckemon().getMaxHealth());
 
         mainMenu = MenuBuilder.getMainCombatMenu(game.batch, game,this, model);
         attackMenu = MenuBuilder.getAttackCombatMenu( game.batch,this, model);
@@ -114,7 +114,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         topLabel.setWrap(true);
         //stage.addActor(topLabel);
 
-        textAnimator = new TextAnimation(topLabel, "What will " + model.getPlayerPuckemon().getName() + " do?");
+        textAnimator = new TextAnimation(topLabel, "What will " + model.getActivePlayerPuckemon().getName() + " do?");
 
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
@@ -175,7 +175,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         mainMenuBackground1.render();
         stage.draw();
 
-        if (model.getPlayerPuckemon().getHealth() <= 0){
+        if (model.getActivePlayerPuckemon().getHealth() <= 0){
             if (!isPrinted){
                 faintedPuckemonText();
                 isPrinted = true;
@@ -235,8 +235,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private void drawPuckeStats(){
         enemyBar.setHealth(model.getOpponentPuckemon().getHealth());
         enemyBar.setMaxHealth(model.getOpponentPuckemon().getMaxHealth());
-        playerBar.setHealth(model.getPlayerPuckemon().getHealth());
-        playerBar.setMaxHealth(model.getPlayerPuckemon().getMaxHealth());
+        playerBar.setHealth(model.getActivePlayerPuckemon().getHealth());
+        playerBar.setMaxHealth(model.getActivePlayerPuckemon().getMaxHealth());
 
 
         game.batch.begin();
@@ -244,9 +244,9 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         statsFont.draw(game.batch, model.getOpponentPuckemon().getName(),60,this.camera.viewportHeight-40);
         statsFont.draw(game.batch, "Lv "+model.getOpponentPuckemon().getLevel(),360,this.camera.viewportHeight-40);
 
-        statsFont.draw(game.batch, model.getPlayerPuckemon().getName(),this.camera.viewportWidth-420,300);
-        statsFont.draw(game.batch, "Lv "+model.getPlayerPuckemon().getLevel(),this.camera.viewportWidth-120,300);
-        statsFont.draw(game.batch, model.getPlayerPuckemon().getHealth() + " / " + model.getPlayerPuckemon().getMaxHealth(),this.camera.viewportWidth-120,230);
+        statsFont.draw(game.batch, model.getActivePlayerPuckemon().getName(),this.camera.viewportWidth-420,300);
+        statsFont.draw(game.batch, "Lv "+model.getActivePlayerPuckemon().getLevel(),this.camera.viewportWidth-120,300);
+        statsFont.draw(game.batch, model.getActivePlayerPuckemon().getHealth() + " / " + model.getActivePlayerPuckemon().getMaxHealth(),this.camera.viewportWidth-120,230);
 
 
         game.batch.end();
@@ -260,10 +260,10 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         attackMenu = MenuBuilder.getAttackCombatMenu(game.batch,this, model);
         activeMenu = mainMenu;
 
-        playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
+        playerPuck = getTexture(model.getActivePlayerPuckemon().getId(),false);
         enemyPuck = getTexture(model.getOpponentPuckemon().getId(), true);
 
-        if (textAnimator.isDone())textAnimator.setMessage("What will " + model.getPlayerPuckemon().getName() + " do?");
+        if (textAnimator.isDone())textAnimator.setMessage("What will " + model.getActivePlayerPuckemon().getName() + " do?");
     }
 
     @Override
@@ -299,7 +299,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
      */
     @Override
     public void onDamage(int damage, Puckemon damageReceiver) {
-        if(damageReceiver == model.getPlayerPuckemon()) {
+        if(damageReceiver == model.getActivePlayerPuckemon()) {
             playerAnimations.add(new EffectAnimation(damage, 210+(playerAnimations.size()*80), 330,"DMG", new Color(0.7f,0,0,1)));
         }
         else {
@@ -314,7 +314,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
      */
     @Override
     public void onHeal(int heal, Puckemon healReceiver) {
-        if(healReceiver == model.getPlayerPuckemon()) {
+        if(healReceiver == model.getActivePlayerPuckemon()) {
             playerAnimations.add(new EffectAnimation(heal, 210+(playerAnimations.size()*80), 330,"HP+", new Color(0,0.7f,0,1)));
         }
         else {
@@ -329,7 +329,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
      */
     @Override
     public void onAttackBuff(int buff, Puckemon buffReceiver) {
-        if(buffReceiver == model.getPlayerPuckemon()){
+        if(buffReceiver == model.getActivePlayerPuckemon()){
             playerAnimations.add(new EffectAnimation(buff,210+(playerAnimations.size()*80), 330,"ATK"));
         }
         else {

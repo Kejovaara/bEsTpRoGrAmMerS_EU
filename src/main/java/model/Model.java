@@ -7,7 +7,6 @@ import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
 import services.observers.MessageHandler;
-import services.puckemonGenerator.CreatePuckemon;
 
 import java.util.List;
 
@@ -54,24 +53,12 @@ public class Model {
      */
     public void startCombatWildPuckemon(int minLevel){
         fleePermitted = true;
-        createRandomWildPuckemon(minLevel);
+        opponent = partyBuilder.createRandomWildPuckemon(minLevel);
         combat = new Combat(player, opponent);
     }
 
     private void createNoviceTrainer(int size, int minLevel, boolean smart){
         opponent = new PuckeTrainer("Bertil", partyBuilder.getRandOpponentTeam(size,minLevel), smart);
-    }
-
-    private void createRandomWildPuckemon(int minLevel){
-        CreatePuckemon createPuckemon = new CreatePuckemon();
-
-        //Random id between 1 -> 5
-        int id = (int)Math.floor(Math.random()*(5)+1);
-
-        //Random level between minLEvel -> minLEvel+10
-        int level = (int)Math.floor(Math.random()*(minLevel+10-minLevel+1)+minLevel);
-
-        opponent = createPuckemon.createFixedPuckemon(id, level);
     }
 
     /**
@@ -83,7 +70,7 @@ public class Model {
     /**
      * @return the players puckemon.
      */
-    public Puckemon getPlayerPuckemon() {
+    public Puckemon getActivePlayerPuckemon() {
         return player.getActivePuckemon();
     }
 

@@ -19,6 +19,10 @@ public class PlayerPuckeBag {
     private final CreatePuckemon createPuckemon;
     private final List<OwnedPuckemon> party = new ArrayList<>();
 
+
+    /**
+     * @param puckemons List of OwnedPuckemon to add to bag.
+     */
     public PlayerPuckeBag(List<OwnedPuckemon> puckemons) {
         for (OwnedPuckemon puckemon : puckemons) {
             addToParty(puckemon);
@@ -60,7 +64,7 @@ public class PlayerPuckeBag {
     }
 
     /**
-     * Choose index in party to switch to. Chosen Puckemon is "cleansed" of prior stats altercations.
+     * Choose index in party to switch to. Chosen Puckemon is "cleansed" of prior stats altercations to buff.
      */
     public void switchPuckemon(int index) {
         Collections.swap(party, 0, index);
@@ -78,18 +82,10 @@ public class PlayerPuckeBag {
     public List<OwnedPuckemon> getBox() {
         return box;
     }
-
-//    public void addToBox(OwnedPuckemon puckemon){
-//        box.add(puckemon);
-//    }
-//    public void addPuckemonToParty(OwnedPuckemon puckemon){
-//    addToParty(puckemon);
-//    }
-
+    
     public List<OwnedPuckemon> getParty() {
         return party;
     }
-
     public OwnedPuckemon getActivePuckemon() {
         return party.get(0);
     }
