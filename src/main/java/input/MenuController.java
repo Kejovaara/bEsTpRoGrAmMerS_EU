@@ -3,7 +3,6 @@ package input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import run.VCHandler;
-import model.Model;
 import view.Screens;
 
 /**
@@ -11,19 +10,19 @@ import view.Screens;
  * @author Rasmus Almryd
  */
 public class MenuController implements IController{
-    private Model model;
     private final VCHandler handler;
 
     /**
      * Constructor of MenuController
      * @param handler used to switch controller and/or screen.
-     * @param model used to check and interact with the model.
      */
-    public MenuController(VCHandler handler, Model model) {
+    public MenuController(VCHandler handler) {
         this.handler = handler;
-        this.model = model;
     }
 
+    /**
+     * If escape is pressed, exit app. If enter is pressed, switch to combat screen.
+     */
     @Override
     public void update() {
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){

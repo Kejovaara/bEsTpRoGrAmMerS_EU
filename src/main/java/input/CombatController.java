@@ -12,7 +12,7 @@ import view.Screens;
  */
 public class CombatController implements IController{
 
-    private Model model;
+    private final Model model;
     private final VCHandler handler;
 
     /**
@@ -25,13 +25,17 @@ public class CombatController implements IController{
         this.model = model;
     }
 
+    /**
+     * Checks if player has won or been defeated, if so switches to appropriate screen and controller. If game is ongoing, checks
+     * if players active Puckemon has fainted. If so the screen switches to the party screen.
+     */
     @Override
     public void update() {
-        if(model.getBattleOutcome()=="Victory"){
+        if(model.getBattleOutcome().equals("Victory")){
             handler.setView(Screens.VICTORY);
             handler.setController(InputController.Controllers.VICTORY);
         }
-        if(model.getBattleOutcome()=="Defeat"){
+        if(model.getBattleOutcome().equals("Defeat")){
             handler.setView(Screens.GAME_OVER);
             handler.setController(InputController.Controllers.DEFEAT);
         }

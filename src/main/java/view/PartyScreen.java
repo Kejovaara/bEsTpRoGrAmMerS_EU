@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
@@ -14,50 +13,42 @@ import run.Boot;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
 
+/**
+ * Creates the screen for the Players Party. It has a static, non interactable objects in the background and textbox.
+ * @author Rasmus Almryd
+ * @author Lukas Jigberg
+ */
 public class PartyScreen implements Screen, IView {
 
     private final Boot game;
     private final Model model;
-    private final Label partyLabel;
 
     OrthographicCamera camera;
     Texture background;
 
     private Menu menu;
 
+    /**
+     * Constructor of PartyScreen.
+     * @param game used to access game objects.
+     * @param model used to display the party.
+     */
     public PartyScreen(final Boot game, Model model) {
         this.game = game;
         this.model = model;
 
         background = new Texture(Gdx.files.internal("PartyBackground.png"));
-        BitmapFont partyFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
-        partyFont.getData().setScale(0.75f);
-        partyFont.setColor(0,0,0,1);
-
-        menu = MenuBuilder.getPartyMenu(game.batch, game,this, model);
-
-        Label.LabelStyle fontStyle = new Label.LabelStyle();
-        fontStyle.font = partyFont;
-        fontStyle.fontColor = Color.BLACK;
-
-        Stage stage;
-
-        stage = new Stage();
-        partyLabel = new Label("Pick a Puckemon",fontStyle);
-        partyLabel.setSize(300,300);
-        partyLabel.setPosition(55,60);
-        partyLabel.setWrap(true);
-        stage.addActor(partyLabel);
+        menu = MenuBuilder.getPartyMenu(game.batch, game, model);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
     }
 
-    public void setMessage(String message){
-        partyLabel.setText(message);
-    }
 
-
+    /**
+     * Renders the background and the textbox.
+     * @param delta LibGdx needed variable for frame updating.
+     */
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -70,12 +61,14 @@ public class PartyScreen implements Screen, IView {
         game.batch.end();
 
         menu.render();
-
     }
 
+    /**
+     * Updates the menu with the current state of the party each time this view is displayed.
+     */
     @Override
     public void show() {
-        menu = MenuBuilder.getPartyMenu(game.batch,game, this, model);
+        menu = MenuBuilder.getPartyMenu(game.batch,game, model);
     }
 
     @Override

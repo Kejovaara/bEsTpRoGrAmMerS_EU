@@ -5,6 +5,7 @@ import view.IRender;
 
 /**
  * Screen object that renders health bars on the screen
+ * @author Lukas Jigberg
  */
 
 public class HealthBar implements IRender {
@@ -12,8 +13,8 @@ public class HealthBar implements IRender {
     private final ShapeRenderer shapeRenderer;
     private int xPos;
     private int yPos;
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private float maxHealth;
     private float health;
 
@@ -38,9 +39,9 @@ public class HealthBar implements IRender {
 
     private void healthColor(){
         shapeRenderer.setColor(0.698f, 1, 0.729f,1);
-        if ((float)health/maxHealth < 0.1){
+        if (health/maxHealth < 0.2){
             shapeRenderer.setColor(170/255f, 40/255f, 40/255f,1);
-        }else if ((float)health/maxHealth < 0.5){
+        }else if (health/maxHealth < 0.5){
             shapeRenderer.setColor(1f, 238/255f, 85/255f,1);
         }
 
@@ -54,6 +55,13 @@ public class HealthBar implements IRender {
         this.health = health;
     }
 
+    public void setMaxHealth(int maxHealth){
+        this.maxHealth = maxHealth;
+    }
+
+    /**
+     * Renders the health bar. Also sets the color depending on amount of hp left.
+     */
     public void render() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(57/255f, 57/255f, 57/255f,1);

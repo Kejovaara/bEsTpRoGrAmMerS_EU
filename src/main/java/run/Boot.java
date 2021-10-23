@@ -10,13 +10,16 @@ import input.InputController;
 import model.Model;
 import view.*;
 
+
+/**
+ * The top level game logic. Is a View-Controller handler that handles view and controller switching.
+ * @author Emil Jonsson
+ * @author Rasmus Almryd
+ */
 public class Boot extends Game implements VCHandler{
 
-    private Model model;
-    private Screen activeScreen;
     private InputController controller;
 
-    private OrthographicCamera camera;
     public SpriteBatch batch;
     private BitmapFont font;
 
@@ -24,29 +27,34 @@ public class Boot extends Game implements VCHandler{
 
     private Screen mainScreen, combatScreen, invetoryScreen, partyScreen, gameOverScreen, victoryScreen;
 
+    /**
+     * Constructor.
+     * @param screenHeight the height of the screen.
+     * @param screenWidth teh width of the screen.
+     */
     public Boot(int screenHeight, int screenWidth){
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
     }
 
+    /**
+     * Creates the screens and sets the view to the main starting menu.
+     */
     @Override
     public void create() {
-        camera = new OrthographicCamera();
+        OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
         batch = new SpriteBatch();
         font = new BitmapFont();
 
-        model = new Model();
+        Model model = new Model();
 
-
-
-        this.mainScreen = new MainMenuScreen(this);
+        this.mainScreen = new MainMenuScreen(batch);
         this.combatScreen = new CombatScreen(this, model);
         this.invetoryScreen = new InventoryScreen(this, model);
         this.partyScreen = new PartyScreen(this, model);
-        this.gameOverScreen = new GameOverScreen(this);
-        this.victoryScreen = new VictoryScreen(this,batch);
-
+        this.gameOverScreen = new GameOverScreen(batch);
+        this.victoryScreen = new VictoryScreen(batch);
 
         setView(Screens.MAIN_MENU);
 
@@ -55,6 +63,9 @@ public class Boot extends Game implements VCHandler{
 
     }
 
+    /**
+     * Renders the game and updates the controller.
+     */
     public void render() {
         IController oldController = controller.getActiveController();
         controller.update();
@@ -62,11 +73,18 @@ public class Boot extends Game implements VCHandler{
         if(oldController == controller.getActiveController()) super.render();
     }
 
+    /**
+     * Disposes the batch and font.
+     */
     public void dispose() {
         batch.dispose();
         font.dispose();
     }
 
+    /**
+     * Switches the view to the screen specified.
+     * @param screen which screen that should be switched to.
+     */
     @Override
     public void setView(Screens screen) {
         switch (screen){
@@ -92,33 +110,16 @@ public class Boot extends Game implements VCHandler{
     }
 
     private void switchView(Screen view){
-        activeScreen = view;
         this.setScreen(view);
     }
 
+    /**
+     * Switches to the specified controller.
+     * @param controllerEnum the controller to be switched to.
+     */
     @Override
     public void setController(InputController.Controllers controllerEnum){
         controller.switchController(controllerEnum);
     }
 
-    public void setView(Screen view){
-        activeScreen = view;
-        this.setScreen(view);
-
-    }
-
-    public Screen getActiveScreen() {
-        return activeScreen;
-    }
-
-    public int getScreenWidth() {
-        return screenWidth;
-    }
-
-    public int getScreenHeight() {
-        return screenHeight;
-    }
-
-    //TODO: learn more about screens https://libgdx.com/dev/simple-game-extended/
-    // Maybe there can be a screen for menu, settings, map, and combat
 }

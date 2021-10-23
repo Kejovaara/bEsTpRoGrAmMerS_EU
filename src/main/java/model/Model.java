@@ -6,7 +6,7 @@ import model.entities.*;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
-import view.message.MessageHandler;
+import services.observers.MessageHandler;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class Model {
         partyBuilder = new PartyBuilder();
         player = new Player(partyBuilder.getPlayerStartingTeam(), 10);
         player.generateStartingInventory(35);
-        startCombatTrainer(3,10,false);
+        startCombatTrainer(1,10,false);
 //        startCombatWildPuckemon(10);
     }
 
@@ -85,6 +85,10 @@ public class Model {
      */
     public Puckemon getPlayerPuckemon() {
         return player.getActivePuckemon();
+    }
+
+    public Puckemon getPlayerPuckemon(int index) {
+        return player.getParty().get(index);
     }
 
     /**

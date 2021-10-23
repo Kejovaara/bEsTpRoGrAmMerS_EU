@@ -15,17 +15,24 @@ import model.Model;
 import model.entities.IPuckemon;
 import model.entities.puckemon.Puckemon;
 import run.Boot;
+import services.observers.EffectHandler;
+import services.observers.EffectObserver;
+import services.observers.MessageObserver;
 import view.animation.*;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
-import view.message.MessageHandler;
+import services.observers.MessageHandler;
+import view.screenObjects.HealthBar;
 import view.screenObjects.RectangleBorder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * The screen for the main combat of the game.
+ * @author Rasmus Almryd
+ * @author André Kejovaara
+ * @author Emil Jonsson
  */
 public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView{
 
@@ -38,12 +45,14 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     private final TextAnimation textAnimator;
 
-    OrthographicCamera camera;
+    private final OrthographicCamera camera;
     Texture playerPuck, enemyPuck, background, cursorTexture;
 
     private final Menu mainMenu;
     private Menu attackMenu;
     private Menu activeMenu;
+    private final HealthBar enemyBar, playerBar;
+    private final RectangleBorder enemyBox, playerBox;
 
     private final RectangleBorder mainMenuBackground1, mainMenuBackground2;
     private IPuckemon activeEnemyPuckemon;
@@ -51,6 +60,13 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     private final List<Animable> playerAnimations = new ArrayList<>();
     private final List<Animable> enemyAnimations = new ArrayList<>();
 
+    private boolean isPrinted = false;
+
+    /**
+     * Constructor for CombatScreen.
+     * @param game used to access game objects.
+     * @param model used to get parts of the model to display.
+     */
     public CombatScreen(final Boot game, Model model) {
         this.game = game;
         this.model = model;
@@ -61,14 +77,21 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         BitmapFont menuFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
         menuFont.getData().setScale(0.75f);
 
+
+
         statsFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
         statsFont.getData().setScale(0.5f);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
 
+        enemyBox = new RectangleBorder(40, (int)this.camera.viewportHeight-140, 400,120, Color.BLACK,Color.WHITE, 4);
+        playerBox = new RectangleBorder((int)this.camera.viewportWidth-440, 200,400,120, Color.BLACK,Color.WHITE,4);
+        enemyBar = new HealthBar(60,(int) this.camera.viewportHeight-100, 360,40,model.getOpponentPuckemon().getMaxHealth(),model.getOpponentPuckemon().getHealth());
+        playerBar = new HealthBar((int)this.camera.viewportWidth-420,240, 360,40,model.getPlayerPuckemon().getHealth(),model.getPlayerPuckemon().getMaxHealth());
+
         mainMenu = MenuBuilder.getMainCombatMenu(game.batch, game,this, model);
-        attackMenu = MenuBuilder.getAttackCombatMenu( game.batch,game,this, model);
+        attackMenu = MenuBuilder.getAttackCombatMenu( game.batch,this, model);
         activeMenu = mainMenu;
 
         mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
@@ -85,33 +108,31 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         fontStyle.font = combatFont;
         fontStyle.fontColor = Color.BLACK;
 
-        String openingText = "What will " + model.getPlayerPuckemon().getName() + " do?";
-
-        Label label = new Label(openingText,fontStyle);
-        label.setSize(520,10);
-        label.setPosition(30,60);
-        label.setWrap(true);
-        //stage.addActor(label);
-
         Label topLabel = new Label("",fontStyle);
         topLabel.setSize(520,10);
         topLabel.setPosition(30,80);
         topLabel.setWrap(true);
-        stage.addActor(topLabel);
+        //stage.addActor(topLabel);
 
-        this.textAnimator = new TextAnimation(topLabel, openingText);
+        textAnimator = new TextAnimation(topLabel, "What will " + model.getPlayerPuckemon().getName() + " do?");
 
         background = new Texture(Gdx.files.internal("Background.png"));
         cursorTexture = new Texture(Gdx.files.internal("Arrow.png"));
 
         //ANIMATION
-        EffectAnimationsHandler.getInstance().addObserver(this);
+        EffectHandler.getInstance().addObserver(this);
         //MESSAGE
         MessageHandler.getInstance().addObserver(this);
         Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY);
     }
 
-    Texture getTexture(int id, boolean front) {
+    /**
+     * Gets the texture of the specified Puckemon id.
+     * @param id id of the Puckemon.
+     * @param front if the texture should be the front och back version of the Puckemon.
+     * @return Texture of the specified Puckemon in the form (back or front) specified.
+     */
+    private Texture getTexture(int id, boolean front) {
         if(front) {
             return new Texture(Gdx.files.internal("front/" + id + ".png"));
         }else{
@@ -119,8 +140,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         }
     }
 
-    boolean isPrinted = false;
 
+    /**
+     * Renders the CombatScreen.
+     * @param delta libGDX variable to prevent hardware acceleration.
+     */
     @Override
     public void render(float delta) {
         checkOpponentTexture();
@@ -133,7 +157,13 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(0.8f,0.8f,0.8f,1);
         shapeRenderer.ellipse(520,400, 280, 60);
+
         shapeRenderer.end();
+        enemyBox.render();
+        playerBox.render();
+        enemyBar.render();
+        playerBar.render();
+
 
         game.batch.begin();
         game.batch.draw(enemyPuck, 570, 400, 192, 192);
@@ -202,41 +232,12 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         textAnimator.setMessage(message);
     }
 
-    private void promptMessage(){
-        String message = "What will " + model.getPlayerPuckemon().getName() + " do?";
-        textAnimator.setMessage(message);
-    }
-
-
-
-
     private void drawPuckeStats(){
+        enemyBar.setHealth(model.getOpponentPuckemon().getHealth());
+        enemyBar.setMaxHealth(model.getOpponentPuckemon().getMaxHealth());
+        playerBar.setHealth(model.getPlayerPuckemon().getHealth());
+        playerBar.setMaxHealth(model.getPlayerPuckemon().getMaxHealth());
 
-
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(1,1,1,1);
-        shapeRenderer.rect(40,this.camera.viewportHeight-140, 400, 120);
-        shapeRenderer.rect(this.camera.viewportWidth-440,200, 400, 120);
-
-        //HP BARS
-        shapeRenderer.setColor(0.7f,0.7f,0.7f,1);
-        shapeRenderer.rect(60, this.camera.viewportHeight-100, 360,40);
-        shapeRenderer.setColor(0.698f, 1, 0.729f,1);
-        shapeRenderer.rect(60, this.camera.viewportHeight-100,((float)model.getOpponentPuckemon().getHealth()/model.getOpponentPuckemon().getMaxHealth())*360,40);
-
-        shapeRenderer.setColor(0.7f,0.7f,0.7f,1);
-        shapeRenderer.rect(this.camera.viewportWidth-420, 240, 360,40);
-        shapeRenderer.setColor(0.698f, 1, 0.729f,1);
-        shapeRenderer.rect(this.camera.viewportWidth-420, 240, ((float)model.getPlayerPuckemon().getHealth()/model.getPlayerPuckemon().getMaxHealth())*360,40);
-
-        shapeRenderer.end();
-
-        Gdx.gl.glLineWidth(4);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(0,0,0,1);
-        shapeRenderer.rect(40,this.camera.viewportHeight-140, 400, 120);
-        shapeRenderer.rect(this.camera.viewportWidth-440,200, 400, 120);
-        shapeRenderer.end();
 
         game.batch.begin();
         statsFont.setColor(0,0,0,1);
@@ -251,9 +252,12 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         game.batch.end();
     }
 
+    /**
+     * Updates the menu and Puckemons each time this view is displayed.
+     */
     @Override
     public void show() {
-        attackMenu = MenuBuilder.getAttackCombatMenu(game.batch,game,this, model);
+        attackMenu = MenuBuilder.getAttackCombatMenu(game.batch,this, model);
         activeMenu = mainMenu;
 
         playerPuck = getTexture(model.getPlayerPuckemon().getId(),false);
@@ -288,8 +292,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     }
 
-
-
+    /**
+     * Generates EffectAnimation that symbolize damage.
+     * @param damage damage dealt by effect.
+     * @param damageReceiver the recipient of the damage.
+     */
     @Override
     public void onDamage(int damage, Puckemon damageReceiver) {
         if(damageReceiver == model.getPlayerPuckemon()) {
@@ -300,6 +307,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         }
     }
 
+    /**
+     * Generates EffectAnimation that symbolize healing.
+     * @param heal restores int amount of Hp to healReceiver.
+     * @param healReceiver The puckemon receiving the healing.
+     */
     @Override
     public void onHeal(int heal, Puckemon healReceiver) {
         if(healReceiver == model.getPlayerPuckemon()) {
@@ -310,6 +322,11 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         }
     }
 
+    /**
+     * Generates a buff animation that symbolize how much attack buff your puckemon gets.
+     * @param buff Buffs (increases stat) of the buff receiver.
+     * @param buffReceiver The one receiver.
+     */
     @Override
     public void onAttackBuff(int buff, Puckemon buffReceiver) {
         if(buffReceiver == model.getPlayerPuckemon()){
@@ -320,13 +337,20 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         }
     }
 
+    /**
+     * Switches the menu between attack and main menu.
+     * @param index index of menu.
+     */
     @Override
     public void switchMenu(int index) {
         if(index == 0) activeMenu = mainMenu;
         else activeMenu = attackMenu;
     }
 
-
+    /**
+     * Method implemented by observing messages as a MessageObserver.
+     * @param message a mmessage notified from notifier.
+     */
     @Override
     public void SetMessage(String message) {
         textAnimator.setMessage(message);

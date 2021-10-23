@@ -1,8 +1,6 @@
 package view.animation;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.StringBuilder;
 
@@ -13,16 +11,10 @@ import com.badlogic.gdx.utils.StringBuilder;
 
 public class TextAnimation implements Animable{
     private int animationTick = 3;
-    private StringBuilder sb = new StringBuilder();
+    private final StringBuilder sb = new StringBuilder();
     private String text;
-    private Label label;
-    private int x,y;
-    private int width,height;
+    private final Label label;
     private int index;
-    private Stage stage = new Stage();
-
-    private BitmapFont font;
-    private Label.LabelStyle fontStyle = new Label.LabelStyle();
 
     /**
      * Constructor for the TextAnimation
@@ -40,15 +32,17 @@ public class TextAnimation implements Animable{
      */
     public void setMessage(String message){
         if(text.equals(message) && !isDone()){
-            System.out.println("SAME MESSAGE");
             return;
         }
-        System.out.println(message);
         sb.clear();
         index = 0;
         text = message;
     }
 
+    /**
+     * Renders the animation.
+     * @param batch SpriteBatch to render
+     */
     @Override
     public void render(SpriteBatch batch) {
         if(!isDone()){

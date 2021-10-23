@@ -26,7 +26,7 @@ public class PartyBuilder {
         List<OwnedPuckemon> playerStartingTeam = new ArrayList<>();
 
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(1,15));
-        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(2,5));
+        playerStartingTeam.add(createPuckemon.createOwnedPuckemon(6,30));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(3,10));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(4,15));
         playerStartingTeam.add(createPuckemon.createOwnedPuckemon(5,15));

@@ -5,29 +5,30 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import view.IRender;
 
 /**
- * Screen object that renders rectangle borders on the screen
+ * Screen object that renders a rectangle with borders on the screen.
+ * @author Lukas Jigberg
  */
 
 public class RectangleBorder implements IRender {
 
-    private ShapeRenderer shapeRenderer;
+    private final ShapeRenderer shapeRenderer;
     private int xPos;
     private int yPos;
-    private int width;
-    private int height;
-    private Color outerColor;
-    private Color innerColor;
-    private int lineWidth;
+    private final int width;
+    private final int height;
+    private final Color outerColor;
+    private final Color innerColor;
+    private final int lineWidth;
 
     /**
-     * Constructor for Rectangle border
-     * @param xPos the x-position where to print
-     * @param yPos the y-position where to print
-     * @param width the width of the rectangle border
-     * @param height the height of the rectangle border
-     * @param outerColor the border color of the rectangle
-     * @param innerColor the inner color of the rectangle
-     * @param lineWidth the width of the border
+     * Constructor for Rectangle border.
+     * @param xPos the x-position where to print.
+     * @param yPos the y-position where to print.
+     * @param width the width of the rectangle border.
+     * @param height the height of the rectangle border.
+     * @param outerColor the border color of the rectangle.
+     * @param innerColor the inner color of the rectangle.
+     * @param lineWidth the width of the border.
      */
     public RectangleBorder(int xPos, int yPos, int width, int height, Color outerColor, Color innerColor, int lineWidth) {
         shapeRenderer = new ShapeRenderer();
@@ -46,7 +47,7 @@ public class RectangleBorder implements IRender {
         shapeRenderer.setColor(outerColor);
         shapeRenderer.rect( xPos,yPos,width,height);
         shapeRenderer.setColor(innerColor);
-        shapeRenderer.rect( xPos+Math.round(lineWidth/2),yPos+Math.round(lineWidth/2),width-lineWidth,height-lineWidth);
+        shapeRenderer.rect( xPos+Math.round((float)lineWidth/2),yPos+Math.round((float)lineWidth/2),width-lineWidth,height-lineWidth);
         shapeRenderer.end();
     }
 

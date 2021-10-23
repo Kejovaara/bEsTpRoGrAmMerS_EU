@@ -2,7 +2,7 @@ package model.effects.effectTypes;
 
 import model.effects.IEffect;
 import model.entities.IPuckemon;
-import view.animation.EffectAnimationsHandler;
+import services.observers.EffectHandler;
 
 /**
  * A class that implements IEffect with the purpose of healing either the attackUser or opponent.
@@ -40,10 +40,10 @@ public class HealAmount implements IEffect {
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         if(healYourself){
             attackUser.heal(amount);
-            EffectAnimationsHandler.getInstance().displayHealing(amount,attackUser);
+            EffectHandler.getInstance().displayHealing(amount,attackUser);
         }else{
             opponent.heal(amount);
-            EffectAnimationsHandler.getInstance().displayHealing(amount,attackUser);
+            EffectHandler.getInstance().displayHealing(amount,attackUser);
         }
     }
 }

@@ -10,30 +10,28 @@ import view.IRender;
 
 /**
  * Labels work different from most libGdx, it isn't rendered, it is added to a Stage.
+ * @author Lukas Jigberg
  */
-
 public class TextBox implements IRender {
 
     private final Label label;
     private int xPos, yPos;
-    private Color color;
-    private SpriteBatch batch;
+    private final SpriteBatch batch;
 
     /**
-     * Constructor for TextBox
-     * @param font the font
-     * @param batch the batch
-     * @param color the color
-     * @param xPos the x-position where to print
-     * @param yPos the y-position where to print
-     * @param width the width of the textbox
-     * @param height the height of the textbox
-     * @param wrap whether to wrap the text or not
-     * @param message the message to display
-     * @param scale the scale of the Textbox
+     * Constructor for TextBox.
+     * @param font the font.
+     * @param batch the batch.
+     * @param color the color.
+     * @param xPos the x-position where to print.
+     * @param yPos the y-position where to print.
+     * @param width the width of the textbox.
+     * @param height the height of the textbox.
+     * @param wrap whether to wrap the text or not.
+     * @param message the message to display.
+     * @param scale the scale of the Textbox.
      */
     public TextBox(BitmapFont font, SpriteBatch batch, Color color, int xPos, int yPos, int width, int height, boolean wrap, String message, float scale) {
-        this.color = color;
         this.xPos = xPos;
         this.yPos = yPos;
         this.batch = batch;
@@ -50,20 +48,16 @@ public class TextBox implements IRender {
     }
 
     /**
-     * @return the label
-     */
-    public Label getLabel(){
-        return label;
-    }
-
-    /**
-     * Set the text of a label
-     * @param text the text to be set
+     * Set the text of a label.
+     * @param text the text to be set.
      */
     public void setText(String text){
         label.setText(text);
     }
 
+    /**
+     * Renders the textBox.
+     */
     @Override
     public void render() {
         label.draw(batch, 1);

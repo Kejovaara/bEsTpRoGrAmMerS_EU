@@ -1,6 +1,6 @@
 package model.entities;
 
-import model.ExcelReader;
+import services.puckemonGenerator.ExcelReader;
 import model.PTypes;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.FixedPuckemon;

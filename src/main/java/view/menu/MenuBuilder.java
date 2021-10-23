@@ -1,7 +1,5 @@
 package view.menu;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import input.AttackCombatMenu;
 import input.InventoryMenuController;
@@ -16,7 +14,6 @@ import view.screenObjects.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * A Builder class that helps build Menu objects without reveling to external classes how they are implemented.
  * @author Rasmus Almryd
@@ -24,22 +21,21 @@ import java.util.List;
 public class MenuBuilder {
 
     /**
-     * Builder class for Menu
-     * @param batch This is used to display IRender objects
-     * @param handler This is used to switch screens and controllers
-     * @param view  This is used to switch between menus on the same screen
+     * Builder class for Menu.
+     * @param batch This is used to display IRender objects.
+     * @param handler This is used to switch screens and controllers.
+     * @param view  This is used to switch between menus on the same screen.
      * @param model This parameter is used to display game information to menu objects
-     * @return Menu
+     * @return Menu.
      */
     public static Menu getMainCombatMenu(SpriteBatch batch, VCHandler handler, IView view, Model model){
         List<MenuItem> items = new ArrayList<>();
-        BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
         int xPos = 620;
         int yPos = 130;
         int xSpacing = 170;
         int ySpacing = 60;
 
-        //Creates alla MenuItems with their corresponding active/deactivate IRender objects
+        //Creates all MenuItems with their corresponding active/deactivate IRender objects
         MenuItem i1 = new MenuItem(new CursorMenuItem(batch, "Attack", xPos, yPos,0.75f,true),                            new CursorMenuItem(batch, "Attack", xPos, yPos,0.75f,false));
         MenuItem i2 = new MenuItem(new CursorMenuItem(batch, "Inventory", xPos+xSpacing, yPos,0.75f,true),           new CursorMenuItem(batch, "Inventory", xPos+xSpacing, yPos,0.75f,false));
         MenuItem i3 = new MenuItem(new CursorMenuItem(batch, "Switch", xPos, yPos-ySpacing,0.75f,true),              new CursorMenuItem(batch, "Switch", xPos, yPos-ySpacing,0.75f,false));
@@ -73,12 +69,11 @@ public class MenuBuilder {
     /**
      * Builder class for AttackMenu
      * @param batch This is used to display IRender objects
-     * @param handler This is used to switch screens and controllers
      * @param view  This is used to switch between menus on the same screen
      * @param model This parameter is used to display game information to menu objects
      * @return Menu
      */
-    public static Menu getAttackCombatMenu(SpriteBatch batch, VCHandler handler, IView view, Model model){
+    public static Menu getAttackCombatMenu(SpriteBatch batch, IView view, Model model){
         int x = 100;
         int y = 130;
         int xSpacing = 190;
@@ -112,18 +107,17 @@ public class MenuBuilder {
         }
 
 
-        return new AttackMenu(batch, new AttackCombatMenu(view, model, handler), items, model.getAttacks());
+        return new AttackMenu(batch, new AttackCombatMenu(view, model), items, model.getAttacks());
     }
 
     /**
      * Builder class for InventoryMenu
      * @param batch This is used to display IRender objects
      * @param handler This is used to switch screens and controllers
-     * @param view  This is used to switch between menus on the same screen
      * @param model This parameter is used to display game information to menu objects
      * @return Menu
      */
-    public static Menu getInventoryMenu(SpriteBatch batch, VCHandler handler, IView view, Model model){
+    public static Menu getInventoryMenu(SpriteBatch batch, VCHandler handler, Model model){
         int x = 100;
         int y = 480;
         int ySpacing = 60;
@@ -132,8 +126,8 @@ public class MenuBuilder {
         //Creates alla MenuItems with their corresponding active/deactivate IRender objects
         IRender tempActive, tempDeactive;
         for (int i = 0; i < model.getInventory().size(); i++) {
-            tempActive = new InventoryMenuItem(batch, model.getInventory().get(i), x, y-(i*ySpacing), 0.75f,true);
-            tempDeactive =  new InventoryMenuItem(batch, model.getInventory().get(i), x, y-(i*ySpacing), 0.75f,false);
+            tempActive = new InventoryMenuItem(batch, model.getInventory().get(i), x, y-(i*ySpacing),true);
+            tempDeactive =  new InventoryMenuItem(batch, model.getInventory().get(i), x, y-(i*ySpacing),false);
             items.add(new MenuItem(tempActive,tempDeactive));
         }
         items.add(new MenuItem(new CursorMenuItem(batch,"Back", 700, 70, 0.75f, true),new CursorMenuItem(batch,"Back", 700, 70, 0.75f, false)));
@@ -146,18 +140,17 @@ public class MenuBuilder {
         items.get(0).setUp(items.get(items.size()-1));
         items.get(items.size()-1).setDown(items.get(0));
 
-        return new InventoryMenu(batch, new InventoryMenuController(view,model,handler), items, model.getInventory(), 6,y, ySpacing);
+        return new InventoryMenu(batch, new InventoryMenuController(model,handler), items, model.getInventory(), 6,y, ySpacing);
     }
 
     /**
      * Builder class for PartyMenu
      * @param batch This is used to display IRender objects
      * @param handler This is used to switch screens and controllers
-     * @param view  This is used to switch between menus on the same screen
      * @param model This parameter is used to display game information to menu objects
      * @return Menu
      */
-    public static Menu getPartyMenu(SpriteBatch batch, VCHandler handler, IView view, Model model){
+    public static Menu getPartyMenu(SpriteBatch batch, VCHandler handler, Model model){
         int x = 430;
         int y = 610;
         int ySpacing = 103;
@@ -171,8 +164,8 @@ public class MenuBuilder {
             items.add(new MenuItem(tempActive,tempDeactive));
         }
         for (int i = 1; i < model.getParty().size(); i++) {
-            tempActive = new NormalPartyItem(batch, model.getParty().get(i),x, y-(ySpacing*i), 0.75f, true);
-            tempDeactive = new NormalPartyItem(batch, model.getParty().get(i),x, y-(ySpacing*i), 0.75f, false);
+            tempActive = new NormalPartyItem(batch, model.getParty().get(i),x, y-(ySpacing*i), true);
+            tempDeactive = new NormalPartyItem(batch, model.getParty().get(i),x, y-(ySpacing*i), false);
             items.add(new MenuItem(tempActive,tempDeactive));
         }
         items.add(new MenuItem(new CursorMenuItem(batch,"Back", 750, 70, 0.75f, true),new CursorMenuItem(batch,"Back", 750, 70, 0.75f, false)));
@@ -188,6 +181,6 @@ public class MenuBuilder {
             items.get(0).setRight(items.get(1));
         }
 
-        return new PartyMenu(batch, new PartyMenuController(view,model, handler),items, model.getParty());
+        return new PartyMenu(batch, new PartyMenuController(model, handler),items, model.getParty());
     }
 }

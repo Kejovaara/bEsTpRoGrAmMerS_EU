@@ -9,10 +9,10 @@ import java.util.List;
 
 public class Attack implements IEffectContainer {
     String name;
-    private int priority;
-    private List<IEffect> effects;
-    private PTypes type;
-    private int basePP;
+    private final int priority;
+    private final List<IEffect> effects;
+    private final PTypes type;
+    private final int basePP;
     private int PP;
 
     /**

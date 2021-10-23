@@ -2,8 +2,6 @@ package input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import model.Model;
-import run.VCHandler;
 
 /**
  * A class to handle input events when the PartyScreen is active.
@@ -11,19 +9,9 @@ import run.VCHandler;
  */
 public class PartyController implements IController{
 
-    private Model model;
-    private final VCHandler handler;
-
     /**
-     * Constructor of PartyController
-     * @param handler used to switch controller and/or screen.
-     * @param model used to check and interact with the model.
+     * Exit application when ESCAPE is pressed.
      */
-    public PartyController(VCHandler handler, Model model) {
-        this.handler = handler;
-        this.model = model;
-    }
-
     @Override
     public void update() {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){

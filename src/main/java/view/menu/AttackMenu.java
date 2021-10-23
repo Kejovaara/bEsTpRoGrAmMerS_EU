@@ -18,12 +18,12 @@ import java.util.List;
  */
 public class AttackMenu extends Menu{
 
-    private RectangleBorder background;
-    private RectangleBorder attackInfoBackground;
-    private Text PP;
-    private Text PPAmount;
-    private Text Type;
-    private List<Attack> attacks;
+    private final RectangleBorder background;
+    private final RectangleBorder attackInfoBackground;
+    private final Text PP;
+    private final Text PPAmount;
+    private final Text Type;
+    private final List<Attack> attacks;
 
     /**
      * Constructor for AttackMenu
@@ -43,7 +43,9 @@ public class AttackMenu extends Menu{
         this.attackInfoBackground = new RectangleBorder(660,0,300, 180, Color.BLACK, Color.WHITE, 8);
     }
 
-
+    /**
+     * Renders the menu
+     */
     @Override
     public void render() {
         //render menu backgrounds

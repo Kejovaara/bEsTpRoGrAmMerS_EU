@@ -1,4 +1,4 @@
-package model;
+package services.puckemonGenerator;
 
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -17,14 +17,13 @@ public class ExcelReader {
 
     private List<Object> excelData;
 
-
     /**
      * Reads the excel document and returns a list of data of specific Puckemon depending on the ID.
      */
     private List<Object> readPuckemonRegister(int id){
         try
         {
-            FileInputStream file = new FileInputStream("src/main/java/model/MonRegister.xlsx");
+            FileInputStream file = new FileInputStream("src/main/java/services/puckemonGenerator/MonRegister.xlsx");
 
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -60,6 +59,11 @@ public class ExcelReader {
         return excelData;
     }
 
+    /**
+     *
+     * @param id The id of the puckemon the data it wants to collect.
+     * @return All the stats of the Puckemon.
+     */
     public List<Object> getExcelData(int id){
         return readPuckemonRegister(id);
     }

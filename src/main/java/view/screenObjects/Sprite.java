@@ -1,38 +1,35 @@
 package view.screenObjects;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import run.Boot;
 import view.IRender;
 
 /**
- * Screen object that renders Sprites on the screen
+ * Screen object that renders Sprites on the screen.
+ * @author Lukas Jigberg
  */
 
 public class Sprite implements IRender {
 
     private final Boot game;
-    private final SpriteBatch batch;
     private int xPos;
     private int yPos;
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private final Texture puckemon;
 
     /**
      * Constructor for Sprite
      *
-     * @param game     the game
-     * @param batch    the batch
-     * @param xPos     the x-position where to print
-     * @param yPos     the y-position where to print
-     * @param width    the width of the sprite
-     * @param height   the height of the sprite
-     * @param puckemon the puckemon
+     * @param game     the game.
+     * @param xPos     the x-position where to print.
+     * @param yPos     the y-position where to print.
+     * @param width    the width of the sprite.
+     * @param height   the height of the sprite.
+     * @param puckemon the puckemon.
      */
-    public Sprite(Boot game, SpriteBatch batch, int xPos, int yPos, int width, int height, Texture puckemon) {
+    public Sprite(Boot game, int xPos, int yPos, int width, int height, Texture puckemon) {
         this.game = game;
-        this.batch = batch;
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
@@ -47,21 +44,21 @@ public class Sprite implements IRender {
 
     @Override
     public void setX(int x) {
-
+        this.xPos = x;
     }
 
     @Override
     public void setY(int y) {
-
+        this.yPos = y;
     }
 
     @Override
     public int getX() {
-        return 0;
+        return xPos;
     }
 
     @Override
     public int getY() {
-        return 0;
+        return yPos;
     }
 }

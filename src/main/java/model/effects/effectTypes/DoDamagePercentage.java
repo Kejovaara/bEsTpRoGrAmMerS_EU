@@ -1,10 +1,8 @@
 package model.effects.effectTypes;
 
-import model.PTypes;
-import model.effects.EffectHelper;
 import model.effects.IEffect;
 import model.entities.IPuckemon;
-import view.animation.EffectAnimationsHandler;
+import services.observers.EffectHandler;
 
 /**
  *A class that implements IEffect with the purpose of doing damage to the opponent.
@@ -30,7 +28,7 @@ public class DoDamagePercentage implements IEffect {
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         int damage = Math.round(opponent.getHealth()*(percentage/100));
         opponent.doDamage(damage);
-        EffectAnimationsHandler.getInstance().displayDamage(damage, opponent);
+        EffectHandler.getInstance().displayDamage(damage, opponent);
         //Animation-handler / Show damage
     }
 }

@@ -21,18 +21,18 @@ import java.util.List;
  */
 public class InventoryMenu extends Menu {
 
-    private List<Item> inventory;
-    private int numDisplayItems;
+    private final List<Item> inventory;
+    private final int numDisplayItems;
     //The maximum inventory item index that should be displayed in the list.
     private int maxIndex;
-    private int ySpacing;
-    private int startY;
+    private final int ySpacing;
+    private final int startY;
 
-    private Text name;
-    private TextBox description;
+    private final Text name;
+    private final TextBox description;
 
-    private Image arrowUp;
-    private Image arrowDown;
+    private final Image arrowUp;
+    private final Image arrowDown;
 
 
     /**
@@ -64,8 +64,9 @@ public class InventoryMenu extends Menu {
         arrowDown = new Image(batch,280,560-((numDisplayItems+1)*ySpacing),20,20,t2);
     }
 
-
-
+    /**
+     * Handles if arrow-key up is pressed.
+     */
     @Override
     protected void up() {
         int index1 = menuItems.indexOf(activeItem);
@@ -79,6 +80,9 @@ public class InventoryMenu extends Menu {
         else if(index2 < maxIndex-numDisplayItems+1) maxIndex--;
     }
 
+    /**
+     * Handles if arrow-key down is pressed.
+     */
     @Override
     protected void down() {
         int index1 = menuItems.indexOf(activeItem);
@@ -92,6 +96,9 @@ public class InventoryMenu extends Menu {
         else if(index2 > maxIndex && index2 != menuItems.size()-1) maxIndex++;
     }
 
+    /**
+     * Renders the inventory menu.
+     */
     @Override
     public void render() {
         int index = menuItems.indexOf(activeItem);
@@ -107,9 +114,13 @@ public class InventoryMenu extends Menu {
         }
 
         //render items
-        for (int i = 0; i < numDisplayItems; i++) {
-            menuItems.get(maxIndex-numDisplayItems+1+i).getRender().setY(startY-(i*ySpacing));
-            menuItems.get(maxIndex-numDisplayItems+1+i).getRender().render();
+        for (int i = 0; (i < numDisplayItems && i < inventory.size()); i++) {
+            if(numDisplayItems < inventory.size()) {
+                menuItems.get(maxIndex-numDisplayItems+1+i).getRender().setY(startY-(i*ySpacing));
+                menuItems.get(maxIndex-numDisplayItems+1+i).getRender().render();
+            }else{
+                menuItems.get(i).getRender().render();
+            }
         }
 
         //render back button
