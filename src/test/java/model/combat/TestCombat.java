@@ -139,33 +139,28 @@ public class TestCombat{
         assertEquals(combat.getBattleOutcome(),"Victory");
     }
 
-//    @Test
-//    public void testCheckDefeat(){
-//        PartyBuilder partyBuilder = new PartyBuilder();
-//        CreatePuckemon cp = new CreatePuckemon();
-//        IFighter opponent = new PuckeTrainer("Bertil",partyBuilder.getRandOpponentTeam(1,1),false);
-//        OwnedPuckemon puck = cp.createOwnedPuckemon(1,1);
-//
-//
-//        List<OwnedPuckemon> opList = new ArrayList<>();
-//        opList.add(puck);
-//        Player p = new Player(opList,10);
-//
-//        Item item = ItemBuilder.getItem(Items.SUPER_KILL_POTION);
-//        p.addItem(item);
-//
-//        Combat combat = new Combat(p,opponent);
-//
-//        combat.usePlayerAttack(0);
-//        combat.usePlayerAttack(0);
-//        combat.usePlayerAttack(0);
-//        combat.usePlayerAttack(0);
-//        combat.usePlayerAttack(0);
-//        combat.usePlayerAttack(0);
-//        combat.usePlayerAttack(0);
-//
-//        assertEquals("Defeat",combat.getBattleOutcome());
-//    }
+    @Test
+    public void testCheckDefeat(){
+        PartyBuilder partyBuilder = new PartyBuilder();
+        CreatePuckemon cp = new CreatePuckemon();
+        IFighter opponent = new PuckeTrainer("Bertil",partyBuilder.getRandOpponentTeam(1,1),false);
+        OwnedPuckemon puck = cp.createOwnedPuckemon(1,1);
+
+
+        List<OwnedPuckemon> opList = new ArrayList<>();
+        opList.add(puck);
+        Player p = new Player(opList,10);
+
+        Item item = ItemBuilder.getItem(Items.SUPER_KILL_POTION);
+        p.addItem(item);
+
+        Combat combat = new Combat(p,opponent);
+
+        puck.doDamage(50000);
+        combat.usePlayerAttack(0);
+
+        assertEquals("Defeat", combat.getBattleOutcome());
+    }
 
     @Test
     public void testSpeed(){
