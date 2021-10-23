@@ -1,6 +1,6 @@
 package model.effects;
 
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 
 /**
  * An Interface that specifies common a method for all effects. An object of type IEffect can execute some

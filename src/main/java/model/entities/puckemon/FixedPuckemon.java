@@ -3,7 +3,6 @@ package model.entities.puckemon;
 import model.PTypes;
 import model.effects.IEffectContainer;
 import model.entities.IFighter;
-import model.entities.IPuckemon;
 
 import java.util.List;
 import java.util.Random;
@@ -55,6 +54,9 @@ public class FixedPuckemon extends Puckemon implements IFighter {
         return currentHealth <= 0;
     }
 
+    /**
+     * @return the active puckemon
+     */
     @Override
     public IPuckemon getActivePuckemon() {
         return this;

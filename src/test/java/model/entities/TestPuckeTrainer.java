@@ -7,6 +7,7 @@ import model.attack.Attack;
 import model.attack.AttackBuilder;
 import model.effects.IEffectContainer;
 import model.entities.puckemon.FixedPuckemon;
+import model.entities.puckemon.IPuckemon;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import model.inventories.ItemBuilder;

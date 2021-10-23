@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class Inventory {
 
-    private List<Item> invList;
+    private final List<Item> invList;
 
     /**
      * Creates a new inventory with an already existing list of items.
-     * @param invList
+     * @param invList List of Items
      */
     public Inventory(List<Item> invList){ // CREATE INVENTORY WITH EXISTING LIST
         this.invList = invList;
@@ -24,7 +24,7 @@ public class Inventory {
      * Creates a new empty inventory.
      */
     public Inventory(){ // CREATE EMPTY INVENTORY
-        invList = new ArrayList<Item>();
+        invList = new ArrayList<>();
     }
 
     /**

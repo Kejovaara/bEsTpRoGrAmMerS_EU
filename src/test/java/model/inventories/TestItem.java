@@ -27,13 +27,13 @@ public class TestItem {
 
     @Test
     public void testGetPriority(){
-        Item item = ItemBuilder.getItem(ItemBuilder.INames.ETHER_POTION);
+        Item item = ItemBuilder.getItem(Items.ETHER_POTION);
         assertEquals(item.getPriority(), 1);
     }
 
     @Test
     public void testGetEffects(){
-        Item item = ItemBuilder.getItem(ItemBuilder.INames.SUPER_KILL_POTION);
+        Item item = ItemBuilder.getItem(Items.SUPER_KILL_POTION);
         List<IEffect> effects = item.getEffects();
 
         assertTrue(effects.size() > 0);
@@ -44,7 +44,7 @@ public class TestItem {
         PartyBuilder partyBuilder = new PartyBuilder();
         IFighter opponent = new PuckeTrainer("Bertil",partyBuilder.getRandOpponentTeam(1,1),false);
 
-        Item item = ItemBuilder.getItem(ItemBuilder.INames.SUPER_KILL_POTION);
+        Item item = ItemBuilder.getItem(Items.SUPER_KILL_POTION);
 
         Player player = new Player(partyBuilder.getPlayerStartingTeam(),10);
         player.addItem(item);

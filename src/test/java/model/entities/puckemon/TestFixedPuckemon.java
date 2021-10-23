@@ -3,7 +3,6 @@ package model.entities.puckemon;
 import model.attack.Attack;
 import model.attack.AttackBuilder;
 import services.puckemonGenerator.CreatePuckemon;
-import model.entities.IPuckemon;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

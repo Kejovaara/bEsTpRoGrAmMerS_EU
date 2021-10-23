@@ -1,4 +1,4 @@
-package model.inventories;
+package model.puckeBags;
 
 import services.puckemonGenerator.CreatePuckemon;
 import model.entities.puckemon.OwnedPuckemon;
@@ -42,7 +42,7 @@ public class PlayerPuckeBag {
     }
 
     /**
-     * Gives each Puckemon in the party a set amount of experience point
+     * Gives each non fainted Puckemon in the party a set amount of experience point
      */
     private void giveOutExp() {
         for (OwnedPuckemon ownedPuckemon : party) {
@@ -71,6 +71,9 @@ public class PlayerPuckeBag {
         party.get(0).resetStats();
     }
 
+    /**
+     * Runs the methods that should only activate after victory.
+     */
     public void afterVictory() {
         giveOutExp();
         evolvePuckemon();
@@ -82,7 +85,6 @@ public class PlayerPuckeBag {
     public List<OwnedPuckemon> getBox() {
         return box;
     }
-    
     public List<OwnedPuckemon> getParty() {
         return party;
     }

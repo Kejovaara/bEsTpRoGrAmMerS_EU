@@ -3,7 +3,6 @@ package model.entities.puckemon;
 import model.PTypes;
 import model.attack.Attack;
 import model.attack.AttackBuilder;
-import model.entities.IPuckemon;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,53 +25,51 @@ public abstract class Puckemon implements IPuckemon {
     /**
      * These are specific for the Puckemon and remain the same.
      */
-    protected int baseHealth;
-    protected int baseAttackPower;
-    protected int baseDefence;
-    protected int baseSpeed;
-    protected int level;
-
+    protected int baseHealth, baseAttackPower, baseDefence, baseSpeed, level;
 
     /**
      * These are a puckemons stats. They are solely based on the baseStats and current level.
-     * @see "calculateLevelStat"
      */
-    protected int maxHealth;
-    protected int attackPower;
-    protected int defence;
-    protected int speed;
+    protected int maxHealth, attackPower, defence, speed;
 
     /**
      * These are a puckemons stats during the current combat. They can be and are supposed to be altered.
      * @see "alterCurrentStats"
      */
-    protected int currentHealth;
-    protected int currentAttackPower;
-    protected int currentDefence;
-    protected int currentSpeed;
+    protected int currentHealth, currentAttackPower, currentDefence,currentSpeed;
 
     /**
      * BuffFactor are used to alter the CurrentStats. They can be changed by the effects of attacks.
      */
-    protected int attackPowerBuffFactor = 0;
-    protected int defenceBuffFactor = 0;
-    protected int speedBuffFactor = 0;
+    protected int attackPowerBuffFactor,defenceBuffFactor,speedBuffFactor = 0;
 
     /**
      * Future update/sprint. Should lock the stats from changing during combat.
      */
-    protected boolean lockHealth = false;
-    protected boolean lockAttackPower = false;
-    protected boolean lockDefence = false;
-    protected boolean lockSpeed = false;
+    protected boolean lockHealth,lockAttackPower,lockDefence,lockSpeed = false;
 
     /**
-     * <br> moveList is a list of strings with all the attacks a puckemon can use.
-     * <br> moveSet is the 1-4 attacks a Puckemon can use during combat.
+     * moveList is a list of strings with all the attacks a puckemon can use.
      */
     protected List<String> moveList;
+
+    /**
+     * moveSet is the 1-4 attacks a Puckemon can use during combat.
+     */
     protected ArrayList<Attack> moveSet = new ArrayList<>(4);
 
+    /**
+     * Constructor of Puckemon.
+     * @param id id of puckemon.
+     * @param level level of puckemon.
+     * @param name name of puckemon.
+     * @param types the types of the puckemon.
+     * @param baseHealth base health of the puckemon.
+     * @param baseAttackPower base attack power of the puckemon.
+     * @param baseDefence base defence stat of the puckemon.
+     * @param baseSpeed base speed of the puckemon.
+     * @param moveList list of attacks of puckemon.
+     */
     public Puckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, List<String> moveList){
         this.id = id;
         this.level = level;
@@ -159,12 +156,20 @@ public abstract class Puckemon implements IPuckemon {
         alterCurrentStats();
     }
 
+    /**
+     * Gets an attack from moveSet.
+     * @param i index in moveSet for attack
+     * @return the Attack specified with index
+     */
     public Attack getAttack(int i) {
         return moveSet.get(i);
     }
 
-    // tas bort kanske
-    public List<String> getMoveList(){return moveList;}
+    /**
+     * Gets the move list
+     * @return List of Strings representing the moves available
+     */
+    List<String> getMoveList(){return moveList;}
 
     @Override
     public List<Attack> getMoveSet(){return moveSet;}

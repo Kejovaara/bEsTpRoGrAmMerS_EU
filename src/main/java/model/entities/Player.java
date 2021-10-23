@@ -4,6 +4,7 @@ import model.effects.IEffectContainer;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.inventories.*;
+import model.puckeBags.PlayerPuckeBag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,32 +15,46 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author Emil Jonsson
  */
 public class Player implements ITrainer {
-    private String name = "Bamse";
+    /**
+     * Meant to be used in the future.
+     */
+    private String name;
     private final PlayerPuckeBag playerPuckeBag;
     private final Inventory inventory;
     private int coins;
 
     /**
      * Constructor for creating a player that already has an inventory to be sent with the new player.
-     * @param puckemons list of Puckemons to add to the trainers puckeBag
-     * @param inventory a class containing items
-     * @param coins amount of coins
+     * @param name name of player.
+     * @param puckemons list of Puckemons to add to the trainers puckeBag.
+     * @param inventory a class containing items.
+     * @param coins amount of coins.
      */
-    public Player(List<OwnedPuckemon> puckemons, Inventory inventory, int coins){
+    public Player(String name, List<OwnedPuckemon> puckemons, Inventory inventory, int coins){
+        this.name = name;
         this.playerPuckeBag = new PlayerPuckeBag(puckemons);
         this.inventory = inventory;
         this.coins = coins;
     }
 
     /**
+     * Constructor for creating a player that already has an inventory to be sent with the new player.
+     * @param puckemons list of Puckemons to add to the trainers puckeBag.
+     * @param inventory a class containing items.
+     * @param coins amount of coins.
+     */
+    public Player(List<OwnedPuckemon> puckemons, Inventory inventory, int coins){
+        this("Bamse", puckemons, inventory, coins);
+    }
+
+    /**
      * Constructor for Player.
-     * @param puckemons list of Puckemons to add to the trainers puckeBag
-     * @param coins amount of coins
+     * @param puckemons list of Puckemons to add to the trainers puckeBag.
+     * @param coins amount of coins.
      */
     public Player(List<OwnedPuckemon> puckemons,  int coins){
-        this.playerPuckeBag = new PlayerPuckeBag(puckemons);
-        this.inventory = new Inventory();
-        this.coins = coins;
+        this(puckemons, new Inventory(), coins);
+
     }
 
     /**
@@ -118,7 +133,7 @@ public class Player implements ITrainer {
 
 
     /**
-     * Triggers the victory event, meant to handle the puckemons after victory (giving them xp)
+     * Triggers the victory event, meant to handle the puckemons after victory (EX giving them xp)
      */
     public void victoryEvent(){
         playerPuckeBag.afterVictory();

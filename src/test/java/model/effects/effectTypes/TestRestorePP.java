@@ -2,7 +2,7 @@ package model.effects.effectTypes;
 
 import model.effects.IEffect;
 import services.puckemonGenerator.CreatePuckemon;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

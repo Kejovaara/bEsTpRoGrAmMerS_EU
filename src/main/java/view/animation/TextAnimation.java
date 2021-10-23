@@ -39,6 +39,10 @@ public class TextAnimation implements Animable{
         text = message;
     }
 
+    public void addMessage(String message){
+        text += message;
+    }
+
     /**
      * Renders the animation.
      * @param batch SpriteBatch to render

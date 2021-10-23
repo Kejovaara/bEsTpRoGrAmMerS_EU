@@ -17,7 +17,9 @@ public class OwnedPuckemon extends Puckemon {
     private int expPoints;
 
     /**
-     * The same as below but doesn't contain nickName.
+     * @see Puckemon for the rest
+     * @param evolutionId is the puckemon it will evolve into.
+     * @param evolutionLevel is the level that is required to evolve.
      */
     public OwnedPuckemon(int id, int level, String name, List<PTypes> types, int baseHealth, int baseAttackPower, int baseDefence, int baseSpeed, int evolutionLevel, int evolutionId, List<String> moveList){
         super(id, level, name, types, baseHealth, baseAttackPower, baseDefence, baseSpeed, moveList);
@@ -28,6 +30,7 @@ public class OwnedPuckemon extends Puckemon {
     }
 
     /**
+     * @see Puckemon for the rest
      * @param evolutionId is the puckemon it will evolve into.
      * @param evolutionLevel is the level that is required to evolve.
      * @param nickName is a Puckemons nickname.
@@ -44,9 +47,9 @@ public class OwnedPuckemon extends Puckemon {
      * Gives the Puckemon experience Point needed to level.
      * If the experience points are more than level^3 it will reach that level by level up.
      */
-    private void gainExp(int experience){
+    public void giveExp(int exp){
         if (level<=100){
-            expPoints += experience;
+            expPoints += exp;
             while ((expPoints > (Math.pow((level+1),3))) && (level<100) ){
                 levelUp();
             }
@@ -73,14 +76,22 @@ public class OwnedPuckemon extends Puckemon {
         }
     }
 
+    /**
+     * @return the level at which the puckemon evolves
+     */
     public int getEvolutionLevel(){return evolutionLevel;}
+
+    /**
+     * Available because nickname is supposed to be able to be changed during gameplay in future
+     * @param nickName Nickname to change to.
+     */
     public void setNickName(String nickName){this.nickName=nickName;}
     public String getNickName(){
         if(nickName!=null){
             return nickName;
         }else{return name;}
     }
+
     public boolean getEvolve(){return evolve;}
     public int getEvolutionId(){return evolutionId;}
-    public void giveExp(int exp){gainExp(exp);}
 }

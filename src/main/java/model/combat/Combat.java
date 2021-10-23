@@ -3,7 +3,7 @@ package model.combat;
 import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IFighter;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import model.entities.Player;
 
 import java.util.List;
@@ -44,6 +44,9 @@ public class Combat {
         battleOutcome = "Defeat";
     }
 
+    /**
+     * When fleeing, you admit defeat.
+     */
     public void useFlee(){
         defeat();
     }
@@ -69,6 +72,7 @@ public class Combat {
         IEffectContainer fighterMove = fighter.makeMove(playerPuckemon);
         IPuckemon fighterPuckemon = fighter.getActivePuckemon();
 
+        System.out.println(fighterMove == null);
         //If enemy fighter made a move
         executeMoves(playerPuckemon,playerAttack,fighterPuckemon,fighterMove);
 
@@ -142,7 +146,7 @@ public class Combat {
             List<IEffect> effects = effectContainer.getEffects();
 
             for(IEffect effect : effects){
-                if(attackUser.getHealth() == 0){
+                if(attackUser.getHealth() == 0){ //If IPuckemon is fainted it can't use attacks, items etc.
                     break;
                 }
                 if (effect != null) {

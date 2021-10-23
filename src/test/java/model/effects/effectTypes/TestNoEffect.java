@@ -2,7 +2,7 @@ package model.effects.effectTypes;
 
 import model.effects.IEffect;
 import services.puckemonGenerator.CreatePuckemon;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import model.inventories.Item;
 import model.inventories.ItemBuilder;
 import org.junit.AfterClass;

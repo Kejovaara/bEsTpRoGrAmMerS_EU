@@ -2,7 +2,7 @@ package model.attack;
 
 import model.effects.IEffect;
 import services.puckemonGenerator.CreatePuckemon;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import org.junit.Test;
 
 import java.util.List;

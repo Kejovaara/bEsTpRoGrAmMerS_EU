@@ -2,7 +2,7 @@ package model.inventories.puckebags;
 
 import services.puckemonGenerator.CreatePuckemon;
 import model.entities.puckemon.OwnedPuckemon;
-import model.inventories.PlayerPuckeBag;
+import model.puckeBags.PlayerPuckeBag;
 import org.junit.Test;
 
 import java.util.ArrayList;

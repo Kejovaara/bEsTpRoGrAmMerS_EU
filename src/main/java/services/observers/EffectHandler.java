@@ -1,6 +1,6 @@
 package services.observers;
 
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import model.entities.puckemon.Puckemon;
 
 import java.util.ArrayList;

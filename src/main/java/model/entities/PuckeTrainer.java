@@ -4,13 +4,14 @@ import model.PTypes;
 import model.attack.Attack;
 import model.effects.EffectHelper;
 import model.effects.IEffectContainer;
+import model.entities.puckemon.IPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.entities.puckemon.FixedPuckemon;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import org.apache.commons.math3.util.Pair;
 import services.observers.MessageHandler;
-import model.inventories.TrainerPuckeBag;
+import model.puckeBags.TrainerPuckeBag;
 
 import java.util.List;
 import java.util.Random;
@@ -20,7 +21,10 @@ import java.util.Random;
  * @author Emil Jonsson
  */
 public class PuckeTrainer implements IFighter, ITrainer {
-    private String name;
+    /**
+     * Meant to be used in the future.
+     */
+    private final String name;
     private final TrainerPuckeBag trainerBag;
     private final Inventory inventory;
     private final boolean smart;
@@ -192,7 +196,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
             Attack attack = attacks.get(j);
 
             //Calculate the multiplier based on the attack-type and enemy's types
-            double attackMultiplier = EffectHelper.getMultplier(attack.getType(), enemyP.getTypes());
+            double attackMultiplier = EffectHelper.getMultiplier(attack.getType(), enemyP.getTypes());
 
             List<PTypes> types = puckemon.getTypes();
 
@@ -242,7 +246,4 @@ public class PuckeTrainer implements IFighter, ITrainer {
      */
     public void addItem(Item item){ inventory.addItem(item);}
 
-    public void useItem(Item item){
-        // item.execute();
-    }
 }

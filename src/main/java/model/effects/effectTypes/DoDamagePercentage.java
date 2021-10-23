@@ -1,7 +1,7 @@
 package model.effects.effectTypes;
 
 import model.effects.IEffect;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import services.observers.EffectHandler;
 
 /**
@@ -9,7 +9,7 @@ import services.observers.EffectHandler;
  * @author Rasmus Almryd
  */
 public class DoDamagePercentage implements IEffect {
-    private float percentage;
+    private final float percentage;
 
     /**
      * Constructor of DoDamagePercentage

@@ -1,7 +1,7 @@
 package model.effects.effectTypes;
 
 import model.effects.IEffect;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import services.observers.EffectHandler;
 
 /**
@@ -40,10 +40,9 @@ public class HealAmount implements IEffect {
     public void execute(IPuckemon attackUser, IPuckemon opponent) {
         if(healYourself){
             attackUser.heal(amount);
-            EffectHandler.getInstance().displayHealing(amount,attackUser);
         }else{
             opponent.heal(amount);
-            EffectHandler.getInstance().displayHealing(amount,attackUser);
         }
+        EffectHandler.getInstance().displayHealing(amount,attackUser);
     }
 }

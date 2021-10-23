@@ -13,14 +13,21 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ItemBuilder {
 
+    /**
+     * @return A random item.
+     */
     public static Item getRandom(){
         // nextInt is normally exclusive of the top value,
         // so add 1 to make it inclusive
-        int randomIndex = ThreadLocalRandom.current().nextInt(0, INames.values().length);
+        int randomIndex = ThreadLocalRandom.current().nextInt(0, Items.values().length);
         return getItem(randomIndex);
     }
 
-    public static Item getItem(INames name){
+    /**
+     * @param name the enum Items of the item
+     * @return the item requested
+     */
+    public static Item getItem(Items name){
         switch(name){
             case MINOR_HEALING_POTION:
                 return getMinorHealingPotion();
@@ -39,52 +46,42 @@ public class ItemBuilder {
     }
 
     private static Item getItem(int index){
-        return getItem(INames.values()[index]);
+        return getItem(Items.values()[index]);
     }
 
-    public static Item getMinorHealingPotion(){
+    private static Item getMinorHealingPotion(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new HealAmount(40));
-        return new Item(1,"Minor Healing Potion","Restores 50 HP",1,1,5, true,effects);
+        return new Item(1,"Minor Healing Potion","Restores 50 HP",1,1,5,effects);
     }
 
-    public static Item getMajorHealingPotion(){
+    private static Item getMajorHealingPotion(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new HealAmount(100));
-        return new Item(2,"Major Healing Potion","Restores 100 HP",1,1,5,true,effects);
+        return new Item(2,"Major Healing Potion","Restores 100 HP",1,1,5,effects);
     }
 
-    public static Item getEtherPotion(){
+    private static Item getEtherPotion(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new RestorePP(10));
-        return new Item(3,"Ether Potion","Restores PP on all the attacks of the active Puckemon by maximum 10",1,1,10,true,effects);
+        return new Item(3,"Ether Potion","Restores PP on all the attacks of the active Puckemon by maximum 10",1,1,10,effects);
     }
 
-    public static Item getGoldenNuggie(){
+    private static Item getGoldenNuggie(){
         List<IEffect> effects = new ArrayList<>();
-        effects.add(new NoEffect(new Item(4,"Golden Nuggie","A big nuggie of pure gold that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,100,false)));
-        return new Item(4,"Golden Nuggie","A big nuggie of pure gold that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,100,false,effects);
+        effects.add(new NoEffect(new Item(4,"Golden Nuggie","A big nuggie of pure gold that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,100)));
+        return new Item(4,"Golden Nuggie","A big nuggie of pure gold that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,100,effects);
     }
 
-    public static Item getSilverNuggie(){
+    private static Item getSilverNuggie(){
         List<IEffect> effects = new ArrayList<>();
-        effects.add(new NoEffect(new Item(5,"Silver Nuggie","A big nuggie of pure silver that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,35,false)));
-        return new Item(5,"Silver Nuggie","A big nuggie of pure silver that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,35,false,effects);
+        effects.add(new NoEffect(new Item(5,"Silver Nuggie","A big nuggie of pure silver that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,35)));
+        return new Item(5,"Silver Nuggie","A big nuggie of pure silver that gives off a lustrous gleam. Only a maniac will buy it for its high price.",5,1,35,effects);
     }
 
-    public static Item getSuperKillPotion(){
+    private static Item getSuperKillPotion(){
         List<IEffect> effects = new ArrayList<>();
         effects.add(new DoDamagePercentage(100f));
-        return new Item(6,"Super Kill Potion", "An item that instantly kills your opponent",1,1,20,true,effects);
-    }
-
-
-    public enum INames{
-        MINOR_HEALING_POTION,
-        MAJOR_HEALING_POTION,
-        ETHER_POTION,
-        GOLDEN_NUGGIE,
-        SILVER_NUGGIE,
-        SUPER_KILL_POTION,
+        return new Item(6,"Super Kill Potion", "An item that instantly kills your opponent",1,1,20,effects);
     }
 }

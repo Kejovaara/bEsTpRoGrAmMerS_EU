@@ -1,6 +1,6 @@
 package model.effects;
 
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 
 import java.util.List;
 

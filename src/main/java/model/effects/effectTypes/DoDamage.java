@@ -3,7 +3,7 @@ package model.effects.effectTypes;
 import model.PTypes;
 import model.effects.EffectHelper;
 import model.effects.IEffect;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import services.observers.EffectHandler;
 
 
@@ -13,8 +13,8 @@ import services.observers.EffectHandler;
  */
 public class DoDamage implements IEffect {
 
-    private int power;
-    private PTypes attackType;
+    private final int power;
+    private final PTypes attackType;
 
     /**
      * Constructor of DoDamage

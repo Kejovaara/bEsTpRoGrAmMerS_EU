@@ -1,7 +1,7 @@
 package model.effects.effectTypes;
 
 import model.effects.IEffect;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import services.observers.EffectHandler;
 
 
@@ -13,8 +13,8 @@ import services.observers.EffectHandler;
 public class ModifyAttackPower implements IEffect {
 
 
-    private int buffFactor;
-    private boolean buffOpponent;
+    private final int buffFactor;
+    private final boolean buffOpponent;
 
     /**
      * Constructor of ModifyAttackPower, sets the attacker to be affected by the buffFactor.

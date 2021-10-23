@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import model.entities.puckemon.Puckemon;
 import run.Boot;
 import services.observers.EffectHandler;
@@ -223,12 +223,17 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     }
 
     private void faintedPuckemonText(){
-        String message = "Your Puckemon fainted, Press any key to switch";
-        textAnimator.setMessage(message);
+        String message = " Your Puckemon fainted, Press any key to switch";
+        textAnimator.addMessage(message);
     }
 
     private void faintedOpponentText(){
         String message = "Opponent Puckemon fainted!";
+        textAnimator.setMessage(message);
+    }
+
+    private void promptText(){
+        String message = "What will " + model.getActivePlayerPuckemon().getName() + " do?";
         textAnimator.setMessage(message);
     }
 
@@ -263,7 +268,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         playerPuck = getTexture(model.getActivePlayerPuckemon().getId(),false);
         enemyPuck = getTexture(model.getOpponentPuckemon().getId(), true);
 
-        if (textAnimator.isDone())textAnimator.setMessage("What will " + model.getActivePlayerPuckemon().getName() + " do?");
+        //if (textAnimator.isDone())textAnimator.setMessage("What will " + model.getActivePlayerPuckemon().getName() + " do?");
+        if(textAnimator.isDone())promptText();
     }
 
     @Override
@@ -283,6 +289,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     @Override
     public void hide() {
+        textAnimator.setMessage("");
         playerAnimations.clear();
         enemyAnimations.clear();
     }
@@ -354,5 +361,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
     @Override
     public void SetMessage(String message) {
         textAnimator.setMessage(message);
+
+
     }
 }

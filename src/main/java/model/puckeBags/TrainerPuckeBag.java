@@ -1,4 +1,4 @@
-package model.inventories;
+package model.puckeBags;
 
 import model.entities.puckemon.FixedPuckemon;
 

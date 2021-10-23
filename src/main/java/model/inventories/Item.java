@@ -2,7 +2,7 @@ package model.inventories;
 
 import model.effects.IEffect;
 import model.effects.IEffectContainer;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ public class Item implements IEffectContainer {
 
     private List<IEffect> effects;
 
-    private int id, prio, quantity, price;
+    private final int id, prio, price;
+    private int quantity;
     private final String name;
     private final String desc;
-    private boolean isCombatItem;
 
     /**
      * Constructor for object Item
@@ -27,17 +27,15 @@ public class Item implements IEffectContainer {
      * @param prio priority of object Item
      * @param quantity amount of object Item
      * @param price cost of object Item
-     * @param isCombatItem weather or not item is an item to be used in combat
      * @param effects list of Effects the item has
      */
-    public Item(int id,String name, String desc, int prio, int quantity, int price, boolean isCombatItem, List<IEffect> effects){
+    public Item(int id,String name, String desc, int prio, int quantity, int price, List<IEffect> effects){
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.prio = prio;
         this.quantity = quantity;
         this.price = price;
-        this.isCombatItem = isCombatItem;
         this.effects = effects;
     }
 
@@ -49,17 +47,15 @@ public class Item implements IEffectContainer {
      * @param prio priority of object Item
      * @param quantity amount of object Item
      * @param price cost of object Item
-     * @param isCombatItem weather or not item is an item to be used in combat
      */
     //CONSTRUCTOR FOR EFFECTLESS ITEMS
-    public Item(int id,String name, String desc, int prio, int quantity, int price, boolean isCombatItem){
+    public Item(int id,String name, String desc, int prio, int quantity, int price){
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.prio = prio;
         this.quantity = quantity;
         this.price = price;
-        this.isCombatItem = isCombatItem;
     }
 
     /**
@@ -78,7 +74,7 @@ public class Item implements IEffectContainer {
 
     /**
      * returns the description of the item.
-     * @return
+     * @return the description of the item.
      */
     public String getDescription(){
         return desc;
@@ -109,7 +105,7 @@ public class Item implements IEffectContainer {
     }
 
     /**
-     * see JavaDoc of IEffectContainer
+     * @see IEffectContainer
      */
     @Override
     public int getPriority(){
@@ -117,7 +113,7 @@ public class Item implements IEffectContainer {
     }
 
     /**
-     * see JavaDoc of IEffectContainer
+     * @see IEffectContainer
      */
     @Override
     public List<IEffect> getEffects() {
@@ -125,7 +121,7 @@ public class Item implements IEffectContainer {
     }
 
     /**
-     * see JavaDoc of IEffectContainer
+     * @see  IEffectContainer
      */
     @Override
     public void execute(IPuckemon user, IPuckemon opponent) {

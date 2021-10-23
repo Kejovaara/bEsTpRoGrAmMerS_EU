@@ -66,7 +66,7 @@ public class AttackBuilder {
      */
     public static Attack getDoubleEdge(){
         List<IEffect> effects = new ArrayList<>();
-        effects.add(new RecoilDamage(120, PTypes.NORMAL, 1/3));
+        effects.add(new RecoilDamage(120, PTypes.NORMAL, (float)1/3));
         return new Attack("Double Edge",3, effects, 7,PTypes.NORMAL);
     }
 

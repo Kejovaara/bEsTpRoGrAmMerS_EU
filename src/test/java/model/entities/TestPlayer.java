@@ -1,10 +1,12 @@
 package model.entities;
 
+import model.entities.puckemon.IPuckemon;
 import model.entities.puckemon.OwnedPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import model.inventories.ItemBuilder;
+import model.inventories.Items;
 import org.junit.Test;
 import services.puckemonGenerator.CreatePuckemon;
 
@@ -175,7 +177,7 @@ public class TestPlayer {
         party.add(p);
         Player player = new Player(party, 100);
 
-        Item item = ItemBuilder.getItem(ItemBuilder.INames.GOLDEN_NUGGIE);
+        Item item = ItemBuilder.getItem(Items.GOLDEN_NUGGIE);
 
         player.buyItem(item);
         player.buyItem(item);
@@ -193,7 +195,7 @@ public class TestPlayer {
         party.add(p);
         Player player = new Player(party, 0);
 
-        Item item = ItemBuilder.getItem(ItemBuilder.INames.GOLDEN_NUGGIE);
+        Item item = ItemBuilder.getItem(Items.GOLDEN_NUGGIE);
 
         player.buyItem(item);
 

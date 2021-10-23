@@ -3,7 +3,7 @@ package model.attack;
 import model.PTypes;
 import model.effects.IEffect;
 import model.effects.IEffectContainer;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 
 import java.util.List;
 

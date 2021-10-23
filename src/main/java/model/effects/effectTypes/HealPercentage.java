@@ -1,7 +1,7 @@
 package model.effects.effectTypes;
 
 import model.effects.IEffect;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 
 /**
  * A class that implements IEffect with the purpose of healing either the attackUser or opponent.

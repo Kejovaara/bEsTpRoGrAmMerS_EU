@@ -3,7 +3,7 @@ package model;
 import model.attack.Attack;
 import model.attack.AttackBuilder;
 import services.puckemonGenerator.CreatePuckemon;
-import model.entities.IPuckemon;
+import model.entities.puckemon.IPuckemon;
 import model.entities.puckemon.Puckemon;
 import model.inventories.Item;
 import org.junit.Test;
