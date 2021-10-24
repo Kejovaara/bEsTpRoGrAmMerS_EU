@@ -1,8 +1,6 @@
 package model.entities.puckemon;
 
 import model.PTypes;
-import model.attack.Attack;
-import model.effects.IEffectContainer;
 
 import java.util.List;
 
