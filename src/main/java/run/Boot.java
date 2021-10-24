@@ -5,8 +5,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import input.IController;
-import input.InputController;
+import controller.IController;
+import controller.InputController;
 import model.Model;
 import view.screens.*;
 

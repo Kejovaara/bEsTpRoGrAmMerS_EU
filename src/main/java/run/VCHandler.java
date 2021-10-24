@@ -1,6 +1,6 @@
 package run;
 
-import input.InputController;
+import controller.InputController;
 import view.screens.Screens;
 
 /**

@@ -1,10 +1,10 @@
 package view.menu;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import input.AttackCombatMenu;
-import input.InventoryMenuController;
-import input.MainCombatMenu;
-import input.PartyMenuController;
+import controller.AttackCombatMenu;
+import controller.InventoryMenuController;
+import controller.MainCombatMenu;
+import controller.PartyMenuController;
 import model.Model;
 import run.VCHandler;
 import view.IRender;

@@ -1,4 +1,4 @@
-package input;
+package controller;
 
 import model.Model;
 import run.VCHandler;
