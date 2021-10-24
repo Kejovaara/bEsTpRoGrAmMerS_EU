@@ -74,7 +74,6 @@ public class PuckeTrainer implements IFighter, ITrainer {
             int partySize = party.size();
             int index = 0;
 
-
             //Switch to puckemon which is alive
             for (int i = 0; i <= partySize; i++) {
                 index = i;
@@ -84,7 +83,7 @@ public class PuckeTrainer implements IFighter, ITrainer {
                 }
 
                 //Save index if puckemon has health
-                if (party.get(i).getHealth() > 0) {
+                if (party.get(index).getHealth() > 0) {
                     break;
                 }
             }
@@ -153,25 +152,27 @@ public class PuckeTrainer implements IFighter, ITrainer {
         //Check for the most effective puckemon
         for (int i = 0; i < party.size(); i++) {
             Puckemon puckemon = party.get(i);
+            //First check health
+            if (puckemon.getHealth() > 0) {
+                //Check for the (perhaps) most effective attack
+                Pair<Integer, Double> bestAttack = mostEffectiveAttack(puckemon, enemyP);
+                int attackIndex = bestAttack.getFirst();
+                double attackMultiplier = bestAttack.getSecond();
 
-            //Check for the (perhaps) most effective attack
-            Pair<Integer, Double> bestAttack = mostEffectiveAttack(puckemon, enemyP);
-            int attackIndex = bestAttack.getFirst();
-            double attackMultiplier = bestAttack.getSecond();
+                //The threshold for when the difference between the best multiplier and active Puckemon multiplier is
+                //high enough for switching Puckemon
+                double threshold = 0.2;
 
-            //The threshold for when the difference between the best multiplier and active Puckemon multiplier is
-            //high enough for switching Puckemon
-            double threshold = 0.2;
+                //Since the active puckemon is always at index 0, the diff variable is used to see if a multiplier is
+                //high enough (over the threshold) for a switch to be worth it. Since the first bestMultiplier always will
+                // be from the active Puckemon, the switch later will never occur if the diff it is not over the threshold!
+                double diff = attackMultiplier - bestMultiplier;
 
-            //Since the active puckemon is always at index 0, the diff variable is used to see if a multiplier is
-            //high enough (over the threshold) for a switch to be worth it. Since the first bestMultiplier always will
-            // be from the active Puckemon, the switch later will never occur if the diff it is not over the threshold!
-            double diff = attackMultiplier - bestMultiplier;
-
-            if (diff > threshold) {
-                index = attackIndex;
-                bestMultiplier = attackMultiplier;
-                puckemonIndex = i;
+                if (diff > threshold) {
+                    index = attackIndex;
+                    bestMultiplier = attackMultiplier;
+                    puckemonIndex = i;
+                }
             }
         }
         return new Pair<>(index, puckemonIndex);
