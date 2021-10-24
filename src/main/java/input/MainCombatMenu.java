@@ -3,7 +3,7 @@ package input;
 import model.Model;
 import run.VCHandler;
 import view.IView;
-import view.Screens;
+import view.screens.Screens;
 
 /**
  * A class that listens to events from a Menu defined in IMenuController. In this implementation

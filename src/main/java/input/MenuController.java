@@ -3,7 +3,7 @@ package input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import run.VCHandler;
-import view.Screens;
+import view.screens.Screens;
 
 /**
  * A class to handle input events when the MainMenuScreen is active.

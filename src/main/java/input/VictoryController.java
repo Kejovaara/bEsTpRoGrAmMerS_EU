@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import run.VCHandler;
 import model.Model;
-import view.Screens;
+import view.screens.Screens;
 
 /**
  * Gives the User 3 new options after victory.

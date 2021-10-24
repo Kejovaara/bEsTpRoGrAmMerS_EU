@@ -1,4 +1,4 @@
-package view;
+package view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import run.Boot;
+import view.IView;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
 import view.screenObjects.Text;
@@ -19,7 +20,7 @@ import view.screenObjects.Text;
  * Screen that present the inventory in the game.
  * @author André Kejovaara
  */
-public class InventoryScreen implements Screen,IView{
+public class InventoryScreen implements Screen, IView {
 
     private final Boot game;
     private final Model model;

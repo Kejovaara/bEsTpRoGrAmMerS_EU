@@ -1,4 +1,4 @@
-package view;
+package view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

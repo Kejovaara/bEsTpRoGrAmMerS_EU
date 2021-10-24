@@ -1,4 +1,4 @@
-package view;
+package view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import model.Model;
 import run.Boot;
+import view.IView;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
 

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import input.IController;
 import input.InputController;
 import model.Model;
-import view.*;
+import view.screens.*;
 
 
 /**

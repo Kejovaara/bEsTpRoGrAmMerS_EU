@@ -1,4 +1,4 @@
-package view;
+package view.screens;
 
 /**
  * Enum for the different screens in the game.

@@ -1,4 +1,4 @@
-package view;
+package view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -17,6 +17,7 @@ import run.Boot;
 import services.observers.EffectHandler;
 import services.observers.EffectObserver;
 import services.observers.MessageObserver;
+import view.IView;
 import view.animation.*;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
@@ -33,7 +34,7 @@ import java.util.List;
  * @author André Kejovaara
  * @author Emil Jonsson
  */
-public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView{
+public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView {
 
     final Boot game;
     private final Model model;

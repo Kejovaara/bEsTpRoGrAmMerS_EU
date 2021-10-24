@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import model.Model;
 import run.VCHandler;
-import view.Screens;
+import view.screens.Screens;
 
 /**
  * A class to handle input events when the CombatScreen is active.

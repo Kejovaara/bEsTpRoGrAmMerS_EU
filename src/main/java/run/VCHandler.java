@@ -1,7 +1,7 @@
 package run;
 
 import input.InputController;
-import view.Screens;
+import view.screens.Screens;
 
 /**
  * Interface for a View-Controller handler. Used to switch the active view and controller.
