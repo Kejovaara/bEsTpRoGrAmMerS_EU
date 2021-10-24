@@ -33,7 +33,7 @@ public class Model {
         partyBuilder = new PartyBuilder();
         player = new Player(partyBuilder.getPlayerStartingTeam(), 10);
         player.generateStartingInventory(35);
-        startCombatTrainer(1,10,false);
+        startCombatTrainer(2,10,false);
     }
 
     /**
