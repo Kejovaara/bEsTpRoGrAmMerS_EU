@@ -18,22 +18,20 @@ public class Menu implements IRender {
     protected List<MenuItem> menuItems;
     protected MenuItem activeItem;
     protected SpriteBatch batch;
-    private final IMenuController controller;
     protected int xPos, yPos;
+    private List<IMenuController> menuControllers = new ArrayList<>();
 
     /**
      * Constructor for Menu
      * @param batch used to display MenuItems and other IRender objects.
-     * @param controller used to handle the input events that Menu creates.
      * @param menuItems The MenuItems that make up the Menu.
      * @param activeItem The MenuItem that should start as active.
      * @param xPos The x-origin for the menu.
      * @param yPos The y-origin for the menu.
      */
-    public Menu(SpriteBatch batch,IMenuController controller, List<MenuItem> menuItems, MenuItem activeItem, int xPos, int yPos){
+    public Menu(SpriteBatch batch, List<MenuItem> menuItems, MenuItem activeItem, int xPos, int yPos){
         this.batch = batch;
         this.menuItems = menuItems;
-        this.controller = controller;
         if(menuItems.contains(activeItem)) this.activeItem = activeItem;
         else throw new IllegalArgumentException("Active Item not in menu");
         activeItem.setActive(true);
@@ -44,21 +42,35 @@ public class Menu implements IRender {
     /**
      * Constructor for Menu.
      * @param batch used to display MenuItems and other IRender objects.
-     * @param controller used to handle the input events that Menu creates.
      * @param menuItems The MenuItems that make up the Menu.
      */
-    public Menu(SpriteBatch batch,IMenuController controller, List<MenuItem> menuItems){
-         this(batch,controller, menuItems, menuItems.get(0), 0,0);
+    public Menu(SpriteBatch batch, List<MenuItem> menuItems){
+         this(batch, menuItems, menuItems.get(0), 0,0);
 
     }
 
     /**
      * Constructor for Menu.
      * @param batch used to display MenuItems and other IRender objects.
-     * @param controller used to handle the input events that Menu creates.
      */
-    public Menu(SpriteBatch batch,IMenuController controller){
-        this(batch,controller, new ArrayList<>());
+    public Menu(SpriteBatch batch){
+        this(batch, new ArrayList<>());
+    }
+
+    /**
+     * add a IMenuController to listen on onCursorEnter event.
+     * @param controller controller to be added.
+     */
+    public void addMenuController(IMenuController controller){
+        menuControllers.add(controller);
+    }
+
+    /**
+     * Remove controller from menu.
+     * @param controller controller to be added.
+     */
+    public void removeMenuController(IMenuController controller){
+        menuControllers.remove(controller);
     }
 
     /**
@@ -140,7 +152,9 @@ public class Menu implements IRender {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            controller.onCursorEnter(menuItems.indexOf(activeItem));
+            for(IMenuController menuController: menuControllers){
+                menuController.onCursorEnter(menuItems.indexOf(activeItem));
+            }
         }
     }
 

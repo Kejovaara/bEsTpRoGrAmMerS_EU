@@ -63,7 +63,9 @@ public class MenuBuilder {
         items.add(i3);
         items.add(i4);
 
-        return new Menu(batch, new MainCombatMenu(view, model, handler), items);
+        Menu menu = new Menu(batch, items);
+        menu.addMenuController(new MainCombatMenu(view, model, handler));
+        return menu;
     }
 
     /**
@@ -107,7 +109,9 @@ public class MenuBuilder {
         }
 
 
-        return new AttackMenu(batch, new AttackCombatMenu(view, model), items, model.getAttacks());
+        Menu menu = new AttackMenu(batch, items, model.getAttacks());
+        menu.addMenuController(new AttackCombatMenu(view, model));
+        return menu;
     }
 
     /**
@@ -140,7 +144,9 @@ public class MenuBuilder {
         items.get(0).setUp(items.get(items.size()-1));
         items.get(items.size()-1).setDown(items.get(0));
 
-        return new InventoryMenu(batch, new InventoryMenuController(model,handler), items, model.getInventory(), 6,y, ySpacing);
+        Menu menu = new InventoryMenu(batch, items, model.getInventory(), 6,y, ySpacing);
+        menu.addMenuController(new InventoryMenuController(model,handler));
+        return menu;
     }
 
     /**
@@ -181,6 +187,8 @@ public class MenuBuilder {
             items.get(0).setRight(items.get(1));
         }
 
-        return new PartyMenu(batch, new PartyMenuController(model, handler),items, model.getParty());
+        Menu menu = new PartyMenu(batch,items, model.getParty());
+        menu.addMenuController(new PartyMenuController(model, handler));
+        return menu;
     }
 }

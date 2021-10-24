@@ -38,14 +38,13 @@ public class InventoryMenu extends Menu {
     /**
      * Constructor for creating InventoryMenu
      * @param batch used to display MenuItems and other IRender objects.
-     * @param controller used to handle the input events that Menu creates.
      * @param menuItems the MenuItems that make up the Menu.
      * @param inventory list of items used for display logic.
      * @param numDisplayItems number of items that should be displayed simultaneously.
      * @param ySpacing how far it is between MenuItems on screen.
      */
-    public InventoryMenu(SpriteBatch batch, IMenuController controller, List<MenuItem> menuItems, List<Item> inventory, int numDisplayItems,int startY, int ySpacing) {
-        super(batch, controller, menuItems);
+    public InventoryMenu(SpriteBatch batch, List<MenuItem> menuItems, List<Item> inventory, int numDisplayItems,int startY, int ySpacing) {
+        super(batch, menuItems);
 
         this.inventory = inventory;
         this.numDisplayItems = numDisplayItems;

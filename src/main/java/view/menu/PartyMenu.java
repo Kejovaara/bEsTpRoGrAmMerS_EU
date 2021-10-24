@@ -25,12 +25,11 @@ public class PartyMenu extends Menu{
     /**
      * Constructor for PartyMenu.
      * @param batch used to display MenuItems and other IRender objects.
-     * @param controller used to handle the input events that Menu creates.
      * @param menuItems The MenuItems that make up the Menu.
      * @param puckemons list of puckemons that is used for a responsive GUI.
      */
-    public PartyMenu(SpriteBatch batch, IMenuController controller, List<MenuItem> menuItems, List<? extends Puckemon> puckemons){
-        super(batch,controller, menuItems);
+    public PartyMenu(SpriteBatch batch, List<MenuItem> menuItems, List<? extends Puckemon> puckemons){
+        super(batch, menuItems);
         this.puckemons = puckemons;
         infoText = new TextBox(font, batch, Color.BLACK, 50,125,300, 180, true, "Pick a Puckemon", 0.75f);
     }

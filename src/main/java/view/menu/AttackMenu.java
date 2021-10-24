@@ -28,12 +28,11 @@ public class AttackMenu extends Menu{
     /**
      * Constructor for AttackMenu
      * @param batch used to display MenuItems and other IRender objects.
-     * @param controller used to handle the input events that Menu creates.
      * @param menuItems The MenuItems that make up the Menu.
      * @param attacks list of attacks used to display their stats
      */
-    public AttackMenu(SpriteBatch batch, IMenuController controller, List<MenuItem> menuItems, List<Attack> attacks) {
-        super(batch, controller, menuItems);
+    public AttackMenu(SpriteBatch batch, List<MenuItem> menuItems, List<Attack> attacks) {
+        super(batch, menuItems);
         BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"), Gdx.files.internal("fonts/pixelfont.png"), false);
         this.PP = new Text(font,batch,Color.BLACK, 710,130,"PP", 0.75f);
         this.PPAmount = new Text(font, batch, Color.BLACK,800, 130," ", 0.75f);
