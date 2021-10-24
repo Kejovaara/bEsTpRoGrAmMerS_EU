@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -13,7 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import model.puckemon.IPuckemon;
 import model.puckemon.Puckemon;
-import run.Boot;
+import run.VCHandler;
 import serviceControllers.observers.EffectHandler;
 import serviceControllers.observers.EffectObserver;
 import serviceControllers.observers.MessageObserver;
@@ -36,7 +37,8 @@ import java.util.List;
  */
 public class CombatScreen implements Screen, EffectObserver, MessageObserver, IView {
 
-    final Boot game;
+    private final SpriteBatch batch;
+    private final VCHandler handler;
     private final Model model;
     private final ShapeRenderer shapeRenderer;
     private final Stage stage;
@@ -64,11 +66,13 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     /**
      * Constructor for CombatScreen.
-     * @param game used to access game objects.
+     * @param handler used by the controllers to switch controller and/or screen.
+     * @param batch This is used to display IRender objects
      * @param model used to get parts of the model to display.
      */
-    public CombatScreen(final Boot game, Model model) {
-        this.game = game;
+    public CombatScreen(VCHandler handler,SpriteBatch batch, Model model) {
+        this.handler = handler;
+        this.batch = batch;
         this.model = model;
 
         shapeRenderer = new ShapeRenderer();
@@ -90,8 +94,8 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         enemyBar = new HealthBar(60,(int) this.camera.viewportHeight-100, 360,40,model.getOpponentPuckemon().getMaxHealth(),model.getOpponentPuckemon().getHealth());
         playerBar = new HealthBar((int)this.camera.viewportWidth-420,240, 360,40,model.getActivePlayerPuckemon().getHealth(),model.getActivePlayerPuckemon().getMaxHealth());
 
-        mainMenu = MenuBuilder.getMainCombatMenu(game.batch, game,this, model);
-        attackMenu = MenuBuilder.getAttackCombatMenu( game.batch,this, model);
+        mainMenu = MenuBuilder.getMainCombatMenu(batch, handler,this, model);
+        attackMenu = MenuBuilder.getAttackCombatMenu( batch,this, model);
         activeMenu = mainMenu;
 
         mainMenuBackground1 = new RectangleBorder(0,0,960,180,Color.BLACK,Color.WHITE,8);
@@ -151,7 +155,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(0.8f,0.8f,0.8f,1);
@@ -164,10 +168,10 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         playerBar.render();
 
 
-        game.batch.begin();
-        game.batch.draw(enemyPuck, 570, 400, 192, 192);
-        game.batch.draw(playerPuck, 200, 110, 256, 256);
-        game.batch.end();
+        batch.begin();
+        batch.draw(enemyPuck, 570, 400, 192, 192);
+        batch.draw(playerPuck, 200, 110, 256, 256);
+        batch.end();
 
         drawPuckeStats();
 
@@ -208,17 +212,17 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
 
     private void drawAnimations() {
         for(int i = 0; i < playerAnimations.size(); i++){
-            playerAnimations.get(i).render(game.batch);
+            playerAnimations.get(i).render(batch);
             if (playerAnimations.get(i).isDone()) playerAnimations.remove(i);
         }
         for(int i = 0; i < enemyAnimations.size(); i++){
-            enemyAnimations.get(i).render(game.batch);
+            enemyAnimations.get(i).render(batch);
             if (enemyAnimations.get(i).isDone()) enemyAnimations.remove(i);
         }
     }
 
     private void drawTextAnimations(){
-        textAnimator.render(game.batch);
+        textAnimator.render(batch);
     }
 
     private void faintedPuckemonText(){
@@ -243,17 +247,17 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         playerBar.setMaxHealth(model.getActivePlayerPuckemon().getMaxHealth());
 
 
-        game.batch.begin();
+        batch.begin();
         statsFont.setColor(0,0,0,1);
-        statsFont.draw(game.batch, model.getOpponentPuckemon().getName(),60,this.camera.viewportHeight-40);
-        statsFont.draw(game.batch, "Lv "+model.getOpponentPuckemon().getLevel(),360,this.camera.viewportHeight-40);
+        statsFont.draw(batch, model.getOpponentPuckemon().getName(),60,this.camera.viewportHeight-40);
+        statsFont.draw(batch, "Lv "+model.getOpponentPuckemon().getLevel(),360,this.camera.viewportHeight-40);
 
-        statsFont.draw(game.batch, model.getActivePlayerPuckemon().getName(),this.camera.viewportWidth-420,300);
-        statsFont.draw(game.batch, "Lv "+model.getActivePlayerPuckemon().getLevel(),this.camera.viewportWidth-120,300);
-        statsFont.draw(game.batch, model.getActivePlayerPuckemon().getHealth() + " / " + model.getActivePlayerPuckemon().getMaxHealth(),this.camera.viewportWidth-120,230);
+        statsFont.draw(batch, model.getActivePlayerPuckemon().getName(),this.camera.viewportWidth-420,300);
+        statsFont.draw(batch, "Lv "+model.getActivePlayerPuckemon().getLevel(),this.camera.viewportWidth-120,300);
+        statsFont.draw(batch, model.getActivePlayerPuckemon().getHealth() + " / " + model.getActivePlayerPuckemon().getMaxHealth(),this.camera.viewportWidth-120,230);
 
 
-        game.batch.end();
+        batch.end();
     }
 
     /**
@@ -261,7 +265,7 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
      */
     @Override
     public void show() {
-        attackMenu = MenuBuilder.getAttackCombatMenu(game.batch,this, model);
+        attackMenu = MenuBuilder.getAttackCombatMenu(batch,this, model);
         activeMenu = mainMenu;
 
         playerPuck = getTexture(model.getActivePlayerPuckemon().getId(),false);

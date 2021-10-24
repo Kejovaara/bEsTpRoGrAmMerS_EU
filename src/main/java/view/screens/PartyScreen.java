@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import model.Model;
 import run.Boot;
+import run.VCHandler;
 import view.IView;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
@@ -19,7 +21,8 @@ import view.menu.MenuBuilder;
  */
 public class PartyScreen implements Screen, IView {
 
-    private final Boot game;
+    private final VCHandler handler;
+    private final SpriteBatch batch;
     private final Model model;
 
     OrthographicCamera camera;
@@ -29,15 +32,17 @@ public class PartyScreen implements Screen, IView {
 
     /**
      * Constructor of PartyScreen.
-     * @param game used to access game objects.
+     * @param handler used by the controllers to switch controller and/or screen.
+     * @param batch This is used to display IRender objects
      * @param model used to display the party.
      */
-    public PartyScreen(final Boot game, Model model) {
-        this.game = game;
+    public PartyScreen(VCHandler handler, SpriteBatch batch, Model model) {
+        this.batch = batch;
+        this.handler = handler;
         this.model = model;
 
         background = new Texture(Gdx.files.internal("PartyBackground.png"));
-        menu = MenuBuilder.getPartyMenu(game.batch, game, model);
+        menu = MenuBuilder.getPartyMenu(batch, handler, model);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false);
@@ -53,11 +58,11 @@ public class PartyScreen implements Screen, IView {
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-        game.batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
-        game.batch.end();
+        batch.begin();
+        batch.draw(background, 0, 0, this.camera.viewportWidth, this.camera.viewportHeight);
+        batch.end();
 
         menu.render();
     }
@@ -67,7 +72,7 @@ public class PartyScreen implements Screen, IView {
      */
     @Override
     public void show() {
-        menu = MenuBuilder.getPartyMenu(game.batch,game, model);
+        menu = MenuBuilder.getPartyMenu(batch,handler, model);
     }
 
     @Override

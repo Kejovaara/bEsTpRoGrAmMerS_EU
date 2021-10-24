@@ -5,11 +5,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import run.Boot;
+import run.VCHandler;
 import view.IView;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
@@ -22,7 +24,8 @@ import view.screenObjects.Text;
  */
 public class InventoryScreen implements Screen, IView {
 
-    private final Boot game;
+    private final VCHandler handler;
+    private final SpriteBatch batch;
     private final Model model;
     private Menu menu;
     private final ShapeRenderer shapeRenderer;
@@ -34,11 +37,12 @@ public class InventoryScreen implements Screen, IView {
 
     /**
      * Constructor for Inventory Screen
-     * @param game the game
+     * @param handler used by the controllers to switch controller and/or screen.
      * @param model the model
      */
-    public InventoryScreen(final Boot game, Model model){
-        this.game = game;
+    public InventoryScreen(VCHandler handler, SpriteBatch batch, Model model){
+        this.handler = handler;
+        this.batch = batch;
         this.model = model;
 
         camera = new OrthographicCamera();
@@ -46,14 +50,14 @@ public class InventoryScreen implements Screen, IView {
 
         shapeRenderer = new ShapeRenderer();
 
-        menu = MenuBuilder.getInventoryMenu(game.batch, game, model);
+        menu = MenuBuilder.getInventoryMenu(batch, handler, model);
 
         // FONT SETTINGS
         BitmapFont inventoryTitleFont = new BitmapFont(Gdx.files.internal("fonts/pixelfont.fnt"));
         inventoryTitleFont.getData().setScale(1.25f);
 
         //Page Title
-        title = new Text(inventoryTitleFont, game.batch, Color.BLACK,350,580,"INVENTORY", 1.25f);
+        title = new Text(inventoryTitleFont, batch, Color.BLACK,350,580,"INVENTORY", 1.25f);
 
         background = new Texture(Gdx.files.internal("inventory_background.png"));
         descriptionBox = new Texture(Gdx.files.internal("inventory_description_box.png"));
@@ -69,13 +73,13 @@ public class InventoryScreen implements Screen, IView {
         ScreenUtils.clear(	0.906f, 0.965f, 0.984f,1);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-            game.batch.draw(background, 0, 0, this.camera.viewportWidth,this.camera.viewportHeight);
-            game.batch.draw(descriptionBox, 500,307,407,220);
+        batch.begin();
+            batch.draw(background, 0, 0, this.camera.viewportWidth,this.camera.viewportHeight);
+            batch.draw(descriptionBox, 500,307,407,220);
             title.render();
-        game.batch.end();
+        batch.end();
 
         menu.render();
     }
@@ -85,7 +89,7 @@ public class InventoryScreen implements Screen, IView {
      */
     @Override
     public void show() {
-        menu = MenuBuilder.getInventoryMenu(game.batch, game,model);
+        menu = MenuBuilder.getInventoryMenu(batch, handler ,model);
     }
 
 
