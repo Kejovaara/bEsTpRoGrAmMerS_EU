@@ -33,8 +33,6 @@ public class ItemBuilder {
                 return getMinorHealingPotion();
             case MAJOR_HEALING_POTION:
                 return getMajorHealingPotion();
-            case ETHER_POTION:
-                return getEtherPotion();
             case GOLDEN_NUGGIE:
                 return getGoldenNuggie();
             case SILVER_NUGGIE:
@@ -59,12 +57,6 @@ public class ItemBuilder {
         List<IEffect> effects = new ArrayList<>();
         effects.add(new HealAmount(100));
         return new Item(2,"Major Healing Potion","Restores 100 HP",1,1,5,effects);
-    }
-
-    private static Item getEtherPotion(){
-        List<IEffect> effects = new ArrayList<>();
-        effects.add(new RestorePP(10));
-        return new Item(3,"Ether Potion","Restores PP on all the attacks of the active Puckemon by maximum 10",1,1,10,effects);
     }
 
     private static Item getGoldenNuggie(){

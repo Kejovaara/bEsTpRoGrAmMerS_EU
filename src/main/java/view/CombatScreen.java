@@ -123,7 +123,6 @@ public class CombatScreen implements Screen, EffectObserver, MessageObserver, IV
         EffectHandler.getInstance().addObserver(this);
         //MESSAGE
         MessageHandler.getInstance().addObserver(this);
-        Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY);
     }
 
     /**

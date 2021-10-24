@@ -6,7 +6,6 @@ package model.inventories;
 public enum Items{
     MINOR_HEALING_POTION,
     MAJOR_HEALING_POTION,
-    ETHER_POTION,
     GOLDEN_NUGGIE,
     SILVER_NUGGIE,
     SUPER_KILL_POTION,

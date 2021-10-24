@@ -1,8 +1,7 @@
-package model.inventories.puckebags;
+package model.puckeBags;
 
 import services.puckemonGenerator.CreatePuckemon;
 import model.entities.puckemon.OwnedPuckemon;
-import model.puckeBags.PlayerPuckeBag;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -62,18 +61,4 @@ public class TestPlayerPuckeBag {
 
         assertEquals(2, playerPuckeBag.getActivePuckemon().getId());  // The logical check
     }
-
-//    @Test
-//    public void testGiveOutExp(){
-//        List<OwnedPuckemon> list = new ArrayList<>();
-//        OwnedPuckemon puckemon = new CreatePuckemon().createOwnedPuckemon(1,6);
-//        list.add(puckemon);
-//        PlayerBag playerBag = new PlayerBag(list);
-//        int expected = (int) Math.pow(puckemon.getLevel(),3) + 1000;
-//        playerBag.afterVictory();
-//
-//
-//        assertEquals(expected, playerBag.getActivePuckemon().exp());  // The logical check
-//    }
-
 }

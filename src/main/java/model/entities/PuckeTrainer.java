@@ -9,9 +9,9 @@ import model.entities.puckemon.Puckemon;
 import model.entities.puckemon.FixedPuckemon;
 import model.inventories.Inventory;
 import model.inventories.Item;
+import model.puckeBags.TrainerPuckeBag;
 import org.apache.commons.math3.util.Pair;
 import services.observers.MessageHandler;
-import model.puckeBags.TrainerPuckeBag;
 
 import java.util.List;
 import java.util.Random;

@@ -25,8 +25,8 @@ public class GameOverScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
-
         menu = new Texture(Gdx.files.internal("GameOver.png"));
+
     }
 
     /**

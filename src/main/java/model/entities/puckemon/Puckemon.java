@@ -171,7 +171,6 @@ public abstract class Puckemon implements IPuckemon {
      */
     List<String> getMoveList(){return moveList;}
 
-    @Override
     public List<Attack> getMoveSet(){return moveSet;}
 
     @Override

@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
 import run.Boot;
-import services.observers.MessageObserver;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
 import view.screenObjects.Text;
@@ -20,7 +19,7 @@ import view.screenObjects.Text;
  * Screen that present the inventory in the game.
  * @author André Kejovaara
  */
-public class InventoryScreen implements Screen,IView, MessageObserver {
+public class InventoryScreen implements Screen,IView{
 
     private final Boot game;
     private final Model model;
@@ -117,11 +116,6 @@ public class InventoryScreen implements Screen,IView, MessageObserver {
 
     @Override
     public void switchMenu(int index) {
-
-    }
-
-    @Override
-    public void SetMessage(String message) {
 
     }
 }

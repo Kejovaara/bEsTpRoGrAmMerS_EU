@@ -26,12 +26,6 @@ public class TestItem {
     }
 
     @Test
-    public void testGetPriority(){
-        Item item = ItemBuilder.getItem(Items.ETHER_POTION);
-        assertEquals(item.getPriority(), 1);
-    }
-
-    @Test
     public void testGetEffects(){
         Item item = ItemBuilder.getItem(Items.SUPER_KILL_POTION);
         List<IEffect> effects = item.getEffects();

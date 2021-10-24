@@ -97,16 +97,6 @@ public interface IPuckemon {
     void modifyDefence(int buffFactor);
 
     /**
-     * @return the attacks the Puckemon has
-     */
-    List<Attack> getMoveSet();
-    /**
-     * @param i the index of the attack
-     * @return the specified attack on the given index.
-     */
-    IEffectContainer getAttack(int i);
-
-    /**
      * @return the type o
      */
     List<PTypes> getTypes();
