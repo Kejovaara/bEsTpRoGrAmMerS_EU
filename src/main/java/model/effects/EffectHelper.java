@@ -1,7 +1,7 @@
 package model.effects;
 
 import model.PTypes;
-import model.entities.puckemon.IPuckemon;
+import model.puckemon.IPuckemon;
 
 import java.util.List;
 import java.util.Random;

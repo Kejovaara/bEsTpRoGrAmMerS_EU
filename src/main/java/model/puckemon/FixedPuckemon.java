@@ -1,4 +1,4 @@
-package model.entities.puckemon;
+package model.puckemon;
 
 import model.PTypes;
 import model.effects.IEffectContainer;

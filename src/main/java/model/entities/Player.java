@@ -1,8 +1,8 @@
 package model.entities;
 
 import model.effects.IEffectContainer;
-import model.entities.puckemon.OwnedPuckemon;
-import model.entities.puckemon.Puckemon;
+import model.puckemon.OwnedPuckemon;
+import model.puckemon.Puckemon;
 import model.inventories.*;
 import model.puckeBags.PlayerPuckeBag;
 

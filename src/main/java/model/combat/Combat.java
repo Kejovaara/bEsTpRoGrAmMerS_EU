@@ -3,7 +3,7 @@ package model.combat;
 import model.effects.IEffect;
 import model.effects.IEffectContainer;
 import model.entities.IFighter;
-import model.entities.puckemon.IPuckemon;
+import model.puckemon.IPuckemon;
 import model.entities.Player;
 
 import java.util.List;

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import model.entities.puckemon.Puckemon;
+import model.puckemon.Puckemon;
 import view.screenObjects.TextBox;
 
 import java.util.List;

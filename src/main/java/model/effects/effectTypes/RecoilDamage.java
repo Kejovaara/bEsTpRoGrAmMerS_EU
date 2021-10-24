@@ -3,7 +3,7 @@ package model.effects.effectTypes;
 import model.PTypes;
 import model.effects.EffectHelper;
 import model.effects.IEffect;
-import model.entities.puckemon.IPuckemon;
+import model.puckemon.IPuckemon;
 import services.observers.EffectHandler;
 
 /**

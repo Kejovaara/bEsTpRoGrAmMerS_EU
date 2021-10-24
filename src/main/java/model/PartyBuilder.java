@@ -1,8 +1,8 @@
 package model;
 
 import services.puckemonGenerator.CreatePuckemon;
-import model.entities.puckemon.OwnedPuckemon;
-import model.entities.puckemon.FixedPuckemon;
+import model.puckemon.OwnedPuckemon;
+import model.puckemon.FixedPuckemon;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
 package model.entities;
 
-import model.entities.puckemon.IPuckemon;
-import model.entities.puckemon.OwnedPuckemon;
-import model.entities.puckemon.Puckemon;
+import model.puckemon.IPuckemon;
+import model.puckemon.OwnedPuckemon;
+import model.puckemon.Puckemon;
 import model.inventories.Inventory;
 import model.inventories.Item;
 import model.inventories.ItemBuilder;

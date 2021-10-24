@@ -1,6 +1,6 @@
 package services.observers;
 
-import model.entities.puckemon.Puckemon;
+import model.puckemon.Puckemon;
 
 /**
  * An observer interface to listen on executed effects in model.

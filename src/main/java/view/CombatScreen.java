@@ -1,7 +1,6 @@
 package view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import model.Model;
-import model.entities.puckemon.IPuckemon;
-import model.entities.puckemon.Puckemon;
+import model.puckemon.IPuckemon;
+import model.puckemon.Puckemon;
 import run.Boot;
 import services.observers.EffectHandler;
 import services.observers.EffectObserver;

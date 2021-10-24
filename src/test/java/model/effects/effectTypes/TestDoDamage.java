@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import model.PTypes;
 import services.puckemonGenerator.CreatePuckemon;
-import model.entities.puckemon.IPuckemon;
+import model.puckemon.IPuckemon;
 import org.junit.Test;
 
 public class TestDoDamage {

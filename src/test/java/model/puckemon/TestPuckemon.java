@@ -1,4 +1,4 @@
-package model.entities.puckemon;
+package model.puckemon;
 
 import services.puckemonGenerator.CreatePuckemon;
 import org.junit.Test;

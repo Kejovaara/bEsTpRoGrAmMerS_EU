@@ -1,4 +1,4 @@
-package model.entities.puckemon;
+package model.puckemon;
 
 import model.attack.Attack;
 import model.attack.AttackBuilder;

@@ -2,7 +2,7 @@ package model.inventories;
 
 import model.effects.IEffect;
 import model.effects.IEffectContainer;
-import model.entities.puckemon.IPuckemon;
+import model.puckemon.IPuckemon;
 
 import java.util.List;
 

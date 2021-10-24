@@ -1,10 +1,9 @@
-package model.entities.puckemon;
+package model.puckemon;
 
 import static org.junit.Assert.*;
 
 import model.PTypes;
 import services.puckemonGenerator.CreatePuckemon;
-import model.entities.puckemon.OwnedPuckemon;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package model.puckeBags;
 
-import model.entities.puckemon.FixedPuckemon;
+import model.puckemon.FixedPuckemon;
 
 import java.util.ArrayList;
 import java.util.Collections;

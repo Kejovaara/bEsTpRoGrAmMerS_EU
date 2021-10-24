@@ -1,6 +1,6 @@
 package model.entities;
 import model.effects.IEffectContainer;
-import model.entities.puckemon.IPuckemon;
+import model.puckemon.IPuckemon;
 
 /**
  * An Interface representing a fighter with common methods used in combat
