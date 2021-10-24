@@ -11,7 +11,7 @@ import model.inventories.Inventory;
 import model.inventories.Item;
 import model.puckeBags.TrainerPuckeBag;
 import org.apache.commons.math3.util.Pair;
-import services.observers.MessageHandler;
+import serviceControllers.observers.MessageHandler;
 
 import java.util.List;
 import java.util.Random;

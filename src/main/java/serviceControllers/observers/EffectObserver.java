@@ -1,4 +1,4 @@
-package services.observers;
+package serviceControllers.observers;
 
 import model.puckemon.Puckemon;
 

@@ -1,6 +1,6 @@
 package model;
 
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 import model.puckemon.OwnedPuckemon;
 import model.puckemon.FixedPuckemon;
 

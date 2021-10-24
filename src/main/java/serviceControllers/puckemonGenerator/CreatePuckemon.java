@@ -1,4 +1,4 @@
-package services.puckemonGenerator;
+package serviceControllers.puckemonGenerator;
 
 import model.PTypes;
 import model.puckemon.OwnedPuckemon;

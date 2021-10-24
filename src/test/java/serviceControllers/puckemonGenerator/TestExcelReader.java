@@ -1,4 +1,4 @@
-package services.puckemonGenerator;
+package serviceControllers.puckemonGenerator;
 
 import static org.junit.Assert.*;
 

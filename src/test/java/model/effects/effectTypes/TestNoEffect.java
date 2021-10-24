@@ -1,14 +1,14 @@
 package model.effects.effectTypes;
 
 import model.effects.IEffect;
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 import model.puckemon.IPuckemon;
 import model.inventories.Item;
 import model.inventories.ItemBuilder;
 import org.junit.AfterClass;
 import org.junit.Test;
-import services.observers.MessageObserver;
-import services.observers.MessageHandler;
+import serviceControllers.observers.MessageObserver;
+import serviceControllers.observers.MessageHandler;
 
 import static org.junit.Assert.assertTrue;
 

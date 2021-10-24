@@ -3,7 +3,7 @@ package model.effects.effectTypes;
 import model.effects.IEffect;
 import model.puckemon.IPuckemon;
 import model.inventories.Item;
-import services.observers.MessageHandler;
+import serviceControllers.observers.MessageHandler;
 
 /**
  * Class to handle how items with no effect works.

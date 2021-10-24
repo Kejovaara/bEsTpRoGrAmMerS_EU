@@ -8,7 +8,7 @@ import model.inventories.Item;
 import model.inventories.ItemBuilder;
 import model.inventories.Items;
 import org.junit.Test;
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 
 import java.util.ArrayList;
 import java.util.List;

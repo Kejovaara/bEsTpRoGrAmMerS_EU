@@ -2,7 +2,7 @@ package model.puckemon;
 
 import model.attack.Attack;
 import model.attack.AttackBuilder;
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

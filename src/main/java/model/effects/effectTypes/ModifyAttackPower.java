@@ -2,7 +2,7 @@ package model.effects.effectTypes;
 
 import model.effects.IEffect;
 import model.puckemon.IPuckemon;
-import services.observers.EffectHandler;
+import serviceControllers.observers.EffectHandler;
 
 
 /**

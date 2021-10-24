@@ -2,7 +2,7 @@ package model;
 
 import model.attack.Attack;
 import model.attack.AttackBuilder;
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 import model.puckemon.IPuckemon;
 import model.puckemon.Puckemon;
 import model.inventories.Item;

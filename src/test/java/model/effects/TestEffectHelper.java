@@ -3,7 +3,7 @@ package model.effects;
 import static org.junit.Assert.*;
 
 import model.PTypes;
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 import model.puckemon.IPuckemon;
 import org.junit.Test;
 

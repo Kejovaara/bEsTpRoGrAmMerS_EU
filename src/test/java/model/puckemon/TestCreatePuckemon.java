@@ -3,7 +3,7 @@ package model.puckemon;
 import static org.junit.Assert.*;
 
 import model.PTypes;
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 import org.junit.Test;
 
 import java.util.ArrayList;

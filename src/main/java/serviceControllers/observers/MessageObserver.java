@@ -1,4 +1,4 @@
-package services.observers;
+package serviceControllers.observers;
 
 /**
  * Observer used for sending message to observers

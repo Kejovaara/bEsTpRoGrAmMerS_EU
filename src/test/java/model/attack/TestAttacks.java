@@ -1,7 +1,7 @@
 package model.attack;
 
 import model.effects.IEffect;
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 import model.puckemon.IPuckemon;
 import org.junit.Test;
 

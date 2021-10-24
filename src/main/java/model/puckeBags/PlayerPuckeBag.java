@@ -1,6 +1,6 @@
 package model.puckeBags;
 
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 import model.puckemon.OwnedPuckemon;
 
 import java.util.ArrayList;

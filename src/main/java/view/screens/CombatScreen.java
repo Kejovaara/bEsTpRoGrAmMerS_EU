@@ -14,14 +14,14 @@ import model.Model;
 import model.puckemon.IPuckemon;
 import model.puckemon.Puckemon;
 import run.Boot;
-import services.observers.EffectHandler;
-import services.observers.EffectObserver;
-import services.observers.MessageObserver;
+import serviceControllers.observers.EffectHandler;
+import serviceControllers.observers.EffectObserver;
+import serviceControllers.observers.MessageObserver;
 import view.IView;
 import view.animation.*;
 import view.menu.Menu;
 import view.menu.MenuBuilder;
-import services.observers.MessageHandler;
+import serviceControllers.observers.MessageHandler;
 import view.screenObjects.HealthBar;
 import view.screenObjects.RectangleBorder;
 

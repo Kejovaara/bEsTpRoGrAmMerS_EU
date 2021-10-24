@@ -7,7 +7,7 @@ import model.puckemon.IPuckemon;
 import model.puckemon.OwnedPuckemon;
 import model.puckemon.Puckemon;
 import model.inventories.Item;
-import services.observers.MessageHandler;
+import serviceControllers.observers.MessageHandler;
 
 import java.util.List;
 

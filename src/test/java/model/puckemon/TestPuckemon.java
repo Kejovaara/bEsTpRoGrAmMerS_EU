@@ -1,6 +1,6 @@
 package model.puckemon;
 
-import services.puckemonGenerator.CreatePuckemon;
+import serviceControllers.puckemonGenerator.CreatePuckemon;
 import org.junit.Test;
 
 import static org.junit.Assert .*;
